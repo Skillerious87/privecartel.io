@@ -20,22 +20,29 @@
   <!-- RULE-PAGE ENHANCEMENTS -->
   <style>
     /* clear layout for rule details */
-    .rule-list{margin:0}
-    .rule-list dt{
-      color:var(--accent);
-      font-weight:600;
-      margin-top:1rem;
+    .rule-list { margin: 0; }
+    .rule-list dt {
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 1rem;
     }
-    .rule-list dt:first-child{margin-top:0}
-    .rule-list dd{
-      margin:0 0 .9rem 1.25rem;   /* indent & spacing */
-      line-height:1.6;
+    .rule-list dt:first-child { margin-top: 0; }
+    .rule-list dd {
+      margin: 0 0 .9rem 1.25rem;  /* indent & spacing */
+      line-height: 1.6;
     }
     /* leadership links stay gold */
     .leadership a:link,
-    .leadership a:visited{color:var(--accent);text-decoration:none;font-weight:500}
+    .leadership a:visited {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
     .leadership a:hover,
-    .leadership a:focus{color:var(--text-1);text-decoration:underline}
+    .leadership a:focus {
+      color: var(--text-1);
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -43,10 +50,8 @@
   <!-- NAVBAR -->
   <header class="navbar">
     <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
-
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
     <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
-
     <nav>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -70,14 +75,14 @@
   <!-- RULE MAP -->
   <section>
     <div class="container">
-      <h2 class="section-title">Rule&nbsp;Map</h2>
+      <h2 class="section-title">Rule Map</h2>
       <div class="rulemap-grid">
-        <a href="#core"     class="card rulemap"><h3><i class="fa-solid fa-gem rules-icon"></i>Core Tenets</h3><p>The three pillars.</p></a>
-        <a href="#activity" class="card rulemap"><h3><i class="fa-solid fa-bullseye rules-icon"></i>Activity</h3><p>Presence & notifications.</p></a>
-        <a href="#oc"       class="card rulemap"><h3><i class="fa-solid fa-user-ninja rules-icon"></i>OC&nbsp;2.0</h3><p>Scope & execution.</p></a>
-        <a href="#conduct"  class="card rulemap"><h3><i class="fa-solid fa-handshake rules-icon"></i>Conduct</h3><p>External dealings.</p></a>
-        <a href="#culture"  class="card rulemap"><h3><i class="fa-solid fa-users rules-icon"></i>Culture</h3><p>Mentoring & sharing.</p></a>
-        <a href="#warfare"  class="card rulemap"><h3><i class="fa-solid fa-shield-halved rules-icon"></i>Warfare</h3><p>Risks & defence.</p></a>
+        <a href="#core" class="card rulemap"><h3><i class="fa-solid fa-gem rules-icon"></i> Core Tenets</h3><p>The three pillars.</p></a>
+        <a href="#activity" class="card rulemap"><h3><i class="fa-solid fa-bullseye rules-icon"></i> Activity</h3><p>Presence & notifications.</p></a>
+        <a href="#oc" class="card rulemap"><h3><i class="fa-solid fa-user-ninja rules-icon"></i> OC 2.0</h3><p>Scope & execution.</p></a>
+        <a href="#conduct" class="card rulemap"><h3><i class="fa-solid fa-handshake rules-icon"></i> Conduct</h3><p>External dealings.</p></a>
+        <a href="#culture" class="card rulemap"><h3><i class="fa-solid fa-users rules-icon"></i> Culture</h3><p>Mentoring & sharing.</p></a>
+        <a href="#warfare" class="card rulemap"><h3><i class="fa-solid fa-shield-halved rules-icon"></i> Warfare</h3><p>Risks & defence.</p></a>
       </div>
     </div>
   </section>
@@ -85,14 +90,12 @@
   <!-- 0. CORE TENETS -->
   <section id="core" class="rules-block">
     <div class="container glass">
-      <h2 class="section-title"><span class="num">0</span><i class="fa-solid fa-gem rules-icon"></i>&nbsp;Core&nbsp;Tenets</h2>
+      <h2 class="section-title"><span class="num">0</span><i class="fa-solid fa-gem rules-icon"></i> Core Tenets</h2>
       <dl class="rule-list">
         <dt>Presence</dt>
         <dd>Be seen when it matters; an invisible member is a liability.</dd>
-
         <dt>Discretion</dt>
         <dd>Faction business remains internal; screenshots or leaks trigger removal.</dd>
-
         <dt>Mutual Aid</dt>
         <dd>Your call is our call; assistance flows both directions without IOUs.</dd>
       </dl>
@@ -103,25 +106,20 @@
   <!-- 1. ACTIVITY EXPECTATIONS -->
   <section id="activity" class="rules-block">
     <div class="container glass">
-      <h2 class="section-title"><span class="num">1</span><i class="fa-solid fa-bullseye rules-icon"></i>&nbsp;Activity&nbsp;Expectations</h2>
+      <h2 class="section-title"><span class="num">1</span><i class="fa-solid fa-bullseye rules-icon"></i> Activity Expectations</h2>
       <dl class="rule-list">
         <dt>Daily Presence</dt>
-        <dd>Log in once every 24&nbsp;h; “Last Action” &gt; 24 h flags you inactive.</dd>
-
+        <dd>Log in at least once every 24 h; “Last Action” > 24 h flags you as inactive.</dd>
         <dt>Event Notifications</dt>
-        <dd>Enable push alerts in the Torn app (or e-mail/SMS via <em>Settings → Preferences</em>) so OC and chain pings reach you within seconds.</dd>
-
+        <dd>Enable push alerts in the Torn mobile app (or e-mail/SMS via Settings → Preferences) so OC and chain pings reach you within seconds.</dd>
         <dt>OC Commitment</dt>
-        <dd>Join an OC only if you can stay active for its 3–6-day timer and the sub-1-minute execution.</dd>
-
+        <dd>If you join an OC 2.0 scenario, remain active for its full 3–6 day timer and the sub-1-minute execution phase. Missing the execution voids the run and burns Scope.</dd>
         <dt>Chain Windows</dt>
-        <dd>Opt-in hitters respond in &lt; 5 min; keep 50 + Energy ready, fast targets bookmarked, hospital time &lt; 10 min.</dd>
-
+        <dd>Only members who opt in must respond in < 5 min during scheduled windows. Keep 50+ Energy ready, fast targets bookmarked, and hospital time < 10 min.</dd>
         <dt>Vacation Mode</dt>
-        <dd>Away ≥ 72 h? Toggle it and post an ETA; no notice → removal after 3 days idle.</dd>
-
+        <dd>Away for ≥ 72 h? Toggle Vacation Mode in Torn settings and post an ETA in our faction thread. Slots are protected; no notice → removal after 3 days idle.</dd>
         <dt>Quick Response</dt>
-        <dd>Reply to urgent leadership mails or Discord pings so rosters adjust in real time.</dd>
+        <dd>Leaders may send urgent in-game mail or Discord @pings; reply when possible so rosters adjust in real time.</dd>
       </dl>
     </div>
   </section>
@@ -129,26 +127,21 @@
   <!-- 2. ORGANISED CRIMES -->
   <section id="oc" class="rules-block">
     <div class="container glass">
-      <h2 class="section-title"><span class="num">2</span><i class="fa-solid fa-user-ninja rules-icon"></i>&nbsp;Organised&nbsp;Crimes&nbsp;2.0</h2>
+      <h2 class="section-title"><span class="num">2</span><i class="fa-solid fa-user-ninja rules-icon"></i> Organised Crimes 2.0</h2>
       <dl class="rule-list">
         <dt>Scenario System</dt>
-        <dd>Every OC is now a named scenario (Lv 1-9). Four difficulty tiers use Greek symbols:<br>
-            <strong>Λ</strong>&nbsp;Lambda&nbsp;(1-2, cost 1&nbsp;Scope) • <strong>Σ</strong>&nbsp;Sigma&nbsp;(3-5, 2) • <strong>Ψ</strong>&nbsp;Psi&nbsp;(6-8, 4) • <strong>Ω</strong>&nbsp;Omega&nbsp;(9+, 12).</dd>
-
+        <dd>Every OC is now a named scenario (Lv 1–9). Four difficulty tiers use the Greek symbols:<br>
+          Λ Lambda (Lv 1–2, cost 1 Scope) • Σ Sigma (3–5, cost 2) • Ψ Psi (6–8, cost 4) • Ω Omega (9+, cost 12).</dd>
         <dt>Scope Resource</dt>
-        <dd>Factions start with 25 Scope, cap 100, and regenerate +1/day. Completing scenarios also awards extra Scope.</dd>
-
+        <dd>Factions start with 25 Scope (cap 100) and regenerate +1/day. Completing scenarios also awards extra Scope.</dd>
         <dt>Planning → Execution</dt>
-        <dd>After the day-countdown, a sub-1-minute execution fires. <em>All</em> members must be in Torn, healthy and carrying the required items or the run fails.</dd>
-
-        <dt>Roles &amp; Items</dt>
-        <dd>Each participant is auto-assigned a role (Bomber, Techie, Muscle). <em>Materials</em> are consumed (C-4, Zip Ties); <em>Tools</em> persist (Jemmy, DSLR). Check the scenario panel before joining.</dd>
-
+        <dd>After the day-countdown, a sub-1-minute execution fires. <em>All</em> members must be in Torn, healthy, and carrying the required items or the run fails.</dd>
+        <dt>Roles & Items</dt>
+        <dd>Every participant is auto-assigned a role (e.g., Bomber, Techie, Muscle). Materials (C-4, zip ties) are consumed; tools (Jemmy, DSLR) persist. Check the scenario panel or ask leadership for the exact shopping list.</dd>
         <dt>Payout System</dt>
-        <dd>On success, leadership chooses a 0-100 % split between faction and members. Cash can hit wallets or faction bank; item loot is distributed randomly or liquidated and split.</dd>
-
-        <dt>Readiness &amp; Contingencies</dt>
-        <dd>Join only if you can stay active 3-6 days and keep “Last Action” &lt; 24 h. Can’t log in? Ping leadership immediately — one missing member can void days of planning.</dd>
+        <dd>On success, leadership chooses a 0–100 % split between faction and members. Cash can hit member wallets or the faction bank; item loot is distributed randomly or sold at market value.</dd>
+        <dt>Readiness & Contingencies</dt>
+        <dd>Join only if you can stay active the full 3–6 days and keep “Last Action” < 24 h. Can’t log in? Ping a leader immediately—one missing member can void days of planning.</dd>
       </dl>
     </div>
   </section>
@@ -156,28 +149,23 @@
   <!-- 3. EXTERNAL CONDUCT -->
   <section id="conduct" class="rules-block">
     <div class="container glass">
-      <h2 class="section-title"><span class="num">3</span><i class="fa-solid fa-handshake rules-icon"></i>&nbsp;External&nbsp;Conduct</h2>
+      <h2 class="section-title"><span class="num">3</span><i class="fa-solid fa-handshake rules-icon"></i> External Conduct</h2>
+      <p>Your actions outside the faction reflect on all of us. Follow these rules when dealing with other factions, markets, and public channels.</p>
       <dl class="rule-list">
         <dt>Faction Relations Tags</dt>
-        <dd>Leaders control our status with other factions (<em>Friendly / Neutral / Hostile</em>). Do not provoke, negotiate, or promise favours on your own.</dd>
-
+        <dd>Leaders control our status with other factions (Friendly / Neutral / Hostile). Do not provoke, negotiate, or promise favors on your own.</dd>
         <dt>Target Clearance</dt>
-        <dd>Approval required before hospital sprees, territory raids, bounties &gt; $1 000 000, or chain hits on ranked allies. One rogue attack can wipe perks and invite Ω-tier retaliation.</dd>
-
+        <dd>Obtain approval before hospital sprees, territory raids, bounties > $1 000 000, or chain hits on ranked allies. One rogue attack can wipe perks and invite Ω-tier retaliation.</dd>
         <dt>No Outside “Help”</dt>
-        <dd>Hiring mercs or intimidation squads without consent counts as hostile action and triggers removal.</dd>
-
-        <dt>Trade &amp; Marketplace</dt>
-        <dd>Use Torn’s Trade window / Item Market; screenshot deals &gt; $50 m. No RMT or crypto — Torn bans both parties.</dd>
-
+        <dd>Arranging mercenaries or intimidation squads without leadership consent is forbidden. Recruiting outsiders—or threatening to—counts as hostile action and will trigger removal.</dd>
+        <dt>Trade & Marketplace</dt>
+        <dd>Use Torn’s Trade window / Item Market; screenshot deals > $50 m. No real-money, cross-game, or crypto trades—Torn bans both parties.</dd>
         <dt>Chat / Forums / Global</dt>
         <dd>Follow the 2025 Community Rules: no slurs, doxxing, or IRL threats. Keep internal strategy off public channels; mark jokes clearly to avoid misfires.</dd>
-
-        <dt>Harassment &amp; Intimidation</dt>
-        <dd>Banter is fine; stalking, spam PMs, or strong-arm tactics are not. Torn logs all messages.</dd>
-
+        <dt>Harassment & Intimidation</dt>
+        <dd>Light banter is fine; stalking, spam PMs, or strong-arm tactics are not. All messages are logged by Torn and reviewed on complaint.</dd>
         <dt>Scamming</dt>
-        <dd><strong>Zero-scam</strong> policy. Your offer = a contract, even if the game allows otherwise.</dd>
+        <dd>Faction-wide zero-scam policy. Your offer = a contract, even if the game allows otherwise.</dd>
       </dl>
       <p class="alert">DISCLAIMER — ZERO TOLERANCE: Members who act externally without consulting leadership will be expelled swiftly.</p>
     </div>
@@ -186,16 +174,15 @@
   <!-- 4. INTERNAL CULTURE -->
   <section id="culture" class="rules-block">
     <div class="container glass">
-      <h2 class="section-title"><span class="num">4</span><i class="fa-solid fa-users rules-icon"></i>&nbsp;Internal&nbsp;Culture</h2>
+      <h2 class="section-title"><span class="num">4</span><i class="fa-solid fa-users rules-icon"></i> Internal Culture</h2>
+      <p>We build each other up through guidance, generosity, and shared knowledge. Lean in, ask questions, and give back.</p>
       <dl class="rule-list">
         <dt>Mentoring</dt>
-        <dd>New arrivals can request a mentor for builds and revenue routes.</dd>
-
+        <dd>New arrivals can request a mentor for builds, routes, and revenue strategies.</dd>
         <dt>Resource Pool</dt>
-        <dd>Donate spare meds, ammo, or job points to the armoury; what helps one helps all.</dd>
-
+        <dd>Donate spare meds, ammo, or job points to the armoury—what helps one helps all.</dd>
         <dt>Knowledge Sharing</dt>
-        <dd>Post patch-note finds and economy tips; smart play keeps profits high.</dd>
+        <dd>Post patch-note finds, economy tips, and smart-play tricks so the entire faction stays ahead.</dd>
       </dl>
     </div>
   </section>
@@ -203,17 +190,14 @@
   <!-- 5. WARFARE RISKS -->
   <section id="warfare" class="rules-block">
     <div class="container glass">
-      <h2 class="section-title"><span class="num">5</span><i class="fa-solid fa-shield-halved rules-icon"></i>&nbsp;Warfare&nbsp;Risks</h2>
+      <h2 class="section-title"><span class="num">5</span><i class="fa-solid fa-shield-halved rules-icon"></i> Warfare Risks</h2>
       <dl class="rule-list">
         <dt>Non-Warring Stance</dt>
         <dd>We prioritise profit and preservation over conquest.</dd>
-
         <dt>Energy Drain</dt>
         <dd>Random hits waste energy better spent on OCs and gym gains.</dd>
-
         <dt>Perk Protection</dt>
         <dd>Specials (travel slots, armoury, rehab discount) vanish if respect is wiped.</dd>
-
         <dt>Defensive Hits</dt>
         <dd>When leaders call a shield wall, one timely revive or defend can end hostilities.</dd>
       </dl>
@@ -223,16 +207,16 @@
   <!-- DISCORD CTA -->
   <section class="rules-block">
     <div class="container glass cta-card">
-      <h2 class="section-title"><span class="num"><i class="fa-brands fa-discord"></i></span>Private Lounge</h2>
+      <h2 class="section-title"><span class="num"><i class="fa-brands fa-discord"></i></span> Private Lounge</h2>
       <p>For live strategy, quick trades, or casual conversation, join our Discord lounge:</p>
-      <a href="https://discord.gg/DmxrRAjBdk" target="_blank" class="btn"><i class="fa-brands fa-discord"></i> Join&nbsp;Now</a>
+      <a href="https://discord.gg/DmxrRAjBdk" target="_blank" class="btn"><i class="fa-brands fa-discord"></i> Join Now</a>
     </div>
   </section>
 
   <!-- LEADERSHIP -->
   <section class="rules-block leadership">
     <div class="container glass">
-      <h2 class="section-title"><span class="num"><i class="fa-solid fa-crown"></i></span>Leadership&nbsp;Council</h2>
+      <h2 class="section-title"><span class="num"><i class="fa-solid fa-crown"></i></span> Leadership Council</h2>
       <p>&bull; <strong>Founder:</strong> <a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank">XanderPTV</a></p>
       <p>&bull; <strong>Cartel Assembly &amp; Expansion:</strong> <a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank">ForeverHydrox</a></p>
       <p>&bull; <strong>Leadership Frontrunner:</strong> <a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank">Skillerious</a></p>
