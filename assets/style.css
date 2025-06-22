@@ -78,7 +78,11 @@ h2 {
   color: #000;
 }
 
-/* ===== 4.  Navigation bar ===== */
+/* ===========================================================
+   4. NAVIGATION BAR
+   =========================================================== */
+
+/* --- Desktop defaults ------------------------------------ */
 .navbar {
   position: fixed;
   top: 0;
@@ -86,7 +90,7 @@ h2 {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between; /* key line */
   padding: 0.85rem 1.25rem;
   background: rgba(0, 0, 0, 0.85);
   border-bottom: 2px solid var(--accent);
@@ -129,14 +133,17 @@ h2 {
   transform: scaleX(1);
 }
 
-/* ===== 4a.  Burger icon ===== */
+/* --- Burger icon hidden on desktop ----------------------- */
 #nav-toggle,
 .hamburger {
   display: none;
 }
 
+/* ===========================================================
+   4A. MOBILE NAVBAR (≤ 720 px)
+   =========================================================== */
 @media (max-width: 720px) {
-  /* burger icon visible & positioned far right */
+  /* burger icon visible & pinned far right */
   .hamburger {
     display: grid;
     gap: 5px;
@@ -165,9 +172,8 @@ h2 {
   }
 }
 
-/* ===== 4b.  Mobile drawer & overlay ===== */
+/* 4B. Mobile drawer & overlay */
 @media (max-width: 720px) {
-  /* drawer */
   .nav-links {
     position: fixed;
     top: 0;
@@ -188,7 +194,6 @@ h2 {
     transform: translateX(0);
   }
 
-  /* dim overlay */
   .nav-overlay {
     position: fixed;
     inset: 0;
@@ -203,7 +208,6 @@ h2 {
     opacity: 1;
   }
 
-  /* lock body scroll */
   body.menu-open {
     height: 100vh;
     overflow: hidden;
@@ -334,7 +338,7 @@ li {
   font-weight: 500;
 }
 
-/* ===== 8.  Rules-page specifics (rulemap, dt/dd) ===== */
+/* ===== 8.  Rules-page specifics ===== */
 .rulemap-grid {
   display: grid;
   gap: 1.2rem;
@@ -385,9 +389,6 @@ section.rules-block h2.section-title .num {
   font-family: "Poppins", sans-serif;
 }
 
-.rule-list {
-  margin: 0;
-}
 .rule-list dt {
   color: var(--accent);
   font-weight: 600;
@@ -474,7 +475,7 @@ main a:not(.btn):not(.nav-links a):focus {
   text-decoration-color: var(--accent);
 }
 
-/* ===== 11.  Navbar shadow after scroll (JS toggles .nav-shadow) ===== */
+/* ===== 11.  Navbar shadow on scroll (added by JS) ===== */
 .nav-shadow {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
 }
