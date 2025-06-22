@@ -133,19 +133,23 @@ h2 {
   transform: scaleX(1);
 }
 
+@media (min-width: 721px) {
+  .navbar nav {
+    margin-left: auto;
+  }
+}
+
 #nav-toggle,
 .hamburger {
   display: none;
-} /* hidden by default */
+}
 
 /* ======= 4A. MOBILE NAVBAR (≤ 720 px) ======= */
 @media (max-width: 720px) {
-  /* navbar switches to flex-start so logo hugs left edge */
   .navbar {
     justify-content: flex-start;
-  }
+  } /* logo left */
 
-  /* burger icon visible & pinned far right */
   .hamburger {
     display: grid;
     gap: 5px;
@@ -172,7 +176,6 @@ h2 {
     transform: translateY(-8px) rotate(-45deg);
   }
 
-  /* slide-in drawer */
   .nav-links {
     position: fixed;
     top: 0;
@@ -193,7 +196,6 @@ h2 {
     transform: translateX(0);
   }
 
-  /* dim overlay */
   .nav-overlay {
     position: fixed;
     inset: 0;
@@ -491,30 +493,44 @@ footer {
 ::-webkit-scrollbar-track {
   background: #000;
 }
-/* ── Hero reveal animation (logo + headline) ───────────────── */
-@keyframes emblemZoom{
-  0%{opacity:0;transform:scale(.8)}
-  100%{opacity:1;transform:scale(1)}
+
+/* ===========================================================
+   13. Hero zoom-fade animation (emblem + headline)
+   =========================================================== */
+@keyframes emblemZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
-@keyframes heroSlide{
-  0%{opacity:0;transform:translateY(20px)}
-  100%{opacity:1;transform:translateY(0)}
+@keyframes heroSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* emblem image (home hero) */
-.hero .emblem{
-  opacity:0;transform:scale(.8);
-  animation:emblemZoom .9s ease-out .15s forwards;
+.hero .emblem {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: emblemZoom 0.9s ease-out 0.15s forwards;
 }
-/* emblem image (rules / guides hero) */
-.rules-hero img{
-  opacity:0;transform:scale(.8);
-  animation:emblemZoom .9s ease-out .15s forwards;
+.rules-hero img {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: emblemZoom 0.9s ease-out 0.15s forwards;
 }
-
-/* headline */
 .hero h1,
-.rules-hero h1{
-  opacity:0;transform:translateY(20px);
-  animation:heroSlide .8s ease-out .45s forwards;
+.rules-hero h1 {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroSlide 0.8s ease-out 0.45s forwards;
 }
