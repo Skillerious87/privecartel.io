@@ -1,19 +1,20 @@
 /* ===========================================================
    Privé Cartel • Global Theme & Components
+   (compact-emblem variant)
    =========================================================== */
 
 /* ===== 1.  Colour palette & design tokens ===== */
 :root {
-  --bg-1: #0b0d10; /* page background */
-  --bg-2: #000000c0; /* glass-card background */
-  --accent: #c4a46a; /* rich gold */
-  --accent-rgb: 196, 164, 106; /* helper for alpha blends */
-  --text-1: #e8e2ce; /* ivory text */
-  --text-2: #d6c59a; /* muted gold */
+  --bg-1: #0b0d10;
+  --bg-2: #000000c0;
+  --accent: #c4a46a;
+  --accent-rgb: 196, 164, 106;
+  --text-1: #e8e2ce;
+  --text-2: #d6c59a;
 
   --nav-h: 72px; /* height of fixed navbar */
   --radius: 0.9rem; /* rounded corners */
-  --transition: 0.25s ease; /* default motion curve */
+  --transition: 0.25s ease;
 }
 
 /* ===== 2.  Reset & base typography ===== */
@@ -35,8 +36,8 @@ h1,
 h2,
 h3 {
   font-family: "Cormorant Garamond", serif;
-  line-height: 1.25;
   color: var(--accent);
+  line-height: 1.25;
 }
 h1 {
   font-size: clamp(1.9rem, 4vw, 2.6rem);
@@ -45,7 +46,7 @@ h2 {
   font-size: 1.6rem;
 }
 
-/* ===== 3.  Utility wrappers ===== */
+/* ===== 3.  Containers & buttons ===== */
 .container {
   width: min(92%, 1100px);
   margin-inline: auto;
@@ -62,7 +63,6 @@ h2 {
   display: inline-block;
   font-size: 1.6rem;
   margin-bottom: 1rem;
-  letter-spacing: 1px;
 }
 .btn {
   display: inline-block;
@@ -78,11 +78,7 @@ h2 {
   color: #000;
 }
 
-/* ===========================================================
-   4. NAVIGATION BAR
-   =========================================================== */
-
-/* desktop default */
+/* ===== 4.  NAVBAR (desktop + mobile) ===== */
 .navbar {
   position: fixed;
   top: 0;
@@ -94,7 +90,7 @@ h2 {
   padding: 0.85rem 1.25rem;
   background: rgba(0, 0, 0, 0.85);
   border-bottom: 2px solid var(--accent);
-  z-index: 999;
+  z-index: 900;
 }
 .logo {
   font-weight: 700;
@@ -106,14 +102,14 @@ h2 {
   font-size: 1.55rem;
 }
 .nav-links {
-  list-style: none;
   display: flex;
   gap: 1.65rem;
+  list-style: none;
 }
 .nav-links a {
   position: relative;
-  text-decoration: none;
   color: var(--text-1);
+  text-decoration: none;
   transition: color var(--transition);
 }
 .nav-links a::after {
@@ -132,24 +128,21 @@ h2 {
 .nav-links a.active::after {
   transform: scaleX(1);
 }
-
 @media (min-width: 721px) {
   .navbar nav {
     margin-left: auto;
   }
 }
-
 #nav-toggle,
 .hamburger {
   display: none;
 }
 
-/* ======= 4A. MOBILE NAVBAR (≤ 720 px) ======= */
+/* burger & drawer ≤720px */
 @media (max-width: 720px) {
   .navbar {
     justify-content: flex-start;
-  } /* logo left */
-
+  }
   .hamburger {
     display: grid;
     gap: 5px;
@@ -175,7 +168,6 @@ h2 {
   #nav-toggle:checked + label span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
-
   .nav-links {
     position: fixed;
     top: 0;
@@ -195,7 +187,6 @@ h2 {
   #nav-toggle:checked ~ nav .nav-links {
     transform: translateX(0);
   }
-
   .nav-overlay {
     position: fixed;
     inset: 0;
@@ -209,14 +200,13 @@ h2 {
     visibility: visible;
     opacity: 1;
   }
-
   body.menu-open {
     height: 100vh;
     overflow: hidden;
   }
 }
 
-/* ===== 5.  Hero / banner blocks ===== */
+/* ===== 5.  HERO SECTIONS ===== */
 .hero,
 .rules-hero {
   display: flex;
@@ -252,29 +242,6 @@ h2 {
     transparent 70%
   );
 }
-.emblem,
-.rules-hero img {
-  width: 240px;
-  height: 240px;
-  border: 5px solid var(--accent);
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 34px rgba(var(--accent-rgb), 0.25);
-}
-.rules-hero img {
-  width: 210px;
-  height: 210px;
-  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.28);
-}
-.hero h1 {
-  margin-top: 1.4rem;
-  font-weight: 300;
-  color: var(--text-2);
-  font-style: italic;
-}
-.rules-hero h1 {
-  margin-top: 1.2rem;
-}
 .rules-hero .tagline {
   max-width: 700px;
   margin: 0.65rem auto 0;
@@ -283,7 +250,7 @@ h2 {
   line-height: 1.5;
 }
 
-/* ===== 6.  Generic sections ===== */
+/* ===== 6.  UNIVERSAL SECTION STYLES ===== */
 section {
   padding: 4rem 0;
 }
@@ -295,14 +262,7 @@ section:nth-of-type(even) {
   );
 }
 
-/* ===== 7.  Lists & card grids ===== */
-ul.standard,
-ol.standard {
-  padding-left: 1.25rem;
-}
-li {
-  margin-bottom: 0.5rem;
-}
+/* ===== 7.  CARDS & GRIDS ===== */
 .card-grid {
   display: grid;
   gap: 1.5rem;
@@ -314,8 +274,6 @@ li {
   border: 1px solid var(--accent);
   border-radius: var(--radius);
   padding: 1rem 1.25rem 1.5rem;
-  display: flex;
-  flex-direction: column;
   transition: transform var(--transition);
 }
 .card:hover {
@@ -336,7 +294,7 @@ li {
   font-weight: 500;
 }
 
-/* ===== 8.  Rules-page specifics ===== */
+/* ===== 8.  RULE PAGE (map + blocks) ===== */
 .rulemap-grid {
   display: grid;
   gap: 1.2rem;
@@ -360,9 +318,6 @@ li {
   font-size: 1.05rem;
   margin-bottom: 0.4rem;
   color: var(--accent);
-}
-.card.rulemap p {
-  text-decoration: none;
 }
 .rules-icon {
   width: 1.9rem;
@@ -406,16 +361,8 @@ section.rules-block h2.section-title .num {
   color: #ffbcbc;
   font-weight: 500;
 }
-.cta-card {
-  text-align: center;
-  margin-top: 2.5rem;
-}
-.cta-card .btn {
-  margin-top: 1rem;
-  font-size: 1.05rem;
-}
 
-/* ===== 9.  Guides-hub cards (slow gold glow) ===== */
+/* ===== 9.  GUIDES HUB ===== */
 .guide-grid {
   display: grid;
   gap: 1.5rem;
@@ -423,15 +370,15 @@ section.rules-block h2.section-title .num {
   margin: 2.5rem 0;
 }
 .guide-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
   text-decoration: none !important;
   color: var(--text-1);
   background: var(--bg-2);
   border: 1px solid rgba(var(--accent-rgb), 0.35);
   border-radius: var(--radius);
   padding: 1.25rem 1.5rem 1.5rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
   transition: box-shadow 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .guide-card:hover,
@@ -457,7 +404,7 @@ section.rules-block h2.section-title .num {
   line-height: 1.5;
 }
 
-/* ===== 10.  Gold link style ===== */
+/* ===== 10.  Content links ===== */
 main a:not(.btn):not(.nav-links a) {
   color: var(--accent);
   text-decoration: underline;
@@ -470,32 +417,8 @@ main a:not(.btn):not(.nav-links a):focus {
   text-decoration-color: var(--accent);
 }
 
-/* ===== 11.  Navbar shadow on scroll (added by JS) ===== */
-.nav-shadow {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
-}
-
-/* ===== 12.  Footer & scrollbar ===== */
-footer {
-  text-align: center;
-  padding: 1.25rem 1rem;
-  border-top: 2px solid var(--accent);
-  background: #000;
-  color: var(--text-2);
-}
-::-webkit-scrollbar {
-  width: 9px;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #000;
-}
-
 /* ===========================================================
-   13. Hero zoom-fade animation (emblem + headline)
+   11. HERO IMAGE & HEADLINE ANIMATION
    =========================================================== */
 @keyframes emblemZoom {
   0% {
@@ -518,19 +441,53 @@ footer {
   }
 }
 
-.hero .emblem {
+.hero img.emblem,
+.rules-hero img {
+  width: 210px;
+  height: 210px; /* ← smaller hero emblem */
+  border: 5px solid var(--accent);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.25);
   opacity: 0;
   transform: scale(0.8);
-  animation: emblemZoom 0.9s ease-out 0.15s forwards;
+  animation: emblemZoom 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s forwards;
+  will-change: transform, opacity;
+  margin-bottom:1.75rem;   /* ≈28 px gap under the emblem */
 }
 .rules-hero img {
-  opacity: 0;
-  transform: scale(0.8);
-  animation: emblemZoom 0.9s ease-out 0.15s forwards;
+  width: 185px;
+  height: 185px;
 }
+
 .hero h1,
 .rules-hero h1 {
   opacity: 0;
   transform: translateY(20px);
-  animation: heroSlide 0.8s ease-out 0.45s forwards;
+  animation: heroSlide 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.45s forwards;
+  will-change: transform, opacity;
+}
+
+/* ===========================================================
+   12.  NAVBAR SHADOW & FOOTER
+   =========================================================== */
+.nav-shadow {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+footer {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  background: #000;
+  border-top: 2px solid var(--accent);
+  color: var(--text-2);
+}
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
 }
