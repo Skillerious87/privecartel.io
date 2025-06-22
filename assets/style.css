@@ -82,7 +82,7 @@ h2 {
    4. NAVIGATION BAR
    =========================================================== */
 
-/* Desktop defaults ------------------------------------------------ */
+/* desktop default */
 .navbar {
   position: fixed;
   top: 0;
@@ -90,7 +90,7 @@ h2 {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 0.85rem 1.25rem;
   background: rgba(0, 0, 0, 0.85);
   border-bottom: 2px solid var(--accent);
@@ -133,23 +133,18 @@ h2 {
   transform: scaleX(1);
 }
 
-/* push nav to far right on desktop */
-@media (min-width: 721px) {
-  .navbar nav {
-    margin-left: auto;
-  }
-}
-
-/* Burger hidden by default */
 #nav-toggle,
 .hamburger {
   display: none;
-}
+} /* hidden by default */
 
-/* ===========================================================
-   4A. MOBILE NAVBAR (≤ 720 px)
-   =========================================================== */
+/* ======= 4A. MOBILE NAVBAR (≤ 720 px) ======= */
 @media (max-width: 720px) {
+  /* navbar switches to flex-start so logo hugs left edge */
+  .navbar {
+    justify-content: flex-start;
+  }
+
   /* burger icon visible & pinned far right */
   .hamburger {
     display: grid;
@@ -167,7 +162,6 @@ h2 {
     background: var(--accent);
     transition: var(--transition);
   }
-
   #nav-toggle:checked + label span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
@@ -177,10 +171,8 @@ h2 {
   #nav-toggle:checked + label span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
-}
 
-/* 4B. Mobile drawer & overlay */
-@media (max-width: 720px) {
+  /* slide-in drawer */
   .nav-links {
     position: fixed;
     top: 0;
@@ -201,6 +193,7 @@ h2 {
     transform: translateX(0);
   }
 
+  /* dim overlay */
   .nav-overlay {
     position: fixed;
     inset: 0;
@@ -248,7 +241,6 @@ h2 {
   opacity: 0.05;
   mix-blend-mode: overlay;
 }
-
 .rules-hero {
   padding-top: calc(var(--nav-h) + 6rem);
   padding-bottom: 3.5rem;
@@ -258,7 +250,6 @@ h2 {
     transparent 70%
   );
 }
-
 .emblem,
 .rules-hero img {
   width: 240px;
@@ -310,7 +301,6 @@ ol.standard {
 li {
   margin-bottom: 0.5rem;
 }
-
 .card-grid {
   display: grid;
   gap: 1.5rem;
@@ -329,7 +319,6 @@ li {
 .card:hover {
   transform: translateY(-4px);
 }
-
 .perk-grid {
   display: grid;
   gap: 1rem;
@@ -373,7 +362,6 @@ li {
 .card.rulemap p {
   text-decoration: none;
 }
-
 .rules-icon {
   width: 1.9rem;
   text-align: center;
@@ -395,7 +383,6 @@ section.rules-block h2.section-title .num {
   border-radius: 50%;
   font-family: "Poppins", sans-serif;
 }
-
 .rule-list dt {
   color: var(--accent);
   font-weight: 600;
@@ -408,7 +395,6 @@ section.rules-block h2.section-title .num {
   margin: 0 0 0.9rem 1.25rem;
   line-height: 1.6;
 }
-
 .alert {
   background: rgba(255, 68, 68, 0.08);
   border-left: 4px solid #ff4444;
