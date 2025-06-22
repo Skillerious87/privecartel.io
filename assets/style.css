@@ -82,7 +82,7 @@ h2 {
    4. NAVIGATION BAR
    =========================================================== */
 
-/* --- Desktop defaults ------------------------------------ */
+/* Desktop defaults ------------------------------------------------ */
 .navbar {
   position: fixed;
   top: 0;
@@ -90,7 +90,7 @@ h2 {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* key line */
+  justify-content: flex-start;
   padding: 0.85rem 1.25rem;
   background: rgba(0, 0, 0, 0.85);
   border-bottom: 2px solid var(--accent);
@@ -133,7 +133,14 @@ h2 {
   transform: scaleX(1);
 }
 
-/* --- Burger icon hidden on desktop ----------------------- */
+/* push nav to far right on desktop */
+@media (min-width: 721px) {
+  .navbar nav {
+    margin-left: auto;
+  }
+}
+
+/* Burger hidden by default */
 #nav-toggle,
 .hamburger {
   display: none;
