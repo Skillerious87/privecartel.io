@@ -19,16 +19,43 @@
 
   <!-- PAGE EXTRAS -->
   <style>
-    /* quick search box */
-    #newsSearch{
-      width:100%;max-width:340px;padding:.65rem .9rem;margin:1.3rem 0 1.6rem;
+    /* ——— search + tag bar ——— */
+    .news-filters{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.6rem 0 1.8rem}
+    #newsSearch{flex:1 1 260px;max-width:360px;padding:.65rem .9rem;
       border:2px solid var(--accent);border-radius:var(--radius);
-      background:var(--bg-1);color:var(--text-1)
-    }
-    /* clickable card */
-    .news-card{cursor:pointer;transition:transform .25s}
+      background:var(--bg-1);color:var(--text-1)}
+    .pill{
+      padding:.45rem .9rem;border:1px solid var(--accent);border-radius:999px;
+      font-size:.85rem;cursor:pointer;user-select:none;color:var(--accent);
+      transition:background .25s}
+    .pill.active{background:var(--accent);color:#000}
+
+    /* ——— masonry grid ——— */
+    .news-masonry{
+      column-count:1;column-gap:1.3rem}
+    @media(min-width:560px){.news-masonry{column-count:2}}
+    @media(min-width:920px){.news-masonry{column-count:3}}
+
+    .news-card{
+      break-inside:avoid;cursor:pointer;margin:0 0 1.3rem;
+      background:var(--bg-2);border:1px solid rgba(var(--accent-rgb),.35);
+      border-radius:var(--radius);padding:1.1rem 1.25rem 1.4rem;
+      transition:transform .28s cubic-bezier(.22,.61,.36,1)}
     .news-card:hover{transform:translateY(-4px)}
-    .news-card h3{display:flex;align-items:center;gap:.4rem}
+    .news-card h3{display:flex;align-items:center;gap:.4rem;margin-bottom:.45rem}
+    .news-card p{margin:0;font-size:.9rem;line-height:1.55}
+    .news-card time{display:block;font-style:italic;margin-bottom:.35rem;color:var(--text-2);font-size:.82rem}
+
+    /* skeleton */
+    .skeleton{height:96px;border-radius:var(--radius);margin:0 0 1.3rem;
+      background:linear-gradient(110deg,#1d1f24 8%,#282b31 18%,#1d1f24 33%);
+      background-size:200% 100%;animation:skeleton 1.2s ease-in-out infinite;}
+    @keyframes skeleton{to{background-position-x:-200%}}
+
+    /* error */
+    .error-banner{background:#5b1a1a;border-left:4px solid #ff4444;
+      padding:.75rem 1rem;margin-bottom:1rem;border-radius:var(--radius);
+      color:#ffbcbc}
   </style>
 </head>
 <body>
@@ -56,22 +83,28 @@
 <section class="rules-hero">
   <img src="images/Emblem.png" alt="Cartel Emblem" />
   <h1>Faction&nbsp;News</h1>
-  <p class="tagline">Latest announcements, milestones and OC triumphs.</p>
+  <p class="tagline">Announcements, milestones &amp; OC triumphs.</p>
 </section>
 
 <!-- NEWS FEED -->
 <section class="rules-block">
   <div class="container glass">
-    <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> Latest Headlines</h2>
+    <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> Headlines</h2>
 
-    <input type="text" id="newsSearch" placeholder="Search news…" aria-label="Search news">
-
-    <div class="card-grid" id="newsGrid">
-      <!-- dynamic cards injected here -->
+    <div class="news-filters">
+      <input type="text" id="newsSearch" placeholder="Search news…" aria-label="Search news">
+      <!-- tag pills injected here -->
     </div>
 
-    <p id="newsFoot" style="margin-top:1.5rem;color:var(--text-2);font-style:italic">
-      Older posts are archived after 30&nbsp;days.
+    <div id="alertZone"></div>
+
+    <div class="news-masonry" id="newsGrid">
+      <!-- skeletons -->
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+
+    <p style="text-align:center;margin-top:1.8rem;color:var(--text-2);font-style:italic">
+      Archive: see <a href="https://github.com/yourrepo/privecartel.io/tree/main/news">/news/</a> for older posts.
     </p>
   </div>
 </section>
@@ -79,65 +112,77 @@
 <!-- FOOTER -->
 <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
 
-<!-- SCRIPTS -->
+<!-- GLOBAL & PAGE JS -->
 <script src="assets/script.js"></script>
 <script>
-/* ---- fetch news feed ---- */
-const grid  = document.getElementById('newsGrid');
-const input = document.getElementById('newsSearch');
-let  cards  = [];
+/* ---------- helpers ---------- */
+const $ = s=> document.querySelector(s);
+const grid   = $('#newsGrid');
+const search = $('#newsSearch');
+const pills  = document.createElement('div');
+const alertZ = $('#alertZone');
+pills.style.display='flex';pills.style.gap='.5rem';pills.style.flexWrap='wrap';
+$('.news-filters').append(pills);
 
+let articles=[], cards=[], activeTag='All';
+
+/* ---------- load feed ---------- */
 fetch('news/news.json')
-  .then(r=> r.ok ? r.json() : Promise.reject())
-  .then(render)
-  .catch(()=>{              // fallback list
-    render([
-      {title:'Chain Record Shattered!',date:'2025-06-23',summary:'The Cartel set a new high of 2,104 respect in a single 100-hit chain. Rewards paid, morale sky-high.',
-       icon:'fire',file:'#'},
-      {title:'Scope Hits 100/100',date:'2025-06-18',summary:'Thanks to consistent Lambda and Sigma runs, our Scope is maxed. Ω-tier heist scheduled this Friday.',
-       icon:'coins',file:'#'},
-      {title:'Welcome New Recruits',date:'2025-06-08',summary:'Six fresh faces join the roster after the May recruitment drive. Mentors assigned, armoury kits issued.',
-       icon:'user-plus',file:'#'}
-    ]);
-  });
+  .then(r=> r.ok? r.json() : Promise.reject())
+  .then(init)
+  .catch(()=>{alertZ.innerHTML=
+      '<div class="error-banner"><strong>Feed offline:</strong> showing cached sample.</div>';
+    init([{
+      title:'Chain Record Shattered!', date:'2025-06-23',
+      summary:'The Cartel set a new high of 410.78 respect in a single 100-hit chain. Rewards paid, morale sky-high.',
+      icon:'fire', tag:'OC', file:'#'}]);});
 
-function render(items){
-  /* newest first */
-  items.sort((a,b)=> new Date(b.date) - new Date(a.date));
+/* ---------- build UI ---------- */
+function init(arr){
+  articles = arr.sort((a,b)=> new Date(b.date)-new Date(a.date));
+  buildTags();
+  render();
+  search.addEventListener('input',filter);
+}
+function buildTags(){
+  const set=new Set(['All']);articles.forEach(a=>set.add(a.tag||'Other'));
+  pills.innerHTML='';
+  [...set].forEach(t=>{
+    const b=document.createElement('span');
+    b.textContent=t;b.className='pill'+(t==='All'?' active':'');
+    b.onclick=()=>{activeTag=t;[...pills.children].forEach(x=>x.classList.toggle('active',x.textContent===t));filter();};
+    pills.appendChild(b);
+  });
+}
+function render(){
   grid.innerHTML='';
-  items.forEach(obj=>{
-    const icon = obj.icon ? `<i class="fa-solid fa-${obj.icon}"></i>&nbsp;` : '';
-    const card = document.createElement('article');
-    card.className='card news-card';
-    card.dataset.index  = cards.length;
-    card.innerHTML =
-      `<h3>${icon}${obj.title}</h3>
-       <p><em>${fmt(obj.date)}</em> — ${obj.summary}</p>`;
-    if(obj.file && obj.file!=='#'){
-      card.onclick = ()=> window.open('news/'+obj.file,'_blank');
-    }
+  cards=[];
+  articles.forEach(o=>{
+    const card=document.createElement('div');card.className='news-card';card.dataset.tag=o.tag||'Other';
+    const icon=o.icon?`<i class="fa-solid fa-${o.icon}"></i>&nbsp;`:'';
+    card.innerHTML=`<h3>${icon}${o.title}</h3>
+      <time>${fmt(o.date)}</time>
+      <p>${o.summary}</p>`;
+    if(o.file && o.file!=='#'){card.onclick=()=>window.open('news/'+o.file,'_blank');}
     grid.appendChild(card);
     cards.push(card);
   });
-  filter();          // initial filter (empty query)
+  filter();
 }
-
-function fmt(d){
-  const o = new Date(d);
-  return o.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-}
-
-/* ---- live filter ---- */
-input.addEventListener('input',filter);
 function filter(){
-  const q = input.value.toLowerCase();
+  const q=search.value.toLowerCase();
   cards.forEach(c=>{
-    c.style.display = c.textContent.toLowerCase().includes(q)?'':'none';
+    const matchText=c.textContent.toLowerCase().includes(q);
+    const matchTag=activeTag==='All'||c.dataset.tag===activeTag;
+    c.style.display=matchText&&matchTag?'block':'none';
   });
 }
+function fmt(d){
+  return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+}
 
-/* year in footer */
-document.getElementById('year').textContent = new Date().getFullYear();
+/* ---------- footer year ---------- */
+$('#year').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
