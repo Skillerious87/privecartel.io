@@ -499,3 +499,8 @@ footer {
 ::-webkit-scrollbar-track {
   background: #000;
 }
+/* every <a> on the site */
+a:link    { color:#c4a46a; }   /* gold */
+a:visited { color:#b59863; }   /* slightly dulled gold */
+a:hover   { color:#e8e2ce; }   /* light-beige on hover */
+a:active  { color:#ffdb8b; }   /* flash while clicking */
