@@ -47,20 +47,26 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
-    <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="rules.html" class="active">Rules</a></li>
-        <li><a href="guides.html">Guides</a></li>
-        <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
-      </ul>
-    </nav>
-  </header>
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
+  <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+
+  <nav>
+    <ul class="nav-links">
+      <!-- add .active on the page you’re on -->
+      <li><a href="index.html"   class="home-link"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="rules.html"   class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+      <li><a href="guides.html"  class="guides-link"><i class="fa-solid fa-book"></i> Guides</a></li>
+      <li><a href="members.html" class="members-link"><i class="fa-solid fa-users"></i> Members</a></li>
+      <li><a href="news.html"    class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+      <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+    </ul>
+  </nav>
+</header>
+
 
   <!-- overlay for mobile drawer -->
   <div class="nav-overlay"></div>

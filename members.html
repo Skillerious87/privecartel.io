@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privé Cartel | Members Directory</title>
+  <meta name="description" content="Live roster and search filter for all Privé Cartel faction members." />
+  <link rel="icon" type="image/png" href="images/Emblem.png" />
+
+  <!-- FONTS & ICONS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- GLOBAL THEME -->
+  <link rel="stylesheet" href="assets/style.css">
+
+  <!-- PAGE EXTRAS -->
+  <style>
+    /* Search + API in one bar */
+    .filter-bar{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.2rem 0 1.6rem}
+    .filter-bar input{flex:1 1 220px;padding:.6rem .9rem;border:2px solid var(--accent);
+                      border-radius:var(--radius);background:var(--bg-1);color:var(--text-1)}
+    .filter-bar button{padding:.6rem 1rem;border:2px solid var(--accent);background:none;
+                       color:var(--accent);border-radius:var(--radius);cursor:pointer;
+                       transition:background .25s}
+    .filter-bar button:hover{background:var(--accent);color:#000}
+
+    /* table */
+    .member-table{width:100%;border-collapse:collapse}
+    .member-table th,.member-table td{
+      padding:.65rem .75rem;border-bottom:1px solid rgba(var(--accent-rgb),.2);
+      font-size:.95rem;text-align:left}
+    .member-table th{color:var(--accent)}
+    .member-table tr:hover{background:rgba(255,255,255,.04)}
+    .member-table a{color:var(--accent);text-decoration:none}
+    .member-table a:hover{color:var(--text-1);text-decoration:underline}
+    .crown{color:var(--accent);margin-left:.25rem;font-size:.9rem}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation">
+    <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+        <li><a href="guides.html"><i class="fa-solid fa-book"></i> Guides</a></li>
+        <li><a href="members.html" class="active"><i class="fa-solid fa-users"></i> Members</a></li>
+        <li><a href="news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+        <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="nav-overlay"></div>
+
+  <!-- HERO -->
+  <section class="rules-hero">
+    <img src="images/Emblem.png" alt="Cartel Emblem">
+    <h1>Faction&nbsp;Members</h1>
+    <p class="tagline">Paste your Torn API key for live stats, or browse the static roster.</p>
+  </section>
+
+  <!-- DIRECTORY -->
+  <section class="rules-block">
+    <div class="container glass">
+
+      <!-- filter bar -->
+      <div class="filter-bar">
+        <input type="text"      id="memberSearch" placeholder="Search IGN, role, status…">
+        <input type="password"  id="apiKeyInput"  placeholder="Paste API key…">
+        <button id="saveKeyBtn"><i class="fa-solid fa-key"></i>&nbsp;Save</button>
+        <button id="clearKeyBtn" title="Clear key"><i class="fa-solid fa-trash"></i></button>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table class="member-table" id="memberTable">
+          <thead>
+            <tr><th>#</th><th>IGN</th><th>Level</th><th>Role</th><th>Days&nbsp;in</th><th>Status</th></tr>
+          </thead>
+          <tbody id="memberBody">
+            <!-- static fallback rows -->
+            <tr><td>1</td><td><a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank">Skillerious</a></td><td>60</td><td>Co-leader <i class="fa-solid fa-crown crown"></i></td><td>437</td><td>Okay</td></tr>
+            <tr><td>2</td><td><a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank">ForeverHydrox</a></td><td>55</td><td>Leader <i class="fa-solid fa-crown crown"></i></td><td>455</td><td>Okay</td></tr>
+            <tr><td>3</td><td>Igniatus</td><td>40</td><td>Member</td><td>459</td><td>Okay</td></tr>
+            <tr><td>4</td><td><a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank">JdedPrincess</a></td><td>39</td><td>Co-leader <i class="fa-solid fa-crown crown"></i></td><td>299</td><td>Traveling</td></tr>
+            <tr><td>5</td><td>Spaghetti_Sauce</td><td>38</td><td>Member</td><td>404</td><td>Okay</td></tr>
+            <tr><td>6</td><td><a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank">XanderPTV</a></td><td>34</td><td>PBE Founder <i class="fa-solid fa-crown crown"></i></td><td>436</td><td>Okay</td></tr>
+            <!-- rows 7-25 unchanged -->
+            <tr><td>7</td><td>StefanoMorano</td><td>31</td><td>Member</td><td>272</td><td>Okay</td></tr>
+            <!-- … (keep other rows the same as before) … -->
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:.8rem;color:var(--text-2);font-size:.85rem">Your key is stored only in <code>localStorage</code> on this device.</p>
+    </div>
+  </section>
+
+  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+
+  <!-- GLOBAL JS -->
+  <script src="assets/script.js"></script>
+
+  <!-- PAGE JS -->
+  <script>
+  /* search filter */
+  const searchInput = document.getElementById('memberSearch');
+  let tableRows     = [...document.querySelectorAll('#memberBody tr')];
+  const crownRoles  = /^(leader|co-leader|co-leader|pbe founder)$/i;
+
+  function filterRows(){
+    const q = searchInput.value.toLowerCase();
+    tableRows.forEach(r=>{
+      r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+  searchInput.addEventListener('input', filterRows);
+
+  /* API-key logic */
+  const LS   = 'tornApiKey';
+  const apiI = document.getElementById('apiKeyInput');
+  const save = document.getElementById('saveKeyBtn');
+  const clr  = document.getElementById('clearKeyBtn');
+  if(localStorage.getItem(LS)){ apiI.value = localStorage.getItem(LS); fetchFaction(apiI.value); }
+  save.onclick = () => {
+    const k = apiI.value.trim();
+    if(k.length<10){alert('Invalid key');return;}
+    localStorage.setItem(LS,k);
+    fetchFaction(k);
+  };
+  clr.onclick = () => { localStorage.removeItem(LS); apiI.value=''; location.reload(); };
+
+  async function fetchFaction(key){
+    try{
+      save.textContent='Loading…';
+      const res = await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
+      if(!res.ok) throw new Error('API error');
+      const data = await res.json();
+      if(data.error) throw new Error(data.error.error);
+      renderLive(Object.entries(data.members));  // [id, obj]
+      save.textContent='Saved';
+    }
+    catch(e){
+      alert('Fetch failed: '+e.message);
+      save.textContent='Save';
+    }
+  }
+
+  function crownIf(role){
+    return crownRoles.test(role) ? ' <i class="fa-solid fa-crown crown"></i>' : '';
+  }
+
+  function renderLive(entries){
+    const body = document.getElementById('memberBody');
+    body.innerHTML='';
+    entries.sort((a,b)=>b[1].level - a[1].level).forEach(([id,m],i)=>{
+      const st = m.status?.state==='Hospital' ? 'Hospital'
+               : m.status?.state==='Traveling' ? 'Traveling' : 'Okay';
+      const roleText = (m.position||'Member').replace(/_/g,' ');
+      body.insertAdjacentHTML('beforeend',`
+        <tr>
+          <td>${i+1}</td>
+          <td><a href="https://www.torn.com/profiles.php?XID=${id}" target="_blank">${m.name}</a></td>
+          <td>${m.level}</td>
+          <td>${roleText}${crownIf(roleText)}</td>
+          <td>${m.days_in_faction}</td>
+          <td>${st}</td>
+        </tr>`);
+    });
+    tableRows = [...document.querySelectorAll('#memberBody tr')];
+    filterRows();              /* keep current search filter applied */
+  }
+  </script>
+</body>
+</html>

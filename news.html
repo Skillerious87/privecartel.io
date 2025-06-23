@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privé Cartel | News & Milestones</title>
+  <meta name="description" content="Latest announcements and milestones for Privé Cartel." />
+  <link rel="icon" type="image/png" href="images/Emblem.png" />
+
+  <!-- FONTS & ICONS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- GLOBAL THEME -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- PAGE EXTRAS -->
+  <style>
+    /* quick search box */
+    #newsSearch{
+      width:100%;max-width:340px;padding:.65rem .9rem;margin:1.3rem 0 1.6rem;
+      border:2px solid var(--accent);border-radius:var(--radius);
+      background:var(--bg-1);color:var(--text-1)
+    }
+    /* clickable card */
+    .news-card{cursor:pointer;transition:transform .25s}
+    .news-card:hover{transform:translateY(-4px)}
+    .news-card h3{display:flex;align-items:center;gap:.4rem}
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
+  <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+      <li><a href="guides.html"><i class="fa-solid fa-book"></i> Guides</a></li>
+      <li><a href="members.html"><i class="fa-solid fa-users"></i> Members</a></li>
+      <li><a href="news.html" class="active"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+      <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="nav-overlay"></div>
+
+<!-- HERO -->
+<section class="rules-hero">
+  <img src="images/Emblem.png" alt="Cartel Emblem" />
+  <h1>Faction&nbsp;News</h1>
+  <p class="tagline">Latest announcements, milestones and OC triumphs.</p>
+</section>
+
+<!-- NEWS FEED -->
+<section class="rules-block">
+  <div class="container glass">
+    <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> Latest Headlines</h2>
+
+    <input type="text" id="newsSearch" placeholder="Search news…" aria-label="Search news">
+
+    <div class="card-grid" id="newsGrid">
+      <!-- dynamic cards injected here -->
+    </div>
+
+    <p id="newsFoot" style="margin-top:1.5rem;color:var(--text-2);font-style:italic">
+      Older posts are archived after 30&nbsp;days.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+
+<!-- SCRIPTS -->
+<script src="assets/script.js"></script>
+<script>
+/* ---- fetch news feed ---- */
+const grid  = document.getElementById('newsGrid');
+const input = document.getElementById('newsSearch');
+let  cards  = [];
+
+fetch('news/news.json')
+  .then(r=> r.ok ? r.json() : Promise.reject())
+  .then(render)
+  .catch(()=>{              // fallback list
+    render([
+      {title:'Chain Record Shattered!',date:'2025-06-23',summary:'The Cartel set a new high of 2,104 respect in a single 100-hit chain. Rewards paid, morale sky-high.',
+       icon:'fire',file:'#'},
+      {title:'Scope Hits 100/100',date:'2025-06-18',summary:'Thanks to consistent Lambda and Sigma runs, our Scope is maxed. Ω-tier heist scheduled this Friday.',
+       icon:'coins',file:'#'},
+      {title:'Welcome New Recruits',date:'2025-06-08',summary:'Six fresh faces join the roster after the May recruitment drive. Mentors assigned, armoury kits issued.',
+       icon:'user-plus',file:'#'}
+    ]);
+  });
+
+function render(items){
+  /* newest first */
+  items.sort((a,b)=> new Date(b.date) - new Date(a.date));
+  grid.innerHTML='';
+  items.forEach(obj=>{
+    const icon = obj.icon ? `<i class="fa-solid fa-${obj.icon}"></i>&nbsp;` : '';
+    const card = document.createElement('article');
+    card.className='card news-card';
+    card.dataset.index  = cards.length;
+    card.innerHTML =
+      `<h3>${icon}${obj.title}</h3>
+       <p><em>${fmt(obj.date)}</em> — ${obj.summary}</p>`;
+    if(obj.file && obj.file!=='#'){
+      card.onclick = ()=> window.open('news/'+obj.file,'_blank');
+    }
+    grid.appendChild(card);
+    cards.push(card);
+  });
+  filter();          // initial filter (empty query)
+}
+
+function fmt(d){
+  const o = new Date(d);
+  return o.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+/* ---- live filter ---- */
+input.addEventListener('input',filter);
+function filter(){
+  const q = input.value.toLowerCase();
+  cards.forEach(c=>{
+    c.style.display = c.textContent.toLowerCase().includes(q)?'':'none';
+  });
+}
+
+/* year in footer */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
