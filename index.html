@@ -16,29 +16,157 @@
 
   <!-- GLOBAL THEME -->
   <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- PAGE-SPECIFIC ENHANCEMENTS -->
+  <style>
+    /* ---------- Base (mobile-first) ---------- */
+    body{
+      background:#0e0e0e;
+      color:#e5e5e5;
+      font-family:'Poppins',system-ui,sans-serif;
+      line-height:1.7;
+      margin:0;
+    }
+    .container{
+      max-width:860px;
+      margin-inline:auto;
+      padding:1.75rem 1rem;
+    }
+    .container.glass{
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(214,184,109,.35);
+      border-radius:12px;
+      box-shadow:0 4px 20px rgba(0,0,0,.45);
+    }
+
+    /* section headings */
+    .section-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.75rem;
+      color:#d6b86d;
+      margin:0 0 1rem;
+    }
+
+    /* hero */
+    .hero{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:1.25rem;
+      padding:3rem 1rem 2.5rem;
+    }
+    .hero .emblem{ width:96px; filter:drop-shadow(0 0 10px rgba(214,184,109,.55)); }
+    .hero h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1.6rem,6vw,2.6rem);
+      font-weight:600;
+      line-height:1.3;
+      margin:0;
+    }
+
+    /* manifesto text */
+    #manifesto p{ margin-block:0 1rem; text-indent:0; }
+    ol.standard{
+      list-style-position:inside;
+      padding-left:1.5rem;
+      margin:1rem 0;
+    }
+    ol.standard li{ margin-bottom:.55rem; text-indent:-1rem; }
+    ol.standard li::marker{ font-weight:700; }
+
+    /* card-like elements (Services & Rewards) */
+    .card-grid{
+      display:grid;
+      gap:1.25rem;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      margin-top:1.25rem;
+    }
+    .card{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(214,184,109,.22);
+      padding:1.25rem;
+      border-radius:10px;
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 6px 16px rgba(0,0,0,.55);
+    }
+
+    /* ---------- Standing Benefits grid ---------- */
+    .perk-grid{
+      list-style:none;
+      padding-left:0;
+      margin:1.25rem 0;
+      display:grid;
+      gap:.65rem;
+      grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    }
+    .perk-grid li{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(214,184,109,.18);
+      border-radius:8px;
+      text-align:center;
+      padding:.75rem .9rem;
+      font-weight:500;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:.5rem;
+      line-height:1.4;
+
+      /* --- added animation so they behave like .card --- */
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+    .perk-grid li:hover{
+      transform:translateY(-4px);
+      box-shadow:0 6px 16px rgba(0,0,0,.55);
+    }
+    .perk-grid li i{ color:#C4A46A; }
+
+    /* Leadership list indent */
+    #leadership ul.standard{
+      list-style-position:outside;
+      padding-left:1.25rem;
+      margin:0;
+    }
+
+    /* utility */
+    .text-center{ text-align:center; }
+
+    /* ---------- Tablet / wider ---------- */
+    @media (min-width:600px){
+      .container{ padding:2rem 1.5rem; }
+      .section-title{ font-size:2rem; }
+      .hero{ padding:4rem 1rem 3rem; }
+      .hero .emblem{ width:120px; }
+      .card{ padding:1.5rem; }
+      .card-grid{ gap:1.5rem; }
+      #manifesto p{ text-indent:1.25rem; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-  <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+  <!-- NAVBAR (unchanged) -->
+  <header class="navbar">
+    <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
 
-  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
-  <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
+    <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
 
-  <nav>
-    <ul class="nav-links">
-      <!-- add .active on the page you’re on -->
-      <li><a href="index.html"   class="home-link"><i class="fa-solid fa-house"></i> Home</a></li>
-      <li><a href="rules.html"   class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
-      <li><a href="guides.html"  class="guides-link"><i class="fa-solid fa-book"></i> Guides</a></li>
-      <li><a href="members.html" class="members-link"><i class="fa-solid fa-users"></i> Members</a></li>
-      <li><a href="news.html"    class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
-      <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
-    </ul>
-  </nav>
-</header>
-
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html"   class="home-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="rules.html"   class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+        <li><a href="guides.html"  class="guides-link"><i class="fa-solid fa-book"></i> Guides</a></li>
+        <li><a href="members.html" class="members-link"><i class="fa-solid fa-users"></i> Members</a></li>
+        <li><a href="news.html"    class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+        <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <!-- dimmed overlay for mobile drawer -->
   <div class="nav-overlay"></div>
@@ -66,27 +194,23 @@
       </div>
     </section>
 
-    <!-- SERVICES (card grid) -->
+    <!-- SERVICES -->
     <section id="services">
       <div class="container">
         <h2 class="section-title">Cartel Services</h2>
-
         <div class="card-grid">
           <article class="card">
             <h3><i class="fa-solid fa-user-ninja"></i>&nbsp;Organised Crimes&nbsp;2.0</h3>
             <p>Operations prepared with precision and profit in mind, leveraging Scope wisely.</p>
           </article>
-
           <article class="card">
             <h3><i class="fa-solid fa-house-user"></i>&nbsp;Flexible Residency</h3>
-            <p>Stay active every 24 h; no forced wars or mandatory fees. Vacation Mode respected.</p>
+            <p>Stay active every 24&nbsp;h; no forced wars or mandatory fees. Vacation Mode respected.</p>
           </article>
-
           <article class="card">
             <h3><i class="fa-solid fa-shield-heart"></i>&nbsp;Armoury Access</h3>
             <p>Weapons, meds and travel kits issued on request—because preparation saves lives.</p>
           </article>
-
           <article class="card">
             <h3><i class="fa-solid fa-hands-helping"></i>&nbsp;Member Guidance</h3>
             <p>Seasoned players ready with builds, routes and revenue streams for every stage.</p>
@@ -99,12 +223,11 @@
     <section id="perks">
       <div class="container">
         <h2 class="section-title">Standing Benefits</h2>
-
         <ul class="perk-grid">
-          <li>+5 Travel Capacity</li>
-          <li>Secure Armoury</li>
-          <li>100-Chain Capability</li>
-          <li>Priority in OC&nbsp;2.0</li>
+          <li><i class="fa-solid fa-plane-departure"></i>+5&nbsp;Travel&nbsp;Capacity</li>
+          <li><i class="fa-solid fa-shield-halved"></i>Secure&nbsp;Armoury</li>
+          <li><i class="fa-solid fa-link"></i>100-Chain&nbsp;Capability</li>
+          <li><i class="fa-solid fa-star"></i>Priority&nbsp;in&nbsp;OC&nbsp;2.0</li>
         </ul>
       </div>
     </section>
@@ -113,15 +236,13 @@
     <section id="rewards">
       <div class="container">
         <h2 class="section-title">Chain Rewards</h2>
-        <p>Record <strong>5 + hits</strong> in any chain and choose one reward:</p>
-
+        <p>Record <strong>5&nbsp;+ hits</strong> in any chain and choose one reward:</p>
         <div class="card-grid">
-          <article class="card" style="text-align:center">
+          <article class="card text-center">
             <h3><i class="fa-solid fa-capsules"></i>&nbsp;2&nbsp;×&nbsp;Xanax</h3>
             <p>Delivered to your items on completion.</p>
           </article>
-
-          <article class="card" style="text-align:center">
+          <article class="card text-center">
             <h3><i class="fa-solid fa-money-bill-wave"></i>&nbsp;$1&nbsp;Million</h3>
             <p>Cash wired promptly to your wallet.</p>
           </article>
@@ -144,7 +265,7 @@
 
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (unchanged) -->
   <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
 
   <!-- SCRIPTS -->
