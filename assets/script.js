@@ -6,9 +6,20 @@
     ▸ Auto-close drawer when link / overlay tapped
     ▸ Adds soft shadow to navbar after scrolling 60 px
     ▸ “Back-to-top” floating button (fade + scale in > 400 px)
+    ▸ Return-to-last-scroll (restores position within the same tab session)
 */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* ───── 0.  Session scroll-restore (read part) ───── */
+  const SCROLL_KEY = 'pcScrollY';
+  const savedY = +sessionStorage.getItem(SCROLL_KEY) || 0;
+  if (!location.hash && savedY > 0) {
+    /* Use a micro-delay so the browser can finish its own layout. */
+    setTimeout(() => {
+      if (savedY < document.body.scrollHeight) window.scrollTo(0, savedY);
+    }, 0);
+  }
 
   /* ───── 1.  © year ───── */
   const yearEl = document.getElementById('year');
@@ -107,6 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   backBtn.addEventListener('click', () =>
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  );
+
+  /* ───── 6.  Session scroll-restore (save part) ───── */
+  window.addEventListener('beforeunload', () =>
+    sessionStorage.setItem(SCROLL_KEY, window.scrollY)
   );
 
 });
