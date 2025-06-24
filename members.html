@@ -1,42 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- META -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privé Cartel | Members Directory</title>
-  <meta name="description" content="Live roster and search filter for all Privé Cartel faction members." />
-  <link rel="icon" type="image/png" href="images/Emblem.png" />
+  <meta name="description" content="Live roster with avatars, search & sortable columns for all Privé Cartel members.">
 
-  <!-- FONTS & ICONS -->
+  <link rel="icon" type="image/png" href="images/Emblem.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-  <!-- GLOBAL THEME -->
   <link rel="stylesheet" href="assets/style.css">
 
-  <!-- PAGE EXTRAS -->
+  <!-- PAGE-SPECIFIC STYLE -->
   <style>
-    /* Search + API in one bar */
-    .filter-bar{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.2rem 0 1.6rem}
-    .filter-bar input{flex:1 1 220px;padding:.6rem .9rem;border:2px solid var(--accent);
-                      border-radius:var(--radius);background:var(--bg-1);color:var(--text-1)}
-    .filter-bar button{padding:.6rem 1rem;border:2px solid var(--accent);background:none;
-                       color:var(--accent);border-radius:var(--radius);cursor:pointer;
-                       transition:background .25s}
-    .filter-bar button:hover{background:var(--accent);color:#000}
+    /* ── Filter bar ─────────────────────────────────────── */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.8rem 0;
+    }
+    .filter-bar input {
+      flex: 1 1 230px; max-width: 360px;
+      padding: .65rem .9rem; border: 2px solid var(--accent);
+      border-radius: var(--radius); background: var(--bg-1);
+      color: var(--text-1);
+    }
+    .filter-bar button {
+      padding: .65rem 1.05rem; border: 2px solid var(--accent);
+      background: none; color: var(--accent);
+      border-radius: var(--radius); cursor: pointer;
+      transition: background .25s;
+    }
+    .filter-bar button:hover {
+      background: var(--accent); color: #000;
+    }
 
-    /* table */
-    .member-table{width:100%;border-collapse:collapse}
-    .member-table th,.member-table td{
-      padding:.65rem .75rem;border-bottom:1px solid rgba(var(--accent-rgb),.2);
-      font-size:.95rem;text-align:left}
-    .member-table th{color:var(--accent)}
-    .member-table tr:hover{background:rgba(255,255,255,.04)}
-    .member-table a{color:var(--accent);text-decoration:none}
-    .member-table a:hover{color:var(--text-1);text-decoration:underline}
-    .crown{color:var(--accent);margin-left:.25rem;font-size:.9rem}
+    /* ── Desktop wrapper scroll only ≥551px ───────────── */
+    .table-wrap { overflow-x: auto; }
+    @media (max-width: 550px) {
+      .table-wrap { overflow-x: visible; }
+    }
+
+    /* ── Desktop table ─────────────────────────────────── */
+    .member-table {
+      width: 100%; border-collapse: collapse; min-width: 560px;
+    }
+    .member-table th,
+    .member-table td {
+      padding: .6rem .75rem;
+      border-bottom: 1px solid rgba(var(--accent-rgb), .22);
+      font-size: .92rem; text-align: left; word-break: break-word;
+    }
+    .member-table th {
+      color: var(--accent); cursor: pointer; user-select: none;
+    }
+    .member-table tbody tr:nth-child(odd) {
+      background: rgba(255, 255, 255, .03);
+    }
+    .member-table tbody tr:hover {
+      background: rgba(255, 255, 255, .05);
+    }
+    .member-table img.avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%; object-fit: cover;
+    }
+
+    /* ── Mobile cards (≤550 px) ───────────────────────── */
+    @media (max-width: 550px) {
+      /* reset that min-width so rows can shrink */
+      .member-table { min-width: 0; }
+
+      .member-table,
+      .member-table thead {
+        display: none;
+      }
+      .member-table,
+      .member-table tbody {
+        display: block;
+      }
+      .member-table tr {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: .35rem .85rem;
+        padding: .75rem .7rem;
+        box-sizing: border-box;
+        border: 1px solid rgba(var(--accent-rgb), .25);
+        border-radius: var(--radius);
+        margin-bottom: .9rem;
+        background: rgba(255, 255, 255, .015);
+        overflow: hidden;
+      }
+      .member-table td {
+        border: none;
+        padding: 0;
+        font-size: .9rem;
+        line-height: 1.45;
+      }
+      .member-table td:nth-child(1) {
+        display: none; /* hide row # */
+      }
+      .member-table td[data-label="Avatar"] {
+        order: -1;
+        grid-row: span 6;
+        display: flex;
+        align-items: center;
+      }
+      .member-table td[data-label="Avatar"]::before {
+        content: '';
+      }
+      .member-table img.avatar {
+        width: 48px;
+        height: 48px;
+      }
+      .member-table td[data-label]:not([data-label="Avatar"])::before {
+        content: attr(data-label) ': ';
+        font-weight: 600;
+        color: var(--accent);
+      }
+    }
+
+    /* crown icon */
+    .crown {
+      color: var(--accent);
+      margin-left: .25rem;
+      font-size: .9rem;
+    }
   </style>
 </head>
 <body>
@@ -44,7 +134,7 @@
   <!-- NAVBAR -->
   <header class="navbar">
     <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
     <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
     <nav>
       <ul class="nav-links">
@@ -57,125 +147,220 @@
       </ul>
     </nav>
   </header>
-
   <div class="nav-overlay"></div>
 
   <!-- HERO -->
   <section class="rules-hero">
-    <img src="images/Emblem.png" alt="Cartel Emblem">
+    <img src="images/Emblem.png" alt="Cartel Emblem" />
     <h1>Faction&nbsp;Members</h1>
-    <p class="tagline">Paste your Torn API key for live stats, or browse the static roster.</p>
+    <p class="tagline">Paste your Torn API key for live stats &amp; avatars.</p>
   </section>
 
   <!-- DIRECTORY -->
   <section class="rules-block">
     <div class="container glass">
 
-      <!-- filter bar -->
+      <!-- search + API key -->
       <div class="filter-bar">
-        <input type="text"      id="memberSearch" placeholder="Search IGN, role, status…">
-        <input type="password"  id="apiKeyInput"  placeholder="Paste API key…">
-        <button id="saveKeyBtn"><i class="fa-solid fa-key"></i>&nbsp;Save</button>
+        <input type="text"     id="memberSearch" placeholder="Search IGN, role, status…" />
+        <input type="password" id="apiKeyInput"  placeholder="Paste API key…" />
+        <button id="saveKeyBtn"><i class="fa-solid fa-key"></i> Save</button>
         <button id="clearKeyBtn" title="Clear key"><i class="fa-solid fa-trash"></i></button>
       </div>
 
-      <div style="overflow-x:auto">
+      <!-- table -->
+      <div class="table-wrap">
         <table class="member-table" id="memberTable">
           <thead>
-            <tr><th>#</th><th>IGN</th><th>Level</th><th>Role</th><th>Days&nbsp;in</th><th>Status</th></tr>
+            <tr>
+              <th data-col="#">#</th>
+              <th data-col="ign">IGN</th>
+              <th></th>
+              <th data-col="level">Lv</th>
+              <th data-col="role">Role</th>
+              <th data-col="days">Days&nbsp;in</th>
+              <th data-col="status">Status</th>
+            </tr>
           </thead>
-          <tbody id="memberBody">
-            <!-- static fallback rows -->
-            <tr><td>1</td><td><a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank">Skillerious</a></td><td>60</td><td>Co-leader <i class="fa-solid fa-crown crown"></i></td><td>437</td><td>Okay</td></tr>
-            <tr><td>2</td><td><a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank">ForeverHydrox</a></td><td>55</td><td>Leader <i class="fa-solid fa-crown crown"></i></td><td>455</td><td>Okay</td></tr>
-            <tr><td>3</td><td>Igniatus</td><td>40</td><td>Member</td><td>459</td><td>Okay</td></tr>
-            <tr><td>4</td><td><a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank">JdedPrincess</a></td><td>39</td><td>Co-leader <i class="fa-solid fa-crown crown"></i></td><td>299</td><td>Traveling</td></tr>
-            <tr><td>5</td><td>Spaghetti_Sauce</td><td>38</td><td>Member</td><td>404</td><td>Okay</td></tr>
-            <tr><td>6</td><td><a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank">XanderPTV</a></td><td>34</td><td>PBE Founder <i class="fa-solid fa-crown crown"></i></td><td>436</td><td>Okay</td></tr>
-            <!-- rows 7-25 unchanged -->
-            <tr><td>7</td><td>StefanoMorano</td><td>31</td><td>Member</td><td>272</td><td>Okay</td></tr>
-            <!-- … (keep other rows the same as before) … -->
-          </tbody>
+          <tbody id="memberBody"></tbody>
         </table>
       </div>
-      <p style="margin-top:.8rem;color:var(--text-2);font-size:.85rem">Your key is stored only in <code>localStorage</code> on this device.</p>
+
+      <p style="margin-top:.8rem;color:var(--text-2);font-size:.85rem">
+        Your key is stored only in <code>localStorage</code> on this device.
+      </p>
     </div>
   </section>
 
-  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
 
   <!-- GLOBAL JS -->
   <script src="assets/script.js"></script>
 
   <!-- PAGE JS -->
   <script>
-  /* search filter */
-  const searchInput = document.getElementById('memberSearch');
-  let tableRows     = [...document.querySelectorAll('#memberBody tr')];
-  const crownRoles  = /^(leader|co-leader|co-leader|pbe founder)$/i;
+  (() => {
+    const LSKEY   = 'tornApiKey';
+    const crownRx = /^(leader|co[- ]?leader|pbe founder)$/i;
 
-  function filterRows(){
-    const q = searchInput.value.toLowerCase();
-    tableRows.forEach(r=>{
-      r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
-    });
-  }
-  searchInput.addEventListener('input', filterRows);
+    const bodyEl   = document.getElementById('memberBody');
+    const search   = document.getElementById('memberSearch');
+    const saveBtn  = document.getElementById('saveKeyBtn');
+    const apiInput = document.getElementById('apiKeyInput');
+    const clearBtn = document.getElementById('clearKeyBtn');
 
-  /* API-key logic */
-  const LS   = 'tornApiKey';
-  const apiI = document.getElementById('apiKeyInput');
-  const save = document.getElementById('saveKeyBtn');
-  const clr  = document.getElementById('clearKeyBtn');
-  if(localStorage.getItem(LS)){ apiI.value = localStorage.getItem(LS); fetchFaction(apiI.value); }
-  save.onclick = () => {
-    const k = apiI.value.trim();
-    if(k.length<10){alert('Invalid key');return;}
-    localStorage.setItem(LS,k);
-    fetchFaction(k);
-  };
-  clr.onclick = () => { localStorage.removeItem(LS); apiI.value=''; location.reload(); };
+    const crown = role => crownRx.test(role) ? ' <i class="fa-solid fa-crown crown"></i>' : '';
+    const tidy  = s    => s.replace(/_/g,' ');
 
-  async function fetchFaction(key){
-    try{
-      save.textContent='Loading…';
-      const res = await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
-      if(!res.ok) throw new Error('API error');
-      const data = await res.json();
-      if(data.error) throw new Error(data.error.error);
-      renderLive(Object.entries(data.members));  // [id, obj]
-      save.textContent='Saved';
+    let rows = [];
+
+    // initial load
+    if (localStorage.getItem(LSKEY)) {
+      apiInput.value = localStorage.getItem(LSKEY);
+      fetchFaction(apiInput.value);
+    } else {
+      renderFallback();
     }
-    catch(e){
-      alert('Fetch failed: '+e.message);
-      save.textContent='Save';
+
+    // search filter
+    function renumber() {
+      let n = 1;
+      rows.forEach(r => {
+        if (r.style.display !== 'none') r.children[0].textContent = n++;
+      });
     }
-  }
+    function filter() {
+      const q = search.value.toLowerCase();
+      rows.forEach(r => {
+        r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+      renumber();
+    }
+    search.addEventListener('input', filter);
 
-  function crownIf(role){
-    return crownRoles.test(role) ? ' <i class="fa-solid fa-crown crown"></i>' : '';
-  }
+    // save / clear API key
+    saveBtn.onclick = () => {
+      const key = apiInput.value.trim();
+      if (key.length < 10) { alert('Invalid API key'); return; }
+      localStorage.setItem(LSKEY, key);
+      fetchFaction(key);
+    };
+    clearBtn.onclick = () => {
+      localStorage.removeItem(LSKEY);
+      location.reload();
+    };
 
-  function renderLive(entries){
-    const body = document.getElementById('memberBody');
-    body.innerHTML='';
-    entries.sort((a,b)=>b[1].level - a[1].level).forEach(([id,m],i)=>{
-      const st = m.status?.state==='Hospital' ? 'Hospital'
-               : m.status?.state==='Traveling' ? 'Traveling' : 'Okay';
-      const roleText = (m.position||'Member').replace(/_/g,' ');
-      body.insertAdjacentHTML('beforeend',`
-        <tr>
-          <td>${i+1}</td>
-          <td><a href="https://www.torn.com/profiles.php?XID=${id}" target="_blank">${m.name}</a></td>
-          <td>${m.level}</td>
-          <td>${roleText}${crownIf(roleText)}</td>
-          <td>${m.days_in_faction}</td>
-          <td>${st}</td>
-        </tr>`);
+    // sortable headers
+    const dir = {};
+    document.querySelectorAll('.member-table th[data-col]').forEach(th => {
+      th.addEventListener('click', () => {
+        const c = th.dataset.col;
+        dir[c] = !dir[c];
+        rows.sort((a, b) => {
+          const va = a.dataset[c] || '', vb = b.dataset[c] || '';
+          if (c === 'level' || c === 'days') {
+            return dir[c] ? va - vb : vb - va;
+          }
+          return dir[c] ? va.localeCompare(vb) : vb.localeCompare(va);
+        });
+        rows.forEach(r => bodyEl.appendChild(r));
+        renumber();
+      });
     });
-    tableRows = [...document.querySelectorAll('#memberBody tr')];
-    filterRows();              /* keep current search filter applied */
-  }
+
+    // fallback static list
+    function renderFallback() {
+      const list = [
+        { id:3212954, name:'Skillerious',      level:60, role:'Co-leader',    days:438, status:'Okay' },
+        { id:2753560, name:'ForeverHydrox',    level:55, role:'Leader',       days:456, status:'Okay' },
+        {                 name:'Igniatus',      level:40, role:'Member',       days:459, status:'Okay' },
+        { id:3400392, name:'JdedPrincess',     level:39, role:'Co-leader',    days:299, status:'Traveling' },
+        {                 name:'Spaghetti_Sauce', level:38, role:'Member',    days:404, status:'Okay' },
+        { id:2804871, name:'XanderPTV',        level:34, role:'PBE Founder',  days:436, status:'Okay' }
+      ];
+      bodyEl.innerHTML = '';
+      list.forEach(renderRow);
+      rows = [...bodyEl.querySelectorAll('tr')];
+      filter();
+    }
+
+    // live fetch
+    async function fetchFaction(key) {
+      try {
+        saveBtn.textContent = 'Loading…';
+        const res  = await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
+        if (!res.ok) throw new Error('API error');
+        const data = await res.json();
+        if (data.error) throw new Error(data.error.error);
+
+        const list = Object.entries(data.members).map(([id, m]) => ({ ...m, id }));
+        bodyEl.innerHTML = '';
+        list.sort((a, b) => b.level - a.level).forEach(renderRow);
+        rows = [...bodyEl.querySelectorAll('tr')];
+        filter();
+        saveBtn.textContent = 'Saved';
+        lazyAvatars(list, key);
+      } catch (e) {
+        alert(e.message);
+        saveBtn.textContent = 'Save';
+      }
+    }
+
+    // render one row
+    function renderRow(m) {
+      const st = m.status && m.status.state === 'Hospital'  ? 'Hospital'
+               : m.status && m.status.state === 'Traveling'? 'Traveling'
+               : 'Okay';
+      const roleTxt = tidy(m.position || m.role || 'Member');
+
+      const tr = document.createElement('tr');
+      tr.dataset.level  = m.level || 0;
+      tr.dataset.role   = roleTxt.toLowerCase();
+      tr.dataset.days   = m.days_in_faction || m.days || 0;
+      tr.dataset.status = st.toLowerCase();
+
+      tr.innerHTML = ''
+        + '<td>0</td>'
+        + '<td data-label="IGN">'
+          + (m.id
+            ? `<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank">${m.name}</a>`
+            : m.name
+          )
+        + '</td>'
+        + '<td data-label="Avatar"><img class="avatar" data-id="'+(m.id||'')+'" alt=""></td>'
+        + '<td data-label="Lv">'+ (m.level||0) +'</td>'
+        + '<td data-label="Role">'+ roleTxt + crown(roleTxt) +'</td>'
+        + '<td data-label="Days">'+ (m.days_in_faction||m.days||0) +'</td>'
+        + '<td data-label="Status">'+ st +'</td>';
+
+      bodyEl.appendChild(tr);
+    }
+
+    // lazy-load avatars (max 4 concurrent)
+    async function lazyAvatars(list, key) {
+      const queue = list.filter(m => m.id).map(m => async () => {
+        try {
+          const res = await fetch(`https://api.torn.com/user/${m.id}?selections=profile&key=${key}`);
+          const d   = await res.json();
+          if (d.error) return;
+          if (d.profile_image) {
+            const img = bodyEl.querySelector(`img[data-id="${m.id}"]`);
+            if (img) img.src = d.profile_image;
+          }
+        } catch {}
+      });
+
+      const pool = Array(4).fill(Promise.resolve());
+      for (const task of queue) {
+        const p = Promise.race(pool).then(task);
+        const i = pool.indexOf(await Promise.race(pool));
+        pool[i] = p;
+      }
+    }
+  })();
   </script>
 </body>
 </html>
