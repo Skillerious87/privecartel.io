@@ -17,44 +17,41 @@
   <!-- GLOBAL THEME -->
   <link rel="stylesheet" href="assets/style.css" />
 
-  <!-- PAGE-SPECIFIC TWEAKS -->
+  <!-- PAGE-SPECIFIC GRID (no hover overrides) -->
   <style>
-    /* ---------- Guides grid ---------- */
     .guide-grid{
       display:grid;
-      gap:1.25rem;
-      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-      margin-top:1.5rem;
+      gap:1.5rem;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      margin:2.5rem 0;
     }
-
-    /* ---------- card hover (MATCH index Services) ---------- */
     .guide-card{
-      display:flex;gap:.9rem;align-items:flex-start;
-      background:rgba(255,255,255,.04);                   /* same bg */
-      border:1px solid rgba(214,184,109,.22);             /* same border */
-      border-radius:10px;
-      padding:1.25rem 1.35rem;
-      color:inherit;text-decoration:none;
-      transition:transform .25s ease, box-shadow .25s ease; /* identical */
+      display:flex;
+      align-items:flex-start;
+      gap:1rem;
+      text-decoration:none!important;
     }
-    .guide-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 6px 16px rgba(0,0,0,.55);              /* soft black */
-    }
-
-    /* badge + copy */
     .guide-card i{
-      flex:0 0 46px;height:46px;
+      flex:none;
+      width:46px;height:46px;
       display:grid;place-items:center;
+      font-size:1.6rem;
+      color:var(--accent);
       background:rgba(var(--accent-rgb),.15);
-      border-radius:50%;color:var(--accent);
-      font-size:1.3rem;
+      border-radius:50%;
+      margin-top:.1rem;
     }
-    .guide-card h3{margin:.15rem 0 .4rem;font-size:1.05rem}
-    .guide-card p {margin:0;font-size:.9rem;line-height:1.55;color:var(--text-1)}
-
-    /* hero font tweak for consistency */
-    .rules-hero h1{font-size:clamp(1.8rem,5vw,2.7rem)}
+    .guide-card h3{
+      font-size:1.15rem;
+      margin:0 0 .35rem;
+      color:var(--accent);
+    }
+    .guide-card p{
+      margin:0;
+      font-size:.9rem;
+      line-height:1.55;
+      color:var(--text-2);
+    }
   </style>
 </head>
 <body>
@@ -94,7 +91,7 @@
 
       <div class="guide-grid">
 
-        <a href="https://www.markiva.co.uk/torn.htm" target="_blank" class="guide-card">
+        <a href="https://www.markiva.co.uk/torn.htm" target="_blank" class="card guide-card">
           <i class="fa-solid fa-code"></i>
           <div>
             <h3>Install&nbsp;Scripts</h3>
@@ -102,7 +99,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15940140" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15940140" target="_blank" class="card guide-card">
           <i class="fa-solid fa-people-arrows-left-right"></i>
           <div>
             <h3>Being a Faction Member</h3>
@@ -110,7 +107,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16242871&b=0&a=0" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16242871&b=0&a=0" target="_blank" class="card guide-card">
           <i class="fa-solid fa-person-running"></i>
           <div>
             <h3>Level&nbsp;15 in&nbsp;10&nbsp;Days</h3>
@@ -118,7 +115,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16034448" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16034448" target="_blank" class="card guide-card">
           <i class="fa-solid fa-book-open"></i>
           <div>
             <h3>Baldr’s Basic Advice</h3>
@@ -126,7 +123,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15995191" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15995191" target="_blank" class="card guide-card">
           <i class="fa-solid fa-dumbbell"></i>
           <div>
             <h3>Gym Training for Beginners</h3>
@@ -134,7 +131,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16077517" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16077517" target="_blank" class="card guide-card">
           <i class="fa-solid fa-mug-saucer"></i>
           <div>
             <h3>Choco Jump (Happy-Jump Alt)</h3>
@@ -142,7 +139,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15928502" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15928502" target="_blank" class="card guide-card">
           <i class="fa-solid fa-crosshairs"></i>
           <div>
             <h3>War Guide</h3>
@@ -150,7 +147,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16025016" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16025016" target="_blank" class="card guide-card">
           <i class="fa-solid fa-link"></i>
           <div>
             <h3>Chaining&nbsp;2.0 &ndash; Respect</h3>
@@ -158,7 +155,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15956969" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15956969" target="_blank" class="card guide-card">
           <i class="fa-solid fa-user-ninja"></i>
           <div>
             <h3>100-Chain Solo</h3>
@@ -166,7 +163,7 @@
           </div>
         </a>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16094641" target="_blank" class="guide-card">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16094641" target="_blank" class="card guide-card">
           <i class="fa-solid fa-face-smile-beam"></i>
           <div>
             <h3>Happy-Jump Training</h3>
