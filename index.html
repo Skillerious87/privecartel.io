@@ -21,72 +21,55 @@
   <style>
     /* ---------- Base (mobile-first) ---------- */
     body{
-      background:#0e0e0e;
-      color:#e5e5e5;
+      background:#0e0e0e; color:#e5e5e5;
       font-family:'Poppins',system-ui,sans-serif;
-      line-height:1.7;
-      margin:0;
+      line-height:1.7; margin:0;
     }
-    .container{
-      max-width:860px;
-      margin-inline:auto;
-      padding:1.75rem 1rem;
-    }
+    .container{ max-width:860px; margin-inline:auto; padding:1.75rem 1rem; }
     .container.glass{
       background:rgba(255,255,255,.03);
       border:1px solid rgba(214,184,109,.35);
-      border-radius:12px;
-      box-shadow:0 4px 20px rgba(0,0,0,.45);
+      border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.45);
     }
 
     /* section headings */
     .section-title{
       font-family:'Cormorant Garamond',serif;
-      font-size:1.75rem;
-      color:#d6b86d;
-      margin:0 0 1rem;
+      font-size:1.75rem; color:#d6b86d; margin:0 0 1rem;
     }
 
     /* hero */
     .hero{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      text-align:center;
-      gap:1.25rem;
-      padding:3rem 1rem 2.5rem;
+      display:flex; flex-direction:column; align-items:center; text-align:center;
+      gap:1.25rem; padding:3rem 1rem 2.5rem;
     }
     .hero .emblem{ width:96px; filter:drop-shadow(0 0 10px rgba(214,184,109,.55)); }
     .hero h1{
       font-family:'Cormorant Garamond',serif;
       font-size:clamp(1.6rem,6vw,2.6rem);
-      font-weight:600;
-      line-height:1.3;
-      margin:0;
+      font-weight:600; line-height:1.3; margin:0;
     }
 
-    /* manifesto text */
+    /* manifesto list */
     #manifesto p{ margin-block:0 1rem; text-indent:0; }
     ol.standard{
-      list-style-position:inside;
-      padding-left:1.5rem;
-      margin:1rem 0;
+      list-style-position:inside; padding-left:1.5rem; margin:1rem 0;
     }
-    ol.standard li{ margin-bottom:.55rem; text-indent:-1rem; }
+    ol.standard li{
+      margin-bottom:.55rem; text-indent:-1rem;
+    }
     ol.standard li::marker{ font-weight:700; }
 
-    /* card-like elements (Services & Rewards) */
+    /* card grids (Services) */
     .card-grid{
-      display:grid;
-      gap:1.25rem;
+      display:grid; gap:1.25rem;
       grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
       margin-top:1.25rem;
     }
     .card{
       background:rgba(255,255,255,.04);
       border:1px solid rgba(214,184,109,.22);
-      padding:1.25rem;
-      border-radius:10px;
+      padding:1.25rem; border-radius:10px;
       transition:transform .25s ease,box-shadow .25s ease;
     }
     .card:hover{
@@ -94,30 +77,20 @@
       box-shadow:0 6px 16px rgba(0,0,0,.55);
     }
 
-    /* ---------- Standing Benefits grid ---------- */
+    /* Standing Benefits grid */
     .perk-grid{
-      list-style:none;
-      padding-left:0;
-      margin:1.25rem 0;
-      display:grid;
-      gap:.65rem;
+      list-style:none; padding:0; margin:1.25rem 0;
+      display:grid; gap:.65rem;
       grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
     }
     .perk-grid li{
       background:rgba(255,255,255,.05);
       border:1px solid rgba(214,184,109,.18);
-      border-radius:8px;
-      text-align:center;
-      padding:.75rem .9rem;
-      font-weight:500;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:.5rem;
-      line-height:1.4;
-
-      /* --- added animation so they behave like .card --- */
-      transition:transform .25s ease,box-shadow .25s ease;
+      border-radius:8px; text-align:center;
+      padding:.75rem .9rem; font-weight:500;
+      display:flex; align-items:center; justify-content:center;
+      gap:.5rem; line-height:1.4;
+      transition:transform .25s ease, box-shadow .25s ease;
     }
     .perk-grid li:hover{
       transform:translateY(-4px);
@@ -125,17 +98,50 @@
     }
     .perk-grid li i{ color:#C4A46A; }
 
-    /* Leadership list indent */
+    /* Table wrapper & styles */
+    .table-wrapper{ overflow-x:auto; margin:1rem 0; }
+    .reward-table{
+      width:100%; border-collapse:collapse;
+      font-size:.9rem; min-width:280px;
+    }
+    .reward-table thead{ background:rgba(255,255,255,.05); }
+    .reward-table th,
+    .reward-table td{
+      padding:.65rem .6rem;
+      border:1px solid rgba(214,184,109,.18);
+      text-align:left;
+    }
+    .reward-table th{ color:#C4A46A; font-weight:600; }
+    .reward-table tbody tr:hover{
+      background:rgba(255,255,255,.04);
+    }
+    .reward-table td i{ margin-right:.4rem; color:#C4A46A; }
+
+    /* footnote under table */
+    .table-note{
+      font-size:0.85rem;
+      font-style:italic;
+      color:rgba(229,229,229,0.75);
+      margin-top:0.5rem;
+    }
+
+    /* choice note */
+    .choice-note{
+      margin-top:1rem;
+      font-size:0.9rem;
+      color:rgba(229,229,229,0.85);
+      font-style:italic;
+    }
+
+    /* leadership indent */
     #leadership ul.standard{
-      list-style-position:outside;
-      padding-left:1.25rem;
-      margin:0;
+      list-style-position:outside; padding-left:1.25rem; margin:0;
     }
 
     /* utility */
     .text-center{ text-align:center; }
 
-    /* ---------- Tablet / wider ---------- */
+    /* Tablet / wider */
     @media (min-width:600px){
       .container{ padding:2rem 1.5rem; }
       .section-title{ font-size:2rem; }
@@ -144,31 +150,30 @@
       .card{ padding:1.5rem; }
       .card-grid{ gap:1.5rem; }
       #manifesto p{ text-indent:1.25rem; }
+      .reward-table{ font-size:1rem; }
+      .table-note{ font-size:0.9rem; }
+      .choice-note{ font-size:1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR (unchanged) -->
+  <!-- NAVBAR -->
   <header class="navbar">
     <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
-
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
     <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
-
     <nav>
       <ul class="nav-links">
-        <li><a href="index.html"   class="home-link"><i class="fa-solid fa-house"></i> Home</a></li>
-        <li><a href="rules.html"   class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
-        <li><a href="guides.html"  class="guides-link"><i class="fa-solid fa-book"></i> Guides</a></li>
+        <li><a href="index.html" class="home-link"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="rules.html" class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+        <li><a href="guides.html" class="guides-link"><i class="fa-solid fa-book"></i> Guides</a></li>
         <li><a href="members.html" class="members-link"><i class="fa-solid fa-users"></i> Members</a></li>
-        <li><a href="news.html"    class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+        <li><a href="news.html" class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
         <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
       </ul>
     </nav>
   </header>
-
-  <!-- dimmed overlay for mobile drawer -->
   <div class="nav-overlay"></div>
 
   <!-- HERO -->
@@ -219,7 +224,7 @@
       </div>
     </section>
 
-    <!-- PERKS -->
+    <!-- STANDING BENEFITS -->
     <section id="perks">
       <div class="container">
         <h2 class="section-title">Standing Benefits</h2>
@@ -236,17 +241,104 @@
     <section id="rewards">
       <div class="container">
         <h2 class="section-title">Chain Rewards</h2>
-        <p>Record <strong>5&nbsp;+ hits</strong> in any chain and choose one reward:</p>
-        <div class="card-grid">
-          <article class="card text-center">
-            <h3><i class="fa-solid fa-capsules"></i>&nbsp;2&nbsp;×&nbsp;Xanax</h3>
-            <p>Delivered to your items on completion.</p>
-          </article>
-          <article class="card text-center">
-            <h3><i class="fa-solid fa-money-bill-wave"></i>&nbsp;$1&nbsp;Million</h3>
-            <p>Cash wired promptly to your wallet.</p>
-          </article>
+        <p>Record <strong>5 + hits</strong> in any chain and claim your reward:</p>
+
+        <div class="table-wrapper">
+          <table class="reward-table">
+            <thead>
+              <tr>
+                <th scope="col">Kill&nbsp;Count</th>
+                <th scope="col">Xanax Reward</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0 – 5</td>
+                <td><i class="fa-solid fa-capsules"></i>0&nbsp;×&nbsp;Xanax</td>
+                <td>Below payout threshold</td>
+              </tr>
+              <tr>
+                <td>6 – 15</td>
+                <td><i class="fa-solid fa-capsules"></i>1&nbsp;×&nbsp;Xanax</td>
+                <td>Entry-level contribution</td>
+              </tr>
+              <tr>
+                <td>16 – 25</td>
+                <td><i class="fa-solid fa-capsules"></i>2&nbsp;×&nbsp;Xanax</td>
+                <td>Steady performers</td>
+              </tr>
+              <tr>
+                <td>26 – 35</td>
+                <td><i class="fa-solid fa-capsules"></i>3&nbsp;×&nbsp;Xanax</td>
+                <td>Solid chain runners</td>
+              </tr>
+              <tr>
+                <td>36 – 45</td>
+                <td><i class="fa-solid fa-capsules"></i>4&nbsp;×&nbsp;Xanax</td>
+                <td>High achievers</td>
+              </tr>
+              <tr>
+                <td>≥ 46</td>
+                <td><i class="fa-solid fa-capsules"></i>5&nbsp;×&nbsp;Xanax</td>
+                <td>Top-tier reward</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <p class="table-note">Subject to change upon Council leadership review.</p>
+
+        <!-- CASH REWARDS TABLE -->
+        <h3 class="section-title" style="margin-top:1.5rem; font-size:1.5rem;">Cash Rewards</h3>
+        <p>Record <strong>5 + hits</strong> in any chain and claim your reward:</p>
+
+        <div class="table-wrapper">
+          <table class="reward-table">
+            <thead>
+              <tr>
+                <th scope="col">Kill&nbsp;Count</th>
+                <th scope="col">Cash Payout</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0 – 5</td>
+                <td><i class="fa-solid fa-money-bill-wave"></i>$0</td>
+                <td>Below payout threshold</td>
+              </tr>
+              <tr>
+                <td>6 – 15</td>
+                <td><i class="fa-solid fa-money-bill-wave"></i>$1&nbsp;Million</td>
+                <td>Entry-level contribution</td>
+              </tr>
+              <tr>
+                <td>16 – 25</td>
+                <td><i class="fa-solid fa-money-bill-wave"></i>$2&nbsp;Million</td>
+                <td>Steady performers</td>
+              </tr>
+              <tr>
+                <td>26 – 35</td>
+                <td><i class="fa-solid fa-money-bill-wave"></i>$3&nbsp;Million</td>
+                <td>Solid chain runners</td>
+              </tr>
+              <tr>
+                <td>36 – 45</td>
+                <td><i class="fa-solid fa-money-bill-wave"></i>$4&nbsp;Million</td>
+                <td>High achievers</td>
+              </tr>
+              <tr>
+                <td>≥ 46</td>
+                <td><i class="fa-solid fa-money-bill-wave"></i>$5&nbsp;Million</td>
+                <td>Top-tier reward</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Subject to change upon Council leadership review.</p>
+        <p class="choice-note">
+          Participants may choose <strong>either</strong> the Xanax reward <em>or</em> the cash payout upon chain completion — not both.
+        </p>
       </div>
     </section>
 
@@ -265,7 +357,7 @@
 
   </main>
 
-  <!-- FOOTER (unchanged) -->
+  <!-- FOOTER -->
   <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
 
   <!-- SCRIPTS -->
