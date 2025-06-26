@@ -3,8 +3,8 @@
 <head>
   <!-- META -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privé Cartel | Guides Hub</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Privé Cartel • Guides Hub</title>
   <meta name="description" content="One-click launchpad to the best Torn guides and tools." />
   <link rel="icon" type="image/png" href="images/Emblem.png" />
 
@@ -16,140 +16,179 @@
 
   <!-- GLOBAL THEME -->
   <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- PAGE-SPECIFIC TWEAKS -->
+  <style>
+    /* ---------- Guides grid ---------- */
+    .guide-grid{
+      display:grid;
+      gap:1.25rem;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      margin-top:1.5rem;
+    }
+
+    /* ---------- card hover (MATCH index Services) ---------- */
+    .guide-card{
+      display:flex;gap:.9rem;align-items:flex-start;
+      background:rgba(255,255,255,.04);                   /* same bg */
+      border:1px solid rgba(214,184,109,.22);             /* same border */
+      border-radius:10px;
+      padding:1.25rem 1.35rem;
+      color:inherit;text-decoration:none;
+      transition:transform .25s ease, box-shadow .25s ease; /* identical */
+    }
+    .guide-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 6px 16px rgba(0,0,0,.55);              /* soft black */
+    }
+
+    /* badge + copy */
+    .guide-card i{
+      flex:0 0 46px;height:46px;
+      display:grid;place-items:center;
+      background:rgba(var(--accent-rgb),.15);
+      border-radius:50%;color:var(--accent);
+      font-size:1.3rem;
+    }
+    .guide-card h3{margin:.15rem 0 .4rem;font-size:1.05rem}
+    .guide-card p {margin:0;font-size:.9rem;line-height:1.55;color:var(--text-1)}
+
+    /* hero font tweak for consistency */
+    .rules-hero h1{font-size:clamp(1.8rem,5vw,2.7rem)}
+  </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <header class="navbar">
   <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
-
   <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
   <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
-
   <nav>
     <ul class="nav-links">
-      <!-- add .active on the page you’re on -->
-      <li><a href="index.html"   class="home-link"><i class="fa-solid fa-house"></i> Home</a></li>
-      <li><a href="rules.html"   class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
-      <li><a href="guides.html"  class="guides-link"><i class="fa-solid fa-book"></i> Guides</a></li>
-      <li><a href="members.html" class="members-link"><i class="fa-solid fa-users"></i> Members</a></li>
-      <li><a href="news.html"    class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+      <li><a href="guides.html" class="active"><i class="fa-solid fa-book"></i> Guides</a></li>
+      <li><a href="members.html"><i class="fa-solid fa-users"></i> Members</a></li>
+      <li><a href="news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
       <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
     </ul>
   </nav>
 </header>
+<div class="nav-overlay"></div>
 
+<!-- HERO -->
+<section class="rules-hero">
+  <img src="images/Emblem.png" alt="Cartel Emblem" />
+  <h1>Faction Knowledge&nbsp;Hub</h1>
+  <p class="tagline" style="max-width:680px">
+    Curated links to the best Torn guides and tools.<br>
+    Tap a card &mdash; the resource opens in a new tab.
+  </p>
+</section>
 
-  <!-- overlay for mobile drawer -->
-  <div class="nav-overlay"></div>
+<!-- GUIDES -->
+<main>
+  <section>
+    <div class="container">
 
-  <!-- HERO -->
-  <section class="rules-hero">
-    <img src="images/Emblem.png" alt="Cartel Emblem" />
-    <h1>Faction Knowledge&nbsp;Hub</h1>
-    <p class="tagline" style="max-width:680px">
-      Curated links to the most useful Torn guides and tools.  
-      Tap a card &mdash; the resource opens in a new tab.
-    </p>
-  </section>
+      <div class="guide-grid">
 
-  <!-- GUIDE INDEX -->
-  <main>
-    <section>
-      <div class="container">
+        <a href="https://www.markiva.co.uk/torn.htm" target="_blank" class="guide-card">
+          <i class="fa-solid fa-code"></i>
+          <div>
+            <h3>Install&nbsp;Scripts</h3>
+            <p>Markiva’s all-in-one collection of quality userscripts.</p>
+          </div>
+        </a>
 
-        <div class="guide-grid">
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15940140" target="_blank" class="guide-card">
+          <i class="fa-solid fa-people-arrows-left-right"></i>
+          <div>
+            <h3>Being a Faction Member</h3>
+            <p>Etiquette, expectations &amp; perks — must-read before you join.</p>
+          </div>
+        </a>
 
-          <a href="https://www.markiva.co.uk/torn.htm" target="_blank" class="guide-card">
-            <i class="fa-solid fa-code"></i>
-            <div>
-              <h3>Install&nbsp;Scripts</h3>
-              <p>Markiva’s all-in-one collection of quality userscripts.</p>
-            </div>
-          </a>
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16242871&b=0&a=0" target="_blank" class="guide-card">
+          <i class="fa-solid fa-person-running"></i>
+          <div>
+            <h3>Level&nbsp;15 in&nbsp;10&nbsp;Days</h3>
+            <p>Berakz’s fast-track levelling plus early money route.</p>
+          </div>
+        </a>
 
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15940140" target="_blank" class="guide-card">
-            <i class="fa-solid fa-people-arrows-left-right"></i>
-            <div>
-              <h3>Being a Faction Member</h3>
-              <p>Etiquette, expectations and perks &mdash; must-read before you join.</p>
-            </div>
-          </a>
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16034448" target="_blank" class="guide-card">
+          <i class="fa-solid fa-book-open"></i>
+          <div>
+            <h3>Baldr’s Basic Advice</h3>
+            <p>Timeless fundamentals every newcomer should know.</p>
+          </div>
+        </a>
 
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16242871&b=0&a=0" target="_blank" class="guide-card">
-            <i class="fa-solid fa-person-running"></i>
-            <div>
-              <h3>Level&nbsp;15 in&nbsp;10&nbsp;Days</h3>
-              <p>Berakz’s fast-track levelling plus early money route.</p>
-            </div>
-          </a>
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15995191" target="_blank" class="guide-card">
+          <i class="fa-solid fa-dumbbell"></i>
+          <div>
+            <h3>Gym Training for Beginners</h3>
+            <p>Stat priorities and efficient energy use from Day&nbsp;1.</p>
+          </div>
+        </a>
 
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16034448" target="_blank" class="guide-card">
-            <i class="fa-solid fa-book-open"></i>
-            <div>
-              <h3>Baldr’s Basic Advice</h3>
-              <p>Timeless fundamentals every newcomer should know.</p>
-            </div>
-          </a>
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16077517" target="_blank" class="guide-card">
+          <i class="fa-solid fa-mug-saucer"></i>
+          <div>
+            <h3>Choco Jump (Happy-Jump Alt)</h3>
+            <p>Candy-based alternative to the classic Happy jump.</p>
+          </div>
+        </a>
 
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15995191" target="_blank" class="guide-card">
-            <i class="fa-solid fa-dumbbell"></i>
-            <div>
-              <h3>Gym Training for Beginners</h3>
-              <p>Stat priorities and efficient energy use from Day&nbsp;1.</p>
-            </div>
-          </a>
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15928502" target="_blank" class="guide-card">
+          <i class="fa-solid fa-crosshairs"></i>
+          <div>
+            <h3>War Guide</h3>
+            <p>Preparation, targeting and defensive tactics in faction wars.</p>
+          </div>
+        </a>
 
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16077517&b=0&a=0" target="_blank" class="guide-card">
-            <i class="fa-solid fa-mug-saucer"></i>
-            <div>
-              <h3>Choco Jump (Happy-Jump Alt)</h3>
-              <p>Candy-based alternative to the classic Happy jump.</p>
-            </div>
-          </a>
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16025016" target="_blank" class="guide-card">
+          <i class="fa-solid fa-link"></i>
+          <div>
+            <h3>Chaining&nbsp;2.0 &ndash; Respect</h3>
+            <p>Modern chain strategy, respect maths and teamwork tips.</p>
+          </div>
+        </a>
 
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15928502" target="_blank" class="guide-card">
-            <i class="fa-solid fa-crosshairs"></i>
-            <div>
-              <h3>War Guide</h3>
-              <p>Preparation, targeting and defensive tactics in faction wars.</p>
-            </div>
-          </a>
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15956969" target="_blank" class="guide-card">
+          <i class="fa-solid fa-user-ninja"></i>
+          <div>
+            <h3>100-Chain Solo</h3>
+            <p>How to run an entire 100-hit chain by yourself.</p>
+          </div>
+        </a>
 
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16025016" target="_blank" class="guide-card">
-            <i class="fa-solid fa-link"></i>
-            <div>
-              <h3>Chaining&nbsp;2.0 &ndash; Respect</h3>
-              <p>Modern chain strategy, respect maths and teamwork tips.</p>
-            </div>
-          </a>
-
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15956969" target="_blank" class="guide-card">
-            <i class="fa-solid fa-user-ninja"></i>
-            <div>
-              <h3>100-Chain Solo</h3>
-              <p>How to run an entire 100-hit chain by yourself.</p>
-            </div>
-          </a>
-
-          <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16094641" target="_blank" class="guide-card">
-            <i class="fa-solid fa-face-smile-beam"></i>
-            <div>
-              <h3>Happy-Jump Training</h3>
-              <p>When to jump, when to hold &amp; cost-efficiency maths.</p>
-            </div>
-          </a>
-
-        </div>
+        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16094641" target="_blank" class="guide-card">
+          <i class="fa-solid fa-face-smile-beam"></i>
+          <div>
+            <h3>Happy-Jump Training</h3>
+            <p>When to jump, when to hold &amp; cost-efficiency maths.</p>
+          </div>
+        </a>
 
       </div>
-    </section>
-  </main>
 
-  <!-- FOOTER -->
-  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+      <p style="text-align:center;margin-top:1.6rem;font-style:italic;color:var(--text-2)">
+        Need something advanced? Ping <strong>@Skillerious</strong> in Discord.
+      </p>
 
-  <!-- SCRIPTS -->
-  <script src="assets/script.js"></script>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+
+<!-- SCRIPTS -->
+<script src="assets/script.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -30,24 +30,30 @@
       transition:background .25s}
     .pill.active{background:var(--accent);color:#000}
 
-    /* ——— masonry grid ——— */
-    .news-masonry{
-      column-count:1;column-gap:1.3rem}
-    @media(min-width:560px){.news-masonry{column-count:2}}
-    @media(min-width:920px){.news-masonry{column-count:3}}
+    /* ——— list layout ——— */
+    .news-list{display:flex;flex-direction:column;gap:1.2rem}
 
     .news-card{
-      break-inside:avoid;cursor:pointer;margin:0 0 1.3rem;
+      display:flex;gap:1rem;align-items:flex-start;cursor:pointer;
       background:var(--bg-2);border:1px solid rgba(var(--accent-rgb),.35);
-      border-radius:var(--radius);padding:1.1rem 1.25rem 1.4rem;
-      transition:transform .28s cubic-bezier(.22,.61,.36,1)}
-    .news-card:hover{transform:translateY(-4px)}
-    .news-card h3{display:flex;align-items:center;gap:.4rem;margin-bottom:.45rem}
-    .news-card p{margin:0;font-size:.9rem;line-height:1.55}
-    .news-card time{display:block;font-style:italic;margin-bottom:.35rem;color:var(--text-2);font-size:.82rem}
+      border-radius:var(--radius);padding:1.05rem 1.25rem;
+      transition:transform .25s cubic-bezier(.22,.61,.36,1),box-shadow .25s;
+    }
+    .news-card:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(0,0,0,.45)}
+
+    .icon-badge{
+      flex:0 0 46px;height:46px;display:grid;place-items:center;
+      background:rgba(var(--accent-rgb),.15);border-radius:50%;
+      color:var(--accent);font-size:1.25rem;
+    }
+    .news-meta{flex:1 1 auto}
+    .news-meta h3{margin:.1rem 0 .3rem;font-size:1.05rem;line-height:1.35}
+    .news-meta p{margin:0;font-size:.9rem;line-height:1.55;color:var(--text-1)}
+    .news-meta time{display:block;font-style:italic;margin-bottom:.25rem;
+                    color:var(--text-2);font-size:.8rem}
 
     /* skeleton */
-    .skeleton{height:96px;border-radius:var(--radius);margin:0 0 1.3rem;
+    .skeleton{height:80px;border-radius:var(--radius);margin:0 0 1.2rem;
       background:linear-gradient(110deg,#1d1f24 8%,#282b31 18%,#1d1f24 33%);
       background-size:200% 100%;animation:skeleton 1.2s ease-in-out infinite;}
     @keyframes skeleton{to{background-position-x:-200%}}
@@ -93,12 +99,12 @@
 
     <div class="news-filters">
       <input type="text" id="newsSearch" placeholder="Search news…" aria-label="Search news">
-      <!-- tag pills injected here -->
+      <!-- Tag pills injected here -->
     </div>
 
     <div id="alertZone"></div>
 
-    <div class="news-masonry" id="newsGrid">
+    <div id="newsGrid" class="news-list">
       <!-- skeletons -->
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
@@ -159,11 +165,20 @@ function render(){
   cards=[];
   articles.forEach(o=>{
     const card=document.createElement('div');card.className='news-card';card.dataset.tag=o.tag||'Other';
-    const icon=o.icon?`<i class="fa-solid fa-${o.icon}"></i>&nbsp;`:'';
-    card.innerHTML=`<h3>${icon}${o.title}</h3>
+    /* icon badge */
+    const badge=document.createElement('div');badge.className='icon-badge';
+    badge.innerHTML=`<i class="fa-solid fa-${o.icon||'newspaper'}"></i>`;
+    /* meta */
+    const meta=document.createElement('div');meta.className='news-meta';
+    meta.innerHTML=`<h3>${o.title}</h3>
       <time>${fmt(o.date)}</time>
       <p>${o.summary}</p>`;
-    if(o.file && o.file!=='#'){card.onclick=()=>window.open('news/'+o.file,'_blank');}
+    card.append(badge,meta);
+
+    /* same-tab navigation */
+    if(o.file && o.file!=='#'){
+      card.onclick=()=>{window.location.href='news/'+o.file;};
+    }
     grid.appendChild(card);
     cards.push(card);
   });
@@ -174,7 +189,7 @@ function filter(){
   cards.forEach(c=>{
     const matchText=c.textContent.toLowerCase().includes(q);
     const matchTag=activeTag==='All'||c.dataset.tag===activeTag;
-    c.style.display=matchText&&matchTag?'block':'none';
+    c.style.display=matchText&&matchTag?'flex':'none';
   });
 }
 function fmt(d){
