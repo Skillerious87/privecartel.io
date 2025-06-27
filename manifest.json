@@ -1,13 +1,13 @@
 {
   "name": "Privé Cartel",
   "short_name": "Privé",
-  "description": "Discreet-Luxury Faction Hub",
-  "start_url": "/?homescreen=1",          
+  "description": "Discreet-Luxury Faction Hub — Developed by Skillerious",
+  "start_url": "/?homescreen=1",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0b0d10",         
-  "theme_color": "#c4a46a",               
+  "background_color": "#0b0d10",
+  "theme_color": "#c4a46a",
   "icons": [
     {
       "src": "assets/icon-192.png",
@@ -19,7 +19,11 @@
       "src": "assets/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"           
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "developer": {
+    "name": "Skillerious",
+    "url": "https://github.com/Skillerious87"
+  }
 }
