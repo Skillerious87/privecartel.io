@@ -1,7 +1,7 @@
 {
-  "name": "Privé Cartel • by Skillerious",
+  "name": "Privé Cartel",
   "short_name": "Privé",
-  "description": "Discreet-Luxury Faction Hub — Developed by Skillerious",
+  "description": "Faction Hub",
   "start_url": "/?homescreen=1",
   "scope": "/",
   "display": "standalone",
