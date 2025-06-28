@@ -4,8 +4,8 @@
   <!-- META -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privé Cartel | News & Milestones</title>
-  <meta name="description" content="Latest announcements and milestones for Privé Cartel." />
+  <title>Privé Cartel | News Archive</title>
+  <meta name="description" content="Complete archive of Privé Cartel announcements and milestones." />
   <link rel="icon" type="image/png" href="images/Emblem.png" />
 
   <!-- FONTS & ICONS -->
@@ -17,15 +17,12 @@
   <!-- GLOBAL THEME -->
   <link rel="stylesheet" href="assets/style.css" />
 
-  <!-- PAGE EXTRAS -->
+  <!-- PAGE EXTRAS (same visual rules as news.html) -->
   <style>
-    /* ───── Search + tag bar ───── */
     .news-filters{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.6rem 0 1.8rem}
     #newsSearch{flex:1 1 260px;max-width:360px;padding:.65rem .9rem;
-      border:2px solid var(--accent);border-radius:var(--radius);
-      background:var(--bg-1);color:var(--text-1)}
+      border:2px solid var(--accent);border-radius:var(--radius);background:var(--bg-1);color:var(--text-1)}
     #newsSearch:focus{outline:2px solid var(--accent)}
-
     .pill{padding:.45rem .9rem;border:1px solid var(--accent);border-radius:999px;
       font-size:.85rem;cursor:pointer;user-select:none;color:var(--accent);
       transition:background .25s,color .25s,transform .25s}
@@ -33,7 +30,6 @@
     .pill.active{background:var(--accent);color:#000}
     .pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-    /* ───── News cards ───── */
     .news-list{display:flex;flex-direction:column;gap:1.2rem}
     .news-card{display:flex;gap:1rem;align-items:flex-start;cursor:pointer;
       background:var(--bg-2);border:1px solid rgba(var(--accent-rgb),.35);
@@ -49,25 +45,16 @@
     .news-meta p{margin:0;font-size:.9rem;line-height:1.55;color:var(--text-1)}
     .news-meta time{display:block;font-style:italic;margin-bottom:.25rem;color:var(--text-2);font-size:.8rem}
 
-    /* ───── Skeleton loader ───── */
-    .skeleton{height:80px;border-radius:var(--radius);margin:0 0 1.2rem;
+    .skeleton{height:80px;border-radius:var(--radius);margin-bottom:1.2rem;
       background:linear-gradient(110deg,#1d1f24 8%,#282b31 18%,#1d1f24 33%);
       background-size:200% 100%;animation:skeleton 1.2s ease-in-out infinite}
     @keyframes skeleton{to{background-position-x:-200%}}
 
-    /* ───── Banners ───── */
     .error-banner{background:#5b1a1a;border-left:4px solid #ff4444;
       padding:.75rem 1rem;margin-bottom:1rem;border-radius:var(--radius);color:#ffbcbc}
     .empty-banner{background:rgba(var(--accent-rgb),.09);border-left:4px solid var(--accent);
       padding:.75rem 1rem;margin-top:1rem;border-radius:var(--radius);
       color:var(--text-2);font-style:italic}
-
-    /* ───── Archive notice ───── */
-    .notice{background:rgba(var(--accent-rgb),.06);border-left:4px solid var(--accent);
-      padding:.8rem 1rem;margin-top:1.6rem;border-radius:var(--radius);
-      color:var(--text-2);font-size:.88rem;line-height:1.55}
-    .notice i{margin-right:.45rem;color:var(--accent)}
-    .notice a{color:var(--accent);text-decoration:underline}
   </style>
 </head>
 <body>
@@ -83,7 +70,7 @@
       <li><a href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
       <li><a href="guides.html"><i class="fa-solid fa-book"></i> Guides</a></li>
       <li><a href="members.html"><i class="fa-solid fa-users"></i> Members</a></li>
-      <li><a href="news.html" class="active"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+      <li><a href="news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
       <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
     </ul>
   </nav>
@@ -93,14 +80,14 @@
 <!-- HERO -->
 <section class="rules-hero">
   <img src="images/Emblem.png" alt="Cartel Emblem" />
-  <h1>Faction&nbsp;News</h1>
-  <p class="tagline">Announcements, milestones &amp; OC triumphs.</p>
+  <h1>News&nbsp;Archive</h1>
+  <p class="tagline">Every headline since day&nbsp;one &mdash; searchable and filterable.</p>
 </section>
 
-<!-- NEWS FEED -->
+<!-- ARCHIVE FEED -->
 <section class="rules-block">
   <div class="container glass">
-    <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> Headlines</h2>
+    <h2 class="section-title"><i class="fa-solid fa-rectangle-list"></i> All Posts</h2>
 
     <div class="news-filters">
       <input type="search" id="newsSearch" placeholder="Search news…" aria-label="Search news">
@@ -110,16 +97,8 @@
     <div id="alertZone"></div>
 
     <div id="newsGrid" class="news-list">
-      <!-- skeletons -->
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
-
-    <!-- LINK TO ARCHIVE -->
-    <div class="notice">
-      <i class="fa-solid fa-box-archive"></i>
-      Older headlines automatically move to our <a href="archive.html">archive</a> after 30&nbsp;days.
-    </div>
-
   </div>
 </section>
 
@@ -131,124 +110,129 @@
 
 <!-- PAGE JS -->
 <script>
-/* ---------- DOM helpers ---------- */
+/* ---------- DOM SHORTCUT ---------- */
 const $ = s => document.querySelector(s);
 
-/* ---------- elements ---------- */
-const grid      = $('#newsGrid');
-const searchBox = $('#newsSearch');
-const pillWrap  = document.createElement('div');
-const alertZ    = $('#alertZone');
+/* ---------- ELEMENTS ---------- */
+const grid   = $('#newsGrid');
+const search = $('#newsSearch');
+const pillWrap = document.createElement('div');
+const alertZ = $('#alertZone');
 pillWrap.style.display='flex';pillWrap.style.flexWrap='wrap';pillWrap.style.gap='.5rem';
 $('.news-filters').append(pillWrap);
 
-/* ---------- state ---------- */
-let articles=[], cards=[], activeTag='All';
+/* ---------- STATE ---------- */
+let items = [];
+let cards = [];
+let activeTag = 'All';
 
-/* ========== FETCH & BUILD ========== */
+/* ---------- FETCH DATA ---------- */
 fetch('news/news.json',{cache:'no-cache'})
-  .then(r=> r.ok ? r.json() : Promise.reject())
-  .then(applyDateWindow)
-  .catch(()=>{alertZ.innerHTML='<div class="error-banner"><strong>Feed offline:</strong> showing local sample.</div>';buildUI(sample());});
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(buildUI)
+  .catch(() => {
+    alertZ.innerHTML =
+      '<div class="error-banner"><strong>Feed offline:</strong> showing local sample.</div>';
+    buildUI(sample());
+  });
 
-/* keep only posts from the last 30 days */
-function applyDateWindow(data){
-  const NOW   = Date.now();
-  const MAXMS = 30*24*60*60*1000;
-  const recent = data.filter(p => NOW - Date.parse(p.date) <= MAXMS)
-                     .sort((a,b)=> Date.parse(b.date)-Date.parse(a.date));
-  buildUI(recent);
-}
-
-/* ---------- UI ---------- */
+/* ---------- BUILD ---------- */
 function buildUI(arr){
-  articles = arr;
+  items = arr.sort((a,b)=> new Date(b.date)-new Date(a.date));
   buildTags();
   buildCards();
-  wireSearch();
   revealInView();
+  setupSearch();
 }
+
+/* ---------- TAG PILLS ---------- */
 function buildTags(){
-  const tags=new Set(['All']);articles.forEach(a=>tags.add(a.tag||'Other'));
-  pillWrap.innerHTML='';
-  tags.forEach(t=>{
-    const btn=document.createElement('span');
-    btn.textContent=t;
-    btn.className='pill'+(t==='All'?' active':'');
-    btn.setAttribute('role','button');
-    btn.setAttribute('tabindex','0');
-    btn.setAttribute('aria-pressed',t==='All');
-    btn.onclick =()=>selectTag(t);
-    btn.onkeypress=e=>{if(e.key==='Enter')selectTag(t);};
-    pillWrap.appendChild(btn);
+  const tags = new Set(['All']);
+  items.forEach(i => tags.add(i.tag || 'Other'));
+  pillWrap.innerHTML = '';
+  tags.forEach(t => {
+    const p = document.createElement('span');
+    p.className = 'pill' + (t === 'All' ? ' active' : '');
+    p.textContent = t;
+    p.setAttribute('role','button');
+    p.setAttribute('tabindex','0');
+    p.setAttribute('aria-pressed',t==='All');
+    p.addEventListener('click', ()=> setTag(t));
+    p.addEventListener('keydown', e=>{ if(e.key==='Enter') setTag(t); });
+    pillWrap.appendChild(p);
   });
 }
-function selectTag(tag){
-  activeTag=tag;
-  [...pillWrap.children].forEach(b=>{
-    const on=b.textContent===tag;
-    b.classList.toggle('active',on);
-    b.setAttribute('aria-pressed',on);
+function setTag(tag){
+  activeTag = tag;
+  [...pillWrap.children].forEach(btn=>{
+    const on = btn.textContent === tag;
+    btn.classList.toggle('active',on);
+    btn.setAttribute('aria-pressed',on);
   });
-  filterCards();
+  filter();
 }
+
+/* ---------- CARDS ---------- */
 function buildCards(){
-  grid.innerHTML='';
-  cards=articles.map(a=>{
-    const card=document.createElement('div');
-    card.className='news-card reveal';
-    card.dataset.tag=a.tag||'Other';
-    card.innerHTML=`
-      <div class="icon-badge"><i class="fa-solid fa-${a.icon||'newspaper'}"></i></div>
+  grid.innerHTML = '';
+  cards = items.map(itm => {
+    const card = document.createElement('div');
+    card.className = 'news-card reveal';
+    card.dataset.tag = itm.tag || 'Other';
+    card.innerHTML = `
+      <div class="icon-badge"><i class="fa-solid fa-${itm.icon||'newspaper'}"></i></div>
       <div class="news-meta">
-        <h3>${a.title}</h3>
-        <time datetime="${a.date}">${fmtDate(a.date)}</time>
-        <p>${a.summary}</p>
+        <h3>${itm.title}</h3>
+        <time datetime="${itm.date}">${fmtDate(itm.date)}</time>
+        <p>${itm.summary}</p>
       </div>`;
-    if(a.file && a.file!=='#') card.onclick=()=>location.href='news/'+a.file;
+    if(itm.file && itm.file !== '#'){
+      card.addEventListener('click',()=> location.href = 'news/' + itm.file);
+    }
     grid.appendChild(card);
     return card;
   });
-  filterCards();
+  filter();
 }
 
-/* ---------- Search & filter ---------- */
-function wireSearch(){
-  searchBox.addEventListener('input',filterCards);
-  searchBox.addEventListener('keydown',e=>{
-    if(e.key==='Escape'){searchBox.value='';filterCards();}
+/* ---------- SEARCH / FILTER ---------- */
+function setupSearch(){
+  search.addEventListener('input',filter);
+  search.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){search.value='';filter();}
   });
 }
-function filterCards(){
-  const q=searchBox.value.toLowerCase();
-  let visible=0;
+function filter(){
+  const q = search.value.toLowerCase();
+  let visible = 0;
   cards.forEach(c=>{
-    const hit=c.textContent.toLowerCase().includes(q);
-    const tagOK=activeTag==='All'||c.dataset.tag===activeTag;
-    const show=hit&&tagOK;
-    c.style.display=show?'flex':'none';
-    if(show)visible++;
+    const txtMatch  = c.textContent.toLowerCase().includes(q);
+    const tagMatch  = activeTag === 'All' || c.dataset.tag === activeTag;
+    const show = txtMatch && tagMatch;
+    c.style.display = show ? 'flex' : 'none';
+    if(show) visible++;
   });
-  toggleEmptyBanner(visible===0);
+  toggleEmpty(visible===0);
 }
-function toggleEmptyBanner(none){
-  if(none){
-    if(!$('#emptyMsg')){
-      const d=document.createElement('div');
-      d.id='emptyMsg';d.className='empty-banner';
-      d.textContent='No recent headlines match your filters.';
-      grid.after(d);
+function toggleEmpty(isEmpty){
+  if(isEmpty){
+    if(!$('#noRes')){
+      const div=document.createElement('div');
+      div.id='noRes';
+      div.className='empty-banner';
+      div.textContent='No matching entries.';
+      grid.after(div);
     }
   }else{
-    const d=$('#emptyMsg');if(d)d.remove();
+    const d=$('#noRes');if(d)d.remove();
   }
 }
 
-/* ---------- Reveal animation ---------- */
+/* ---------- REVEAL ---------- */
 function revealInView(){
-  const els=[...document.querySelectorAll('.reveal')];
-  if(!els.length)return;
-  const io=new IntersectionObserver((en,obs)=>{
+  const els = [...document.querySelectorAll('.reveal')];
+  if(!els.length) return;
+  const io = new IntersectionObserver((en,obs)=>{
     en.forEach(e=>{
       if(e.isIntersecting){
         e.target.classList.add('in');
@@ -256,10 +240,10 @@ function revealInView(){
       }
     });
   },{threshold:.15});
-  els.forEach(el=>io.observe(el));
+  els.forEach(el=> io.observe(el));
 }
 
-/* ---------- Utilities ---------- */
+/* ---------- UTILS ---------- */
 function fmtDate(d){
   return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
 }
@@ -268,8 +252,8 @@ function sample(){return [{
   summary:'The Cartel set a new high of 410.78 respect in a single 100-hit chain. Rewards paid, morale sky-high.',
   icon:'fire',tag:'OC',file:'#'}];}
 
-/* ---------- footer year ---------- */
-$('#year').textContent=new Date().getFullYear();
+/* ---------- FOOTER YEAR ---------- */
+$('#year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>

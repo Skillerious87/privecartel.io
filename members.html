@@ -54,6 +54,19 @@
   }
 
   .crown{color:var(--accent);margin-left:.25rem;font-size:.9rem}
+
+  /* ───────── 4.  NOTICE CARD ───────── */
+  .notice{
+    background:rgba(var(--accent-rgb),.06);
+    border-left:4px solid var(--accent);
+    padding:.8rem 1rem;
+    margin-top:1.25rem;
+    border-radius:var(--radius);
+    color:var(--text-2);
+    font-size:.88rem;
+    line-height:1.55
+  }
+  .notice i{margin-right:.45rem;color:var(--accent)}
   </style>
 </head>
 
@@ -81,7 +94,7 @@
   <section class="rules-hero">
     <img src="images/Emblem.png" alt="Cartel Emblem" />
     <h1>Faction&nbsp;Members</h1>
-    <p class="tagline">Enter your Torn API key below to fetch real-time levels, tenure and profile photos for every member.</p>
+    <p class="tagline">Enter your Torn API key to fetch live levels, tenure and profile photos for every cartel member.</p>
   </section>
 
   <!-- DIRECTORY -->
@@ -114,10 +127,14 @@
         </table>
       </div>
 
-      <p style="margin-top:.9rem;color:var(--text-2);font-size:.85rem">
-        Your API key stays in this browser’s <code>localStorage</code>&nbsp;&mdash;&nbsp;nobody else sees it.  
-        Skip the key to view our monthly roster snapshot.
-      </p>
+      <!-- PRIVACY NOTICE -->
+      <div class="notice">
+        <i class="fa-solid fa-circle-info"></i>
+        <strong>Privacy note:</strong> Your API key never leaves this device.  
+        It is saved only in your browser’s <code>localStorage</code> and used locally to pull data from Torn’s public API.  
+        If you skip the key you’ll still see our monthly snapshot roster instead of live data.
+      </div>
+
     </div>
   </section>
 
@@ -126,6 +143,7 @@
 
   <!-- SCRIPTS -->
   <script src="assets/script.js"></script>
+
   <script>
   (() => {
     const LSKEY   = 'tornApiKey';
@@ -269,7 +287,7 @@
           if(d.error||!d.profile_image)continue;
           const img=body.querySelector(`img[data-id="${m.id}"]`);
           if(img)img.src=d.profile_image;
-        }catch{/* network issues → ignore */}
+        }catch{/* ignore network hiccups */}
       }
     }
 
