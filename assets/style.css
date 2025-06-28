@@ -313,73 +313,70 @@ section:nth-of-type(even) {
   font-weight: 500;
 }
 
-/* ===== 8.  RULE PAGE ===== */
-.rulemap-grid {
-  display: grid;
-  gap: 1.2rem;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+/* ===== 8.  RULE PAGE  (complete, updated) ===== */
+.rulemap-grid{
+  display:grid;
+  gap:1.2rem;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
 }
-.card.rulemap {
-  text-decoration: none !important;
-  color: var(--text-1);
-  border: 1px solid rgba(var(--accent-rgb), 0.35);
-  padding: 1.25rem 1.4rem 1.55rem;
-  min-height: 135px;
-  transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1),
-    box-shadow 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+/* clickable cards in the “Rule Map” */
+.card.rulemap{
+  /* visual style */
+  background:var(--bg-2);
+  border:1px solid rgba(var(--accent-rgb),.35);
+  color:var(--text-1);
+  text-decoration:none!important;
+  padding:1.25rem 1.4rem 1.55rem;
+  min-height:135px;
+
+  /* start flat */
+  box-shadow:none;
+
+  /* smooth lift-and-shadow, plus colour/text-decoration change */
+  transition:
+      transform var(--transition),
+      box-shadow var(--transition),
+      color var(--transition),
+      text-decoration-color var(--transition);
+  will-change:transform,box-shadow;
 }
 .card.rulemap:hover,
-.card.rulemap:focus-visible {
-  transform: translateY(-8px) scale(1.04);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+.card.rulemap:focus-visible{
+  transform:translateY(-4px);
+  box-shadow:0 6px 16px rgba(0,0,0,.55);
 }
-.card.rulemap h3 {
-  font-size: 1.05rem;
-  margin-bottom: 0.4rem;
-  color: var(--accent);
+
+.card.rulemap h3{
+  font-size:1.05rem;
+  margin-bottom:.4rem;
+  color:var(--accent);
 }
-.rules-icon {
-  width: 1.9rem;
-  text-align: center;
+
+.rules-icon{
+  width:1.9rem;
+  text-align:center;
 }
-section.rules-block h2.section-title {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.2rem;
+
+/* numbered section titles inside each rule block */
+section.rules-block h2.section-title{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin-bottom:1.2rem;
 }
-section.rules-block h2.section-title .num {
-  background: var(--accent);
-  color: #000;
-  font-weight: 600;
-  width: 2rem;
-  height: 2rem;
-  display: grid;
-  place-content: center;
-  border-radius: 50%;
-  font-family: "Poppins", sans-serif;
+section.rules-block h2.section-title .num{
+  background:var(--accent);
+  color:#000;
+  font-weight:600;
+  width:2rem;
+  height:2rem;
+  display:grid;
+  place-content:center;
+  border-radius:50%;
+  font-family:"Poppins",sans-serif;
 }
-.rule-list dt {
-  color: var(--accent);
-  font-weight: 600;
-  margin-top: 1rem;
-}
-.rule-list dt:first-child {
-  margin-top: 0;
-}
-.rule-list dd {
-  margin: 0 0 0.9rem 1.25rem;
-  line-height: 1.6;
-}
-.alert {
-  background: rgba(255, 68, 68, 0.08);
-  border-left: 4px solid #ff4444;
-  padding: 0.75rem 1rem;
-  margin: 1.25rem 0;
-  border-radius: var(--radius);
-  color: #ffbcbc;
-  font-weight: 500;
-}
+
 
 /* ===== 9.  GUIDES HUB ===== */
 .guide-grid{
@@ -439,17 +436,24 @@ section.rules-block h2.section-title .num {
 }
 
 
-/* ===== 10.  Content links ===== */
+/* ===== 10.  Content links  (updated) ===== */
 main a:not(.btn):not(.nav-links a) {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-color: rgba(var(--accent-rgb), 0.45);
-  transition: color var(--transition), text-decoration-color var(--transition);
+
+  /* animate both colour *and* lift-shadow */
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
 }
-main a:not(.btn):not(.nav-links a):hover,
-main a:not(.btn):not(.nav-links a):focus {
-  color: var(--text-1);
-  text-decoration-color: var(--accent);
+
+/* rule-map cards — start flat, then lift on :hover */
+main a.card.rulemap{
+  box-shadow: none;
+  will-change: transform, box-shadow;
 }
 
 /* ===== 11.  HERO IMAGE & HEADLINE ANIMATION ===== */
