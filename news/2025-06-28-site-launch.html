@@ -1,0 +1,206 @@
+<!--  FILE: news/2025-06-28-site-launch.html  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privé Cartel • Faction Hub Launch (28 Jun 2025)</title>
+  <meta name="description" content="Privé Cartel launches its faction website: live roster, guides hub, auto-archived news feed and more." />
+  <link rel="icon" type="image/png" href="../images/Emblem.png" />
+
+  <!-- FONTS & ICONS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- GLOBAL THEME -->
+  <link rel="stylesheet" href="../assets/style.css"/>
+
+  <!-- PAGE EXTRAS -->
+  <style>
+    /* ───────── 1.  CONFETTI BURST ───────── */
+    .confetti-wrap{
+      position:absolute;inset:0;pointer-events:none;
+      overflow:visible;z-index:1;          /* below emblem (z-index 2 set later) */
+    }
+    .confetti{
+      position:absolute;width:10px;height:14px;border-radius:2px;
+      background:var(--c);
+      will-change:transform,opacity;
+      animation:burst var(--t) cubic-bezier(.24,.61,.36,1) forwards,
+                spin  var(--spinT) linear   infinite;
+    }
+    @keyframes burst{
+      0%   {transform:translate(0,0) scale(.4);opacity:1;}
+      90%  {opacity:.9;}
+      100% {transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(1);opacity:0;}
+    }
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    /* ───────── 2.  ARTICLE LAYOUT (unchanged) ───────── */
+    .article{max-width:860px;margin-inline:auto}
+    .breadcrumb{font-size:.85rem;margin-bottom:1.2rem}
+    .breadcrumb a{color:var(--accent);text-decoration:none}
+    .breadcrumb a:hover{text-decoration:underline}
+    .byline{font-size:.9rem;color:var(--text-2);font-style:italic;margin-bottom:1.6rem}
+
+    /* feature cards */
+    .feature-grid{
+      display:grid;gap:1.25rem;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      margin:2rem 0;
+    }
+    .feat-card{
+      background:var(--bg-2);border:1px solid rgba(var(--accent-rgb),.35);
+      border-radius:var(--radius);padding:1rem 1.25rem;
+      display:flex;gap:.85rem;align-items:flex-start;
+      transition:transform .25s,box-shadow .25s;
+    }
+    .feat-card:hover{transform:translateY(-6px);box-shadow:0 8px 18px rgba(0,0,0,.55)}
+    .feat-card i{
+      flex:0 0 44px;height:44px;
+      display:grid;place-items:center;
+      background:rgba(var(--accent-rgb),.18);
+      border-radius:50%;color:var(--accent);font-size:1.3rem;
+    }
+    .feat-card h3{margin:.05rem 0 .3rem;font-size:1.05rem;color:var(--accent)}
+    .feat-card p{margin:0;font-size:.9rem;color:var(--text-2)}
+
+    ul.standard,ol.standard{list-style-position:inside;padding-left:0;margin:.9rem 0}
+    ul.standard li,ol.standard li{margin-bottom:.55rem}
+    ul.standard li::marker,ol.standard li::marker{font-weight:700}
+
+    .callout{
+      background:rgba(var(--accent-rgb),.06);
+      border:1px solid rgba(var(--accent-rgb),.4);
+      border-left:4px solid var(--accent);
+      padding:1rem 1.25rem;border-radius:var(--radius);margin-top:2.3rem;line-height:1.6
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
+  <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="../rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+      <li><a href="../guides.html"><i class="fa-solid fa-book"></i> Guides</a></li>
+      <li><a href="../members.html"><i class="fa-solid fa-users"></i> Members</a></li>
+      <li><a href="../news.html" class="active"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+      <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="nav-overlay"></div>
+
+<!-- HERO -->
+<section class="hero" style="position:relative;">
+  <!-- confetti lives here -->
+  <div class="confetti-wrap" id="confettiBox"></div>
+
+  <img src="../images/Emblem.png" alt="Cartel Emblem" class="emblem" style="position:relative;z-index:2"/>
+  <h1>Faction&nbsp;Hub&nbsp;Launch</h1>
+  <p class="tagline">28&nbsp;Jun&nbsp;2025&nbsp;|&nbsp;A&nbsp;brand-new&nbsp;digital&nbsp;HQ</p>
+</section>
+
+<!-- ARTICLE -->
+<section class="rules-block">
+  <div class="container glass article">
+
+    <p class="breadcrumb"><a href="../news.html"><i class="fa-solid fa-arrow-left"></i> Back&nbsp;to&nbsp;News</a></p>
+    <p class="byline">Published&nbsp;28&nbsp;Jun&nbsp;2025 — Skillerious</p>
+
+    <p>
+      We’ve ripped down the construction tape and <strong>spray-painted our mark on the web</strong>.
+      The Privé Cartel hub is live, giving every member a one-stop command centre for strategy,
+      roster intel and OC planning — all wrapped in the dark-lux styling you know and fear.
+    </p>
+
+    <!-- FEATURES -->
+    <div class="feature-grid">
+      <article class="feat-card"><i class="fa-solid fa-users"></i><div><h3>Live Roster</h3><p>Sortable directory with real-time API stats &amp; avatars.</p></div></article>
+      <article class="feat-card"><i class="fa-solid fa-book-open"></i><div><h3>Guides Hub</h3><p>Hand-picked scripts, war primers and money routes.</p></div></article>
+      <article class="feat-card"><i class="fa-solid fa-scale-balanced"></i><div><h3>Rules &amp; Charter</h3><p>Crystal-clear on conduct, OC etiquette and chain payouts.</p></div></article>
+      <article class="feat-card"><i class="fa-solid fa-bullhorn"></i><div><h3>Rolling News</h3><p>30-day feed auto-archives older stories to keep signal high.</p></div></article>
+      <article class="feat-card"><i class="fa-solid fa-mobile-screen-button"></i><div><h3>PWA Ready</h3><p>Add to home-screen and browse offline — even mid-flight.</p></div></article>
+    </div>
+
+    <h2 class="section-title"><i class="fa-solid fa-lightbulb"></i>&nbsp;Why a Dedicated Site?</h2>
+    <ul class="standard">
+      <li>Discord scroll-back loses key intel; the hub keeps it pinned.</li>
+      <li>Forum posts get buried; guides hub surfaces essentials instantly.</li>
+      <li>API automation cuts manual roster spreadsheets to zero.</li>
+      <li>Service-Worker caching (core pages stored locally) means chain maths loads even in flight-mode.</li>
+    </ul>
+
+    <div class="callout">
+      Spot a bug? Open an issue on&nbsp;<a href="https://github.com/yourrepo" target="_blank" style="color:var(--accent)">GitHub</a> or DM
+      <strong>@Skillerious</strong> on Discord — let’s polish our new HQ together!
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+
+<!-- SCRIPTS -->
+<script src="../assets/script.js"></script>
+<script>
+/* ——— Footer year ——— */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ——— Confetti burst ——— */
+(function(){
+  const box   = document.getElementById('confettiBox');
+  const hue   = ['#c4a46a','#ffdf88','#ffd1aa','#fff4c4','#ffe4a1','#ffffff'];
+  const count = 140;                          // how many pieces
+  const maxR  = Math.max(window.innerWidth, window.innerHeight) * 0.55; // burst radius
+
+  // locate emblem centre
+  const emblem = document.querySelector('.hero .emblem');
+  const rect   = emblem.getBoundingClientRect();
+  const cx     = rect.left + rect.width/2;
+  const cy     = rect.top  + rect.height/2;
+
+  for(let i=0;i<count;i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti';
+    const size = 6 + Math.random()*6;
+    piece.style.width  = size + 'px';
+    piece.style.height = (size+3) + 'px';
+    piece.style.background = hue[Math.floor(Math.random()*hue.length)];
+    piece.style.setProperty('--c', piece.style.background);
+
+    // trajectory
+    const angle = Math.random()*Math.PI*2;
+    const dist  = maxR * (.4 + Math.random()*0.6);
+    const dx    = Math.cos(angle)*dist;
+    const dy    = Math.sin(angle)*dist + 50;          // slight extra Y drop
+    piece.style.setProperty('--dx', dx.toFixed(0)+'px');
+    piece.style.setProperty('--dy', dy.toFixed(0)+'px');
+
+    // random spin & duration
+    piece.style.setProperty('--rot', (Math.random()*360)+'deg');
+    piece.style.setProperty('--t',   (1.4+Math.random()*1)+'s');
+    piece.style.setProperty('--spinT',(1+Math.random()*1)+'s');
+
+    // position at emblem centre
+    piece.style.left = cx+'px';
+    piece.style.top  = cy+'px';
+    box.appendChild(piece);
+  }
+
+  // clean-up after 4s
+  setTimeout(()=>box.remove(), 4000);
+})();
+</script>
+</body>
+</html>
