@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <!-- META -->
   <meta charset="UTF-8" />
@@ -8,7 +10,7 @@
   <!-- ICONS / SPLASH -->
   <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
-  <link rel="manifest" href="manifest.json?v=7">
+  <link rel="manifest" href="manifest.json?v=7" />
   <meta name="theme-color" content="#0b0d10" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -23,210 +25,191 @@
   <!-- GLOBAL THEME -->
   <link rel="stylesheet" href="assets/style.css" />
 
-
   <!-- PAGE-SPECIFIC ENHANCEMENTS -->
   <style>
-    /* ---------- Base (mobile-first) ---------- */
-    body {
-      background: #0e0e0e;
-      color: #e5e5e5;
-      font-family: 'Poppins', system-ui, sans-serif;
-      line-height: 1.7;
-      margin: 0;
-    }
-    .container {
-      max-width: 860px;
-      margin-inline: auto;
-      padding: 1.75rem 1rem;
-    }
-    .container.glass {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(214,184,109,.35);
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,.45);
-    }
+  /* ============ 1.  BASE (mobile-first) ============ */
+  body{
+    background:
+      radial-gradient(ellipse at 50% -70%,rgba(255,255,255,.04) 0%,transparent 65%),
+      #0e0e0e;
+    color:#e6e3d4;
+    font-family:'Poppins',system-ui,sans-serif;
+    line-height:1.7;
+    margin:0;
+    overflow-x:hidden;
+  }
+  .container{max-width:1000px;margin-inline:auto;padding:1.75rem 1rem}
+  .container.glass{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(214,184,109,.32);
+    border-radius:14px;
+    box-shadow:0 6px 28px rgba(0,0,0,.5);
+  }
 
-    /* section headings */
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      color: #d6b86d;
-      margin: 0 0 1rem;
-    }
+  /* ============ 2.  TITLES ============ */
+  .section-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.9rem;
+    color:#d6b86d;
+    margin:0 0 1.25rem;
+    letter-spacing:.3px;
+    position:relative;
+  }
+  .section-title::after{
+    content:"";
+    position:absolute;left:0;bottom:-6px;
+    width:38px;height:2px;
+    background:linear-gradient(to right,#d6b86d 0%,rgba(214,184,109,0) 100%);
+  }
 
-    /* hero */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1.25rem;
-      padding: 3rem 1rem 2.5rem;
-    }
-    .hero .emblem {
-      width: 96px;
-      filter: drop-shadow(0 0 10px rgba(214,184,109,.55));
-    }
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 6vw, 2.6rem);
-      font-weight: 600;
-      line-height: 1.3;
-      margin: 0;
-    }
+  /* ============ 3.  HERO ============ */
+  .hero{
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    gap:1.5rem;
+    padding:4.75rem 1rem 3.5rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:url("images/hero-bg.jpg") repeat center/180px;
+    opacity:.05;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
+  .hero .emblem{
+    width:110px;
+    filter:drop-shadow(0 0 12px rgba(214,184,109,.55));
+  }
+  .hero h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(1.9rem,5.6vw,2.85rem);
+    font-weight:600;
+    line-height:1.3;
+    margin:0;
+    text-shadow:0 2px 6px rgba(0,0,0,.55);
+  }
 
-    /* manifesto list */
-    #manifesto p { margin-block: 0 1rem; text-indent: 0; }
-    ol.standard {
-      list-style-position: inside;
-      padding-left: 1.5rem;
-      margin: 1rem 0;
-    }
-    ol.standard li {
-      margin-bottom: .55rem;
-      text-indent: -1rem;
-    }
-    ol.standard li::marker { font-weight: 700; }
+  /* ============ 4.  CARD GRID (Services) ============ */
+  .card-grid{
+    display:grid;
+    gap:1.4rem;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    margin-top:1.4rem;
+  }
+  .card{
+    position:relative;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(214,184,109,.24);
+    padding:1.4rem 1.35rem 1.6rem;
+    border-radius:12px;
+    box-shadow:0 0 0 rgba(0,0,0,0);
+    transition:transform .28s ease,box-shadow .28s ease;
+    will-change:transform,box-shadow;
+  }
+  .card:hover{
+    transform:translateY(-6px) scale(1.03);
+    box-shadow:0 8px 20px rgba(0,0,0,.6);
+  }
+  .card h3{
+    margin:0 0 .6rem;
+    font-size:1.1rem;
+    font-weight:600;
+    color:#d6b86d;
+    display:flex;align-items:center;gap:.45rem;
+  }
+  .card p{margin:0;font-size:.92rem;color:#d3c79c;line-height:1.6}
+  .card i{color:#c4a46a;font-size:1.1rem}
 
-    /* card grids (Services) */
-    .card-grid {
-      display: grid;
-      gap: 1.25rem;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      margin-top: 1.25rem;
-    }
-    .card {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(214,184,109,.22);
-      padding: 1.25rem;
-      border-radius: 10px;
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(0,0,0,.55);
-    }
+  /* ============ 5.  PERK GRID ============ */
+  .perk-grid{
+    list-style:none;padding:0;margin:1.35rem 0;
+    display:grid;gap:1rem;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  }
+  .perk-grid li{
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(214,184,109,.2);
+    border-radius:9px;
+    min-height:125px;
+    padding:1rem .6rem;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;
+    transition:transform .28s ease,box-shadow .28s ease;
+  }
+  .perk-grid li:hover{
+    transform:translateY(-6px) scale(1.03);
+    box-shadow:0 8px 20px rgba(0,0,0,.6);
+  }
+  .perk-grid li i{color:#c4a46a;font-size:1.55rem;margin-bottom:.55rem}
 
-    /* Standing Benefits grid – icon above text, equal-height cards */
-    .perk-grid {
-      list-style: none;
-      padding: 0;
-      margin: 1.25rem 0;
-      display: grid;
-      gap: .75rem;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    }
-    .perk-grid li {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(214,184,109,.18);
-      border-radius: 8px;
-      min-height: 120px;
-      padding: 1rem .5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .perk-grid li:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(0,0,0,.55);
-    }
-    .perk-grid li i {
-      color: #C4A46A;
-      font-size: 1.5rem;
-      margin-bottom: .5rem;
-    }
+  /* ============ 6.  TABLE (Chain Rewards) ============ */
+  .table-wrapper{overflow-x:auto;margin:1.25rem 0}
+  .reward-table{
+    width:100%;border-collapse:collapse;font-size:.93rem;min-width:300px
+  }
+  .reward-table thead{background:rgba(255,255,255,.06)}
+  .reward-table th,
+  .reward-table td{
+    padding:.7rem .65rem;
+    border:1px solid rgba(214,184,109,.22);
+    text-align:left
+  }
+  .reward-table th{color:#c4a46a;font-weight:600}
+  .reward-table tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
+  .reward-table tbody tr:hover{background:rgba(255,255,255,.06)}
+  .reward-table td i{margin-right:.45rem;color:#c4a46a}
+  .table-note{font-size:.88rem;font-style:italic;color:rgba(230,230,230,.8)}
 
-    /* Table wrapper & styles */
-    .table-wrapper {
-      overflow-x: auto;
-      margin: 1rem 0;
-    }
-    .reward-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .9rem;
-      min-width: 280px;
-    }
-    .reward-table thead {
-      background: rgba(255,255,255,.05);
-    }
-    .reward-table th,
-    .reward-table td {
-      padding: .65rem .6rem;
-      border: 1px solid rgba(214,184,109,.18);
-      text-align: left;
-    }
-    .reward-table th {
-      color: #C4A46A;
-      font-weight: 600;
-    }
-    .reward-table tbody tr:hover {
-      background: rgba(255,255,255,.04);
-    }
-    .reward-table td i {
-      margin-right: .4rem;
-      color: #C4A46A;
-    }
+  /* ============ 7.  STANDARD LISTS (better mobile indent) ============ */
+  ol.standard,
+  ul.standard{
+    list-style-position:outside;
+    padding-left:1.8rem;          /* breathing room inside the glass card */
+    margin:1rem 0;
+  }
+  ol.standard li,
+  ul.standard li{
+    margin-bottom:.55rem;
+  }
+  ol.standard li::marker,
+  ul.standard li::marker{
+    font-weight:700;
+  }
 
-    /* footnote under table */
-    .table-note {
-      font-size: .85rem;
-      font-style: italic;
-      color: rgba(229,229,229,0.75);
-      margin-top: .5rem;
-    }
-
-    /* choice note */
-    .choice-note {
-      margin-top: 1rem;
-      font-size: .9rem;
-      color: rgba(229,229,229,0.85);
-      font-style: italic;
-    }
-
-    /* leadership indent */
-    #leadership ul.standard {
-      list-style-position: outside;
-      padding-left: 1.25rem;
-      margin: 0;
-    }
-
-    /* utility */
-    .text-center { text-align: center; }
-
-    /* Tablet / wider */
-    @media (min-width: 600px) {
-      .container { padding: 2rem 1.5rem; }
-      .section-title { font-size: 2rem; }
-      .hero { padding: 4rem 1rem 3rem; }
-      .hero .emblem { width: 120px; }
-      .card { padding: 1.5rem; }
-      .card-grid { gap: 1.5rem; }
-      #manifesto p { text-indent: 1.25rem; }
-      .reward-table { font-size: 1rem; }
-      .table-note { font-size: .9rem; }
-      .choice-note { font-size: 1rem; }
-      .perk-grid li { min-height: 140px; }
-    }
+  /* ============ 8.  MEDIA QUERIES (≥600 px) ============ */
+  @media(min-width:600px){
+    .container{padding:2rem 1.5rem}
+    .section-title{font-size:2.15rem}
+    .hero{padding:5.5rem 1rem 4rem}
+    .hero .emblem{width:135px}
+    .card-grid{gap:1.6rem}
+    .card{padding:1.6rem 1.45rem 1.8rem}
+    .perk-grid li{min-height:138px}
+    .reward-table{font-size:1rem}
+    ol.standard,
+    ul.standard{padding-left:2rem}
+  }
   </style>
 </head>
+
 <body>
 
   <!-- NAVBAR -->
   <header class="navbar">
     <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
     <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+
     <nav>
       <ul class="nav-links">
-        <li><a href="index.html" class="home-link"><i class="fa-solid fa-house"></i> Home</a></li>
-        <li><a href="rules.html" class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+        <li><a href="index.html" class="home-link active"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="rules.html"  class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
         <li><a href="guides.html" class="guides-link"><i class="fa-solid fa-book"></i> Guides</a></li>
         <li><a href="members.html" class="members-link"><i class="fa-solid fa-users"></i> Members</a></li>
-        <li><a href="news.html" class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+        <li><a href="news.html"    class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
         <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
       </ul>
     </nav>
@@ -310,41 +293,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>0 – 5</td>
-                <td><i class="fa-solid fa-capsules"></i>0 × Xanax</td>
-                <td>Below payout threshold</td>
-              </tr>
-              <tr>
-                <td>6 – 15</td>
-                <td><i class="fa-solid fa-capsules"></i>1 × Xanax</td>
-                <td>Entry-level contribution</td>
-              </tr>
-              <tr>
-                <td>16 – 25</td>
-                <td><i class="fa-solid fa-capsules"></i>2 × Xanax</td>
-                <td>Steady performers</td>
-              </tr>
-              <tr>
-                <td>26 – 35</td>
-                <td><i class="fa-solid fa-capsules"></i>3 × Xanax</td>
-                <td>Solid chain runners</td>
-              </tr>
-              <tr>
-                <td>36 – 45</td>
-                <td><i class="fa-solid fa-capsules"></i>4 × Xanax</td>
-                <td>High achievers</td>
-              </tr>
-              <tr>
-                <td>≥ 46</td>
-                <td><i class="fa-solid fa-capsules"></i>5 × Xanax</td>
-                <td>Top-tier reward</td>
-              </tr>
+              <tr><td>0 – 5</td><td><i class="fa-solid fa-capsules"></i>0 × Xanax</td><td>Below payout threshold</td></tr>
+              <tr><td>6 – 15</td><td><i class="fa-solid fa-capsules"></i>1 × Xanax</td><td>Entry-level contribution</td></tr>
+              <tr><td>16 – 25</td><td><i class="fa-solid fa-capsules"></i>2 × Xanax</td><td>Steady performers</td></tr>
+              <tr><td>26 – 35</td><td><i class="fa-solid fa-capsules"></i>3 × Xanax</td><td>Solid chain runners</td></tr>
+              <tr><td>36 – 45</td><td><i class="fa-solid fa-capsules"></i>4 × Xanax</td><td>High achievers</td></tr>
+              <tr><td>≥ 46</td><td><i class="fa-solid fa-capsules"></i>5 × Xanax</td><td>Top-tier reward</td></tr>
             </tbody>
           </table>
         </div>
         <p class="table-note">Subject to change upon Council leadership review.</p>
-
+      </div>
+    </section>
 
     <!-- LEADERSHIP -->
     <section id="leadership">
@@ -366,5 +326,6 @@
 
   <!-- SCRIPTS -->
   <script src="assets/script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

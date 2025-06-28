@@ -3,132 +3,60 @@
 <head>
   <!-- META -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Privé Cartel | Members Directory</title>
-  <meta name="description" content="Live roster with avatars, search & sortable columns for all Privé Cartel members.">
+  <meta name="description" content="Live roster with avatars, search and sortable columns for all Privé Cartel members." />
 
-  <link rel="icon" type="image/png" href="images/Emblem.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
+  <!-- ICON & FONTS -->
+  <link rel="icon" href="images/Emblem.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- GLOBAL THEME -->
+  <link rel="stylesheet" href="assets/style.css" />
 
   <!-- PAGE-SPECIFIC STYLE -->
   <style>
-    /* ── Filter bar ─────────────────────────────────────── */
-    .filter-bar {
-      display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.8rem 0;
-    }
-    .filter-bar input {
-      flex: 1 1 230px; max-width: 360px;
-      padding: .65rem .9rem; border: 2px solid var(--accent);
-      border-radius: var(--radius); background: var(--bg-1);
-      color: var(--text-1);
-    }
-    .filter-bar button {
-      padding: .65rem 1.05rem; border: 2px solid var(--accent);
-      background: none; color: var(--accent);
-      border-radius: var(--radius); cursor: pointer;
-      transition: background .25s;
-    }
-    .filter-bar button:hover {
-      background: var(--accent); color: #000;
-    }
+  /* ───────── 1.  FILTER BAR ───────── */
+  .filter-bar{display:flex;flex-wrap:wrap;gap:.75rem;margin:2rem 0 1.6rem}
+  .filter-bar input{flex:1 1 230px;max-width:360px;padding:.7rem 1rem;border:2px solid var(--accent);border-radius:var(--radius);background:var(--bg-1);color:var(--text-1)}
+  .filter-bar button{padding:.7rem 1.15rem;border:2px solid var(--accent);background:none;color:var(--accent);border-radius:var(--radius);cursor:pointer;transition:background .25s}
+  .filter-bar button:hover{background:var(--accent);color:#000}
 
-    /* ── Desktop wrapper scroll only ≥551px ───────────── */
-    .table-wrap { overflow-x: auto; }
-    @media (max-width: 550px) {
-      .table-wrap { overflow-x: visible; }
-    }
+  /* ───────── 2.  DESKTOP TABLE ───────── */
+  .table-wrap{overflow-x:auto}
+  .member-table{width:100%;border-collapse:collapse;min-width:560px}
+  .member-table th,.member-table td{padding:.65rem .8rem;border-bottom:1px solid rgba(var(--accent-rgb),.22);font-size:.93rem;text-align:left;word-break:break-word}
+  .member-table th{color:var(--accent);cursor:pointer;user-select:none}
+  .member-table tbody tr:nth-child(odd){background:rgba(255,255,255,.03)}
+  .member-table tbody tr:hover{background:rgba(255,255,255,.05)}
+  .member-table img.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover}
 
-    /* ── Desktop table ─────────────────────────────────── */
-    .member-table {
-      width: 100%; border-collapse: collapse; min-width: 560px;
-    }
-    .member-table th,
-    .member-table td {
-      padding: .6rem .75rem;
-      border-bottom: 1px solid rgba(var(--accent-rgb), .22);
-      font-size: .92rem; text-align: left; word-break: break-word;
-    }
-    .member-table th {
-      color: var(--accent); cursor: pointer; user-select: none;
-    }
-    .member-table tbody tr:nth-child(odd) {
-      background: rgba(255, 255, 255, .03);
-    }
-    .member-table tbody tr:hover {
-      background: rgba(255, 255, 255, .05);
-    }
-    .member-table img.avatar {
-      width: 38px; height: 38px;
-      border-radius: 50%; object-fit: cover;
-    }
+  /* status colours */
+  .status-hospital,.status-jail{color:#ff6161;font-weight:600}
+  .status-traveling              {color:#28cfff;font-weight:600}
+  .status-abroad                 {color:#ffd54d;font-weight:600}
+  .status-okay                   {color:#49d66d;font-weight:600}
 
-    /* ── Mobile cards (≤550 px) ───────────────────────── */
-    @media (max-width: 550px) {
-      /* reset that min-width so rows can shrink */
-      .member-table { min-width: 0; }
+  /* ───────── 3.  MOBILE CARDS (≤550px) ───────── */
+  @media(max-width:550px){
+    .member-table{min-width:0}
+    .member-table thead{display:none}
+    .member-table,.member-table tbody{display:block}
+    .member-table tr{display:grid;width:100%;grid-template-columns:68px 1fr;gap:.45rem .9rem;padding:1rem .9rem;margin-bottom:1rem;background:rgba(255,255,255,.02);border:1px solid rgba(var(--accent-rgb),.24);border-radius:var(--radius)}
+    .member-table td{border:none;padding:0;font-size:.9rem;line-height:1.5}
+    .member-table td:nth-child(1){display:none}
+    .member-table td[data-label="Avatar"]{order:-1;grid-row:span 6;display:flex;align-items:center}
+    .member-table img.avatar{width:56px;height:56px}
+    .member-table td[data-label]:not([data-label="Avatar"])::before{content:attr(data-label)': ';font-weight:600;color:var(--accent)}
+  }
 
-      .member-table,
-      .member-table thead {
-        display: none;
-      }
-      .member-table,
-      .member-table tbody {
-        display: block;
-      }
-      .member-table tr {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 60px 1fr;
-        gap: .35rem .85rem;
-        padding: .75rem .7rem;
-        box-sizing: border-box;
-        border: 1px solid rgba(var(--accent-rgb), .25);
-        border-radius: var(--radius);
-        margin-bottom: .9rem;
-        background: rgba(255, 255, 255, .015);
-        overflow: hidden;
-      }
-      .member-table td {
-        border: none;
-        padding: 0;
-        font-size: .9rem;
-        line-height: 1.45;
-      }
-      .member-table td:nth-child(1) {
-        display: none; /* hide row # */
-      }
-      .member-table td[data-label="Avatar"] {
-        order: -1;
-        grid-row: span 6;
-        display: flex;
-        align-items: center;
-      }
-      .member-table td[data-label="Avatar"]::before {
-        content: '';
-      }
-      .member-table img.avatar {
-        width: 48px;
-        height: 48px;
-      }
-      .member-table td[data-label]:not([data-label="Avatar"])::before {
-        content: attr(data-label) ': ';
-        font-weight: 600;
-        color: var(--accent);
-      }
-    }
-
-    /* crown icon */
-    .crown {
-      color: var(--accent);
-      margin-left: .25rem;
-      font-size: .9rem;
-    }
+  .crown{color:var(--accent);margin-left:.25rem;font-size:.9rem}
   </style>
 </head>
+
 <body>
 
   <!-- NAVBAR -->
@@ -153,14 +81,14 @@
   <section class="rules-hero">
     <img src="images/Emblem.png" alt="Cartel Emblem" />
     <h1>Faction&nbsp;Members</h1>
-    <p class="tagline">Paste your Torn API key for live stats &amp; avatars.</p>
+    <p class="tagline">Enter your Torn API key below to fetch real-time levels, tenure and profile photos for every member.</p>
   </section>
 
   <!-- DIRECTORY -->
   <section class="rules-block">
     <div class="container glass">
 
-      <!-- search + API key -->
+      <!-- FILTER BAR -->
       <div class="filter-bar">
         <input type="text"     id="memberSearch" placeholder="Search IGN, role, status…" />
         <input type="password" id="apiKeyInput"  placeholder="Paste API key…" />
@@ -168,7 +96,7 @@
         <button id="clearKeyBtn" title="Clear key"><i class="fa-solid fa-trash"></i></button>
       </div>
 
-      <!-- table -->
+      <!-- TABLE -->
       <div class="table-wrap">
         <table class="member-table" id="memberTable">
           <thead>
@@ -186,180 +114,166 @@
         </table>
       </div>
 
-      <p style="margin-top:.8rem;color:var(--text-2);font-size:.85rem">
-        Your key is stored only in <code>localStorage</code> on this device.
+      <p style="margin-top:.9rem;color:var(--text-2);font-size:.85rem">
+        Your API key stays in this browser’s <code>localStorage</code>&nbsp;&mdash;&nbsp;nobody else sees it.  
+        Skip the key to view our monthly roster snapshot.
       </p>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <p>&copy; <span id="year"></span> Privé Cartel.</p>
-  </footer>
+  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
 
-  <!-- GLOBAL JS -->
+  <!-- SCRIPTS -->
   <script src="assets/script.js"></script>
-
-  <!-- PAGE JS -->
   <script>
   (() => {
     const LSKEY   = 'tornApiKey';
     const crownRx = /^(leader|co[- ]?leader|pbe founder)$/i;
+    const blank   = 'images/blankprofile.jpg';
 
-    const bodyEl   = document.getElementById('memberBody');
-    const search   = document.getElementById('memberSearch');
-    const saveBtn  = document.getElementById('saveKeyBtn');
-    const apiInput = document.getElementById('apiKeyInput');
-    const clearBtn = document.getElementById('clearKeyBtn');
+    const body   = document.getElementById('memberBody');
+    const search = document.getElementById('memberSearch');
+    const apiIn  = document.getElementById('apiKeyInput');
+    const saveB  = document.getElementById('saveKeyBtn');
+    const clearB = document.getElementById('clearKeyBtn');
 
-    const crown = role => crownRx.test(role) ? ' <i class="fa-solid fa-crown crown"></i>' : '';
-    const tidy  = s    => s.replace(/_/g,' ');
+    let rows=[];
 
-    let rows = [];
+    /* ───── helpers ───── */
+    const crown = r => crownRx.test(r) ? ' <i class="fa-solid fa-crown crown"></i>' : '';
+    const tidy  = s => (s||'').replace(/_/g,' ');
+    const classFor = st => {
+      const k=st.toLowerCase();
+      return k.includes('hospital')||k.includes('jail') ? 'status-hospital'
+           : k.includes('travel')                       ? 'status-traveling'
+           : k.includes('abroad')                       ? 'status-abroad'
+           :                                            'status-okay';
+    };
+    const renumber = () => {let n=1;rows.forEach(r=>{if(r.style.display!=='none')r.children[0].textContent=n++;});};
 
-    // initial load
-    if (localStorage.getItem(LSKEY)) {
-      apiInput.value = localStorage.getItem(LSKEY);
-      fetchFaction(apiInput.value);
-    } else {
-      renderFallback();
-    }
-
-    // search filter
-    function renumber() {
-      let n = 1;
-      rows.forEach(r => {
-        if (r.style.display !== 'none') r.children[0].textContent = n++;
-      });
-    }
-    function filter() {
-      const q = search.value.toLowerCase();
-      rows.forEach(r => {
-        r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
-      });
+    /* ───── search ───── */
+    search.oninput = () =>{
+      const q=search.value.toLowerCase();
+      rows.forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});
       renumber();
-    }
-    search.addEventListener('input', filter);
-
-    // save / clear API key
-    saveBtn.onclick = () => {
-      const key = apiInput.value.trim();
-      if (key.length < 10) { alert('Invalid API key'); return; }
-      localStorage.setItem(LSKEY, key);
-      fetchFaction(key);
-    };
-    clearBtn.onclick = () => {
-      localStorage.removeItem(LSKEY);
-      location.reload();
     };
 
-    // sortable headers
-    const dir = {};
-    document.querySelectorAll('.member-table th[data-col]').forEach(th => {
-      th.addEventListener('click', () => {
-        const c = th.dataset.col;
-        dir[c] = !dir[c];
-        rows.sort((a, b) => {
-          const va = a.dataset[c] || '', vb = b.dataset[c] || '';
-          if (c === 'level' || c === 'days') {
-            return dir[c] ? va - vb : vb - va;
-          }
-          return dir[c] ? va.localeCompare(vb) : vb.localeCompare(va);
+    /* ───── buttons ───── */
+    saveB.onclick=()=>{
+      const key=apiIn.value.trim();
+      if(key.length<10){alert('Invalid API key');return;}
+      localStorage.setItem(LSKEY,key);
+      loadFaction(key);
+    };
+    clearB.onclick=()=>{localStorage.removeItem(LSKEY);location.reload();};
+
+    /* ───── sort ───── */
+    const dir={};
+    document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
+      th.onclick=()=>{
+        const c=th.dataset.col;dir[c]=!dir[c];
+        rows.sort((a,b)=>{
+          const va=a.dataset[c]||'',vb=b.dataset[c]||'';
+          return (c==='level'||c==='days') ? (dir[c]?va-vb:vb-va)
+                                           : (dir[c]?va.localeCompare(vb):vb.localeCompare(va));
         });
-        rows.forEach(r => bodyEl.appendChild(r));
+        rows.forEach(r=>body.appendChild(r));
         renumber();
-      });
+      };
     });
 
-    // fallback static list
-    function renderFallback() {
-      const list = [
-        { id:3212954, name:'Skillerious',      level:60, role:'Co-leader',    days:438, status:'Okay' },
-        { id:2753560, name:'ForeverHydrox',    level:55, role:'Leader',       days:456, status:'Okay' },
-        {                 name:'Igniatus',      level:40, role:'Member',       days:459, status:'Okay' },
-        { id:3400392, name:'JdedPrincess',     level:39, role:'Co-leader',    days:299, status:'Traveling' },
-        {                 name:'Spaghetti_Sauce', level:38, role:'Member',    days:404, status:'Okay' },
-        { id:2804871, name:'XanderPTV',        level:34, role:'PBE Founder',  days:436, status:'Okay' }
+    /* ───── initial load ───── */
+    if(localStorage.getItem(LSKEY)){apiIn.value=localStorage.getItem(LSKEY);loadFaction(apiIn.value);}
+    else renderStatic();
+
+    /* ───── static roster ───── */
+    function renderStatic(){
+      const L=[ /* --- 25-member snapshot --- */
+        {id:3212954,name:'Skillerious',      level:60,role:'Co-leader',    days:441,status:'Traveling'},
+        {id:2753560,name:'ForeverHydrox',    level:55,role:'Leader',       days:459,status:'Okay'},
+        {name:'Igniatus',                    level:40,role:'Member',       days:463,status:'Okay'},
+        {id:3400392,name:'JdedPrincess',     level:40,role:'Co-leader',    days:303,status:'Traveling'},
+        {name:'Spaghetti_Sauce',             level:39,role:'Member',       days:409,status:'Okay'},
+        {id:2804871,name:'XanderPTV',        level:34,role:'PBE Founder',  days:441,status:'Okay'},
+        {name:'StefanoMorano',               level:31,role:'Member',       days:276,status:'Okay'},
+        {name:'Yacizo',                      level:30,role:'Member',       days:42, status:'Okay'},
+        {name:'MrJudgement',                 level:30,role:'Member',       days:294,status:'Okay'},
+        {name:'KINGofCURSES',                level:29,role:'Member',       days:35, status:'Traveling'},
+        {name:'Natz_1',                      level:29,role:'Member',       days:36, status:'Okay'},
+        {name:'GarySavoy',                   level:28,role:'Member',       days:96, status:'Okay'},
+        {name:'Boltentoke',                  level:27,role:'Member',       days:440,status:'Okay'},
+        {name:'DaGRETT',                     level:25,role:'Member',       days:486,status:'Okay'},
+        {name:'An_Puca',                     level:25,role:'Member',       days:96, status:'Traveling'},
+        {name:'AungMyatHtut',                level:20,role:'Member',       days:37, status:'Traveling'},
+        {name:'Limerchyte',                  level:19,role:'Member',       days:379,status:'Okay'},
+        {name:'1TP',                         level:16,role:'Member',       days:77, status:'Okay'},
+        {name:'Antsi',                       level:15,role:'Member',       days:310,status:'Okay'},
+        {name:'ardabonne',                   level:15,role:'Member',       days:35, status:'Okay'},
+        {name:'14H3LL',                      level:14,role:'Member',       days:76, status:'Okay'},
+        {name:'praveen_2025',                level:14,role:'Member',       days:40, status:'Okay'},
+        {name:'10torn',                      level:12,role:'Member',       days:77, status:'Okay'},
+        {name:'TheLily',                     level:7, role:'Member',       days:16, status:'Okay'},
+        {name:'im80',                        level:4, role:'Member',       days:40, status:'Okay'}
       ];
-      bodyEl.innerHTML = '';
-      list.forEach(renderRow);
-      rows = [...bodyEl.querySelectorAll('tr')];
-      filter();
+      body.innerHTML='';L.forEach(renderRow);
+      rows=[...body.querySelectorAll('tr')];renumber();
     }
 
-    // live fetch
-    async function fetchFaction(key) {
-      try {
-        saveBtn.textContent = 'Loading…';
-        const res  = await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
-        if (!res.ok) throw new Error('API error');
-        const data = await res.json();
-        if (data.error) throw new Error(data.error.error);
+    /* ───── live data ───── */
+    async function loadFaction(key){
+      try{
+        saveB.textContent='Loading…';
+        const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
+        if(!r.ok)throw new Error(`API error ${r.status}`);
+        const d=await r.json();
+        if(d.error)throw new Error(d.error.error);
+        const list=Object.entries(d.members).map(([id,m])=>({...m,id}));
+        body.innerHTML='';list.sort((a,b)=>b.level-a.level).forEach(renderRow);
+        rows=[...body.querySelectorAll('tr')];renumber();search.oninput();
+        saveB.textContent='Saved';
+        fetchAvatars(list,key);
+      }catch(e){alert(e.message);saveB.textContent='Save';}
+    }
 
-        const list = Object.entries(data.members).map(([id, m]) => ({ ...m, id }));
-        bodyEl.innerHTML = '';
-        list.sort((a, b) => b.level - a.level).forEach(renderRow);
-        rows = [...bodyEl.querySelectorAll('tr')];
-        filter();
-        saveBtn.textContent = 'Saved';
-        lazyAvatars(list, key);
-      } catch (e) {
-        alert(e.message);
-        saveBtn.textContent = 'Save';
+    /* ───── row renderer ───── */
+    function renderRow(m){
+      const stRaw=m.status?.state||m.status||'Okay';
+      const pretty=stRaw.charAt(0).toUpperCase()+stRaw.slice(1).toLowerCase();
+      const role =tidy(m.position||m.role||'Member');
+
+      const tr=document.createElement('tr');
+      tr.dataset.level =m.level||0;
+      tr.dataset.role  =role.toLowerCase();
+      tr.dataset.days  =m.days_in_faction||m.days||0;
+      tr.dataset.status=pretty.toLowerCase();
+
+      tr.innerHTML=`
+        <td>0</td>
+        <td data-label="IGN">${m.id?`<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank">${m.name}</a>`:m.name}</td>
+        <td data-label="Avatar"><img class="avatar" src="${blank}" data-id="${m.id||''}" alt=""></td>
+        <td data-label="Lv">${m.level||0}</td>
+        <td data-label="Role">${role}${crown(role)}</td>
+        <td data-label="Days">${m.days_in_faction||m.days||0}</td>
+        <td data-label="Status" class="${classFor(pretty)}">${pretty}</td>`;
+      body.appendChild(tr);
+    }
+
+    /* ───── avatar fetch ───── */
+    async function fetchAvatars(list,key){
+      for(const m of list){
+        if(!m.id)continue;
+        try{
+          const r=await fetch(`https://api.torn.com/user/${m.id}?selections=profile&key=${key}`);
+          const d=await r.json();
+          if(d.error||!d.profile_image)continue;
+          const img=body.querySelector(`img[data-id="${m.id}"]`);
+          if(img)img.src=d.profile_image;
+        }catch{/* network issues → ignore */}
       }
     }
 
-    // render one row
-    function renderRow(m) {
-      const st = m.status && m.status.state === 'Hospital'  ? 'Hospital'
-               : m.status && m.status.state === 'Traveling'? 'Traveling'
-               : 'Okay';
-      const roleTxt = tidy(m.position || m.role || 'Member');
-
-      const tr = document.createElement('tr');
-      tr.dataset.level  = m.level || 0;
-      tr.dataset.role   = roleTxt.toLowerCase();
-      tr.dataset.days   = m.days_in_faction || m.days || 0;
-      tr.dataset.status = st.toLowerCase();
-
-      tr.innerHTML = ''
-        + '<td>0</td>'
-        + '<td data-label="IGN">'
-          + (m.id
-            ? `<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank">${m.name}</a>`
-            : m.name
-          )
-        + '</td>'
-        + '<td data-label="Avatar"><img class="avatar" data-id="'+(m.id||'')+'" alt=""></td>'
-        + '<td data-label="Lv">'+ (m.level||0) +'</td>'
-        + '<td data-label="Role">'+ roleTxt + crown(roleTxt) +'</td>'
-        + '<td data-label="Days">'+ (m.days_in_faction||m.days||0) +'</td>'
-        + '<td data-label="Status">'+ st +'</td>';
-
-      bodyEl.appendChild(tr);
-    }
-
-    // lazy-load avatars (max 4 concurrent)
-    async function lazyAvatars(list, key) {
-      const queue = list.filter(m => m.id).map(m => async () => {
-        try {
-          const res = await fetch(`https://api.torn.com/user/${m.id}?selections=profile&key=${key}`);
-          const d   = await res.json();
-          if (d.error) return;
-          if (d.profile_image) {
-            const img = bodyEl.querySelector(`img[data-id="${m.id}"]`);
-            if (img) img.src = d.profile_image;
-          }
-        } catch {}
-      });
-
-      const pool = Array(4).fill(Promise.resolve());
-      for (const task of queue) {
-        const p = Promise.race(pool).then(task);
-        const i = pool.indexOf(await Promise.race(pool));
-        pool[i] = p;
-      }
-    }
+    document.getElementById('year').textContent=new Date().getFullYear();
   })();
   </script>
 </body>
