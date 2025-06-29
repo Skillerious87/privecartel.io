@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Privé Cartel • Happy Jump Analysis</title>
+  <meta name="description" content="CPrinceC’s in-depth analysis of Happy Jump versus FHC and natural training across different stat thresholds." />
+  <link rel="icon" type="image/png" href="../images/Emblem.png" />
+
+  <!-- FONTS & ICONS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- GLOBAL THEME -->
+  <link rel="stylesheet" href="../assets/style.css" />
+
+  <!-- PAGE EXTRAS -->
+  <style>
+    /* Colored term classes */
+    .text-red    { color: #e74c3c; }
+    .text-green  { color: #2ecc71; }
+    .text-blue   { color: #3498db; }
+    .text-purple { color: #9b59b6; }
+    .text-orange { color: #e67e22; }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      font-size: .85rem;
+      margin-bottom: 1.2rem;
+    }
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* Thread metadata */
+    .thread-info {
+      font-size: .85rem;
+      color: var(--text-2);
+      margin-bottom: 1rem;
+    }
+
+    /* Guide container */
+    .guide-content {
+      max-width: 860px;
+      margin-inline: auto;
+      padding-bottom: 2rem;
+    }
+
+    /* Section titles */
+    .guide-content h2 {
+      margin-top: 1.6rem;
+      color: var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      position: relative;
+      padding-bottom: .4rem;
+    }
+    .guide-content h2::after {
+      content: "";
+      position: absolute; left: 0; bottom: 0;
+      width: 32px; height: 2px;
+      background: linear-gradient(to right, var(--accent) 0%, rgba(214,184,109,0) 100%);
+    }
+
+    /* Subsection headings */
+    .guide-content h3 {
+      margin-top: 1.4rem;
+      font-family: 'Cormorant Garamond', serif;
+      color: #d6b86d;
+    }
+
+    /* Lists and paragraphs spacing */
+    .guide-content h2 + p,
+    .guide-content h2 + ul,
+    .guide-content h2 + ol,
+    .guide-content h3 + p,
+    .guide-content h3 + table,
+    .guide-content p + p {
+      margin-top: .8rem;
+    }
+
+    /* Standard lists */
+    ul.standard, ol.standard {
+      list-style-position: outside;
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+    ul.standard li, ol.standard li {
+      margin-bottom: .6rem;
+    }
+
+    /* Notice block */
+    .notice {
+      background: rgba(214,184,109,0.1);
+      border-left: 4px solid var(--accent);
+      padding: .75rem 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+    }
+
+    /* Scenario tables */
+    .scenario-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: .9rem;
+    }
+    .scenario-table th,
+    .scenario-table td {
+      padding: .65rem .8rem;
+      border: 1px solid rgba(214,184,109,.22);
+      text-align: left;
+    }
+    .scenario-table th {
+      background: rgba(255,255,255,.06);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .scenario-table tbody tr:hover {
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Callout */
+    .callout {
+      background: rgba(214,184,109,0.1);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
+    <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="../rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+        <li><a href="../guides.html" class="active"><i class="fa-solid fa-book"></i> Guides</a></li>
+        <li><a href="../members.html"><i class="fa-solid fa-users"></i> Members</a></li>
+        <li><a href="../news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+        <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="nav-overlay"></div>
+
+  <!-- HERO -->
+  <section class="rules-hero">
+    <img src="../images/Emblem.png" alt="Cartel Emblem" class="emblem" />
+    <h1>Happy Jump vs FHC & Natural Training Analysis</h1>
+    <p class="tagline" style="max-width:680px; margin: .8rem auto;">
+      Detailed math and considerations for when—and when not—to use Happy Jumps at different stages of your Torn progression.
+    </p>
+    <p class="tagline" style="font-size:.9rem; margin-bottom:2rem;">
+      <strong>Guide written by <a href="https://www.torn.com/profiles.php?XID=923382" target="_blank">CPrinceC</a></strong> |
+      <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16094641" target="_blank">Original Torn forum post</a>
+    </p>
+  </section>
+
+  <!-- GUIDE CONTENT -->
+  <section class="rules-block">
+    <div class="container glass guide-content">
+
+      <p class="breadcrumb">
+        <a href="../guides.html"><i class="fa-solid fa-arrow-left"></i> Back to Guides</a>
+      </p>
+      <p class="thread-info">
+        Thread created on 01:52:40 – 20/04/19 (6 years ago) | Last replied 19:54:02 – 29/06/25 (1 hour ago)
+      </p>
+
+      <div class="notice">
+        Skip down to the colored text if you just want to see the math of important stat points for Happy Jumps vs FHC and Natural training and don't wish to read reasons to not Happy Jump!
+      </div>
+
+      <p>
+        I wrote this not to tell people not to Happy Jump but to explain what the real value of a Happy Jump is at different points of your game and what you sacrifice doing it early on repeatably.
+      </p>
+      <p>
+        I very much enjoy helping new players to the game, but when some of them read and see the effects of a Happy Jump they don't understand that the math is more complicated than it may seem and there are other things to think about besides rushing your training!
+      </p>
+      <p>
+        I always have an issue with guides that only explain how to do a Happy Jump without explaining why and when not to do one, so I got off my ass, did the math, and made some examples of what is going on when you Happy Jump, FHC train, or natural train (with <span class="text-red">Xanax</span> for all and no job points—although in the end energy jobs are way better than Happy Jobs unless you have the Happy Book).
+      </p>
+
+      <p>
+        For a while I stopped trying to fight the guides and explaining to new players that Happy Jumps aren't all as good as people make them out to be long term.
+        Yes, I do see value in one or two of them in your very first few days if you can rack up the funds, but after that I argue the bad facts about Happy Jumps:
+      </p>
+      <ol class="standard">
+        <li>
+          You stunt your passive income that you can have later on in your Torn game—every <span class="text-blue">Happy Jump</span> is about <span class="text-blue">25 m</span> that adds up fast.
+          Four of them is <span class="text-blue">100 m</span> which could be in your bank making interest (at a 2 billion bank cap you gain about <span class="text-green">230 m</span> every 2 months).
+        </li>
+        <li>
+          A lot of players get burnt out spending all their money they worked too hard for (probably wasting <span class="text-blue">energy</span> attacking people and losing money, which in turn wastes more <span class="text-blue">energy</span> that could have been used for training) and end up broke!
+        </li>
+      </ol>
+
+      <h2>1. Training Methods Compared</h2>
+      <p>All scenarios assume:</p>
+      <ul class="standard">
+        <li>Maxed booster and drug cooldowns</li>
+        <li>Each method takes the same total time as one full Happy Jump cycle</li>
+      </ul>
+      <ol class="standard">
+        <li>
+          <strong>Method A (FHC-Heavy):</strong><br>
+          <span class="text-red">5 Xanax</span> &rarr;
+          <span class="text-blue">1 250 energy</span> +
+          <span class="text-green">960 natural regen</span> +
+          <span class="text-orange">750 from FHCs</span> +
+          <span class="text-purple">150 refill</span> =
+          <span class="text-blue">3 110 total energy</span> —
+          <span class="text-red">5 000 stat gain</span>
+        </li>
+        <li>
+          <strong>Method B (Happy-Jump-Focused):</strong><br>
+          <span class="text-red">4 Xanax</span> &rarr;
+          <span class="text-blue">1 000 energy</span> +
+          <span class="text-green">0 natural regen</span> +
+          <span class="text-orange">0 from FHCs</span> +
+          <span class="text-purple">150 refill</span> =
+          <span class="text-blue">1 150 total energy</span><br>
+          Base <span class="text-blue">Happy Jump</span>:
+          <span class="text-red">5 000 stat gain</span> +
+          <span class="text-orange">DVDs: 12 500 stat</span> +
+          <span class="text-purple">Extacy ×2 ≈ 35 000 stat</span>
+        </li>
+        <li>
+          <strong>Method C (Natural-Blend):</strong><br>
+          <span class="text-red">5 Xanax</span> +
+          <span class="text-green">natural regen</span> +
+          <span class="text-purple">refill</span> =
+          <span class="text-blue">2 360 total energy</span> —
+          <span class="text-red">5 000 stat gain</span>
+        </li>
+      </ol>
+
+      <h2 id="scenarios">2. Stat Point Scenarios</h2>
+
+      <h3>2.1 Day 1 (1 Stat Point)</h3>
+      <table class="scenario-table">
+        <thead>
+          <tr><th>Method</th><th>Stat Gain</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Method A</td><td>7 353</td></tr>
+          <tr><td>Method B</td><td>19 951</td></tr>
+          <tr><td>Method C</td><td>5 656</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Conclusion:</strong> Method B yields the fastest early burst. Method A underperforms, and Method C saves ~25 m but is only ¼ as effective.</p>
+
+      <h3>2.2 Mid-Game (400 000 Stat)</h3>
+      <table class="scenario-table">
+        <thead>
+          <tr><th>Method</th><th>Stat Gain</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Method A</td><td>62 600</td></tr>
+          <tr><td>Method B</td><td>42 569</td></tr>
+          <tr><td>Method C</td><td>47 503</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Conclusion:</strong> FHC-heavy Method A now leads. Method C balances savings with solid gains.</p>
+
+      <h3>2.3 Late-Game (55 000 000 Stat)</h3>
+      <table class="scenario-table">
+        <thead>
+          <tr><th>Method</th><th>Stat Gain</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Method A</td><td>6 900 803</td></tr>
+          <tr><td>Method B</td><td>2 847 102</td></tr>
+          <tr><td>Method C</td><td>5 236 622</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Conclusion:</strong> FHC (Method A) dominates at high stats; Happy Jumps (Method B) are suboptimal, while Method C remains a cost-effective alternative.</p>
+
+      <h2>3. Additional Considerations</h2>
+      <ul class="standard">
+        <li>Energy from jobs can shift the calculus—energy jobs often outperform Happy Jumps unless you have the Happy Book.</li>
+        <li>Early large cash outlays can burn out newer players; consider bank interest growth over time.</li>
+        <li>Rotate methods at key stat milestones rather than sticking to one strategy.</li>
+      </ul>
+
+      <div class="callout">
+        Pair this analysis with our <a href="../guides.html">other guides</a> and the <a href="../members.html">live roster</a> for maximum efficiency.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../assets/script.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  </script>
+</body>
+</html>
