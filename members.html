@@ -86,6 +86,25 @@
     animation:spin .8s linear infinite;vertical-align:-2px}
   @keyframes spin{to{transform:rotate(360deg)}}
   .no-enc{color:#ff8d8d;font-weight:600}
+
+  /* 5. TOAST NOTIFICATION ─────────────────────────────────────── */
+  .toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: var(--accent);
+    color: #000;
+    padding: .75rem 1.25rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,.45);
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: toast-in .4s ease forwards, toast-out .4s ease forwards 2.6s;
+    z-index: 9999;
+  }
+  @keyframes toast-in { to { opacity: .9; transform: translateY(0); } }
+  @keyframes toast-out { to { opacity: 0; transform: translateY(10px); } }
   </style>
 </head>
 <body>
@@ -140,20 +159,19 @@
     </div>
 
     <!-- PRIVACY NOTICE -->
-<div class="notice" id="notice">
-  <i class="fa-solid fa-lock"></i>
-  <strong>Privacy &amp; security:</strong> Your key is AES-GCM encrypted with a secret bound to this site’s origin  
-  and stored only in <code>localStorage</code>.  
-  All API calls happen client-side over HTTPS.  
-  Clear it any time with the&nbsp;<i class="fa-solid fa-trash"></i> icon.  
-  <span class="no-enc" hidden>
-    (Web Crypto unavailable — key stored in plain text on this device.)
-  </span>
-  <br><br>
-  <em>If you prefer not to provide your API key, a monthly snapshot of our roster will automatically update  
-  on the first of each month—no key required.</em>
-</div>
-
+    <div class="notice" id="notice">
+      <i class="fa-solid fa-lock"></i>
+      <strong>Privacy &amp; security:</strong> Your key is AES-GCM encrypted with a secret bound to this site’s origin  
+      and stored only in <code>localStorage</code>.  
+      All API calls happen client-side over HTTPS.  
+      Clear it any time with the&nbsp;<i class="fa-solid fa-trash"></i> icon.  
+      <span class="no-enc" hidden>
+        (Web Crypto unavailable — key stored in plain text on this device.)
+      </span>
+      <br><br>
+      <em>If you prefer not to provide your API key, a monthly snapshot of our roster will automatically update  
+      on the first of each month—no key required.</em>
+    </div>
 
   </div>
 </section>
@@ -166,13 +184,13 @@
 
 <!-- PAGE LOGIC -->
 <script>
-(()=>{                       /* scoped IIFE ───────────────────────── */
+(()=>{                       
 const LS='pcApiCipher', crownRX=/^(leader|co[- ]?leader|pbe founder)$/i, blank='images/blankprofile.jpg';
 const $=s=>document.querySelector(s), body=$('#memberBody'), notice=$('#notice');
 const apiInput=$('#apiKeyInput'), save=$('#saveKeyBtn'), clr=$('#clearKeyBtn'), search=$('#memberSearch');
 let rows=[], cryptoOK=!!(crypto?.subtle);
 
-/* ─── Crypto helpers ───────────────────────── */
+/* Crypto helpers */
 async function getKey(){
   const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(location.origin));
   return crypto.subtle.importKey('raw',hash,{name:'AES-GCM'},false,['encrypt','decrypt']);
@@ -193,17 +211,32 @@ async function dec(hex){
   }catch{return'';}
 }
 
-/* ─── UI helpers ───────────────────────────── */
+/* UI helpers */
 const crown=r=>crownRX.test(r)?' <i class="fa-solid fa-crown crown"></i>':'';
 const tidy=s=>(s||'').replace(/_/g,' ');
 const ico=s=>/hospital|jail/i.test(s)?'🏥':/travel/i.test(s)?'✈️':/abroad/i.test(s)?'🌍':'✅';
 const cls=s=>/hospital|jail/i.test(s)?'status-hospital':/travel/i.test(s)?'status-traveling':/abroad/i.test(s)?'status-abroad':'status-okay';
 const renum=()=>{let n=1;rows.forEach(r=>{if(r.style.display!=='none')r.children[0].textContent=n++;});};
 
-/* ─── Search filter (debounced) ───────────── */
-search.addEventListener('input',(()=>{let t;return()=>{clearTimeout(t);t=setTimeout(()=>{const q=search.value.toLowerCase();rows.forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});renum();},250);};})());
+/* Toast */
+function showToast(msg){
+  const t=document.createElement('div');
+  t.className='toast';
+  t.textContent=msg;
+  document.body.appendChild(t);
+  t.addEventListener('animationend',e=>{
+    if(e.animationName==='toast-out') t.remove();
+  });
+}
 
-/* ─── Sorting ──────────────────────────────── */
+/* Search filter (debounced) */
+search.addEventListener('input',(()=>{let t;return()=>{clearTimeout(t);t=setTimeout(()=>{
+  const q=search.value.toLowerCase();
+  rows.forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});
+  renum();
+},250);};})());
+
+/* Sorting */
 const dir={};
 document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
   th.title='Sort';
@@ -217,12 +250,18 @@ document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
   };
 });
 
-/* ─── Row renderer ─────────────────────────── */
+/* Row renderer */
 function row(m){
-  const raw=m.status?.state||m.status||'Okay', pretty=raw[0].toUpperCase()+raw.slice(1).toLowerCase(), role=tidy(m.position||m.role||'Member');
+  const raw=m.status?.state||m.status||'Okay',
+        pretty=raw.charAt(0).toUpperCase()+raw.slice(1).toLowerCase(),
+        role=tidy(m.position||m.role||'Member');
   const tr=document.createElement('tr');
-  tr.dataset.level=m.level||0;tr.dataset.role=role.toLowerCase();tr.dataset.days=m.days_in_faction||m.days||0;tr.dataset.status=pretty.toLowerCase();
-  tr.innerHTML=`<td>0</td>
+  tr.dataset.level=m.level||0;
+  tr.dataset.role=role.toLowerCase();
+  tr.dataset.days=m.days_in_faction||m.days||0;
+  tr.dataset.status=pretty.toLowerCase();
+  tr.innerHTML=`
+    <td>0</td>
     <td data-label="IGN">${m.id?`<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank">${m.name}</a>`:m.name}</td>
     <td data-label="Avatar"><img class="avatar" src="${blank}" data-id="${m.id||''}" alt=""></td>
     <td data-label="Lv">${m.level||0}</td>
@@ -232,68 +271,68 @@ function row(m){
   body.appendChild(tr);
 }
 
-/* ─── Snapshot fetch (external JSON) ───────── */
+/* Static snapshot */
 async function snapshot(){
   try{
     const res=await fetch('data/member-snapshot.json');
-    if(!res.ok)throw new Error();const list=await res.json();
+    if(!res.ok)throw new Error();
+    const list=await res.json();
     body.innerHTML='';list.forEach(row);
   }catch{
-    console.error('Snapshot JSON missing – falling back to hard-code');
     body.innerHTML='<tr><td colspan="7">Snapshot unavailable.</td></tr>';
   }
   rows=[...body.querySelectorAll('tr')];renum();
 }
 
-/* ─── Live fetch & lazy-avatars ────────────── */
+/* Live fetch & avatars */
 async function live(key){
   notice.classList.add('loading');
   try{
     const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
     if(!r.ok)throw new Error('Torn API error');
-    const d=await r.json();if(d.error)throw new Error(d.error.error);
+    const d=await r.json(); if(d.error)throw new Error(d.error.error);
     const list=Object.entries(d.members).map(([id,m])=>({...m,id}));
     body.innerHTML='';list.sort((a,b)=>b.level-a.level).forEach(row);
     rows=[...body.querySelectorAll('tr')];renum();search.dispatchEvent(new Event('input'));
-
-    /* lazy-load avatars */
     const io=new IntersectionObserver(e=>{
-      e.forEach(async v=>{
+      e.forEach(v=>{
         if(!v.isIntersecting)return;
-        const img=v.target;io.unobserve(img);
-        try{
-          const r=await fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${key}`);
-          const j=await r.json();
-          if(!j.error&&j.profile_image)img.src=j.profile_image;
-        }catch{/* ignore */}
+        const img=v.target; io.unobserve(img);
+        fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${key}`)
+          .then(r=>r.json())
+          .then(j=>{ if(!j.error&&j.profile_image) img.src=j.profile_image; })
+          .catch(()=>{});
       });
     },{root:null,rootMargin:'200px'});
     body.querySelectorAll('img.avatar').forEach(i=>i.dataset.id&&io.observe(i));
   }catch(err){
-    alert(err.message);snapshot();
+    alert(err.message);
+    snapshot();
   }
   notice.classList.remove('loading');
 }
 
-/* ─── Controls ─────────────────────────────── */
+/* Controls */
 save.onclick=async()=>{
   const k=apiInput.value.trim();
-  if(k.length<10)return alert('Invalid API key');
-  localStorage.setItem(LS,await enc(k));live(k);
+  if(k.length<10){ alert('Invalid API key'); return; }
+  await enc(k).then(cipher=>localStorage.setItem(LS,cipher));
+  live(k);
+  showToast('API saved');
 };
-clr.onclick=()=>{localStorage.removeItem(LS);location.reload();};
+clr.onclick=()=>{ localStorage.removeItem(LS); location.reload(); };
 
-/* ─── Initial boot ─────────────────────────── */
+/* Init */
 (async()=>{
   if(localStorage.getItem(LS)){
     const key=await dec(localStorage.getItem(LS));
-    if(key){apiInput.value='••••••••';live(key);}
+    if(key){ apiInput.value='••••••••'; live(key); }
     else snapshot();
-  }else snapshot();
-  if(!cryptoOK)notice.querySelector('.no-enc').hidden=false;
+  } else snapshot();
+  if(!cryptoOK) notice.querySelector('.no-enc').hidden=false;
   $('#year').textContent=new Date().getFullYear();
 })();
-})();   /* IIFE END */
+})();   
 </script>
 </body>
 </html>
