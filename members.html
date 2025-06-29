@@ -2,297 +2,292 @@
 <html lang="en">
 <head>
   <!-- META -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Privé Cartel | Members Directory</title>
-  <meta name="description" content="Live roster with avatars, search and sortable columns for all Privé Cartel members." />
+  <meta name="description" content="Live roster with avatars, search and sortable columns for all Privé Cartel members.">
 
   <!-- ICON & FONTS -->
-  <link rel="icon" href="images/Emblem.png" type="image/png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="icon" href="images/Emblem.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
   <!-- GLOBAL THEME -->
-  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/style.css">
 
-  <!-- PAGE-SPECIFIC STYLE -->
+  <!-- PAGE STYLE -->
   <style>
-  /* ───────── 1.  FILTER BAR ───────── */
+  /* 1. FILTER BAR ───────────────────────────────────────────────── */
   .filter-bar{display:flex;flex-wrap:wrap;gap:.75rem;margin:2rem 0 1.6rem}
-  .filter-bar input{flex:1 1 230px;max-width:360px;padding:.7rem 1rem;border:2px solid var(--accent);border-radius:var(--radius);background:var(--bg-1);color:var(--text-1)}
-  .filter-bar button{padding:.7rem 1.15rem;border:2px solid var(--accent);background:none;color:var(--accent);border-radius:var(--radius);cursor:pointer;transition:background .25s}
+  .filter-bar input{flex:1 1 230px;max-width:360px;padding:.7rem 1rem;
+    border:2px solid var(--accent);border-radius:var(--radius);
+    background:var(--bg-1);color:var(--text-1)}
+  .filter-bar button{padding:.7rem 1.15rem;border:2px solid var(--accent);
+    background:none;color:var(--accent);border-radius:var(--radius);
+    cursor:pointer;transition:background .25s}
   .filter-bar button:hover{background:var(--accent);color:#000}
 
-  /* ───────── 2.  DESKTOP TABLE ───────── */
+  /* 2. DESKTOP TABLE ───────────────────────────────────────────── */
   .table-wrap{overflow-x:auto}
-  .member-table{width:100%;border-collapse:collapse;min-width:560px}
-  .member-table th,.member-table td{padding:.65rem .8rem;border-bottom:1px solid rgba(var(--accent-rgb),.22);font-size:.93rem;text-align:left;word-break:break-word}
+  .member-table{width:100%;min-width:560px;border-collapse:collapse}
+  .member-table th,.member-table td{padding:.65rem .8rem;
+    border-bottom:1px solid rgba(var(--accent-rgb),.22);
+    font-size:.93rem;text-align:left}
   .member-table th{color:var(--accent);cursor:pointer;user-select:none}
   .member-table tbody tr:nth-child(odd){background:rgba(255,255,255,.03)}
   .member-table tbody tr:hover{background:rgba(255,255,255,.05)}
-  .member-table img.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover}
+  .member-table img.avatar{
+    width:40px;height:40px;border-radius:50%;
+    object-fit:cover;border:2px solid var(--accent);         /* gold ring */
+  }
 
   /* status colours */
-  .status-hospital,.status-jail{color:#ff6161;font-weight:600}
-  .status-traveling              {color:#28cfff;font-weight:600}
-  .status-abroad                 {color:#ffd54d;font-weight:600}
-  .status-okay                   {color:#49d66d;font-weight:600}
+  .status-hospital,.status-jail{color:#ff6363;font-weight:600}
+  .status-traveling            {color:#29cfff;font-weight:600}
+  .status-abroad               {color:#ffd95a;font-weight:600}
+  .status-okay                 {color:#4bd46f;font-weight:600}
 
-  /* ───────── 3.  MOBILE CARDS (≤550px) ───────── */
+  /* 3. MOBILE CARDS (≤550 px) ─────────────────────────────────── */
   @media(max-width:550px){
     .member-table{min-width:0}
     .member-table thead{display:none}
     .member-table,.member-table tbody{display:block}
-    .member-table tr{display:grid;width:100%;grid-template-columns:68px 1fr;gap:.45rem .9rem;padding:1rem .9rem;margin-bottom:1rem;background:rgba(255,255,255,.02);border:1px solid rgba(var(--accent-rgb),.24);border-radius:var(--radius)}
+    .member-table tr{
+      display:grid;grid-template-columns:68px 1fr;
+      gap:.45rem .9rem;padding:1rem .9rem;margin-bottom:1rem;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(var(--accent-rgb),.24);
+      border-radius:var(--radius)
+    }
     .member-table td{border:none;padding:0;font-size:.9rem;line-height:1.5}
     .member-table td:nth-child(1){display:none}
-    .member-table td[data-label="Avatar"]{order:-1;grid-row:span 6;display:flex;align-items:center}
+    .member-table td[data-label="Avatar"]{
+      order:-1;grid-row:span 6;display:flex;align-items:center}
     .member-table img.avatar{width:56px;height:56px}
-    .member-table td[data-label]:not([data-label="Avatar"])::before{content:attr(data-label)': ';font-weight:600;color:var(--accent)}
+    .member-table td[data-label]:not([data-label="Avatar"])::before{
+      content:attr(data-label)': ';font-weight:600;color:var(--accent)}
   }
 
   .crown{color:var(--accent);margin-left:.25rem;font-size:.9rem}
 
-  /* ───────── 4.  NOTICE CARD ───────── */
+  /* 4. NOTICE CARD ────────────────────────────────────────────── */
   .notice{
-    background:rgba(var(--accent-rgb),.06);
+    background:rgba(var(--accent-rgb),.07);
     border-left:4px solid var(--accent);
-    padding:.8rem 1rem;
-    margin-top:1.25rem;
-    border-radius:var(--radius);
-    color:var(--text-2);
-    font-size:.88rem;
-    line-height:1.55
+    padding:1rem 1.25rem;margin-top:1.4rem;border-radius:var(--radius);
+    color:var(--text-2);font-size:.88rem;line-height:1.6
   }
   .notice i{margin-right:.45rem;color:var(--accent)}
+  .notice.loading::after{
+    content:'';display:inline-block;width:15px;height:15px;margin-left:.7rem;
+    border:3px solid var(--accent);border-top-color:transparent;border-radius:50%;
+    animation:spin .8s linear infinite;vertical-align:-2px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .no-enc{color:#ff8d8d;font-weight:600}
   </style>
 </head>
-
 <body>
 
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
-    <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-        <li><a href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
-        <li><a href="guides.html"><i class="fa-solid fa-book"></i> Guides</a></li>
-        <li><a href="members.html" class="active"><i class="fa-solid fa-users"></i> Members</a></li>
-        <li><a href="news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
-        <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
-      </ul>
-    </nav>
-  </header>
-  <div class="nav-overlay"></div>
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation">
+  <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+      <li><a href="guides.html"><i class="fa-solid fa-book"></i> Guides</a></li>
+      <li><a href="members.html" class="active"><i class="fa-solid fa-users"></i> Members</a></li>
+      <li><a href="news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+      <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="nav-overlay"></div>
 
-  <!-- HERO -->
-  <section class="rules-hero">
-    <img src="images/Emblem.png" alt="Cartel Emblem" />
-    <h1>Faction&nbsp;Members</h1>
-    <p class="tagline">Enter your Torn API key to fetch live levels, tenure and profile photos for every cartel member.</p>
-  </section>
+<!-- HERO -->
+<section class="rules-hero">
+  <img src="images/Emblem.png" alt="Cartel Emblem">
+  <h1>Faction&nbsp;Members</h1>
+  <p class="tagline">Paste your Torn API key for real-time stats, or view the static roster snapshot.</p>
+</section>
 
-  <!-- DIRECTORY -->
-  <section class="rules-block">
-    <div class="container glass">
+<!-- DIRECTORY -->
+<section class="rules-block">
+  <div class="container glass">
 
-      <!-- FILTER BAR -->
-      <div class="filter-bar">
-        <input type="text"     id="memberSearch" placeholder="Search IGN, role, status…" />
-        <input type="password" id="apiKeyInput"  placeholder="Paste API key…" />
-        <button id="saveKeyBtn"><i class="fa-solid fa-key"></i> Save</button>
-        <button id="clearKeyBtn" title="Clear key"><i class="fa-solid fa-trash"></i></button>
-      </div>
-
-      <!-- TABLE -->
-      <div class="table-wrap">
-        <table class="member-table" id="memberTable">
-          <thead>
-            <tr>
-              <th data-col="#">#</th>
-              <th data-col="ign">IGN</th>
-              <th></th>
-              <th data-col="level">Lv</th>
-              <th data-col="role">Role</th>
-              <th data-col="days">Days&nbsp;in</th>
-              <th data-col="status">Status</th>
-            </tr>
-          </thead>
-          <tbody id="memberBody"></tbody>
-        </table>
-      </div>
-
-      <!-- PRIVACY NOTICE -->
-      <div class="notice">
-        <i class="fa-solid fa-circle-info"></i>
-        <strong>Privacy note:</strong> Your API key never leaves this device.  
-        It is saved only in your browser’s <code>localStorage</code> and used locally to pull data from Torn’s public API.  
-        If you skip the key you’ll still see our monthly snapshot roster instead of live data.
-      </div>
-
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <input type="text"     id="memberSearch" placeholder="Search IGN, role, status…">
+      <input type="password" id="apiKeyInput"  placeholder="Paste API key…">
+      <button id="saveKeyBtn"><i class="fa-solid fa-key"></i> Save</button>
+      <button id="clearKeyBtn" title="Clear key"><i class="fa-solid fa-trash"></i></button>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <table class="member-table" id="memberTable">
+        <thead>
+          <tr><th data-col="#">#</th><th data-col="ign">IGN</th><th></th>
+              <th data-col="level">Lv</th><th data-col="role">Role</th>
+              <th data-col="days">Days&nbsp;in</th><th data-col="status">Status</th></tr>
+        </thead>
+        <tbody id="memberBody"></tbody>
+      </table>
+    </div>
 
-  <!-- SCRIPTS -->
-  <script src="assets/script.js"></script>
+    <!-- PRIVACY NOTICE -->
+    <div class="notice" id="notice">
+      <i class="fa-solid fa-lock"></i>
+      <strong>Privacy &amp; security:</strong> Your key is AES-GCM encrypted with a secret bound to this site’s origin
+      and stored only in <code>localStorage</code>.  
+      All API calls happen client-side over HTTPS.  
+      Clear it any time with the&nbsp;<i class="fa-solid fa-trash"></i> icon.  
+      <span class="no-enc" hidden>(Web Crypto unavailable — key stored in plain text on this device.)</span>
+    </div>
 
-  <script>
-  (() => {
-    const LSKEY   = 'tornApiKey';
-    const crownRx = /^(leader|co[- ]?leader|pbe founder)$/i;
-    const blank   = 'images/blankprofile.jpg';
+  </div>
+</section>
 
-    const body   = document.getElementById('memberBody');
-    const search = document.getElementById('memberSearch');
-    const apiIn  = document.getElementById('apiKeyInput');
-    const saveB  = document.getElementById('saveKeyBtn');
-    const clearB = document.getElementById('clearKeyBtn');
+<!-- FOOTER -->
+<footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
 
-    let rows=[];
+<!-- GLOBAL SCRIPT -->
+<script src="assets/script.js"></script>
 
-    /* ───── helpers ───── */
-    const crown = r => crownRx.test(r) ? ' <i class="fa-solid fa-crown crown"></i>' : '';
-    const tidy  = s => (s||'').replace(/_/g,' ');
-    const classFor = st => {
-      const k=st.toLowerCase();
-      return k.includes('hospital')||k.includes('jail') ? 'status-hospital'
-           : k.includes('travel')                       ? 'status-traveling'
-           : k.includes('abroad')                       ? 'status-abroad'
-           :                                            'status-okay';
-    };
-    const renumber = () => {let n=1;rows.forEach(r=>{if(r.style.display!=='none')r.children[0].textContent=n++;});};
+<!-- PAGE LOGIC -->
+<script>
+(()=>{                       /* scoped IIFE ───────────────────────── */
+const LS='pcApiCipher', crownRX=/^(leader|co[- ]?leader|pbe founder)$/i, blank='images/blankprofile.jpg';
+const $=s=>document.querySelector(s), body=$('#memberBody'), notice=$('#notice');
+const apiInput=$('#apiKeyInput'), save=$('#saveKeyBtn'), clr=$('#clearKeyBtn'), search=$('#memberSearch');
+let rows=[], cryptoOK=!!(crypto?.subtle);
 
-    /* ───── search ───── */
-    search.oninput = () =>{
-      const q=search.value.toLowerCase();
-      rows.forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});
-      renumber();
-    };
+/* ─── Crypto helpers ───────────────────────── */
+async function getKey(){
+  const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(location.origin));
+  return crypto.subtle.importKey('raw',hash,{name:'AES-GCM'},false,['encrypt','decrypt']);
+}
+async function enc(txt){
+  if(!cryptoOK)return txt;
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv},await getKey(),new TextEncoder().encode(txt));
+  return[...iv,...new Uint8Array(cipher)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function dec(hex){
+  if(!cryptoOK)return hex;
+  const buf=new Uint8Array(hex.match(/../g).map(h=>parseInt(h,16)));
+  const iv=buf.slice(0,12), data=buf.slice(12);
+  try{
+    const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},await getKey(),data);
+    return new TextDecoder().decode(plain);
+  }catch{return'';}
+}
 
-    /* ───── buttons ───── */
-    saveB.onclick=()=>{
-      const key=apiIn.value.trim();
-      if(key.length<10){alert('Invalid API key');return;}
-      localStorage.setItem(LSKEY,key);
-      loadFaction(key);
-    };
-    clearB.onclick=()=>{localStorage.removeItem(LSKEY);location.reload();};
+/* ─── UI helpers ───────────────────────────── */
+const crown=r=>crownRX.test(r)?' <i class="fa-solid fa-crown crown"></i>':'';
+const tidy=s=>(s||'').replace(/_/g,' ');
+const ico=s=>/hospital|jail/i.test(s)?'🏥':/travel/i.test(s)?'✈️':/abroad/i.test(s)?'🌍':'✅';
+const cls=s=>/hospital|jail/i.test(s)?'status-hospital':/travel/i.test(s)?'status-traveling':/abroad/i.test(s)?'status-abroad':'status-okay';
+const renum=()=>{let n=1;rows.forEach(r=>{if(r.style.display!=='none')r.children[0].textContent=n++;});};
 
-    /* ───── sort ───── */
-    const dir={};
-    document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
-      th.onclick=()=>{
-        const c=th.dataset.col;dir[c]=!dir[c];
-        rows.sort((a,b)=>{
-          const va=a.dataset[c]||'',vb=b.dataset[c]||'';
-          return (c==='level'||c==='days') ? (dir[c]?va-vb:vb-va)
-                                           : (dir[c]?va.localeCompare(vb):vb.localeCompare(va));
-        });
-        rows.forEach(r=>body.appendChild(r));
-        renumber();
-      };
+/* ─── Search filter (debounced) ───────────── */
+search.addEventListener('input',(()=>{let t;return()=>{clearTimeout(t);t=setTimeout(()=>{const q=search.value.toLowerCase();rows.forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});renum();},250);};})());
+
+/* ─── Sorting ──────────────────────────────── */
+const dir={};
+document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
+  th.title='Sort';
+  th.onclick=()=>{
+    const c=th.dataset.col;dir[c]=!dir[c];
+    rows.sort((a,b)=>{
+      const A=a.dataset[c]||'',B=b.dataset[c]||'';
+      return(/^(level|days)$/i.test(c)?(dir[c]?A-B:B-A):(dir[c]?A.localeCompare(B):B.localeCompare(A)));
     });
+    rows.forEach(r=>body.appendChild(r));renum();
+  };
+});
 
-    /* ───── initial load ───── */
-    if(localStorage.getItem(LSKEY)){apiIn.value=localStorage.getItem(LSKEY);loadFaction(apiIn.value);}
-    else renderStatic();
+/* ─── Row renderer ─────────────────────────── */
+function row(m){
+  const raw=m.status?.state||m.status||'Okay', pretty=raw[0].toUpperCase()+raw.slice(1).toLowerCase(), role=tidy(m.position||m.role||'Member');
+  const tr=document.createElement('tr');
+  tr.dataset.level=m.level||0;tr.dataset.role=role.toLowerCase();tr.dataset.days=m.days_in_faction||m.days||0;tr.dataset.status=pretty.toLowerCase();
+  tr.innerHTML=`<td>0</td>
+    <td data-label="IGN">${m.id?`<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank">${m.name}</a>`:m.name}</td>
+    <td data-label="Avatar"><img class="avatar" src="${blank}" data-id="${m.id||''}" alt=""></td>
+    <td data-label="Lv">${m.level||0}</td>
+    <td data-label="Role">${role}${crown(role)}</td>
+    <td data-label="Days">${m.days_in_faction||m.days||0}</td>
+    <td data-label="Status" class="${cls(pretty)}">${ico(pretty)} ${pretty}</td>`;
+  body.appendChild(tr);
+}
 
-    /* ───── static roster ───── */
-    function renderStatic(){
-      const L=[ /* --- 25-member snapshot --- */
-        {id:3212954,name:'Skillerious',      level:60,role:'Co-leader',    days:441,status:'Traveling'},
-        {id:2753560,name:'ForeverHydrox',    level:55,role:'Leader',       days:459,status:'Okay'},
-        {name:'Igniatus',                    level:40,role:'Member',       days:463,status:'Okay'},
-        {id:3400392,name:'JdedPrincess',     level:40,role:'Co-leader',    days:303,status:'Traveling'},
-        {name:'Spaghetti_Sauce',             level:39,role:'Member',       days:409,status:'Okay'},
-        {id:2804871,name:'XanderPTV',        level:34,role:'PBE Founder',  days:441,status:'Okay'},
-        {name:'StefanoMorano',               level:31,role:'Member',       days:276,status:'Okay'},
-        {name:'Yacizo',                      level:30,role:'Member',       days:42, status:'Okay'},
-        {name:'MrJudgement',                 level:30,role:'Member',       days:294,status:'Okay'},
-        {name:'KINGofCURSES',                level:29,role:'Member',       days:35, status:'Traveling'},
-        {name:'Natz_1',                      level:29,role:'Member',       days:36, status:'Okay'},
-        {name:'GarySavoy',                   level:28,role:'Member',       days:96, status:'Okay'},
-        {name:'Boltentoke',                  level:27,role:'Member',       days:440,status:'Okay'},
-        {name:'DaGRETT',                     level:25,role:'Member',       days:486,status:'Okay'},
-        {name:'An_Puca',                     level:25,role:'Member',       days:96, status:'Traveling'},
-        {name:'AungMyatHtut',                level:20,role:'Member',       days:37, status:'Traveling'},
-        {name:'Limerchyte',                  level:19,role:'Member',       days:379,status:'Okay'},
-        {name:'1TP',                         level:16,role:'Member',       days:77, status:'Okay'},
-        {name:'Antsi',                       level:15,role:'Member',       days:310,status:'Okay'},
-        {name:'ardabonne',                   level:15,role:'Member',       days:35, status:'Okay'},
-        {name:'14H3LL',                      level:14,role:'Member',       days:76, status:'Okay'},
-        {name:'praveen_2025',                level:14,role:'Member',       days:40, status:'Okay'},
-        {name:'10torn',                      level:12,role:'Member',       days:77, status:'Okay'},
-        {name:'TheLily',                     level:7, role:'Member',       days:16, status:'Okay'},
-        {name:'im80',                        level:4, role:'Member',       days:40, status:'Okay'}
-      ];
-      body.innerHTML='';L.forEach(renderRow);
-      rows=[...body.querySelectorAll('tr')];renumber();
-    }
+/* ─── Snapshot fetch (external JSON) ───────── */
+async function snapshot(){
+  try{
+    const res=await fetch('data/member-snapshot.json');
+    if(!res.ok)throw new Error();const list=await res.json();
+    body.innerHTML='';list.forEach(row);
+  }catch{
+    console.error('Snapshot JSON missing – falling back to hard-code');
+    body.innerHTML='<tr><td colspan="7">Snapshot unavailable.</td></tr>';
+  }
+  rows=[...body.querySelectorAll('tr')];renum();
+}
 
-    /* ───── live data ───── */
-    async function loadFaction(key){
-      try{
-        saveB.textContent='Loading…';
-        const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
-        if(!r.ok)throw new Error(`API error ${r.status}`);
-        const d=await r.json();
-        if(d.error)throw new Error(d.error.error);
-        const list=Object.entries(d.members).map(([id,m])=>({...m,id}));
-        body.innerHTML='';list.sort((a,b)=>b.level-a.level).forEach(renderRow);
-        rows=[...body.querySelectorAll('tr')];renumber();search.oninput();
-        saveB.textContent='Saved';
-        fetchAvatars(list,key);
-      }catch(e){alert(e.message);saveB.textContent='Save';}
-    }
+/* ─── Live fetch & lazy-avatars ────────────── */
+async function live(key){
+  notice.classList.add('loading');
+  try{
+    const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
+    if(!r.ok)throw new Error('Torn API error');
+    const d=await r.json();if(d.error)throw new Error(d.error.error);
+    const list=Object.entries(d.members).map(([id,m])=>({...m,id}));
+    body.innerHTML='';list.sort((a,b)=>b.level-a.level).forEach(row);
+    rows=[...body.querySelectorAll('tr')];renum();search.dispatchEvent(new Event('input'));
 
-    /* ───── row renderer ───── */
-    function renderRow(m){
-      const stRaw=m.status?.state||m.status||'Okay';
-      const pretty=stRaw.charAt(0).toUpperCase()+stRaw.slice(1).toLowerCase();
-      const role =tidy(m.position||m.role||'Member');
-
-      const tr=document.createElement('tr');
-      tr.dataset.level =m.level||0;
-      tr.dataset.role  =role.toLowerCase();
-      tr.dataset.days  =m.days_in_faction||m.days||0;
-      tr.dataset.status=pretty.toLowerCase();
-
-      tr.innerHTML=`
-        <td>0</td>
-        <td data-label="IGN">${m.id?`<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank">${m.name}</a>`:m.name}</td>
-        <td data-label="Avatar"><img class="avatar" src="${blank}" data-id="${m.id||''}" alt=""></td>
-        <td data-label="Lv">${m.level||0}</td>
-        <td data-label="Role">${role}${crown(role)}</td>
-        <td data-label="Days">${m.days_in_faction||m.days||0}</td>
-        <td data-label="Status" class="${classFor(pretty)}">${pretty}</td>`;
-      body.appendChild(tr);
-    }
-
-    /* ───── avatar fetch ───── */
-    async function fetchAvatars(list,key){
-      for(const m of list){
-        if(!m.id)continue;
+    /* lazy-load avatars */
+    const io=new IntersectionObserver(e=>{
+      e.forEach(async v=>{
+        if(!v.isIntersecting)return;
+        const img=v.target;io.unobserve(img);
         try{
-          const r=await fetch(`https://api.torn.com/user/${m.id}?selections=profile&key=${key}`);
-          const d=await r.json();
-          if(d.error||!d.profile_image)continue;
-          const img=body.querySelector(`img[data-id="${m.id}"]`);
-          if(img)img.src=d.profile_image;
-        }catch{/* ignore network hiccups */}
-      }
-    }
+          const r=await fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${key}`);
+          const j=await r.json();
+          if(!j.error&&j.profile_image)img.src=j.profile_image;
+        }catch{/* ignore */}
+      });
+    },{root:null,rootMargin:'200px'});
+    body.querySelectorAll('img.avatar').forEach(i=>i.dataset.id&&io.observe(i));
+  }catch(err){
+    alert(err.message);snapshot();
+  }
+  notice.classList.remove('loading');
+}
 
-    document.getElementById('year').textContent=new Date().getFullYear();
-  })();
-  </script>
+/* ─── Controls ─────────────────────────────── */
+save.onclick=async()=>{
+  const k=apiInput.value.trim();
+  if(k.length<10)return alert('Invalid API key');
+  localStorage.setItem(LS,await enc(k));live(k);
+};
+clr.onclick=()=>{localStorage.removeItem(LS);location.reload();};
+
+/* ─── Initial boot ─────────────────────────── */
+(async()=>{
+  if(localStorage.getItem(LS)){
+    const key=await dec(localStorage.getItem(LS));
+    if(key){apiInput.value='••••••••';live(key);}
+    else snapshot();
+  }else snapshot();
+  if(!cryptoOK)notice.querySelector('.no-enc').hidden=false;
+  $('#year').textContent=new Date().getFullYear();
+})();
+})();   /* IIFE END */
+</script>
 </body>
 </html>
