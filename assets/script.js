@@ -5,7 +5,6 @@
     • Mobile drawer: slide-in menu, dim overlay, body-lock
     • Navbar shadow after 60 px
     • “Back-to-top” button (>400 px)
-    • Session scroll restore (same-tab)
     • Reading-progress bar
     • Reveal-on-scroll animation (class="reveal")
     • Prefetch internal pages on link hover
@@ -13,14 +12,6 @@
 */
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* ───── 0. Session scroll-restore (read) ───── */
-  const SCROLL_KEY = "pcScrollY";
-  const savedY = +sessionStorage.getItem(SCROLL_KEY) || 0;
-  if (!location.hash && savedY > 0) {
-    setTimeout(() => {
-      if (savedY < document.body.scrollHeight) window.scrollTo(0, savedY);
-    }, 0);
-  }
 
   /* ───── 1. © year ───── */
   const yearEl = document.getElementById("year");
@@ -115,12 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   );
 
-  /* ───── 6. Session scroll-restore (save) ───── */
-  window.addEventListener("beforeunload", () =>
-    sessionStorage.setItem(SCROLL_KEY, window.scrollY)
-  );
-
-  /* ───── 7. Reading-progress bar ───── */
+  /* ───── 6. Reading-progress bar ───── */
   const bar = document.createElement("div");
   bar.id = "readBar";
   document.body.appendChild(bar);
@@ -135,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateBar();
   window.addEventListener("scroll", updateBar, { passive: true });
 
-  /* ───── 8. Reveal-on-scroll (class="reveal") ───── */
+  /* ───── 7. Reveal-on-scroll (class="reveal") ───── */
   const revealEls = document.querySelectorAll(".reveal");
   if (revealEls.length) {
     const io = new IntersectionObserver(
@@ -152,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     revealEls.forEach((el) => io.observe(el));
   }
 
-  /* ───── 9. Prefetch internal pages ───── */
+  /* ───── 8. Prefetch internal pages ───── */
   document.querySelectorAll('a[href$=".html"]:not([target])').forEach((a) => {
     a.addEventListener("mouseenter", () => {
       if (a.dataset.prefetched) return;
@@ -164,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ───── 10. Optional Service-Worker ───── */
+  /* ───── 9. Optional Service-Worker ───── */
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/sw.js")
