@@ -4,160 +4,267 @@
   <!-- META -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Privé Cartel • Guides Hub</title>
-  <meta name="description" content="One-click launchpad to the best Torn guides and tools." />
-  <link rel="icon" type="image/png" href="images/Emblem.png" />
+  <title>Privé Cartel • Torn Targets Guide</title>
+  <meta name="description" content="Learn how to use TornTargets.com with your Torn API key to find optimal chain targets and leveling spots." />
+  <link rel="icon" type="image/png" href="../images/Emblem.png" />
 
   <!-- FONTS & ICONS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&amp;family=Cormorant+Garamond:wght@500;600&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
   <!-- GLOBAL THEME -->
-  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="../assets/style.css" />
+
+  <!-- PAGE EXTRAS -->
+  <style>
+    /* Breadcrumb */
+    .breadcrumb {
+      font-size: .85rem;
+      margin-bottom: 1.2rem;
+    }
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* Guide container */
+    .guide-content {
+      max-width: 860px;
+      margin-inline: auto;
+    }
+
+    /* Section titles */
+    .guide-content h2 {
+      margin-top: 1.6rem;
+      color: var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      position: relative;
+      padding-bottom: .4rem;
+    }
+    .guide-content h2::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 32px; height: 2px;
+      background: linear-gradient(to right, var(--accent) 0%, rgba(214,184,109,0) 100%);
+    }
+
+    /* Add spacing below every header */
+    .guide-content h2 + p,
+    .guide-content h2 + ul,
+    .guide-content h2 + ol {
+      margin-top: .8rem;
+    }
+
+    /* Code blocks */
+    pre {
+      background: var(--bg-2);
+      padding: 1rem;
+      border-radius: var(--radius);
+      overflow-x: auto;
+      font-family: SFMono-Regular, Menlo, monospace;
+      font-size: .9rem;
+      margin: 1rem 0;
+    }
+    code {
+      background: rgba(255,255,255,.05);
+      padding: .2rem .4rem;
+      border-radius: 4px;
+    }
+
+    /* Standard lists */
+    ul.standard, ol.standard {
+      list-style-position: outside;
+      padding-left: 1.5rem;
+      margin: 1rem 0;
+    }
+    ul.standard li, ol.standard li {
+      margin-bottom: .6rem;
+    }
+
+    /* Configuration table */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+      min-width: 280px;
+    }
+    .config-table th,
+    .config-table td {
+      padding: .65rem .8rem;
+      border: 1px solid rgba(214,184,109,.22);
+      text-align: left;
+    }
+    .config-table th {
+      background: rgba(255,255,255,.06);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .config-table tbody tr:hover {
+      background: rgba(255,255,255,.04);
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-  <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
-  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
-  <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-      <li><a href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
-      <li><a href="guides.html" class="active"><i class="fa-solid fa-book"></i> Guides</a></li>
-      <li><a href="members.html"><i class="fa-solid fa-users"></i> Members</a></li>
-      <li><a href="news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
-      <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
-    </ul>
-  </nav>
-</header>
-<div class="nav-overlay"></div>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
+    <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="../rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+        <li><a href="../guides.html" class="active"><i class="fa-solid fa-book"></i> Guides</a></li>
+        <li><a href="../members.html"><i class="fa-solid fa-users"></i> Members</a></li>
+        <li><a href="../news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+        <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="nav-overlay"></div>
 
-<!-- HERO -->
-<section class="rules-hero">
-  <img src="images/Emblem.png" alt="Cartel Emblem" />
-  <h1>Faction Knowledge&nbsp;Hub</h1>
-  <p class="tagline" style="max-width:680px">
-    Curated links to the best Torn guides and tools.<br>
-    Tap a card &mdash; the resource opens in a new tab.
-  </p>
-</section>
+  <!-- HERO -->
+  <section class="rules-hero">
+    <img src="../images/Emblem.png" alt="Cartel Emblem" class="emblem" />
+    <h1>Torn Targets Guide</h1>
+    <p class="tagline">Step-by-step to find the best low-risk chain targets and leveling spots on TornTargets.com.</p>
+  </section>
 
-<!-- GUIDES -->
-<main>
-  <section>
-    <div class="container">
+  <!-- GUIDE -->
+  <section class="rules-block">
+    <div class="container glass guide-content">
 
-      <div class="guide-grid">
+      <p class="breadcrumb">
+        <a href="../guides.html"><i class="fa-solid fa-arrow-left"></i> Back to Guides</a>
+      </p>
 
-        <a href="https://www.markiva.co.uk/torn.html" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-code"></i>
-          <div>
-            <h3>Install&nbsp;Scripts</h3>
-            <p>Learn how to install and manage Torn userscripts.</p>
-          </div>
-        </a>
+      <h2>1. What Is Torn Targets?</h2>
+      <p>
+        TornTargets.com is a community-driven tool that finds optimal attack targets in Torn:
+      </p>
+      <ul class="standard">
+        <li>Pinpoint low-level players for fast XP and respect gains.</li>
+        <li>Filter opponents by estimated profit, hospital chance, travel time, and more.</li>
+        <li>Save and recall your custom searches instantly.</li>
+      </ul>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15940140" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-people-arrows-left-right"></i>
-          <div>
-            <h3>Being a Faction Member</h3>
-            <p>Etiquette, expectations &amp; perks — must-read before you join.</p>
-          </div>
-        </a>
+      <h2>2. Obtaining Your Torn API Key</h2>
+      <ol class="standard">
+        <li>Log in at <a href="https://www.torn.com" target="_blank">torn.com</a>.</li>
+        <li>Click your username (top-right) → select <strong>Preferences</strong>.</li>
+        <li>In the left sidebar click <strong>Settings → API Keys</strong>.</li>
+        <li>Under “My Keys” click <strong>Generate New Key</strong>.</li>
+        <li>
+          In the dialog:
+          <ul class="standard">
+            <li>Give it a descriptive name (e.g. “Privé Targets”).</li>
+            <li>Under <strong>Selections</strong>, check <em>Basic</em> (for faction info) and any other needed data.</li>
+            <li>Click <strong>Create</strong>, then <strong>Copy Key</strong>.</li>
+          </ul>
+        </li>
+        <li>
+          Paste the key into Torn Targets when prompted. <strong>Keep it secret</strong>—it grants access to your faction data.
+        </li>
+        <li>You can revoke or regenerate this key anytime from the same <em>API Keys</em> page.</li>
+      </ol>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16242871&b=0&a=0" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-person-running"></i>
-          <div>
-            <h3>Level&nbsp;15 in&nbsp;10&nbsp;Days</h3>
-            <p>Berakz’s fast-track levelling plus early money route.</p>
-          </div>
-        </a>
+      <h2>3. Logging In to Torn Targets</h2>
+      <p>
+        1. Visit <a href="https://www.torntargets.com" target="_blank">TornTargets.com</a>.<br>
+        2. Paste your API key into the top-right field.<br>
+        3. Click <strong>Connect</strong>—your username will appear when successful.
+      </p>
 
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16034448" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-book-open"></i>
-          <div>
-            <h3>Baldr’s Basic Advice</h3>
-            <p>Timeless fundamentals every newcomer should know.</p>
-          </div>
-        </a>
-
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15995191" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-dumbbell"></i>
-          <div>
-            <h3>Gym Training for Beginners</h3>
-            <p>Stat priorities and efficient energy use from Day&nbsp;1.</p>
-          </div>
-        </a>
-
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16077517" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-mug-saucer"></i>
-          <div>
-            <h3>Choco Jump (Happy-Jump Alt)</h3>
-            <p>Candy-based alternative to the classic Happy jump.</p>
-          </div>
-        </a>
-
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15928502" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-crosshairs"></i>
-          <div>
-            <h3>War Guide</h3>
-            <p>Preparation, targeting and defensive tactics in faction wars.</p>
-          </div>
-        </a>
-
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16025016" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-link"></i>
-          <div>
-            <h3>Chaining&nbsp;2.0 &ndash; Respect</h3>
-            <p>Modern chain strategy, respect maths and teamwork tips.</p>
-          </div>
-        </a>
-
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=15956969" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-user-ninja"></i>
-          <div>
-            <h3>100-Chain Solo</h3>
-            <p>How to run an entire 100-hit chain by yourself.</p>
-          </div>
-        </a>
-
-        <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16094641" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-face-smile-beam"></i>
-          <div>
-            <h3>Happy-Jump Training</h3>
-            <p>When to jump, when to hold &amp; cost-efficiency maths.</p>
-          </div>
-        </a>
-
-        <!-- New Torn Targets Card -->
-        <a href="https://www.torntargets.com/" target="_blank" class="card guide-card">
-          <i class="fa-solid fa-bullseye"></i>
-          <div>
-            <h3>Torn&nbsp;Targets</h3>
-            <p>Find easily defeated players to boost leveling and chain runs.</p>
-          </div>
-        </a>
-
+      <h2>4. Configure Your Search</h2>
+      <p>
+        Customize your criteria below. Then click <strong>Search</strong> for updated targets.
+      </p>
+      <div class="table-wrapper">
+        <table class="config-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Description</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Min Level</td>
+              <td>Exclude players below this level.</td>
+              <td>1</td>
+            </tr>
+            <tr>
+              <td>Max Level</td>
+              <td>Exclude players above this level.</td>
+              <td>15</td>
+            </tr>
+            <tr>
+              <td>Min Profit ($)</td>
+              <td>Only targets with estimated net profit per hit ≥ this.</td>
+              <td>1,000,000</td>
+            </tr>
+            <tr>
+              <td>Max Hospital Chance (%)</td>
+              <td>Skip targets with too high a hospital risk.</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td>Sort By</td>
+              <td>Select the metric to order results by.</td>
+              <td>Profit/Hit</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <p style="text-align:center;margin-top:1.6rem;font-style:italic;color:var(--text-2)">
-        Need something advanced? Ping <strong>@Skillerious</strong> in Discord.
-      </p>
+      <h2>5. Reading Your Results</h2>
+      <ul class="standard">
+        <li><strong>Name</strong> — click to open Torn profile.</li>
+        <li><strong>Level</strong> &amp; <strong>Respect</strong> — quick glance stats.</li>
+        <li><strong>Profit</strong> — estimated net funds per hit.</li>
+        <li><strong>Hospital %</strong> — chance of losing time.</li>
+        <li><strong>Travel Time</strong> — distance from you.</li>
+      </ul>
+
+      <h2>6. Pro Tips</h2>
+      <ul class="standard">
+        <li>Save filters as bookmarks for instant recall.</li>
+        <li>Maintain 50+ Energy to avoid mid-chain gaps.</li>
+        <li>Rotate target lists every 15-20 hits to dodge revives.</li>
+        <li>Combine with faction chains for maximum respect haul.</li>
+      </ul>
+
+      <div class="callout">
+        Pair Torn Targets with our <a href="../members.html">live roster</a> and
+        <a href="../guides.html">other guides</a> for peak efficiency.
+      </div>
 
     </div>
   </section>
-</main>
 
-<!-- FOOTER -->
-<footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
 
-<!-- SCRIPTS -->
-<script src="assets/script.js"></script>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <!-- SCRIPTS -->
+  <script src="../assets/script.js"></script>
+  <script>
+    // Footer year + scroll to top
+    document.getElementById('year').textContent = new Date().getFullYear();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  </script>
 </body>
 </html>
