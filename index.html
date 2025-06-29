@@ -27,170 +27,258 @@
 
   <!-- PAGE-SPECIFIC ENHANCEMENTS -->
   <style>
-  /* ============ 1.  BASE (mobile-first) ============ */
-  body{
-    background:
-      radial-gradient(ellipse at 50% -70%,rgba(255,255,255,.04) 0%,transparent 65%),
-      #0e0e0e;
-    color:#e6e3d4;
-    font-family:'Poppins',system-ui,sans-serif;
-    line-height:1.7;
-    margin:0;
-    overflow-x:hidden;
-  }
-  .container{max-width:1000px;margin-inline:auto;padding:1.75rem 1rem}
-  .container.glass{
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(214,184,109,.32);
-    border-radius:14px;
-    box-shadow:0 6px 28px rgba(0,0,0,.5);
-  }
+    /* ============ 1. BASE (mobile-first) ============ */
+    body {
+      background:
+        radial-gradient(ellipse at 50% -70%, rgba(255,255,255,.04) 0%, transparent 65%),
+        #0e0e0e;
+      color: #e6e3d4;
+      font-family: 'Poppins', system-ui, sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1000px;
+      margin-inline: auto;
+      padding: 1.75rem 1rem;
+    }
+    .container.glass {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(214,184,109,.32);
+      border-radius: 14px;
+      box-shadow: 0 6px 28px rgba(0,0,0,.5);
+    }
 
-  /* ============ 2.  TITLES ============ */
-  .section-title{
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.9rem;
-    color:#d6b86d;
-    margin:0 0 1.25rem;
-    letter-spacing:.3px;
-    position:relative;
-  }
-  .section-title::after{
-    content:"";
-    position:absolute;left:0;bottom:-6px;
-    width:38px;height:2px;
-    background:linear-gradient(to right,#d6b86d 0%,rgba(214,184,109,0) 100%);
-  }
+    /* ============ 2. TITLES ============ */
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      color: #d6b86d;
+      margin: 0 0 1.25rem;
+      letter-spacing: .3px;
+      position: relative;
+    }
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 38px;
+      height: 2px;
+      background: linear-gradient(to right, #d6b86d 0%, rgba(214,184,109,0) 100%);
+    }
 
-  /* ============ 3.  HERO ============ */
-  .hero{
-    display:flex;flex-direction:column;align-items:center;text-align:center;
-    gap:1.5rem;
-    padding:4.75rem 1rem 3.5rem;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero::before{
-    content:"";
-    position:absolute;inset:0;
-    background:url("images/hero-bg.jpg") repeat center/180px;
-    opacity:.05;
-    mix-blend-mode:overlay;
-    pointer-events:none;
-  }
-  .hero .emblem{
-    width:110px;
-    filter:drop-shadow(0 0 12px rgba(214,184,109,.55));
-  }
-  .hero h1{
-    font-family:'Cormorant Garamond',serif;
-    font-size:clamp(1.9rem,5.6vw,2.85rem);
-    font-weight:600;
-    line-height:1.3;
-    margin:0;
-    text-shadow:0 2px 6px rgba(0,0,0,.55);
-  }
+    /* ============ 3. HERO ============ */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+      padding: 4.75rem 1rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("images/hero-bg.jpg") repeat center/180px;
+      opacity: .05;
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+    .hero .emblem {
+      width: 110px;
+      filter: drop-shadow(0 0 12px rgba(214,184,109,.55));
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.9rem, 5.6vw, 2.85rem);
+      font-weight: 600;
+      line-height: 1.3;
+      margin: 0;
+      text-shadow: 0 2px 6px rgba(0,0,0,.55);
+    }
 
-  /* ============ 4.  CARD GRID (Services) ============ */
-  .card-grid{
-    display:grid;
-    gap:1.4rem;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    margin-top:1.4rem;
-  }
-  .card{
-    position:relative;
-    background:rgba(255,255,255,.045);
-    border:1px solid rgba(214,184,109,.24);
-    padding:1.4rem 1.35rem 1.6rem;
-    border-radius:12px;
-    box-shadow:0 0 0 rgba(0,0,0,0);
-    transition:transform .28s ease,box-shadow .28s ease;
-    will-change:transform,box-shadow;
-  }
-  .card:hover{
-    transform:translateY(-6px) scale(1.03);
-    box-shadow:0 8px 20px rgba(0,0,0,.6);
-  }
-  .card h3{
-    margin:0 0 .6rem;
-    font-size:1.1rem;
-    font-weight:600;
-    color:#d6b86d;
-    display:flex;align-items:center;gap:.45rem;
-  }
-  .card p{margin:0;font-size:.92rem;color:#d3c79c;line-height:1.6}
-  .card i{color:#c4a46a;font-size:1.1rem}
+    /* ============ 4. CARD GRID (Services) ============ */
+    .card-grid {
+      display: grid;
+      gap: 1.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      margin-top: 1.4rem;
+    }
+    .card {
+      position: relative;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(214,184,109,.24);
+      padding: 1.4rem 1.35rem 1.6rem;
+      border-radius: 12px;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      transition: transform .28s ease, box-shadow .28s ease;
+      will-change: transform, box-shadow;
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,0,0,.6);
+    }
+    .card h3 {
+      margin: 0 0 .6rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #d6b86d;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+    }
+    .card p {
+      margin: 0;
+      font-size: .92rem;
+      color: #d3c79c;
+      line-height: 1.6;
+    }
+    .card i {
+      color: #c4a46a;
+      font-size: 1.1rem;
+    }
 
-  /* ============ 5.  PERK GRID ============ */
-  .perk-grid{
-    list-style:none;padding:0;margin:1.35rem 0;
-    display:grid;gap:1rem;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  }
-  .perk-grid li{
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(214,184,109,.2);
-    border-radius:9px;
-    min-height:125px;
-    padding:1rem .6rem;
-    display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;
-    transition:transform .28s ease,box-shadow .28s ease;
-  }
-  .perk-grid li:hover{
-    transform:translateY(-6px) scale(1.03);
-    box-shadow:0 8px 20px rgba(0,0,0,.6);
-  }
-  .perk-grid li i{color:#c4a46a;font-size:1.55rem;margin-bottom:.55rem}
+    /* ============ 5. PERK GRID ============ */
+    .perk-grid {
+      list-style: none;
+      padding: 0;
+      margin: 1.35rem 0;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .perk-grid li {
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(214,184,109,.2);
+      border-radius: 9px;
+      min-height: 125px;
+      padding: 1rem .6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .perk-grid li:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,0,0,.6);
+    }
+    .perk-grid li i {
+      color: #c4a46a;
+      font-size: 1.55rem;
+      margin-bottom: .55rem;
+    }
 
-  /* ============ 6.  TABLE (Chain Rewards) ============ */
-  .table-wrapper{overflow-x:auto;margin:1.25rem 0}
-  .reward-table{
-    width:100%;border-collapse:collapse;font-size:.93rem;min-width:300px
-  }
-  .reward-table thead{background:rgba(255,255,255,.06)}
-  .reward-table th,
-  .reward-table td{
-    padding:.7rem .65rem;
-    border:1px solid rgba(214,184,109,.22);
-    text-align:left
-  }
-  .reward-table th{color:#c4a46a;font-weight:600}
-  .reward-table tbody tr:nth-child(even){background:rgba(255,255,255,.03)}
-  .reward-table tbody tr:hover{background:rgba(255,255,255,.06)}
-  .reward-table td i{margin-right:.45rem;color:#c4a46a}
-  .table-note{font-size:.88rem;font-style:italic;color:rgba(230,230,230,.8)}
+    /* ============ 6. TABLE (Chain Rewards) ============ */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.25rem 0;
+    }
+    .reward-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .93rem;
+      min-width: 300px;
+    }
+    .reward-table thead {
+      background: rgba(255,255,255,.06);
+    }
+    .reward-table th,
+    .reward-table td {
+      padding: .7rem .65rem;
+      border: 1px solid rgba(214,184,109,.22);
+      text-align: left;
+    }
+    .reward-table th {
+      color: #c4a46a;
+      font-weight: 600;
+    }
+    .reward-table tbody tr:nth-child(even) {
+      background: rgba(255,255,255,.03);
+    }
+    .reward-table tbody tr:hover {
+      background: rgba(255,255,255,.06);
+    }
+    .reward-table td i {
+      margin-right: .45rem;
+      color: #c4a46a;
+    }
+    .table-note {
+      font-size: .88rem;
+      font-style: italic;
+      color: rgba(230,230,230,.8);
+    }
 
-  /* ============ 7.  STANDARD LISTS (better mobile indent) ============ */
-  ol.standard,
-  ul.standard{
-    list-style-position:outside;
-    padding-left:1.8rem;          /* breathing room inside the glass card */
-    margin:1rem 0;
-  }
-  ol.standard li,
-  ul.standard li{
-    margin-bottom:.55rem;
-  }
-  ol.standard li::marker,
-  ul.standard li::marker{
-    font-weight:700;
-  }
+    /* ============ 6a. ALERT CARD ============ */
+    .alert-card {
+      background: rgba(214,184,109,0.1);
+      border: 1px solid #d6b86d;
+      border-radius: 9px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .alert-card p {
+      margin: 0;
+      font-size: .92rem;
+      color: #d3c79c;
+    }
+    .alert-card p strong {
+      color: #d6b86d;
+    }
 
-  /* ============ 8.  MEDIA QUERIES (≥600 px) ============ */
-  @media(min-width:600px){
-    .container{padding:2rem 1.5rem}
-    .section-title{font-size:2.15rem}
-    .hero{padding:5.5rem 1rem 4rem}
-    .hero .emblem{width:135px}
-    .card-grid{gap:1.6rem}
-    .card{padding:1.6rem 1.45rem 1.8rem}
-    .perk-grid li{min-height:138px}
-    .reward-table{font-size:1rem}
+    /* ============ 7. STANDARD LISTS ============ */
     ol.standard,
-    ul.standard{padding-left:2rem}
-  }
+    ul.standard {
+      list-style-position: outside;
+      padding-left: 1.8rem;
+      margin: 1rem 0;
+    }
+    ol.standard li,
+    ul.standard li {
+      margin-bottom: .55rem;
+    }
+    ol.standard li::marker,
+    ul.standard li::marker {
+      font-weight: 700;
+    }
+
+    /* ============ 8. MEDIA QUERIES (≥600px) ============ */
+    @media(min-width: 600px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      .section-title {
+        font-size: 2.15rem;
+      }
+      .hero {
+        padding: 5.5rem 1rem 4rem;
+      }
+      .hero .emblem {
+        width: 135px;
+      }
+      .card-grid {
+        gap: 1.6rem;
+      }
+      .card {
+        padding: 1.6rem 1.45rem 1.8rem;
+      }
+      .perk-grid li {
+        min-height: 138px;
+      }
+      .reward-table {
+        font-size: 1rem;
+      }
+      ol.standard,
+      ul.standard {
+        padding-left: 2rem;
+      }
+    }
   </style>
 </head>
 
@@ -206,10 +294,10 @@
     <nav>
       <ul class="nav-links">
         <li><a href="index.html" class="home-link active"><i class="fa-solid fa-house"></i> Home</a></li>
-        <li><a href="rules.html"  class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+        <li><a href="rules.html" class="rules-link"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
         <li><a href="guides.html" class="guides-link"><i class="fa-solid fa-book"></i> Guides</a></li>
         <li><a href="members.html" class="members-link"><i class="fa-solid fa-users"></i> Members</a></li>
-        <li><a href="news.html"    class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+        <li><a href="news.html" class="news-link"><i class="fa-solid fa-bullhorn"></i> News</a></li>
         <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
       </ul>
     </nav>
@@ -281,7 +369,7 @@
     <section id="rewards">
       <div class="container">
         <h2 class="section-title">Chain Rewards</h2>
-        <p>Record <strong>6 + hits</strong> in any chain and claim your reward:</p>
+        <p>Record <strong>5 + hits</strong> in any chain and claim your reward:</p>
 
         <div class="table-wrapper">
           <table class="reward-table">
@@ -302,7 +390,14 @@
             </tbody>
           </table>
         </div>
-        <p class="table-note">Subject to change upon Council leadership review.</p>
+
+        <p class="table-note">*Subject to change upon Council leadership review.</p>
+
+        <div class="alert-card">
+          <p><strong>Note:</strong> Rewards will automatically be sent upon chain completion and review of Chain report.</p>
+        </div>
+
+        
       </div>
     </section>
 
@@ -322,10 +417,14 @@
   </main>
 
   <!-- FOOTER -->
-  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
 
   <!-- SCRIPTS -->
   <script src="assets/script.js"></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
