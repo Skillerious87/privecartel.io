@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Privé Cartel • Install Tampermonkey &amp; Scripts</title>
+  <meta name="description" content="Five-minute setup guide to install Tampermonkey and Torn scripts." />
+  <link rel="icon" type="image/png" href="../images/Emblem.png" />
+
+  <!-- FONTS & ICONS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- GLOBAL THEME -->
+  <link rel="stylesheet" href="../assets/style.css" />
+
+  <!-- PAGE-SPECIFIC STYLES -->
+  <style>
+    /* Hero heading uses Cormorant Garamond */
+    .rules-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      font-size: .85rem;
+      margin-bottom: 1rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* Notice card */
+    .notice {
+      background: rgba(196,164,106,0.1);
+      border-left: 4px solid var(--accent);
+      padding: .75rem 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Guide container */
+    .guide-content {
+      font-family: 'Poppins', sans-serif;
+      max-width: 860px;
+      margin-inline: auto;
+      padding-bottom: 2rem;
+    }
+    .guide-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      margin-top: 1.6rem;
+      color: var(--accent);
+      position: relative;
+      padding-bottom: .4rem;
+    }
+    .guide-content h2::after {
+      content: "";
+      position: absolute; left: 0; bottom: 0;
+      width: 32px; height: 2px;
+      background: linear-gradient(to right, var(--accent) 0%, rgba(196,164,106,0) 100%);
+    }
+
+    /* Indent lists */
+    .guide-content ul.standard,
+    .guide-content ol.standard {
+      padding-left: 2.5rem;
+      margin: 1rem 0;
+    }
+    .guide-content ul.standard li,
+    .guide-content ol.standard li {
+      margin-bottom: .6rem;
+    }
+
+    /* Code blocks */
+    .guide-content pre,
+    .guide-content code {
+      background: var(--bg-2);
+      color: var(--text-1);
+      padding: .6rem;
+      border-radius: var(--radius);
+      overflow-x: auto;
+      font-family: SFMono-Regular, Menlo, monospace;
+      font-size: .9rem;
+      margin: .8rem 0;
+    }
+
+    /* Buttons */
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      margin: .5rem .5rem .5rem 0;
+      padding: .65rem 1.25rem;
+      font-size: .9rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      color: #000;
+      background: transparent;
+      border: 2px solid var(--accent);
+      border-radius: 2rem;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition);
+    }
+    .button:hover {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-chrome i { color: #fff; }
+    .btn-chrome { border-color: #4285F4; }
+    .btn-edge { border-color: #0078D7; }
+    .btn-ff { border-color: #FF7139; }
+
+    /* Images with gold border */
+    .guide-content img {
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: transform .2s ease;
+    }
+    .guide-content img:hover {
+      transform: scale(1.02);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #lightbox img {
+      max-width: 90%; max-height: 90%;
+      border: 3px solid var(--accent);
+      border-radius: var(--radius);
+    }
+    #lightbox-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none; color: #fff;
+      font-size: 2rem; cursor: pointer;
+    }
+
+    /* Search input themed */
+    #filterInput {
+      width: 100%;
+      padding: .65rem 1rem;
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--bg-2);
+      color: var(--text-1);
+      font-family: 'Poppins', sans-serif;
+      font-size: .9rem;
+      margin-bottom: 1rem;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    #filterInput:focus {
+      background: var(--bg-2);
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Table styling */
+    .responsive-table {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .responsive-table table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    .responsive-table th,
+    .responsive-table td {
+      padding: .8rem 1rem;
+      border: 1px solid var(--accent);
+      text-align: left;
+    }
+    .responsive-table th {
+      background: var(--bg-2);
+      color: var(--accent);
+    }
+    .responsive-table tr:nth-child(even) {
+      background: rgba(196,164,106,0.05);
+    }
+
+    /* Accordion FAQ */
+    .accordion {
+      cursor: pointer;
+      padding: .85rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--bg-2);
+      margin-bottom: .6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      color: var(--accent);
+    }
+    .accordion i {
+      transition: transform .3s ease;
+      color: var(--text-2);
+    }
+    .acc-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+      padding: 0 1rem;
+      font-size: .9rem;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-1);
+    }
+    .accordion.open i {
+      transform: rotate(90deg);
+    }
+    .accordion.open + .acc-content {
+      max-height: 260px;
+      padding-top: .6rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" />
+    <label for="nav-toggle" class="hamburger"><span></span><span></span><span></span></label>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="../index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="../rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
+        <li><a href="../guides.html" class="active"><i class="fa-solid fa-book"></i> Guides</a></li>
+        <li><a href="../members.html"><i class="fa-solid fa-users"></i> Members</a></li>
+        <li><a href="../news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
+        <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank"><i class="fa-brands fa-discord"></i> Discord</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="nav-overlay"></div>
+
+  <!-- HERO -->
+  <section class="rules-hero">
+    <img src="../images/Emblem.png" alt="Cartel Emblem" class="emblem" />
+    <h1>Install Tampermonkey &amp; Scripts</h1>
+    <p class="tagline" style="max-width:680px; margin: .8rem auto;">
+      Five-minute setup — Chrome · Edge · Firefox · Brave
+    </p>
+    <p class="tagline" style="font-size:.9rem; margin-bottom:2rem;">
+      <strong>Guide written by <a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank">Skillerious</a></strong>
+    </p>
+  </section>
+
+  <!-- GUIDE CONTENT -->
+  <section class="rules-block">
+    <div class="container glass guide-content">
+
+      <p class="breadcrumb">
+        <a href="../guides.html"><i class="fa-solid fa-arrow-left"></i> Back to Guides</a>
+      </p>
+
+      <div class="notice">
+        <strong>Tampermonkey</strong> is a versatile browser extension with over 🔟 million users that enhances your browsing experience by allowing you to run userscripts on websites.<br><br>
+        <strong>Userscripts</strong> are small programs that modify page layouts, add or remove features, and automate actions to personalize your web experience—installing them lets you tailor Torn (and any site) exactly to your needs.
+      </div>
+
+      <!-- Step 1 -->
+      <h2 id="install">Step 1 — Add Tampermonkey</h2>
+      <p><strong>Why Tampermonkey?</strong></p>
+      <ul class="standard">
+        <li>Auto-updates keep your scripts fresh.</li>
+        <li>Easily enable/disable individual scripts.</li>
+        <li>One-click removal if something breaks.</li>
+      </ul>
+      <p><strong>Install steps:</strong></p>
+      <ol class="standard">
+        <li>Tap your browser button below.</li>
+        <li>Click “Add extension” / “Add to Firefox.”</li>
+        <li>Pin the TM icon for quick access.</li>
+      </ol>
+      <p>
+        <a class="button btn-chrome"
+           href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo"
+           target="_blank">
+          <i class="fa-brands fa-chrome"></i> Chrome
+        </a>
+        <a class="button btn-edge"
+           href="https://microsoftedge.microsoft.com/addons/detail/tampermonkey/damfkmgemiapkbninekfldobiaagkjan"
+           target="_blank">
+          <i class="fa-brands fa-edge-legacy"></i> Edge
+        </a>
+        <a class="button btn-ff"
+           href="https://addons.mozilla.org/firefox/addon/tampermonkey/"
+           target="_blank">
+          <i class="fa-brands fa-firefox-browser"></i> Firefox
+        </a>
+      </p>
+      <img src="../images/tampermonkey-chrome-webstore.png" alt="Chrome Web Store listing">
+
+      <!-- Step 2 -->
+      <h2 id="catalogue">Step 2 — Browse the gallery</h2>
+      <p>Power-user tips for GreasyFork:</p>
+      <ul class="standard">
+        <li>Check rating &amp; install count (social proof).</li>
+        <li>Prefer scripts updated in the last year.</li>
+        <li>Peek at Feedback tab for unresolved bugs.</li>
+        <li>Search terms: <em>revive, egg, stats, timer</em>.</li>
+      </ul>
+      <p>
+        <a class="button btn-chrome"
+           href="https://greasyfork.org/en/scripts/by-site/torn.com"
+           target="_blank">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open GreasyFork
+        </a>
+      </p>
+      <img src="../images/greasyfork-torn-list.png" alt="Script gallery screenshot">
+
+      <!-- Step 3 -->
+      <h2 id="install-script">Step 3 — Install a script</h2>
+      <p><strong>Standard flow:</strong></p>
+      <ol class="standard">
+        <li>Tap “Install this script” on GreasyFork.</li>
+        <li>Tampermonkey preview opens showing the code.</li>
+        <li>Click <strong>Install</strong> — tab closes automatically.</li>
+      </ol>
+      <p>⚠️ Red warning banner? The script may be obsolete—check last update date &amp; comments.</p>
+      <img src="../images/greasyfork-install-button.png" alt="Install button">
+      <img src="../images/tampermonkey-install-dialog.png" alt="TM confirmation">
+
+      <!-- Step 4 -->
+      <h2 id="enable">Step 4 — Enable &amp; verify</h2>
+      <ul class="standard">
+        <li>🟢 Green toggle = script active.</li>
+        <li>🛠️ Dropdown ▼ gives options: edit, check updates.</li>
+        <li>💡 Refresh Torn to load script UI changes.</li>
+      </ul>
+      <img src="../images/tampermonkey-enabled.png" alt="Enabled toggle">
+
+      <!-- Step 5 -->
+      <h2 id="manage">Step 5 — Manage scripts</h2>
+      <div class="responsive-table">
+        <table>
+          <thead>
+            <tr><th>Action</th><th>How</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Disable temporarily</td><td>Dashboard → click green toggle</td></tr>
+            <tr><td>Force update</td><td>Dashboard → ▼ → Check updates</td></tr>
+            <tr><td>Edit code</td><td>Dashboard → click script title</td></tr>
+            <tr><td>Remove script</td><td>Dashboard → 🗑 icon</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Tip: back-up your script list via Utilities › Export Zip before experimenting.</p>
+
+      <!-- Starter Pack -->
+      <h2 id="starter">Starter Pack</h2>
+      <input id="filterInput" placeholder="🔍 Filter scripts…" />
+      <div class="responsive-table">
+        <table id="scriptTable">
+          <thead>
+            <tr><th>Script</th><th>Description</th><th>Updated</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><a href="https://greasyfork.org/en/scripts/523047-torn-fastrevive" target="_blank">Fast Revive</a></td><td>Two-tap hospital revives</td><td>3 mo ago</td></tr>
+            <tr><td><a href="https://greasyfork.org/en/scripts/391922-torn-extensions-torn-attack-stats" target="_blank">Torn Attack Stats</a></td><td>Show enemy stats on attack page</td><td>Apr 2025</td></tr>
+            <tr><td><a href="https://greasyfork.org/en/scripts/463421-egg-finder" target="_blank">Egg Finder</a></td><td>Highlight hidden eggs</td><td>Mar 2024</td></tr>
+            <tr><td><a href="https://greasyfork.org/en/scripts/463484-heasley-s-egg-navigator" target="_blank">Egg Navigator</a></td><td>Map egg locations</td><td>Mar 2025</td></tr>
+            <tr><td><a href="https://greasyfork.org/en/scripts/506966-torn-crimes-scamming-timers" target="_blank">Crime Timer Plus</a></td><td>Track every cooldown</td><td>Feb 2025</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FAQ as accordions -->
+      <h2 id="faq">FAQ / Troubleshooting</h2>
+      <div class="accordion"><span>Script won’t install</span><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="acc-content">
+        <p>Ensure Tampermonkey is enabled &amp; not blocked. In Chrome: <code>chrome://extensions</code> → Details → Site access → “On all sites.”</p>
+      </div>
+      <div class="accordion"><span>No changes after install</span><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="acc-content">
+        <ul class="standard">
+          <li>Refresh Torn tab—scripts run on load.</li>
+          <li>Confirm you’re on <code>https://www.torn.com</code>.</li>
+          <li>Verify toggle is green in TM dashboard.</li>
+        </ul>
+      </div>
+      <div class="accordion"><span>Update failed / Red banner</span><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="acc-content">
+        <p>GreasyFork may be rate-limited. Wait or install from the script’s GitHub raw URL via Utilities › Install from URL.</p>
+      </div>
+      <div class="accordion"><span>Scripts clash / duplicate UI</span><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="acc-content">
+        <ul class="standard">
+          <li>Disable overlapping scripts.</li>
+          <li>Reorder in dashboard—top run first.</li>
+          <li>Check console (F12 › Console) for errors.</li>
+        </ul>
+      </div>
+      <div class="accordion"><span>Reset everything</span><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="acc-content">
+        <ol class="standard">
+          <li>Remove Tampermonkey extension.</li>
+          <li>Reinstall from store.</li>
+          <li>Import backup ZIP via Utilities › Restore.</li>
+        </ol>
+      </div>
+      <div class="accordion"><span>Is using scripts bannable?</span><i class="fa-solid fa-chevron-right"></i></div>
+      <div class="acc-content">
+        <p>Torn allows QOL scripts that don’t automate gameplay. Avoid auto-clickers or bots.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <button id="lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="Expanded screenshot">
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="../assets/script.js"></script>
+  <script>
+    // Lightbox behavior
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = lightbox.querySelector('img');
+    document.querySelectorAll('.guide-content img').forEach(img => {
+      img.addEventListener('click', () => {
+        lbImg.src = img.src;
+        lightbox.style.display = 'flex';
+      });
+    });
+    document.getElementById('lightbox-close').addEventListener('click', () => {
+      lightbox.style.display = 'none';
+      lbImg.src = '';
+    });
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) {
+        lightbox.style.display = 'none';
+        lbImg.src = '';
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        lightbox.style.display = 'none';
+        lbImg.src = '';
+      }
+    });
+
+    // Starter pack filter
+    document.getElementById('filterInput')?.addEventListener('input', e => {
+      const term = e.target.value.toLowerCase();
+      document.querySelectorAll('#scriptTable tbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
+      });
+    });
+
+    // Accordion FAQ
+    document.querySelectorAll('.accordion').forEach(acc => {
+      acc.addEventListener('click', () => {
+        acc.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
