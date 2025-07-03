@@ -23,8 +23,8 @@
     .breadcrumb         {font-size:.85rem;margin-bottom:1.2rem}
     .breadcrumb a       {color:var(--accent);text-decoration:none}
     .breadcrumb a:hover {text-decoration:underline}
-    .byline   {font-size:.9rem;color:var(--text-2);font-style:italic;margin-bottom:1.6rem}
-    .tagline  {font-size:.95rem;color:var(--text-2);margin-bottom:1rem}
+    .byline             {font-size:.9rem;color:var(--text-2);font-style:italic;margin-bottom:1.6rem}
+    .tagline            {font-size:.95rem;color:var(--text-2);margin-bottom:1rem}
 
     /* chain label */
     .chain-header{
@@ -76,6 +76,7 @@
 
     .section-title{margin-top:2rem;font-size:1.25rem;color:var(--accent)}
 
+    /* card wrapper */
     .card{
       background:var(--bg-2);
       border:1px solid rgba(var(--accent-rgb),.35);
@@ -84,6 +85,8 @@
       margin:1.6rem 0;
       box-shadow:0 4px 8px rgba(0,0,0,.1)
     }
+
+    /* participant table */
     .participant-table{
       width:100%;
       border-collapse:collapse;
@@ -91,8 +94,9 @@
     }
     .participant-table th,
     .participant-table td{
-      padding:.75rem 1rem;
-      text-align:left
+      padding:.75rem .9rem;
+      text-align:left;
+      white-space:nowrap
     }
     .participant-table thead th{
       border-bottom:2px solid rgba(var(--accent-rgb),.5);
@@ -102,7 +106,17 @@
     .participant-table tbody tr:nth-child(odd){
       background:rgba(var(--accent-rgb),.03)
     }
+
     .article ul.standard{margin-left:1.25rem;padding-left:1.25rem}
+
+    /* small-screen tweaks */
+    @media (max-width:500px){
+      .participant-table th,
+      .participant-table td{
+        padding:.5rem .6rem;
+        font-size:.8rem
+      }
+    }
   </style>
 </head>
 <body>
@@ -170,14 +184,14 @@
       <h2 class="section-title"><i class="fa-solid fa-people-group"></i> Participant Breakdown</h2>
       <div class="card">
         <table class="participant-table">
-          <thead><tr><th>Member</th><th>Respect</th><th>Best</th><th>Avg</th><th>Attacks</th></tr></thead>
+          <thead><tr><th>Member</th><th>Respect</th><th>Avg</th><th>Attacks</th></tr></thead>
           <tbody>
-            <tr><td>Skillerious</td><td>173</td><td>4.43</td><td>3.15</td><td>41</td></tr>
-            <tr><td>ForeverHydrox</td><td>36 </td><td>4.10</td><td>2.38</td><td>15</td></tr>
-            <tr><td>praveen_2025</td><td>46 </td><td>2.84</td><td>2.21</td><td>13</td></tr>
-            <tr><td>JdedPrincess</td><td>27 </td><td>3.83</td><td>2.22</td><td>12</td></tr>
-            <tr><td>1TP</td>       <td>116</td><td>3.97</td><td>3.62</td><td>11</td></tr>
-            <tr><td>OldArrack</td> <td>23 </td><td>3.63</td><td>2.82</td><td>8 </td></tr>
+            <tr><td>Skillerious</td><td>173</td><td>3.15</td><td>41</td></tr>
+            <tr><td>ForeverHydrox</td><td>36 </td><td>2.38</td><td>15</td></tr>
+            <tr><td>praveen_2025</td><td>46 </td><td>2.21</td><td>13</td></tr>
+            <tr><td>JdedPrincess</td><td>27 </td><td>2.22</td><td>12</td></tr>
+            <tr><td>1TP</td>       <td>116</td><td>3.62</td><td>11</td></tr>
+            <tr><td>OldArrack</td> <td>23 </td><td>2.82</td><td>8 </td></tr>
           </tbody>
         </table>
       </div>
@@ -204,11 +218,7 @@
         <strong>18 faultless blows</strong>, netting <strong>59.32 respect</strong>. Every attack was
         deliberate, averaging one hit per minute, ensuring no wasted energy and zero collateral damage.
       </p>
-      <p>
-        Tactical positioning meant neither fighter took a single loss or allowed an escape. The string
-        of precise hits — including a clean <strong>10.00-respect</strong> finisher — proved that you
-        don’t always need a crowd to make a statement.
-      </p>
+
 
       <figure class="metrics" aria-label="Chain 2 statistics">
         <div class="metric"><h4><i class="fa-solid fa-link"></i> Chain</h4><p>18</p></div>
@@ -220,10 +230,10 @@
       <h2 class="section-title"><i class="fa-solid fa-people-group"></i> Participant Breakdown</h2>
       <div class="card">
         <table class="participant-table">
-          <thead><tr><th>Member</th><th>Respect</th><th>Best</th><th>Avg</th><th>Attacks</th></tr></thead>
+          <thead><tr><th>Member</th><th>Respect</th><th>Avg</th><th>Attacks</th></tr></thead>
           <tbody>
-            <tr><td>Skillerious</td><td>53</td><td>3.69</td><td>3.08</td><td>15</td></tr>
-            <tr><td>JdedPrincess</td><td>6 </td><td>2.57</td><td>2.08</td><td>3 </td></tr>
+            <tr><td>Skillerious</td><td>53</td><td>3.08</td><td>15</td></tr>
+            <tr><td>JdedPrincess</td><td>6 </td><td>2.08</td><td>3 </td></tr>
           </tbody>
         </table>
       </div>
@@ -249,7 +259,7 @@
       </p>
       <p>
         A razor-sharp <strong>40.00-respect</strong> blow punctuated the run and sealed a confident
-        close at hit 60.
+        close at hit&nbsp;60.
       </p>
 
       <figure class="metrics" aria-label="Chain 3 statistics">
@@ -262,10 +272,10 @@
       <h2 class="section-title"><i class="fa-solid fa-people-group"></i> Participant Breakdown</h2>
       <div class="card">
         <table class="participant-table">
-          <thead><tr><th>Member</th><th>Respect</th><th>Best</th><th>Avg</th><th>Attacks</th></tr></thead>
+          <thead><tr><th>Member</th><th>Respect</th><th>Avg</th><th>Attacks</th></tr></thead>
           <tbody>
-            <tr><td>Igniatus</td><td>97 </td><td>4.00</td><td>1.84</td><td>32</td></tr>
-            <tr><td>An Puca </td><td>123</td><td>3.93</td><td>3.59</td><td>28</td></tr>
+            <tr><td>Igniatus</td><td>97 </td><td>1.84</td><td>32</td></tr>
+            <tr><td>An Puca </td><td>123</td><td>3.59</td><td>28</td></tr>
           </tbody>
         </table>
       </div>
