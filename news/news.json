@@ -1,5 +1,13 @@
 [
   {
+    "title": "Triple Chain Report",
+    "date": "2025-07-03",
+    "summary": "Three chains completed on 02 Jul 2025: a 100-hit sprint in 9 min, an 18-hit push in 15 min, and a 60-hit endurance run in 29 min—totalling 700.21 respect.",
+    "icon": "fire",
+    "tag": "OC",
+    "file": "2025-07-03-chain.html"
+  },
+  {
     "title": "Chain Record Shattered!",
     "date": "2025-06-23",
     "summary": "The Cartel set a new high of 410.78 respect in a single 100-hit chain. Rewards paid, morale sky-high.",
@@ -24,11 +32,11 @@
     "file": "2025-06-25-chain.html"
   },
   {
-  "title": "Faction Hub Launch",
-  "date": "2025-06-28",
-  "summary": "New website goes live with live-roster, guides hub and auto-archived news feed.",
-  "icon": "spray-can-sparkles",
-  "tag": "Milestone",
-  "file": "2025-06-28-site-launch.html"
-}
+    "title": "Faction Hub Launch",
+    "date": "2025-06-28",
+    "summary": "New website goes live with live-roster, guides hub and auto-archived news feed.",
+    "icon": "spray-can-sparkles",
+    "tag": "Milestone",
+    "file": "2025-06-28-site-launch.html"
+  }
 ]
