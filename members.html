@@ -199,6 +199,13 @@
           <span class="stat-label"><i class="fa-solid fa-database"></i> Source</span>
           <span class="stat-value" id="statsSource">Snapshot</span>
         </div>
+
+        <!-- NEW: STATUS BREAKDOWN -->
+        <div class="stat">  <!-- NEW -->
+          <span class="stat-label"><i class="fa-solid fa-heart-pulse"></i> Member Status</span> <!-- NEW -->
+          <span class="stat-value" id="statsStatus">—</span> <!-- NEW -->
+        </div> <!-- NEW -->
+
       </div>
     </div>
 
@@ -219,7 +226,8 @@
 const LS='pcApiCipher', crownRX=/^(leader|co[- ]?leader|pbe founder)$/i, blank='images/blankprofile.jpg';
 const $=s=>document.querySelector(s), body=$('#memberBody'), notice=$('#notice');
 const apiInput=$('#apiKeyInput'), save=$('#saveKeyBtn'), clr=$('#clearKeyBtn'), search=$('#memberSearch');
-const stats={count:$('#statsCount'),updated:$('#statsUpdated'),source:$('#statsSource')};
+const stats={count:$('#statsCount'),updated:$('#statsUpdated'),source:$('#statsSource'),
+             status:$('#statsStatus')}; /* NEW */
 let rows=[], cryptoOK=!!(crypto?.subtle);
 
 /*━━━━━━━━━━ HELPERS ━━━━━━━━━━━━━━━━━━━━━*/
@@ -228,6 +236,20 @@ const updateStats=(cnt,upd,src)=>{
   stats.updated.textContent = upd;
   stats.source.textContent  = src;
 };
+
+/* NEW ─ compute & render status breakdown */
+function renderStatus(list){
+  const counts=list.reduce((o,m)=>{
+    const raw=(m.status?.state||m.status||'okay').toLowerCase();
+    const k=/hospital|jail/.test(raw)?'hospital':raw; // treat jail as hospital bucket
+    o[k]=(o[k]||0)+1; return o;
+  },{});
+  const ok   = counts.okay      || 0,
+        hosp = counts.hospital  || 0,
+        trav = counts.traveling || 0,
+        abr  = counts.abroad    || 0;
+  stats.status.textContent = `✅ ${ok}  🏥 ${hosp}  ✈️ ${trav}  🌍 ${abr}`;
+}
 
 /* GitHub helper ─ get latest commit touching the snapshot file */
 async function getSnapshotCommitDate () {
@@ -260,7 +282,7 @@ async function dec(hex){
   try{
     const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},await getKey(),data);
     return new TextDecoder().decode(plain);
-  }catch{return '';}
+  }catch{return ''; }
 }
 
 /* UI helpers */
@@ -334,9 +356,11 @@ async function snapshot(){
     updateStats(list.length,
       last ? new Date(last).toLocaleString() : new Date().toLocaleString(),
       'Snapshot');
+    renderStatus(list); /* NEW */
   }catch{
     body.innerHTML='<tr><td colspan="7">Snapshot unavailable.</td></tr>';
     updateStats(0,'—','Snapshot');
+    stats.status.textContent='—'; /* NEW */
   }
   rows=[...body.querySelectorAll('tr')]; renum();
 }
@@ -351,6 +375,7 @@ async function live(key){
     const list=Object.entries(d.members).map(([id,m])=>({...m,id}));
     body.innerHTML=''; list.sort((a,b)=>b.level-a.level).forEach(row);
     updateStats(list.length,new Date().toLocaleString(),'Live API');
+    renderStatus(list); /* NEW */
     rows=[...body.querySelectorAll('tr')]; renum(); search.dispatchEvent(new Event('input'));
 
     /* lazy-load avatars via profile endpoints */
