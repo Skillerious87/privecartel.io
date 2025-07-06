@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Privé Cartel • Contact</title>
+  <meta name="description" content="Get in touch with our leadership team." />
+  <link rel="icon" type="image/png" href="images/Emblem.png" />
+
+  <!-- FONTS & ICONS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- GLOBAL THEME -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- PAGE OVERRIDES -->
+  <style>
+    /* full‐height flex layout */
+    html, body { height: 100%; margin: 0; }
+    body { display: flex; flex-direction: column; }
+    main { flex: 1; }
+
+    /* add extra top padding below hero */
+    .contact-section {
+      padding-top: 6rem;
+    }
+
+    /* grid for cards */
+    .contact-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin: 2.5rem 0;
+    }
+
+    /* card layout */
+    .card.profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--bg-2);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card.profile-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+    }
+
+    .card.profile-card img.avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent);
+      margin-bottom: 1rem;
+    }
+    .card.profile-card h3 {
+      margin: 0 0 0.25rem;
+      color: var(--accent);
+      font-size: 1.25rem;
+    }
+    .card.profile-card p.role {
+      margin: 0 0 0.75rem;
+      color: var(--text-2);
+      font-size: 0.95rem;
+    }
+    .card.profile-card hr {
+      width: 40px;
+      border: none;
+      border-bottom: 1px solid var(--accent);
+      margin: 0 0 0.75rem;
+    }
+    .card.profile-card p.bio {
+      margin: 0;
+      color: var(--text-2);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* caption under grid */
+    .contact-note {
+      text-align: center;
+      color: var(--text-2);
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    /* footer at bottom */
+    footer {
+      background: #000;
+      border-top: 2px solid var(--accent);
+      text-align: center;
+      padding: 1.25rem 1rem;
+      color: var(--text-2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <script type="module" src="/assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+  <div class="nav-overlay"></div>
+
+  <!-- HERO -->
+  <section class="rules-hero">
+    <img src="images/Emblem.png" alt="Cartel Emblem" />
+    <h1>Contact Our Leadership</h1>
+    <p class="tagline" style="max-width:680px">
+      Reach out to our Leader and Co-Leaders for any questions or support.
+    </p>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <main>
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- ForeverHydrox – Leader -->
+          <a
+            href="https://www.torn.com/profiles.php?XID=2753560"
+            target="_blank"
+            class="card guide-card profile-card"
+          >
+            <img
+              class="avatar"
+              src="images/blankprofile.jpg"
+              data-id="2753560"
+              alt="ForeverHydrox Avatar"
+              loading="lazy"
+            />
+            <h3>ForeverHydrox</h3>
+            <p class="role">Leader</p>
+            <hr />
+            <p class="bio">
+              Seasoned Faction Leader with over 5 years of strategic experience guiding Privé Cartel to success.
+            </p>
+          </a>
+
+          <!-- Skillerious – Co-Leader -->
+          <a
+            href="https://www.torn.com/profiles.php?XID=3212954"
+            target="_blank"
+            class="card guide-card profile-card"
+          >
+            <img
+              class="avatar"
+              src="images/blankprofile.jpg"
+              data-id="3212954"
+              alt="Skillerious Avatar"
+              loading="lazy"
+            />
+            <h3>Skillerious</h3>
+            <p class="role">Co-Leader</p>
+            <hr />
+            <p class="bio">
+              Expert userscript developer and faction strategist—drives innovation and community growth.
+            </p>
+          </a>
+
+          <!-- JdedPrincess – Co-Leader -->
+          <a
+            href="https://www.torn.com/profiles.php?XID=3400392"
+            target="_blank"
+            class="card guide-card profile-card"
+          >
+            <img
+              class="avatar"
+              src="images/blankprofile.jpg"
+              data-id="3400392"
+              alt="JdedPrincess Avatar"
+              loading="lazy"
+            />
+            <h3>JdedPrincess</h3>
+            <p class="role">Co-Leader</p>
+            <hr />
+            <p class="bio">
+              Creative tactician and morale officer, ensuring Privé Cartel stays sharp and united.
+            </p>
+          </a>
+
+        </div>
+
+        <p class="contact-note">
+          Clicking a contact card will open the leader’s Torn profile in a new tab.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
+
+  <!-- GLOBAL SCRIPT -->
+  <script src="assets/script.js"></script>
+
+  <!-- populate real avatars if API key stored -->
+  <script>
+    (async () => {
+      const LS = 'pcApiCipher';
+      const hex = localStorage.getItem(LS);
+      if (!hex || !crypto?.subtle) return;
+
+      // derive key
+      const originHash = await crypto.subtle.digest(
+        'SHA-256',
+        new TextEncoder().encode(location.origin)
+      );
+      const cryptoKey = await crypto.subtle.importKey(
+        'raw', originHash, { name: 'AES-GCM' }, false, ['decrypt']
+      );
+
+      // decrypt
+      const data = new Uint8Array(hex.match(/../g).map(h => parseInt(h,16)));
+      const iv = data.slice(0,12), cipher = data.slice(12);
+      let apiKey;
+      try {
+        const plain = await crypto.subtle.decrypt(
+          { name: 'AES-GCM', iv }, cryptoKey, cipher
+        );
+        apiKey = new TextDecoder().decode(plain);
+      } catch {
+        return;
+      }
+      if (!apiKey) return;
+
+      // fetch and replace avatars
+      document.querySelectorAll('img.avatar[data-id]').forEach(img => {
+        fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${apiKey}`)
+          .then(r => r.json())
+          .then(json => {
+            if (!json.error && json.profile_image) {
+              img.src = json.profile_image;
+            }
+          })
+          .catch(() => {});
+      });
+    })();
+  </script>
+
+  <!-- set year -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
