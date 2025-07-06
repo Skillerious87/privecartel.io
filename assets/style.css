@@ -537,3 +537,16 @@ a:hover {
 a:active {
   color: #ffdb8b;
 }
+/* ── Navbar logo link resets ──────────────────────────────── */
+.navbar .logo,
+.navbar .logo:link,
+.navbar .logo:visited {
+  text-decoration: none;              /* no underline            */
+  color: var(--accent, #d6b86d);       /* ← restore gold          */
+}
+
+.navbar .logo:hover,
+.navbar .logo:focus {
+  text-decoration: none;
+  color: var(--accent, #d6b86d);       /* keep it gold on hover   */
+}
