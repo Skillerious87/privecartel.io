@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Privé Cartel • AI-Generated Wallpapers</title>
+  <meta name="description" content="A curated selection of AI-generated wallpapers for desktop & mobile." />
+  <link rel="icon" href="images/Emblem.png" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- Global Theme -->
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- Page Styles -->
+  <style>
+    /* ── BREADCRUMB ───────────────────────────────────────── */
+    .breadcrumb {
+      font-size: .9rem;
+      color: #d3c79c;
+      margin: 1rem;
+    }
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .hero {
+      padding: 4rem 1rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero .emblem {
+      width: 120px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 16px rgba(214,184,109,0.7));
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 6vw, 3rem);
+      color: var(--accent);
+      margin: 0;
+    }
+    .hero .tagline {
+      margin-top: .6rem;
+      color: #e6e3d4;
+      font-size: 1rem;
+      max-width: 700px;
+      margin-inline: auto;
+    }
+
+    /* ── ACTIONS BAR ───────────────────────────────────────── */
+    .actions-bar {
+      max-width: 960px;
+      margin: 2rem auto 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+    }
+    #search {
+      padding: .6rem 1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(214,184,109,0.4);
+      background: rgba(255,255,255,0.03);
+      color: #e6e3d4;
+      font-size: .95rem;
+    }
+    #search::placeholder {
+      color: rgba(211,199,156,0.7);
+    }
+    .btn-download-all {
+      background-color: var(--accent) !important;
+      color: #fff              !important;
+      padding: .7rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: .95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      justify-content: center;
+      transition: background .2s;
+    }
+    .btn-download-all:hover {
+      background-color: #c4a46a !important;
+      color: #fff                !important;
+    }
+
+    /* ── INTRO NOTE ────────────────────────────────────────── */
+    .intro-note {
+      max-width: 900px;
+      margin: 1rem auto 2rem;
+      text-align: center;
+      color: #d3c79c;
+      font-size: 1rem;
+    }
+
+    /* ── CAROUSEL ──────────────────────────────────────────── */
+    .carousel-container {
+      max-width: 960px;
+      margin: 0 auto 4rem;
+      position: relative;
+    }
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(214,184,109,0.3);
+      background: rgba(255,255,255,0.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .8s ease;
+    }
+    .carousel-slide.active {
+      opacity: 1;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .carousel-nav button {
+      pointer-events: all;
+      background: rgba(0,0,0,0.4);
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      padding: .5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .carousel-nav button:hover {
+      background: rgba(0,0,0,0.7);
+    }
+    .carousel-dots {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .carousel-dots .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 6px;
+      background: rgba(214,184,109,0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .carousel-dots .dot.active {
+      background: var(--accent);
+    }
+    .carousel-download {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+    }
+    .carousel-download a {
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: .6rem;
+      border-radius: 6px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .carousel-download a:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    /* ── GALLERY ──────────────────────────────────────────── */
+    .gallery {
+      padding: 2rem 1rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .gallery h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.25rem;
+      position: relative;
+      display: inline-block;
+    }
+    .gallery h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+    }
+    .wallpaper-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .wallpaper-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(214,184,109,0.2);
+      background: rgba(255,255,255,0.02);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .wallpaper-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .wallpaper-card img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .wallpaper-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .wallpaper-card:hover .wallpaper-overlay {
+      opacity: 1;
+    }
+    .overlay-buttons {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      transition: opacity .3s .1s;
+    }
+    .wallpaper-card:hover .overlay-buttons {
+      opacity: 1;
+    }
+    .overlay-buttons a {
+      background: rgba(214,184,109,0.9);
+      color: #111;
+      padding: .6rem;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: transform .2s, background .2s;
+    }
+    .overlay-buttons a:hover {
+      transform: scale(1.1);
+      background: var(--accent);
+      color: #000;
+    }
+    .wallpaper-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: .8rem;
+      text-align: center;
+      font-size: 1rem;
+      transition: transform .3s;
+    }
+    .wallpaper-card:hover .wallpaper-caption {
+      transform: translateY(4px);
+    }
+
+    /* ── LIGHTBOX ─────────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2.5rem;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* ── BACK-TO-TOP ───────────────────────────────────────── */
+    #backTop {
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg,var(--accent) 0%,rgba(255,255,255,.17)100%);
+      color: #000;
+      box-shadow: 0 4px 12px rgba(0,0,0,.45);
+      cursor: pointer;
+      opacity: 0;
+      transform: scale(.6);
+      pointer-events: none;
+      transition: opacity .35s ease, transform .35s ease;
+      z-index: 999;
+    }
+    #backTop.show {
+      opacity: .9;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    #backTop:hover {
+      opacity: 1;
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <script type="module" src="assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+
+  <!-- BREADCRUMB -->
+  <p class="breadcrumb"><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></p>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="images/Emblem.png" alt="Cartel Emblem" class="emblem">
+    <h1>AI-Generated Wallpapers</h1>
+    <p class="tagline">Elevate your screens with our exclusive AI-created backgrounds.</p>
+  </section>
+
+  <!-- ACTIONS BAR -->
+  <div class="actions-bar">
+    <input id="search" type="text" placeholder="Search wallpapers…">
+    <a href="images/wallpapers/all-wallpapers.zip" download class="btn-download-all">
+      <i class="fa-solid fa-download"></i> Download All
+    </a>
+  </div>
+
+  <!-- INTRO NOTE -->
+  <p class="intro-note">
+    All wallpapers here are <strong>AI-generated</strong>, crafted in high resolution for desktop & mobile.
+    Browse featured picks in the carousel, or scroll down for the full gallery.
+  </p>
+
+  <!-- CAROUSEL -->
+  <section class="carousel-container">
+    <div class="carousel glass">
+      <!-- Slides 1–5 -->
+      <div class="carousel-slide active">
+        <img src="images/wallpapers/hero1.png" alt="Wallpaper 1">
+        <div class="carousel-download">
+          <a href="images/wallpapers/hero1.png" download><i class="fa-solid fa-download"></i></a>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="images/wallpapers/hero2.png" alt="Wallpaper 2">
+        <div class="carousel-download">
+          <a href="images/wallpapers/hero2.png" download><i class="fa-solid fa-download"></i></a>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="images/wallpapers/hero3.png" alt="Wallpaper 3">
+        <div class="carousel-download">
+          <a href="images/wallpapers/hero3.png" download><i class="fa-solid fa-download"></i></a>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="images/wallpapers/hero4.png" alt="Wallpaper 4">
+        <div class="carousel-download">
+          <a href="images/wallpapers/hero4.png" download><i class="fa-solid fa-download"></i></a>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="images/wallpapers/hero5.png" alt="Wallpaper 5">
+        <div class="carousel-download">
+          <a href="images/wallpapers/hero5.png" download><i class="fa-solid fa-download"></i></a>
+        </div>
+      </div>
+
+      <div class="carousel-nav">
+        <button class="prev" aria-label="Previous slide">&lsaquo;</button>
+        <button class="next" aria-label="Next slide">&rsaquo;</button>
+      </div>
+    </div>
+    <div class="carousel-dots">
+      <span class="dot active" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+      <span class="dot" data-index="3"></span>
+      <span class="dot" data-index="4"></span>
+      <span class="dot" data-index="5"></span>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery">
+    <h2>Full Wallpaper Gallery</h2>
+    <div class="wallpaper-grid">
+      <!-- hero6 -->
+      <div class="wallpaper-card">
+        <img src="images/wallpapers/hero6.png" alt="Wallpaper 6">
+        <div class="wallpaper-overlay"></div>
+        <div class="overlay-buttons">
+          <a href="images/wallpapers/hero6.png" download><i class="fa-solid fa-download"></i></a>
+          <a href="#" class="preview" data-src="images/wallpapers/hero6.png"><i class="fa-solid fa-expand-arrows-alt"></i></a>
+        </div>
+        <div class="wallpaper-caption">Wallpaper 6</div>
+      </div>
+      <!-- hero7 -->
+      <div class="wallpaper-card">
+        <img src="images/wallpapers/hero7.png" alt="Wallpaper 7">
+        <div class="wallpaper-overlay"></div>
+        <div class="overlay-buttons">
+          <a href="images/wallpapers/hero7.png" download><i class="fa-solid fa-download"></i></a>
+          <a href="#" class="preview" data-src="images/wallpapers/hero7.png"><i class="fa-solid fa-expand-arrows-alt"></i></a>
+        </div>
+        <div class="wallpaper-caption">Wallpaper 7</div>
+      </div>
+      <!-- hero8 -->
+      <div class="wallpaper-card">
+        <img src="images/wallpapers/hero8.png" alt="Wallpaper 8">
+        <div class="wallpaper-overlay"></div>
+        <div class="overlay-buttons">
+          <a href="images/wallpapers/hero8.png" download><i class="fa-solid fa-download"></i></a>
+          <a href="#" class="preview" data-src="images/wallpapers/hero8.png"><i class="fa-solid fa-expand-arrows-alt"></i></a>
+        </div>
+        <div class="wallpaper-caption">Wallpaper 8</div>
+      </div>
+      <!-- hero9 -->
+      <div class="wallpaper-card">
+        <img src="images/wallpapers/hero9.png" alt="Wallpaper 9">
+        <div class="wallpaper-overlay"></div>
+        <div class="overlay-buttons">
+          <a href="images/wallpapers/hero9.png" download><i class="fa-solid fa-download"></i></a>
+          <a href="#" class="preview" data-src="images/wallpapers/hero9.png"><i class="fa-solid fa-expand-arrows-alt"></i></a>
+        </div>
+        <div class="wallpaper-caption">Wallpaper 9</div>
+      </div>
+      <!-- hero10 -->
+      <div class="wallpaper-card">
+        <img src="images/wallpapers/hero10.png" alt="Wallpaper 10">
+        <div class="wallpaper-overlay"></div>
+        <div class="overlay-buttons">
+          <a href="images/wallpapers/hero10.png" download><i class="fa-solid fa-download"></i></a>
+          <a href="#" class="preview" data-src="images/wallpapers/hero10.png"><i class="fa-solid fa-expand-arrows-alt"></i></a>
+        </div>
+        <div class="wallpaper-caption">Wallpaper 10</div>
+      </div>
+      <!-- hero11 -->
+      <div class="wallpaper-card">
+        <img src="images/wallpapers/hero11.png" alt="Wallpaper 11">
+        <div class="wallpaper-overlay"></div>
+        <div class="overlay-buttons">
+          <a href="images/wallpapers/hero11.png" download><i class="fa-solid fa-download"></i></a>
+          <a href="#" class="preview" data-src="images/wallpapers/hero11.png"><i class="fa-solid fa-expand-arrows-alt"></i></a>
+        </div>
+        <div class="wallpaper-caption">Wallpaper 11</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-img" src="" alt="Preview">
+  </div>
+
+  <!-- BACK-TO-TOP -->
+  <button id="backTop" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="assets/script.js"></script>
+  <script>
+    // Update footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Carousel logic
+    (function() {
+      let idx = 1, iv;
+      const slides = document.querySelectorAll('.carousel-slide');
+      const dots   = document.querySelectorAll('.dot');
+      const prev   = document.querySelector('.prev');
+      const next   = document.querySelector('.next');
+      const carousel = document.querySelector('.carousel');
+
+      function show(n) {
+        idx = n < 1 ? slides.length : n > slides.length ? 1 : n;
+        slides.forEach((s,i)=> s.classList.toggle('active', i===idx-1));
+        dots.forEach((d,i)=> d.classList.toggle('active', i===idx-1));
+      }
+      function start() {
+        clearInterval(iv);
+        iv = setInterval(()=> show(idx+1), 5000);
+      }
+      function stop() { clearInterval(iv); }
+
+      prev.addEventListener('click', ()=> { show(idx-1); start(); });
+      next.addEventListener('click', ()=> { show(idx+1); start(); });
+      dots.forEach(d=> d.addEventListener('click', e=> { show(+e.target.dataset.index); start(); }));
+
+      carousel.addEventListener('mouseenter', stop);
+      carousel.addEventListener('mouseleave', start);
+      document.addEventListener('keydown', e=> {
+        if(e.key==='ArrowLeft')  { show(idx-1); start(); }
+        if(e.key==='ArrowRight') { show(idx+1); start(); }
+      });
+
+      show(idx);
+      start();
+    })();
+
+    // Lightbox preview
+    (function() {
+      const lb    = document.getElementById('lightbox');
+      const img   = lb.querySelector('.lightbox-img');
+      const close = lb.querySelector('.lightbox-close');
+      document.querySelectorAll('.preview').forEach(btn=> {
+        btn.addEventListener('click', e=> {
+          e.preventDefault();
+          img.src = btn.dataset.src;
+          lb.style.display = 'flex';
+        });
+      });
+      close.addEventListener('click', ()=> lb.style.display = 'none');
+      lb.addEventListener('click', e=> { if(e.target===lb) lb.style.display = 'none'; });
+      document.addEventListener('keyup', e=> { if(e.key==='Escape') lb.style.display = 'none'; });
+    })();
+
+    // Search filter (debounced)
+    (function(){
+      const inp = document.getElementById('search');
+      let to;
+      inp.addEventListener('input', ()=> {
+        clearTimeout(to);
+        to = setTimeout(()=>{
+          const term = inp.value.toLowerCase();
+          document.querySelectorAll('.wallpaper-card').forEach(card=>{
+            const txt = card.querySelector('.wallpaper-caption').textContent.toLowerCase();
+            card.style.display = txt.includes(term) ? '' : 'none';
+          });
+        }, 200);
+      });
+    })();
+
+    // Back-to-top
+    (function(){
+      const btn = document.getElementById('backTop');
+      window.addEventListener('scroll', ()=> btn.classList.toggle('show', window.scrollY > 400));
+      btn.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
+    })();
+
+    // PWA service worker
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(()=>{/* ignore */});
+    }
+  </script>
+</body>
+</html>
