@@ -1,5 +1,13 @@
 [
   {
+    "title": "New Cartel Wallpaper Available!",
+    "date": "2025-07-06",
+    "summary": "Download our brand-new high-resolution Privé Cartel wallpaper now live! Deck out your desktop with exclusive faction art, available in multiple resolutions.",
+    "icon": "image",
+    "tag": "Announcement",
+    "file": "../wallpapers.html"
+  },
+  {
     "title": "Triple Chain Report",
     "date": "2025-07-03",
     "summary": "Three chains completed on 02 Jul 2025: a 100-hit sprint in 9 min, an 18-hit push in 15 min, and a 60-hit endurance run in 29 min—totalling 700.21 respect.",
@@ -16,14 +24,6 @@
     "file": "2025-06-23-chain.html"
   },
   {
-    "title": "Scope Hits 100 / 100",
-    "date": "2025-06-18",
-    "summary": "Thanks to consistent Lambda and Sigma runs, our Scope is maxed. Ω-tier heist scheduled this Friday.",
-    "icon": "coins",
-    "tag": "Milestone",
-    "file": "2025-06-18-scope.html"
-  },
-  {
     "title": "25-Minute Chain Marathon!",
     "date": "2025-06-25",
     "summary": "Privé Cartel executed a flawless 100-hit chain in 25 minutes, banking 411.90 respect with a best hit of 80.00.",
@@ -38,5 +38,13 @@
     "icon": "spray-can-sparkles",
     "tag": "Milestone",
     "file": "2025-06-28-site-launch.html"
+  },
+  {
+    "title": "Scope Hits 100 / 100",
+    "date": "2025-06-18",
+    "summary": "Thanks to consistent Lambda and Sigma runs, our Scope is maxed. Ω-tier heist scheduled this Friday.",
+    "icon": "coins",
+    "tag": "Milestone",
+    "file": "2025-06-18-scope.html"
   }
 ]
