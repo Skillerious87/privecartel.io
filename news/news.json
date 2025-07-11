@@ -5,7 +5,8 @@
     "summary": "Two chains completed on 09 Jul 2025: a 100-hit sprint in 15 min and a 68-hit push in 21 min—totalling 658.77 respect.",
     "icon": "fire",
     "tag": "OC",
-    "file": "2025-07-10-chain.html"
+    "file": "2025-07-10-chain.html",
+    "image": "chain.png"
   },
   {
     "title": "New Cartel Wallpaper Available!",
@@ -13,7 +14,8 @@
     "summary": "Download our brand-new high-resolution Privé Cartel wallpaper now live! Deck out your desktop with exclusive faction art, available in multiple resolutions.",
     "icon": "image",
     "tag": "Announcement",
-    "file": "../wallpapers.html"
+    "file": "../wallpapers.html",
+    "image": "announcement.png"
   },
   {
     "title": "Triple Chain Report",
@@ -21,7 +23,8 @@
     "summary": "Three chains completed on 02 Jul 2025: a 100-hit sprint in 9 min, an 18-hit push in 15 min, and a 60-hit endurance run in 29 min—totalling 700.21 respect.",
     "icon": "fire",
     "tag": "OC",
-    "file": "2025-07-03-chain.html"
+    "file": "2025-07-03-chain.html",
+    "image": "chain.png"
   },
   {
     "title": "Chain Record Shattered!",
@@ -29,7 +32,8 @@
     "summary": "The Cartel set a new high of 410.78 respect in a single 100-hit chain. Rewards paid, morale sky-high.",
     "icon": "fire",
     "tag": "OC",
-    "file": "2025-06-23-chain.html"
+    "file": "2025-06-23-chain.html",
+    "image": "chain.png"
   },
   {
     "title": "25-Minute Chain Marathon!",
@@ -37,7 +41,8 @@
     "summary": "Privé Cartel executed a flawless 100-hit chain in 25 minutes, banking 411.90 respect with a best hit of 80.00.",
     "icon": "fire",
     "tag": "OC",
-    "file": "2025-06-25-chain.html"
+    "file": "2025-06-25-chain.html",
+    "image": "chain.png"
   },
   {
     "title": "Faction Hub Launch",
@@ -45,7 +50,8 @@
     "summary": "New website goes live with live-roster, guides hub and auto-archived news feed.",
     "icon": "spray-can-sparkles",
     "tag": "Milestone",
-    "file": "2025-06-28-site-launch.html"
+    "file": "2025-06-28-site-launch.html",
+    "image": "milestone.png"
   },
   {
     "title": "Scope Hits 100 / 100",
@@ -53,6 +59,7 @@
     "summary": "Thanks to consistent Lambda and Sigma runs, our Scope is maxed. Ω-tier heist scheduled this Friday.",
     "icon": "coins",
     "tag": "Milestone",
-    "file": "2025-06-18-scope.html"
+    "file": "2025-06-18-scope.html",
+    "image": "milestone.png"
   }
 ]
