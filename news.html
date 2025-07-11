@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privé Cartel | News & Milestones</title>
   <meta name="description" content="Latest announcements and milestones for Privé Cartel." />
-  <link rel="icon" type="image/png" href="images/Emblem.png" />
+  <link rel="icon" type="image/png" href="/images/Emblem.png" />
 
   <!-- FONTS & ICONS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,17 +15,16 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
   <!-- GLOBAL THEME -->
-  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="/assets/style.css" />
 
-  <!-- PAGE EXTRAS -->
+  <!-- PAGE-SPECIFIC CSS -->
   <style>
-    /* ───── Search + tag bar ───── */
+    /* ───── Filter bar ───── */
     .news-filters{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.6rem 0 1.8rem}
     #newsSearch{flex:1 1 260px;max-width:360px;padding:.65rem .9rem;
       border:2px solid var(--accent);border-radius:var(--radius);
       background:var(--bg-1);color:var(--text-1)}
     #newsSearch:focus{outline:2px solid var(--accent)}
-
     .pill{padding:.45rem .9rem;border:1px solid var(--accent);border-radius:999px;
       font-size:.85rem;cursor:pointer;user-select:none;color:var(--accent);
       transition:background .25s,color .25s,transform .25s}
@@ -33,36 +32,57 @@
     .pill.active{background:var(--accent);color:#000}
     .pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-    /* ───── News cards ───── */
-    .news-list{display:flex;flex-direction:column;gap:1.2rem}
-    .news-card{display:flex;gap:1rem;align-items:flex-start;cursor:pointer;
-      background:var(--bg-2);border:1px solid rgba(var(--accent-rgb),.35);
-      border-radius:var(--radius);padding:1.05rem 1.25rem;
+    /* ───── Card grid ───── */
+    .news-list{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1.2rem
+    }
+
+    /* Card shell */
+    .news-card{
+      position:relative;
+      display:flex;flex-direction:column;
+      background:var(--bg-2);
+      border:1px solid rgba(var(--accent-rgb),.35);
+      border-radius:var(--radius);
+      overflow:hidden;
+      cursor:pointer;
       transition:transform .25s cubic-bezier(.22,.61,.36,1),box-shadow .25s;
-      opacity:0;transform:translateY(16px)}
+      opacity:0;transform:translateY(16px)
+    }
     .news-card:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(0,0,0,.45)}
     .news-card.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s ease}
 
-    .icon-badge{flex:0 0 46px;height:46px;display:grid;place-items:center;
-      background:rgba(var(--accent-rgb),.15);border-radius:50%;color:var(--accent);font-size:1.25rem}
-    .news-meta h3{margin:.1rem 0 .3rem;font-size:1.05rem;line-height:1.35}
+    /* Banner image */
+    .news-thumb{width:100%;height:160px;object-fit:cover;background:#27292f}
+
+    /* Icon badge overlay */
+    .icon-badge{
+      position:absolute;top:12px;left:12px;
+      width:42px;height:42px;display:grid;place-items:center;
+      background:rgba(var(--accent-rgb),.9);border-radius:50%;
+      color:#000;font-size:1.15rem;box-shadow:0 2px 6px rgba(0,0,0,.4)
+    }
+
+    /* Text block */
+    .news-meta{padding:1rem 1.25rem}
+    .news-meta h3{margin:.05rem 0 .4rem;font-size:1.05rem;line-height:1.35}
+    .news-meta time{display:block;font-style:italic;margin-bottom:.3rem;color:var(--text-2);font-size:.8rem}
     .news-meta p{margin:0;font-size:.9rem;line-height:1.55;color:var(--text-1)}
-    .news-meta time{display:block;font-style:italic;margin-bottom:.25rem;color:var(--text-2);font-size:.8rem}
 
     /* ───── Skeleton loader ───── */
-    .skeleton{height:80px;border-radius:var(--radius);margin:0 0 1.2rem;
+    .skeleton{height:160px;border-radius:var(--radius);margin:0;
       background:linear-gradient(110deg,#1d1f24 8%,#282b31 18%,#1d1f24 33%);
       background-size:200% 100%;animation:skeleton 1.2s ease-in-out infinite}
     @keyframes skeleton{to{background-position-x:-200%}}
 
-    /* ───── Banners ───── */
+    /* ───── Notices & banners ───── */
     .error-banner{background:#5b1a1a;border-left:4px solid #ff4444;
       padding:.75rem 1rem;margin-bottom:1rem;border-radius:var(--radius);color:#ffbcbc}
     .empty-banner{background:rgba(var(--accent-rgb),.09);border-left:4px solid var(--accent);
       padding:.75rem 1rem;margin-top:1rem;border-radius:var(--radius);
       color:var(--text-2);font-style:italic}
-
-    /* ───── Archive notice ───── */
     .notice{background:rgba(var(--accent-rgb),.06);border-left:4px solid var(--accent);
       padding:.8rem 1rem;margin-top:1.6rem;border-radius:var(--radius);
       color:var(--text-2);font-size:.88rem;line-height:1.55}
@@ -79,7 +99,7 @@
 
 <!-- HERO -->
 <section class="rules-hero">
-  <img src="images/Emblem.png" alt="Cartel Emblem" />
+  <img src="/images/Emblem.png" alt="Cartel Emblem" />
   <h1>Faction&nbsp;News</h1>
   <p class="tagline">Announcements, milestones &amp; OC triumphs.</p>
 </section>
@@ -97,16 +117,14 @@
     <div id="alertZone"></div>
 
     <div id="newsGrid" class="news-list">
-      <!-- skeletons -->
+      <!-- skeleton placeholders -->
       <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
     </div>
 
-    <!-- LINK TO ARCHIVE -->
     <div class="notice">
       <i class="fa-solid fa-box-archive"></i>
-      Older headlines automatically move to our <a href="archive.html">archive</a> after 30&nbsp;days.
+      Older headlines automatically move to our <a href="/archive.html">archive</a> after 30&nbsp;days.
     </div>
-
   </div>
 </section>
 
@@ -114,11 +132,11 @@
 <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
 
 <!-- GLOBAL JS -->
-<script src="assets/script.js"></script>
+<script src="/assets/script.js"></script>
 
 <!-- PAGE JS -->
 <script>
-/* ---------- DOM helpers ---------- */
+/* ---------- helpers ---------- */
 const $ = s => document.querySelector(s);
 
 /* ---------- elements ---------- */
@@ -126,35 +144,38 @@ const grid      = $('#newsGrid');
 const searchBox = $('#newsSearch');
 const pillWrap  = document.createElement('div');
 const alertZ    = $('#alertZone');
-pillWrap.style.display='flex';pillWrap.style.flexWrap='wrap';pillWrap.style.gap='.5rem';
+pillWrap.style.cssText='display:flex;flex-wrap:wrap;gap:.5rem';
 $('.news-filters').append(pillWrap);
 
 /* ---------- state ---------- */
 let articles=[], cards=[], activeTag='All';
 
 /* ========== FETCH & BUILD ========== */
-fetch('news/news.json',{cache:'no-cache'})
+fetch('/news/news.json',{cache:'no-cache'})
   .then(r=> r.ok ? r.json() : Promise.reject())
   .then(applyDateWindow)
-  .catch(()=>{alertZ.innerHTML='<div class="error-banner"><strong>Feed offline:</strong> showing local sample.</div>';buildUI(sample());});
+  .catch(()=>{
+    alertZ.innerHTML='<div class="error-banner"><strong>Feed offline:</strong> showing local sample.</div>';
+    buildUI(sample());
+  });
 
-/* keep only posts from the last 30 days */
 function applyDateWindow(data){
-  const NOW   = Date.now();
-  const MAXMS = 30*24*60*60*1000;
-  const recent = data.filter(p => NOW - Date.parse(p.date) <= MAXMS)
-                     .sort((a,b)=> Date.parse(b.date)-Date.parse(a.date));
-  buildUI(recent);
+  const NOW=Date.now(), MAX=30*24*60*60*1000;
+  buildUI(
+    data.filter(p=>NOW-Date.parse(p.date)<=MAX)
+        .sort((a,b)=>Date.parse(b.date)-Date.parse(a.date))
+  );
 }
 
 /* ---------- UI ---------- */
 function buildUI(arr){
-  articles = arr;
+  articles=arr;
   buildTags();
   buildCards();
   wireSearch();
   revealInView();
 }
+
 function buildTags(){
   const tags=new Set(['All']);articles.forEach(a=>tags.add(a.tag||'Other'));
   pillWrap.innerHTML='';
@@ -166,33 +187,40 @@ function buildTags(){
     btn.setAttribute('tabindex','0');
     btn.setAttribute('aria-pressed',t==='All');
     btn.onclick =()=>selectTag(t);
-    btn.onkeypress=e=>{if(e.key==='Enter')selectTag(t);};
+    btn.onkeypress=e=>{if(e.key==='Enter')selectTag(t)};
     pillWrap.appendChild(btn);
   });
 }
+
 function selectTag(tag){
   activeTag=tag;
-  [...pillWrap.children].forEach(b=>{
+  for(const b of pillWrap.children){
     const on=b.textContent===tag;
     b.classList.toggle('active',on);
     b.setAttribute('aria-pressed',on);
-  });
+  }
   filterCards();
 }
+
+/* ---------- Build cards ---------- */
 function buildCards(){
   grid.innerHTML='';
   cards=articles.map(a=>{
     const card=document.createElement('div');
     card.className='news-card reveal';
     card.dataset.tag=a.tag||'Other';
+
+    const thumb=a.image||'placeholder.png';
     card.innerHTML=`
+      <img src="/images/${thumb}" alt="" class="news-thumb">
       <div class="icon-badge"><i class="fa-solid fa-${a.icon||'newspaper'}"></i></div>
       <div class="news-meta">
         <h3>${a.title}</h3>
         <time datetime="${a.date}">${fmtDate(a.date)}</time>
         <p>${a.summary}</p>
       </div>`;
-    if(a.file && a.file!=='#') card.onclick=()=>location.href='news/'+a.file;
+
+    if(a.file && a.file!=='#') card.onclick=()=>location.href='/news/'+a.file;
     grid.appendChild(card);
     return card;
   });
@@ -206,35 +234,38 @@ function wireSearch(){
     if(e.key==='Escape'){searchBox.value='';filterCards();}
   });
 }
+
 function filterCards(){
   const q=searchBox.value.toLowerCase();
   let visible=0;
-  cards.forEach(c=>{
+  for(const c of cards){
     const hit=c.textContent.toLowerCase().includes(q);
     const tagOK=activeTag==='All'||c.dataset.tag===activeTag;
     const show=hit&&tagOK;
     c.style.display=show?'flex':'none';
-    if(show)visible++;
-  });
-  toggleEmptyBanner(visible===0);
+    if(show) visible++;
+  }
+  toggleEmpty(visible===0);
 }
-function toggleEmptyBanner(none){
+
+function toggleEmpty(none){
+  const id='emptyMsg';
   if(none){
-    if(!$('#emptyMsg')){
+    if(!$('#'+id)){
       const d=document.createElement('div');
-      d.id='emptyMsg';d.className='empty-banner';
+      d.id=id;d.className='empty-banner';
       d.textContent='No recent headlines match your filters.';
       grid.after(d);
     }
   }else{
-    const d=$('#emptyMsg');if(d)d.remove();
+    const el=$('#'+id); if(el) el.remove();
   }
 }
 
 /* ---------- Reveal animation ---------- */
 function revealInView(){
   const els=[...document.querySelectorAll('.reveal')];
-  if(!els.length)return;
+  if(!els.length) return;
   const io=new IntersectionObserver((en,obs)=>{
     en.forEach(e=>{
       if(e.isIntersecting){
@@ -247,13 +278,8 @@ function revealInView(){
 }
 
 /* ---------- Utilities ---------- */
-function fmtDate(d){
-  return new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-}
-function sample(){return [{
-  title:'Chain Record Shattered!',date:'2025-06-23',
-  summary:'The Cartel set a new high of 410.78 respect in a single 100-hit chain. Rewards paid, morale sky-high.',
-  icon:'fire',tag:'OC',file:'#'}];}
+const fmtDate=d=>new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+const sample=()=>[{title:'Chain Record Shattered!',date:'2025-06-23',summary:'The Cartel set a new high of 410.78 respect in a single 100-hit chain. Rewards paid, morale sky-high.',icon:'fire',tag:'OC',file:'#',image:'chain.png'}];
 
 /* ---------- footer year ---------- */
 $('#year').textContent=new Date().getFullYear();
