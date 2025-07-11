@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
   <!-- META -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Privé Cartel • Contact</title>
-  <meta name="description" content="Get in touch with our leadership team." />
-  <link rel="icon" type="image/png" href="/images/Emblem.png" />
+  <meta name="description" content="Get in touch with our leadership team.">
+  <link rel="icon" type="image/png" href="/images/Emblem.png">
 
   <!-- FONTS & ICONS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
   <!-- GLOBAL THEME -->
-  <link rel="stylesheet" href="/assets/style.css" />
+  <link rel="stylesheet" href="/assets/style.css">
 
   <!-- PAGE-ONLY CSS -->
   <style>
     :root{
       --card-bg: hsla(0 0% 100% / 0.04);
       --card-gold: var(--accent);
-      --card-gold-faint: rgba(var(--accent-rgb), .55);
+      --card-gold-faint: rgba(var(--accent-rgb),.55);
       --card-radius: var(--radius);
       --lift: 0 8px 22px rgba(0,0,0,.55);
       --t: .4s cubic-bezier(.22,.61,.36,1);
@@ -53,7 +53,7 @@
       backdrop-filter:blur(12px);
       border:1px solid var(--card-gold-faint);
       border-radius:var(--card-radius);
-      text-decoration:none !important;
+      text-decoration:none!important;
       transition:transform var(--t),box-shadow var(--t),border-color var(--t);
     }
     .profile-card:hover,
@@ -76,7 +76,7 @@
     .contact-note{text-align:center;color:var(--text-2);font-size:.9rem;margin-top:1.2rem}
     footer{background:#000;border-top:2px solid var(--accent);text-align:center;padding:1.25rem 1rem;color:var(--text-2)}
 
-    /* hover-underline only inside contact section */
+    /* underline hover only in contact body */
     .contact-section a:not(.profile-card){
       text-decoration:none;
       background-image:linear-gradient(var(--accent),var(--accent));
@@ -121,7 +121,12 @@
           <img class="avatar" src="/images/blankprofile.jpg" data-id="2753560" alt="">
           <h3>ForeverHydrox</h3>
           <p class="role">Leader</p>
-          <p class="bio">Veteran strategist steering Privé Cartel for 3&nbsp;+ years.</p>
+          <p class="bio">
+            Seasoned faction leader with more than three years of hands-on experience 
+            orchestrating wars, coordinating chain-calls and shaping long-term strategy. 
+            Oversees day-to-day operations, negotiates high-stakes diplomacy and ensures 
+            every member has a clear path to growth and glory.
+          </p>
         </a>
 
         <!-- Skillerious -->
@@ -131,7 +136,11 @@
           <img class="avatar" src="/images/blankprofile.jpg" data-id="3212954" alt="">
           <h3>Skillerious</h3>
           <p class="role">Co-Leader</p>
-          <p class="bio">Userscript dev &amp; tactician—pushing innovation and growth.</p>
+          <p class="bio">
+            Open-source userscript developer, data analyst and combat tactician. 
+            Builds custom tools that automate faction workflows, crunches the numbers behind every OC, heist and territory push to give us 
+            an edge nobody else can match.
+          </p>
         </a>
 
         <!-- JdedPrincess -->
@@ -141,7 +150,10 @@
           <img class="avatar" src="/images/blankprofile.jpg" data-id="3400392" alt="">
           <h3>JdedPrincess</h3>
           <p class="role">Co-Leader</p>
-          <p class="bio">Creative tactician and morale officer keeping the Cartel sharp.</p>
+          <p class="bio">
+  Creative tactician and morale champion, JdedPrincess keeps Privé Cartel cohesive, inspired, and tactically one step ahead.
+</p>
+
         </a>
 
       </div><!-- /.contact-grid -->
@@ -164,18 +176,24 @@
 <!-- dynamic avatars (unchanged) -->
 <script>
 (async () => {
-  const LS='pcApiCipher', hex=localStorage.getItem(LS);
+  const hex=localStorage.getItem('pcApiCipher');
   if(!hex||!crypto?.subtle) return;
-  const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(location.origin));
-  const key=await crypto.subtle.importKey('raw',h,{name:'AES-GCM'},false,['decrypt']);
-  const b=Uint8Array.from(hex.match(/../g).map(h=>parseInt(h,16)));
-  const iv=b.slice(0,12), cipher=b.slice(12);
-  let api; try{api=new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher));}catch{return}
-  if(!api) return;
+
+  const originHash = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(location.origin));
+  const key = await crypto.subtle.importKey('raw',originHash,{name:'AES-GCM'},false,['decrypt']);
+
+  const bytes=Uint8Array.from(hex.match(/../g).map(h=>parseInt(h,16)));
+  const iv=bytes.slice(0,12), cipher=bytes.slice(12);
+  let apiKey;
+  try{
+    apiKey=new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher));
+  }catch{return}
+  if(!apiKey) return;
+
   document.querySelectorAll('img.avatar[data-id]').forEach(img=>{
-    fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${api}`)
+    fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${apiKey}`)
       .then(r=>r.json())
-      .then(j=>{if(!j.error&&j.profile_image) img.src=j.profile_image;})
+      .then(j=>{if(!j.error && j.profile_image) img.src=j.profile_image;})
       .catch(()=>{});
   });
 })();
