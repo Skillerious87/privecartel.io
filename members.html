@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- META -->
+  <!-- ─────────────────────────── META ──────────────────────────── -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Privé Cartel | Members Directory</title>
   <meta name="description" content="Live roster with avatars, search and sortable columns for all Privé Cartel members.">
 
-  <!-- ICON & FONTS -->
+  <!-- ────────────────────────── ICON & FONTS ────────────────────── -->
   <link rel="icon" href="images/Emblem.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-  <!-- GLOBAL THEME -->
+  <!-- ───────────────────────── GLOBAL THEME ─────────────────────── -->
   <link rel="stylesheet" href="assets/style.css">
 
-  <!-- PAGE STYLE -->
+  <!-- ────────────────────────── PAGE STYLE ──────────────────────── -->
   <style>
   /* 1. FILTER BAR ───────────────────────────────────────────────── */
   .filter-bar{display:flex;flex-wrap:wrap;gap:.75rem;margin:2rem 0 1.6rem}
@@ -41,10 +41,11 @@
     object-fit:cover;border:2px solid var(--accent)}
 
   /* status colours */
-  .status-hospital,.status-jail{color:#ff6363;font-weight:600}
-  .status-traveling            {color:#29cfff;font-weight:600}
-  .status-abroad               {color:#ffd95a;font-weight:600}
-  .status-okay                 {color:#4bd46f;font-weight:600}
+  .status-hospital,
+  .status-jail      {color:#ff6363;font-weight:600}
+  .status-traveling {color:#29cfff;font-weight:600}
+  .status-abroad    {color:#ffd95a;font-weight:600}
+  .status-okay      {color:#4bd46f;font-weight:600}
 
   /* 3. MOBILE CARDS (≤550 px) ─────────────────────────────────── */
   @media(max-width:550px){
@@ -121,19 +122,19 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- ─────────────────────────── NAVBAR ─────────────────────────── -->
 <script type="module" src="/assets/navbar.js"></script>
 <pc-navbar></pc-navbar>
 <div class="nav-overlay"></div>
 
-<!-- HERO -->
+<!-- ─────────────────────────── HERO ───────────────────────────── -->
 <section class="rules-hero">
   <img src="images/Emblem.png" alt="Cartel Emblem">
   <h1>Faction&nbsp;Members</h1>
   <p class="tagline">Paste your Torn API key for real-time stats, or view the static roster snapshot.</p>
 </section>
 
-<!-- DIRECTORY -->
+<!-- ───────────────────────── DIRECTORY ────────────────────────── -->
 <section class="rules-block">
   <div class="container glass">
 
@@ -186,36 +187,47 @@
           <span class="stat-label"><i class="fa-solid fa-database"></i> Source</span>
           <span class="stat-value" id="statsSource">Snapshot</span>
         </div>
-
-        <!-- NEW: STATUS BREAKDOWN -->
-        <div class="stat">  <!-- NEW -->
-          <span class="stat-label"><i class="fa-solid fa-heart-pulse"></i> Member Status</span> <!-- NEW -->
-          <span class="stat-value" id="statsStatus">—</span> <!-- NEW -->
-        </div> <!-- NEW -->
-
+        <div class="stat">
+          <span class="stat-label"><i class="fa-solid fa-heart-pulse"></i> Member Status</span>
+          <span class="stat-value" id="statsStatus">—</span>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ─────────────────────────── FOOTER ─────────────────────────── -->
 <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
 
-<!-- GLOBAL SCRIPT -->
+<!-- ───────────────────────── GLOBAL SCRIPT ────────────────────── -->
 <script src="assets/script.js"></script>
 
-<!-- PAGE LOGIC -->
+<!-- ────────────────────────── PAGE LOGIC ──────────────────────── -->
 <script>
 (()=>{
 
 /*━━━━━━━━━━ CONFIG & SHORTCUTS ━━━━━━━━━━*/
-const LS='pcApiCipher', crownRX=/^(leader|co[- ]?leader|pbe founder)$/i, blank='images/blankprofile.jpg';
-const $=s=>document.querySelector(s), body=$('#memberBody'), notice=$('#notice');
-const apiInput=$('#apiKeyInput'), save=$('#saveKeyBtn'), clr=$('#clearKeyBtn'), search=$('#memberSearch');
-const stats={count:$('#statsCount'),updated:$('#statsUpdated'),source:$('#statsSource'),
-             status:$('#statsStatus')}; /* NEW */
-let rows=[], cryptoOK=!!(crypto?.subtle);
+const LS='pcApiCipher',
+      crownRX=/^(leader|co[- ]?leader|pbe founder)$/i,
+      blank='images/blankprofile.jpg';
+
+const $=s=>document.querySelector(s),
+      body=$('#memberBody'),
+      notice=$('#notice');
+
+const apiInput=$('#apiKeyInput'),
+      save=$('#saveKeyBtn'),
+      clr=$('#clearKeyBtn'),
+      search=$('#memberSearch');
+
+const stats={count:$('#statsCount'),
+             updated:$('#statsUpdated'),
+             source:$('#statsSource'),
+             status:$('#statsStatus')};
+
+let rows=[],
+    cryptoOK=!!(crypto?.subtle);
 
 /*━━━━━━━━━━ HELPERS ━━━━━━━━━━━━━━━━━━━━━*/
 const updateStats=(cnt,upd,src)=>{
@@ -224,152 +236,203 @@ const updateStats=(cnt,upd,src)=>{
   stats.source.textContent  = src;
 };
 
-/* NEW ─ compute & render status breakdown */
+/* Member-status breakdown (✅ OK, 🏥 Hospital, 🚔 Jail, ✈️ Traveling, 🌍 Abroad) */
 function renderStatus(list){
   const counts=list.reduce((o,m)=>{
     const raw=(m.status?.state||m.status||'okay').toLowerCase();
-    const k=/hospital|jail/.test(raw)?'hospital':raw; // treat jail as hospital bucket
+    const k=/jail/.test(raw)      ? 'jail' :
+            /hospital/.test(raw)  ? 'hospital' :
+            /travel/.test(raw)    ? 'traveling' :
+            /abroad/.test(raw)    ? 'abroad' :
+                                     'okay';
     o[k]=(o[k]||0)+1; return o;
   },{});
   const ok   = counts.okay      || 0,
         hosp = counts.hospital  || 0,
+        jail = counts.jail      || 0,
         trav = counts.traveling || 0,
         abr  = counts.abroad    || 0;
-  stats.status.textContent = `✅ ${ok}  🏥 ${hosp}  ✈️ ${trav}  🌍 ${abr}`;
+
+  stats.status.textContent =
+    `✅ ${ok}  🏥 ${hosp}  🚔 ${jail}  ✈️ ${trav}  🌍 ${abr}`;
 }
 
-/* GitHub helper ─ get latest commit touching the snapshot file */
-async function getSnapshotCommitDate () {
-  // only 1 per-page → newest commit first
-  const url = 'https://api.github.com/repos/Skillerious87/privecartel.io/commits' +
-              '?path=data/member-snapshot.json&per_page=1';
-  try {
-    const r = await fetch(url, { headers:{ 'Accept':'application/vnd.github+json' } });
-    if (!r.ok) throw 0;
-    const [c] = await r.json();
+/* Snapshot commit date helper (GitHub) */
+async function getSnapshotCommitDate(){
+  const url='https://api.github.com/repos/Skillerious87/privecartel.io/commits' +
+            '?path=data/member-snapshot.json&per_page=1';
+  try{
+    const r=await fetch(url,{headers:{'Accept':'application/vnd.github+json'}});
+    if(!r.ok) throw 0;
+    const [c]=await r.json();
     return c?.commit?.committer?.date || c?.commit?.author?.date || null;
-  } catch { return null; }
+  }catch{return null;}
 }
 
 /* Crypto helpers */
 async function getKey(){
-  const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(location.origin));
+  const hash=await crypto.subtle.digest('SHA-256',
+        new TextEncoder().encode(location.origin));
   return crypto.subtle.importKey('raw',hash,{name:'AES-GCM'},false,['encrypt','decrypt']);
 }
 async function enc(txt){
   if(!cryptoOK) return txt;
   const iv=crypto.getRandomValues(new Uint8Array(12));
-  const cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv},await getKey(),new TextEncoder().encode(txt));
-  return [...iv,...new Uint8Array(cipher)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  const cipher=await crypto.subtle.encrypt(
+        {name:'AES-GCM',iv},await getKey(),new TextEncoder().encode(txt));
+  return [...iv,...new Uint8Array(cipher)]
+         .map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 async function dec(hex){
   if(!cryptoOK) return hex;
   const buf=new Uint8Array(hex.match(/../g).map(h=>parseInt(h,16)));
   const iv=buf.slice(0,12), data=buf.slice(12);
   try{
-    const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},await getKey(),data);
+    const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},
+                  await getKey(),data);
     return new TextDecoder().decode(plain);
-  }catch{return ''; }
+  }catch{return '';}
 }
 
 /* UI helpers */
 const crown=r=>crownRX.test(r)?' <i class="fa-solid fa-crown crown"></i>':'';
 const tidy=s=>(s||'').replace(/_/g,' ');
-const ico=s=>/hospital|jail/i.test(s)?'🏥':/travel/i.test(s)?'✈️':/abroad/i.test(s)?'🌍':'✅';
-const cls=s=>/hospital|jail/i.test(s)?'status-hospital':/travel/i.test(s)?'status-traveling':/abroad/i.test(s)?'status-abroad':'status-okay';
-const renum=()=>{let n=1;rows.forEach(r=>{if(r.style.display!=='none')r.children[0].textContent=n++;});};
+const ico=s=>/jail/i.test(s)?'🚔':
+             /hospital/i.test(s)?'🏥':
+             /travel/i.test(s)?'✈️':
+             /abroad/i.test(s)?'🌍':'✅';
+const cls=s=>/jail/i.test(s)?'status-jail':
+             /hospital/i.test(s)?'status-hospital':
+             /travel/i.test(s)?'status-traveling':
+             /abroad/i.test(s)?'status-abroad':'status-okay';
+const renum=()=>{let n=1;rows.forEach(r=>{
+  if(r.style.display!=='none') r.children[0].textContent=n++;
+});};
 
-/* Toast */
+/* Toast helper */
 function showToast(msg){
   const t=document.createElement('div');
-  t.className='toast'; t.textContent=msg;
+  t.className='toast';
+  t.textContent=msg;
   document.body.appendChild(t);
-  t.addEventListener('animationend',e=>{ if(e.animationName==='toast-out') t.remove(); });
+  t.addEventListener('animationend',e=>{
+    if(e.animationName==='toast-out') t.remove();
+  });
 }
 
-/*━━━━━━━━━━ SEARCH (DEBOUNCED) ━━━━━━━━━━*/
-search.addEventListener('input',(()=>{let t;return()=>{clearTimeout(t);t=setTimeout(()=>{
-  const q=search.value.toLowerCase();
-  rows.forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});
-  renum();
-},250);};})());
+/*━━━━━━━━━━ SEARCH (debounced) ━━━━━━━━━━*/
+search.addEventListener('input',(()=>{
+  let t;
+  return ()=>{
+    clearTimeout(t);
+    t=setTimeout(()=>{
+      const q=search.value.toLowerCase();
+      rows.forEach(r=>{
+        r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
+      });
+      renum();
+    },250);
+  };
+})());
 
 /*━━━━━━━━━━ SORTING ━━━━━━━━━━━━━━━━━━━━━*/
 const dir={};
 document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
   th.title='Sort';
   th.onclick=()=>{
-    const c=th.dataset.col;dir[c]=!dir[c];
+    const c=th.dataset.col;
+    dir[c]=!dir[c];
     rows.sort((a,b)=>{
-      const A=a.dataset[c]||'',B=b.dataset[c]||'';
-      return(/^(level|days)$/i.test(c)?(dir[c]?A-B:B-A):(dir[c]?A.localeCompare(B):B.localeCompare(A)));
+      const A=a.dataset[c]||'',
+            B=b.dataset[c]||'';
+      return(/^(level|days)$/i.test(c)
+        ? (dir[c]?A-B:B-A)
+        : (dir[c]?A.localeCompare(B):B.localeCompare(A)));
     });
-    rows.forEach(r=>body.appendChild(r));renum();
+    rows.forEach(r=>body.appendChild(r));
+    renum();
   };
 });
 
-/*━━━━━━━━━━ RENDER ━━━━━━━━━━━━━━━━━━━━━*/
+/*━━━━━━━━━━ RENDER ROW ━━━━━━━━━━━━━━━━━*/
 function row(m){
   const raw=m.status?.state||m.status||'Okay',
         pretty=raw.charAt(0).toUpperCase()+raw.slice(1).toLowerCase(),
         role=tidy(m.position||m.role||'Member');
   const tr=document.createElement('tr');
-  tr.dataset.level=m.level||0;
-  tr.dataset.role=role.toLowerCase();
-  tr.dataset.days=m.days_in_faction||m.days||0;
-  tr.dataset.status=pretty.toLowerCase();
+  tr.dataset.level = m.level||0;
+  tr.dataset.role  = role.toLowerCase();
+  tr.dataset.days  = m.days_in_faction||m.days||0;
+  tr.dataset.status= pretty.toLowerCase();
   tr.innerHTML=`
     <td>0</td>
-    <td data-label="IGN">${m.id?`<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank">${m.name}</a>`:m.name}</td>
-    <td data-label="Avatar"><img class="avatar" src="${blank}" data-id="${m.id||''}" alt=""></td>
+    <td data-label="IGN">
+      ${m.id
+        ? `<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank" rel="noopener">${m.name}</a>`
+        : m.name}
+    </td>
+    <td data-label="Avatar">
+      <img class="avatar" src="${blank}" data-id="${m.id||''}" alt="">
+    </td>
     <td data-label="Lv">${m.level||0}</td>
     <td data-label="Role">${role}${crown(role)}</td>
     <td data-label="Days">${m.days_in_faction||m.days||0}</td>
-    <td data-label="Status" class="${cls(pretty)}">${ico(pretty)} ${pretty}</td>`;
+    <td data-label="Status" class="${cls(pretty)}">
+      ${ico(pretty)} ${pretty}
+    </td>`;
   body.appendChild(tr);
 }
 
-/*━━━━━━━━━━ SNAPSHOT ━━━━━━━━━━━━━━━━━━━*/
+/*━━━━━━━━━━ SNAPSHOT (offline fallback) ━━━━━━━━━━━━━━━━━━━━━*/
 async function snapshot(){
   try{
     const res=await fetch('data/member-snapshot.json');
     if(!res.ok) throw 0;
     const list=await res.json();
-    body.innerHTML=''; list.forEach(row);
+    body.innerHTML='';
+    list.forEach(row);
 
-    // get commit timestamp (rate-limited but OK for 1 call)
-    let last = await getSnapshotCommitDate();
-    if(!last) last = res.headers.get('Last-Modified');
+    let last=await getSnapshotCommitDate();
+    if(!last) last=res.headers.get('Last-Modified');
     updateStats(list.length,
       last ? new Date(last).toLocaleString() : new Date().toLocaleString(),
       'Snapshot');
-    renderStatus(list); /* NEW */
+    renderStatus(list);
   }catch{
     body.innerHTML='<tr><td colspan="7">Snapshot unavailable.</td></tr>';
     updateStats(0,'—','Snapshot');
-    stats.status.textContent='—'; /* NEW */
+    stats.status.textContent='—';
   }
-  rows=[...body.querySelectorAll('tr')]; renum();
+  rows=[...body.querySelectorAll('tr')];
+  renum();
 }
 
-/*━━━━━━━━━━ LIVE FETCH & AVATARS ━━━━━━━*/
+/*━━━━━━━━━━ LIVE FETCH & AVATARS ━━━━━━━━━━━━━━━━━━━━━*/
 async function live(key){
   notice.classList.add('loading');
   try{
     const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
     if(!r.ok) throw new Error('Torn API error');
-    const d=await r.json(); if(d.error) throw new Error(d.error.error);
+    const d=await r.json();
+    if(d.error) throw new Error(d.error.error);
     const list=Object.entries(d.members).map(([id,m])=>({...m,id}));
-    body.innerHTML=''; list.sort((a,b)=>b.level-a.level).forEach(row);
-    updateStats(list.length,new Date().toLocaleString(),'Live API');
-    renderStatus(list); /* NEW */
-    rows=[...body.querySelectorAll('tr')]; renum(); search.dispatchEvent(new Event('input'));
 
-    /* lazy-load avatars via profile endpoints */
+    body.innerHTML='';
+    list.sort((a,b)=>b.level-a.level).forEach(row);
+
+    updateStats(list.length,new Date().toLocaleString(),'Live API');
+    renderStatus(list);
+
+    rows=[...body.querySelectorAll('tr')];
+    renum();
+    search.dispatchEvent(new Event('input'));  // honour active filter
+
+    /* avatar lazy-load */
     const io=new IntersectionObserver(entries=>{
       entries.forEach(v=>{
         if(!v.isIntersecting) return;
-        const img=v.target; io.unobserve(img);
+        const img=v.target;
+        io.unobserve(img);
         fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${key}`)
           .then(r=>r.json())
           .then(j=>{ if(!j.error && j.profile_image) img.src=j.profile_image; })
@@ -380,12 +443,12 @@ async function live(key){
 
   }catch(err){
     alert(err.message);
-    snapshot();   // fall-back to snapshot on any API error
+    snapshot(); // fallback
   }
   notice.classList.remove('loading');
 }
 
-/*━━━━━━━━━━ CONTROLS ━━━━━━━━━━━━━━━━━━━*/
+/*━━━━━━━━━━ CONTROLS ━━━━━━━━━━━━━━━━━━━━━*/
 save.onclick=async()=>{
   const k=apiInput.value.trim();
   if(k.length<10){ alert('Invalid API key'); return; }
@@ -395,12 +458,14 @@ save.onclick=async()=>{
 };
 clr.onclick=()=>{ localStorage.removeItem(LS); location.reload(); };
 
-/*━━━━━━━━━━ INIT ━━━━━━━━━━━━━━━━━━━━━━━*/
+/*━━━━━━━━━━ INIT ━━━━━━━━━━━━━━━━━━━━━━━━*/
 (async()=>{
   if(localStorage.getItem(LS)){
     const key=await dec(localStorage.getItem(LS));
-    if(key){ apiInput.value='••••••••'; live(key); }
-    else snapshot();
+    if(key){
+      apiInput.value='••••••••';
+      live(key);
+    }else snapshot();
   }else{
     snapshot();
   }
