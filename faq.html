@@ -21,29 +21,60 @@
         margin-bottom: .25rem
       }
 
-      /* FAQ container */
+      /* quick‑nav */
+      .faq-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .65rem;
+        justify-content: center;
+        margin: .9rem auto 1.6rem;
+        font-size: .9rem
+      }
+
+      .faq-nav a {
+        padding: .42rem .85rem;
+        border: 1px solid var(--accent);
+        border-radius: 999px;
+        color: var(--accent);
+        transition: background .25s
+      }
+
+      .faq-nav a:hover,
+      .faq-nav a:focus {
+        background: var(--accent);
+        color: #000
+      }
+
+      /* FAQ shell */
       .faq-wrap {
         max-width: 960px;
         margin-inline: auto
       }
 
-      /* FAQ item shell */
       .faq-item {
         position: relative;
-        margin-bottom: 1.35rem;
+        margin-bottom: 1.3rem;
         border: 1px solid rgba(var(--accent-rgb), .4);
         border-radius: var(--radius);
         background: rgba(var(--bg-2-rgb), .9);
         backdrop-filter: blur(5px);
         overflow: hidden;
-        transition: border-color .25s, box-shadow .25s;
+        opacity: 0;
+        transform: translateY(16px);
+        transition: border-color .25s, box-shadow .25s
+      }
+
+      .faq-item.in {
+        opacity: 1;
+        transform: none;
+        transition: opacity .5s, transform .5s
       }
 
       .faq-item::before {
         content: '';
         display: block;
         height: 2px;
-        background: linear-gradient(90deg, var(--accent), transparent 70%);
+        background: linear-gradient(90deg, var(--accent), transparent 70%)
       }
 
       .faq-item:hover,
@@ -57,10 +88,9 @@
         display: flex;
         align-items: center;
         gap: .8rem;
-        padding: 1.1rem 1.35rem;
+        padding: 1.15rem 1.35rem;
         font-weight: 500;
-        cursor: pointer;
-        user-select: none;
+        cursor: pointer
       }
 
       summary::-webkit-details-marker {
@@ -78,7 +108,7 @@
         font-size: 1.1rem;
         color: var(--accent);
         background: rgba(var(--accent-rgb), .1);
-        transition: transform .35s;
+        transition: transform .35s
       }
 
       details[open] .faq-icon {
@@ -97,8 +127,7 @@
       .faq-body {
         padding: 0 1.45rem 1.35rem;
         border-top: 1px solid rgba(var(--accent-rgb), .25);
-        line-height: 1.65;
-        animation: fade .35s ease;
+        line-height: 1.65
       }
 
       .faq-body h4 {
@@ -124,13 +153,6 @@
         text-decoration: underline
       }
 
-      @keyframes fade {
-        from {
-          opacity: 0;
-          transform: translateY(8px)
-        }
-      }
-
       /* category heading */
       .faq-cat {
         font-family: "Cormorant Garamond", serif;
@@ -139,7 +161,7 @@
         color: var(--accent);
         display: flex;
         align-items: center;
-        gap: .65rem;
+        gap: .65rem
       }
 
       .faq-cat::before,
@@ -147,14 +169,14 @@
         content: '';
         flex: 1;
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), .4) 40%);
+        background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), .4) 40%)
       }
 
       .faq-cat::after {
         background: linear-gradient(90deg, rgba(var(--accent-rgb), .4) 60%, transparent)
       }
 
-      /* mobile‑friendly territory list */
+      /* territory list mobile tweak */
       .territory-list li {
         margin: .4rem 0
       }
@@ -170,16 +192,24 @@
       <img src="/images/Emblem.png" alt="Cartel Emblem" />
       <h1>Faction&nbsp;FAQ</h1>
       <p class="tagline">Everything you need to thrive in Torn – July 2025, Crime 2.0.</p>
+      <!-- Quick‑nav -->
+      <nav class="faq-nav">
+        <a href="#basics">Basics</a>
+        <a href="#training">Training</a>
+        <a href="#progression">Progression</a>
+        <a href="#warfare">Warfare</a>
+        <a href="#extras">Extras</a>
+      </nav>
     </section>
-    <!-- FAQ SECTION -->
+    <!-- FAQ -->
     <section class="rules-block">
       <div class="container glass faq-wrap">
         <!-- BASICS -->
-        <h2 class="faq-cat">
+        <h2 id="basics" class="faq-cat">
           <i class="fa-solid fa-circle-info"></i> Basics
         </h2>
         <!-- Private Island -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-umbrella-beach"></i>
@@ -194,25 +224,25 @@
             <h4>Why an airstrip?</h4>
             <ul>
               <li>
-                <strong>30 % faster flights</strong> – offsets 2025 cooldown increase.
+                <strong>30 % faster flights</strong> – offsets cooldown changes.
               </li>
               <li>
-                <strong>+10 Energy/hour &amp; +6 400 Happy</strong> – roughly an extra Xanax every 18 h.
+                <strong>+10 Energy/hour &amp; +6 400 Happy</strong> – ~1 extra Xanax every 18 h.
               </li>
               <li>
-                <strong>+10 carry slots</strong> – doubles profit on plushie/flower loops.
+                <strong>+10 carry slots</strong> – doubles travel‑trade profit.
               </li>
             </ul>
             <h4>Smart progression</h4>
             <ul>
-              <li>Rent first (≈ $3 m/day) while you build travel income.</li>
-              <li>Purchase once you have ~60 days of rent banked.</li>
-              <li>Add other upgrades (Sea Dock, Spa) later – Airstrip is priority.</li>
+              <li>Rent first (≈ $3 m/day) while building travel income.</li>
+              <li>Buy once you have ~60 days of rent banked.</li>
+              <li>Other upgrades (Sea Dock, Spa) later—Airstrip first.</li>
             </ul>
           </div>
         </details>
-        <!-- Level 15 & Money -->
-        <details class="faq-item">
+        <!-- Level 15 & Money -->
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-arrow-up"></i>
@@ -223,33 +253,30 @@
           <div class="faq-body">
             <h4>Step 1 – Power‑level to 15</h4>
             <ul>
-              <li>Follow <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16034448&b=0&a=0" target="_blank" class="inline-link">Balder’s levelling guide</a> (task order &amp; tips). </li>
-              <li>Spam <em>Shoplifting – Convenience Store</em> at ≥ 90 % success for quick experience. </li>
-              <li>Finish all starter missions (≈ $750 000 &amp; 3 merits).</li>
-              <li>Join the Army, spend 250 job points on Strength and Defense boosts.</li>
-              <li>Spin Leslie’s Wheel daily – XP jackpots accelerate levels.</li>
+              <li>Follow <a href="https://www.torn.com/forums.php#/p=threads&f=61&t=16034448&b=0&a=0" target="_blank" class="inline-link">Balder’s levelling guide</a>. </li>
+              <li>Spam <em>Shoplifting – Convenience Store</em> at ≥ 90 % success for rapid XP. </li>
+              <li>Finish starter missions (~$750 k &amp; 3 merits).</li>
+              <li>Army job: spend 250 points on Strength &amp; Defense boosts.</li>
+              <li>Spin Leslie’s Wheel for random XP bursts daily.</li>
             </ul>
-            <h4>Step 2 – Travel‑trading from Level 15</h4>
+            <h4>Step 2 – Travel trading from Level 15</h4>
             <ul>
               <li>
                 <strong>Route:</strong> Mexico → Canada → Japan.
               </li>
-              <li>Use a Large Suitcase (120 tokens) + Logistics perk for max capacity.</li>
-              <li>Profit target: ~ $35‑45 k profit per token → ~$5 m per round trip.</li>
+              <li>Large Suitcase + Logistics = 120 tokens.</li>
+              <li>Aim for ~$5 m profit per loop (≈ $35–45 k/token).</li>
             </ul>
             <h4>Step 3 – Layer faction income</h4>
             <ul>
-              <li>Join every Ranked Organized Crime – Tier 3 pays ~$6 m split 10 ways.</li>
-              <li>Capture or hold a <strong>3★ Illegal Casino</strong> or <strong>Point Broker</strong> racket for major passive rewards. </li>
-              <li>Participate in faction chains for bonus respect &amp; credits.</li>
+              <li>Join Ranked OCs—Tier 3 pays ~$6 m split 10 ways.</li>
+              <li>Fight for a 3★ Illegal Casino or Point Broker racket.</li>
+              <li>Chain for respect—tokens convert to packs/points.</li>
             </ul>
-            <p>
-              <em>Goal:</em> Achieving ~$200 m net‑worth and PI rent within 30 days is realistic for an active trader.
-            </p>
           </div>
         </details>
-        <!-- OC checkpoints -->
-        <details class="faq-item">
+        <!-- OC checkpoint -->
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-id-card-clip"></i>
@@ -258,32 +285,32 @@
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
           <div class="faq-body">
-            <h4>Benchmarks for Tier 8/9 Organized Crimes</h4>
+            <h4>Benchmarks for Tier 8/9 OCs</h4>
             <ul>
               <li>
-                <strong>Working Stats:</strong> 20 million+ (TV → Logistics job path).
+                <strong>Working Stats:</strong> 20 million + (TV → Logistics).
               </li>
               <li>
-                <strong>Battle Stats:</strong> 150 million+ total.
+                <strong>Battle Stats:</strong> 150 million + total.
               </li>
               <li>
-                <strong>Crime Successes:</strong> 5 000+ (see nerve‑grind FAQ below).
+                <strong>Crime Successes:</strong> 5 000 + successful crimes.
               </li>
             </ul>
-            <h4>Boosting success chance</h4>
+            <h4>Boost success rate</h4>
             <ul>
-              <li>Faction specials <em>Mastermind</em> and <em>Precision Planning</em> add +16 % combined success. </li>
-              <li>Carry required tools (Keycard, Detonating Cord, EMP Device) to auto‑fill roles.</li>
-              <li>Ensure you are in Torn, not travelling or hospitalized, when the OC executes.</li>
+              <li>Activate faction specials <em>Mastermind</em> &amp; <em>Precision Planning</em> (+16 %). </li>
+              <li>Carry Keycard, Detonating Cord &amp; EMP Device to auto‑fill.</li>
+              <li>Stay in Torn &amp; above 25 % life when the OC fires.</li>
             </ul>
           </div>
         </details>
         <!-- TRAINING & STATS -->
-        <h2 class="faq-cat">
+        <h2 id="training" class="faq-cat">
           <i class="fa-solid fa-dumbbell"></i> Training &amp; Stats
         </h2>
         <!-- Booster cycle -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-bolt"></i>
@@ -294,21 +321,23 @@
           <div class="faq-body">
             <h4>Daily cycle</h4>
             <ul>
-              <li>Take <strong>Xanax</strong> every 8 hours (250 Energy). </li>
-              <li>Consume a <strong>Sports Drink</strong> (+25 Energy) if available. </li>
-              <li>Top up Happy (Chocolate Cake, Wine) before training for bonus gains.</li>
-              <li>Train all energy in <strong>Frontline Fitness</strong> or higher unlocked gym. </li>
+              <li>
+                <strong>Xanax</strong> every 8 h (250 Energy).
+              </li>
+              <li>Optional <strong>Sports Drink</strong> for +25 E top‑up. </li>
+              <li>Boost Happy (Chocolate Cake + Wine) before training.</li>
+              <li>Spend all Energy in <strong>Frontline Fitness</strong> or better. </li>
             </ul>
-            <h4>Weekly maintenance</h4>
+            <h4>Weekly</h4>
             <ul>
-              <li>Visit Rehab after ~6 Xanax to reset addiction &amp; refill Happy.</li>
-              <li>Align heavy training with faction Steadfast bonus (+10 % gains if unlocked).</li>
-              <li>Complete the “Sports Science” education block early for +10 % gym gains.</li>
+              <li>Rehab after ~6 Xanax to reset addiction.</li>
+              <li>Time heavy sessions with faction <em>Steadfast</em> (+10 % gains). </li>
+              <li>Complete Sports Science course early for +10 % gains.</li>
             </ul>
           </div>
         </details>
         <!-- Stat roadmap -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-chart-simple"></i>
@@ -317,147 +346,154 @@
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
           <div class="faq-body">
-            <h4>0 – 50 million in each stat</h4>
-            <p>Build a solid foundation: <br>
-              <strong>1 Strength : 2 Dexterity : 2 Defense</strong> while keeping Speed minimal. Dexterity (dodge) and Defense (damage reduction) make early fights easier.
+            <h4>0 – 50 million each</h4>
+            <p>
+              <strong>1 Strength : 2 Dexterity : 2 Defense</strong>; keep Speed low.
             </p>
-            <h4>50 – 500 million range</h4>
-            <p>Equalize to a balanced <strong>1 : 1 : 1 : 1</strong> across all four stats. Bringing Speed in line improves hit rate; balanced stats prevent glaring weaknesses. </p>
-            <h4>500 million +</h4>
-            <p>Specialize based on role:</p>
+            <h4>50 – 500 million</h4>
+            <p>Flatten to <strong>1 : 1 : 1 : 1</strong> for a balanced profile. </p>
+            <h4>500 million +</h4>
             <ul>
               <li>
-                <strong>Chain hitter → Strength</strong> focus for faster knock‑outs.
+                <strong>Chain hitter</strong> → focus Strength.
               </li>
               <li>
-                <strong>Defensive tank → Defense</strong> focus to survive longer on walls.
+                <strong>Tank / wall defender</strong> → focus Defense.
               </li>
-              <li>Maintain Dexterity for dodge and Speed for accuracy; no stat should be ignored completely.</li>
             </ul>
-            <p class="tagline" style="color:var(--text-2);font-style:italic">Speed may remain the lowest priority until you reach billions in other stats.</p>
+            <p class="tagline" style="color:var(--text-2);font-style:italic">Speed can be last until you’re deep into the billions.</p>
           </div>
         </details>
         <!-- Chain readiness -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-people-group"></i>
             </span>
-            <span>When am I chain‑ready?</span>
+            <span>Ready for the Chain? — Everything you need to know</span>
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
           <div class="faq-body">
+            <h4>1. Mindset</h4>
             <p>
-              <strong>Any level can help a chain – every hit adds respect.</strong>
+              <strong>Every member matters.</strong> No minimum level: if you can win fights you can chain. A single hit adds respect; 5–10 hits can tip a milestone.
             </p>
-            <h4>How to contribute effectively</h4>
+            <h4>2. Respect formula (2025)</h4>
             <ul>
-              <li>Create a target list of players you can beat (use spy reports or tools like <em>Torntargets.com</em>). </li>
-              <li>Prioritize the <strong>highest‑level</strong> opponents you can reliably defeat – higher level = more respect. </li>
-              <li>Have at least 10 medical items and a few Xanax ready for the chain window.</li>
-              <li>Coordinate with factionmates – even five single‑hit wins can push a chain to bonus thresholds.</li>
+              <li>
+                <strong>Target level</strong> drives base respect (higher level = higher respect).
+              </li>
+              <li>Your level/stats no longer reduce respect, but losing the fight gives 0.</li>
+              <li>Chaining milestones (25‑hit, 50‑hit, 100‑hit…) multiply earned respect—collectively huge.</li>
             </ul>
-            <p>Respect earned is proportional to the target’s level, so smart target selection matters more than your own level.</p>
+            <h4>3. Building a target list</h4>
+            <ul>
+              <li>Use faction spies or <em>Torntargets.com</em> to bookmark foes with high level but beatable stats. </li>
+              <li>Refresh the list monthly—player stats change.</li>
+              <li>Carry multiple load‑outs (stun melee, tear‑gas, etc.) to handle different defences.</li>
+            </ul>
+            <h4>4. Gear &amp; meds checklist</h4>
+            <ul>
+              <li>10 Medical items (First‑Aid Kits, Blood Bags) + 3 Xanax pre‑chain.</li>
+              <li>Full weapon repairs; ensure ammo stock.</li>
+              <li>Optional boosters: Box of Grenades, Energy Drinks for rapid re‑engage.</li>
+            </ul>
+            <h4>5. Timing and etiquette</h4>
+            <ul>
+              <li>Stay in city (not travelling) during chain window.</li>
+              <li>Use faction chat/Discord to avoid double‑tapping same target.</li>
+              <li>During “end push” aim for quick wins—ignore hospital time; speed matters.</li>
+            </ul>
+            <h4>6. After‑action</h4>
+            <ul>
+              <li>Log hits/KO times—helps leadership fine‑tune future chains.</li>
+              <li>Donate spare meds to armory for next chain.</li>
+              <li>Spend chain tokens on Donator Packs or boosters to compound gains.</li>
+            </ul>
           </div>
         </details>
         <!-- PROGRESSION & QOL -->
-        <h2 class="faq-cat">
+        <h2 id="progression" class="faq-cat">
           <i class="fa-solid fa-forward-step"></i> Progression &amp; QoL
         </h2>
         <!-- Stocks -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
-              <i class="fa-solid fa-sack-dollar"></i>
+              <i class="fa-solid fa-coins"></i>
             </span>
-            <span>First stock benefits to unlock</span>
+            <span>First stock perks to unlock</span>
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
-          <div class="
-faq-body">
-            <h4>Recommended purchase order</h4>
+          <div class="faq-body">
+            <h4>Priority list</h4>
             <ol style="margin-left:1.35rem">
               <li>
-                <strong>Worldwide Stock Traders (WST)</strong> – free flights.
+                <strong>Worldwide Stock Traders</strong> – free flights.
               </li>
               <li>
-                <strong>Phalanx Tactical Solutions (PTK)</strong> – +2 Energy/hour passive.
+                <strong>Phalanx Tactical Solutions</strong> – +2 Energy/hr.
               </li>
               <li>
-                <strong>Torn City Bank (TCB)</strong> – doubles long‑term bank interest.
+                <strong>Torn City Bank</strong> – double bank interest.
               </li>
               <li>
-                <strong>Rapid Muscle-Progress (RAMP)</strong> – +15 % gym gains.
+                <strong>Rapid Muscle‑Progress</strong> – +15 % gym gains.
               </li>
             </ol>
-            <h4>Tips</h4>
+            <h4>Buying tips</h4>
             <ul>
-              <li>Buy during market dips (post‑event sell‑offs).</li>
-              <li>Use a stock broker to keep perks without holding shares permanently.</li>
+              <li>Buy dips after events; sell highs.</li>
+              <li>Use brokers to keep benefits while freeing cash.</li>
             </ul>
           </div>
         </details>
-        <!-- Dock upgrade -->
-        <details class="faq-item">
+        <!-- Dock -->
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
-              <i class="fa-solid fa-plane-departure"></i>
+              <i class="fa-solid fa-ship"></i>
             </span>
             <span>Is a PI Airship Dock worth it?</span>
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
           <div class="faq-body">
             <p>
-              <strong>Essential if you average four or more flights per day.</strong>
+              <strong>Essential if you fly ≥ 4 times/day.</strong>
             </p>
             <ul>
-              <li>Stacks with Airstrip for a total ~55 % flight cooldown reduction.</li>
-              <li>+8 item slots – enables 50‑plushie China runs (~$30 m profit).</li>
-              <li>Break‑even around 45 days for active traders.</li>
+              <li>Stacks with Airstrip → ~55 % cooldown cut.</li>
+              <li>+8 slots = 50‑plushie China run (~$30 m profit).</li>
+              <li>ROI ≈ 45 days.</li>
             </ul>
           </div>
         </details>
         <!-- Education -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-graduation-cap"></i>
             </span>
-            <span>Key education courses to finish first</span>
+            <span>Key education courses</span>
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
           <div class="faq-body">
-            <h4>Fast‑track course list</h4>
+            <h4>Fast‑track queue</h4>
             <ol style="margin-left:1.35rem">
-              <li>
-                <strong>Sports Science (Physical Education)</strong> – +10 % gym gains.
-              </li>
-              <li>
-                <strong>Intravenous Therapy (Biology)</strong> – unlock Blood Bags +15 % medical potency.
-              </li>
-              <li>
-                <strong>Bachelor of Business Management</strong> – +10 % melee damage and job‑point merit.
-              </li>
-              <li>
-                <strong>Ammo Conservation (Mathematics)</strong> – 20 % ammunition savings.
-              </li>
-              <li>
-                <strong>Cyber Security Diploma</strong> – reduces crime detection chance.
-              </li>
+              <li>Sports Science (Physical Education) – +10 % gym gains.</li>
+              <li>Intravenous Therapy (Biology) – Blood Bags +15 % pot.</li>
+              <li>Bachelor of Business Management – +10 % melee dmg.</li>
+              <li>Ammo Conservation (Mathematics) – 20 % ammo save.</li>
+              <li>Cyber Security Diploma – –4 % crime detection.</li>
             </ol>
-            <h4>Speed hacks</h4>
-            <ul>
-              <li>Combine 20 % education merits, 10 % Principal job bonus, and 10 % WSU stock for 40 % faster courses.</li>
-              <li>Use Hair Salon (7★) job points on long final exams.</li>
-            </ul>
           </div>
         </details>
         <!-- WARFARE -->
-        <h2 class="faq-cat">
+        <h2 id="warfare" class="faq-cat">
           <i class="fa-solid fa-crosshairs"></i> Warfare &amp; Advanced
         </h2>
         <!-- Budget loadout -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-gun"></i>
@@ -468,118 +504,110 @@ faq-body">
           <div class="faq-body">
             <h4>Starter gear (≤ $15 m)</h4>
             <ul>
-              <li>
-                <strong>AK‑47</strong> (Mexico) with Stability and High‑Capacity Magazine.
-              </li>
-              <li>
-                <strong>Crowbar</strong> for stun; upgrade to Katana when funds allow.
-              </li>
-              <li>
-                <strong>Kevlar Vest and Military Helmet</strong> for 12 % damage reduction.
-              </li>
-              <li>Carry three Flashbang Grenades to lower enemy accuracy.</li>
+              <li>AK‑47 (Stability + High‑Cap Mag).</li>
+              <li>Crowbar (upgrade to Katana asap).</li>
+              <li>Kevlar Vest + Military Helmet.</li>
+              <li>3× Flashbang Grenades.</li>
             </ul>
             <h4>Upgrade path</h4>
             <ul>
-              <li>
-                <strong>Steyr AUG</strong> at ~250 million stats for better accuracy scaling.
-              </li>
-              <li>Upgrade armor to <em>SWAT</em> set, then <em>Dragonskin Vest + Composite Helmet</em>. </li>
-              <li>Save weapon shards for Elite modifications above 500 million stats.</li>
+              <li>Steyr AUG at ~250 m stats.</li>
+              <li>SWAT → Dragonskin + Composite Helm.</li>
+              <li>Save shards for Elite mods at 500 m+ stats.</li>
             </ul>
           </div>
         </details>
-        <!-- Territory guidance -->
-        <details class="faq-item">
+        <!-- Territory -->
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-map"></i>
             </span>
-            <span>High‑value faction territory blocks</span>
+            <span>High‑value territory rackets</span>
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
           <div class="faq-body">
-            <p>The most lucrative rackets (mobile‑friendly list):</p>
+            <p>Lucrative rackets:</p>
             <ul class="territory-list">
               <li>
-                <strong>Illegal Casino (5 levels)</strong> – Up to $400 million cash per day at level 5.
+                <strong>Illegal Casino</strong> – $400 m/day (lvl 5).
               </li>
               <li>
-                <strong>Point Broker (5 levels)</strong> – Up to 8 000 Torn Points daily (convertible to billions).
+                <strong>Point Broker</strong> – 8 000 points/day.
               </li>
               <li>
-                <strong>Money Launderer (5 levels)</strong> – Up to $160 million cash daily.
+                <strong>Money Launderer</strong> – $160 m/day.
               </li>
               <li>
-                <strong>Protection Racket (5 levels)</strong> – Up to $80 million cash daily.
+                <strong>Protection Racket</strong> – $80 m/day.
               </li>
               <li>
-                <strong>Street Surgeon / Drug Lab</strong> – Provides Blood Bags or drugs; useful for faction warfare supplies.
+                <strong>Street Surgeon / Drug Lab</strong> – Blood Bags / drugs.
               </li>
               <li>
-                <strong>Truck Stop</strong> – Energy cans (10–160 daily) for global training pushes.
+                <strong>Truck Stop</strong> – 10–160 energy cans per day.
               </li>
             </ul>
-            <p>Central‑city blocks tend to spawn higher‑level rackets more often. Prioritize &amp; defend these blocks for long‑term passive income.</p>
+            <p>Central blocks spawn higher‑level rackets—prioritize &amp; defend them.</p>
           </div>
         </details>
         <!-- EXTRAS -->
-        <h2 class="faq-cat">
+        <h2 id="extras" class="faq-cat">
           <i class="fa-solid fa-question"></i> Extras
         </h2>
         <!-- Nerve grind -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-battery-three-quarters"></i>
             </span>
-            <span>Efficient nerve‑bar growth</span>
+            <span>Growing your nerve bar</span>
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
           <div class="faq-body">
-            <h4>Crime 2.0 grind loop</h4>
+            <h4>Crime 2.0 loop</h4>
             <ul>
-              <li>Maintain 400‑crime streaks for a +25 % experience multiplier.</li>
-              <li>Use drugs that grant nerve (e.g. Cannabis for +8–12, LSD for +5) during long farming sessions.</li>
-              <li>Rehab regularly to offset drug addiction and restore Happy, which speeds nerve regeneration.</li>
+              <li>Maintain 400‑crime streak for +25 % EXP bonus.</li>
+              <li>Use Cannabis (+8–12 nerve) or LSD (+5 nerve) for big refill windows.</li>
+              <li>Rehab every 10–12 drug uses to keep Happy regen fast.</li>
             </ul>
-            <p>Consistent grinding yields roughly one new nerve bar point every 4‑5 days.</p>
+            <p>Average gain: ~1 new nerve point every 4–5 days with perfect uptime.</p>
           </div>
         </details>
         <!-- Routine -->
-        <details class="faq-item">
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-calendar-check"></i>
             </span>
-            <span>Your high‑efficiency daily routine</span>
+            <span>High‑efficiency daily checklist</span>
             <i class="fa-solid fa-chevron-down chev"></i>
           </summary>
           <div class="faq-body">
             <ul>
               <li>
-                <strong>Energy&nbsp;&amp;&nbsp;Nerve:</strong> Spend on gym and crimes every login.
+                <strong>Energy &amp; Nerve:</strong> Spend at every login.
               </li>
               <li>
-                <strong>Travel chain:</strong> Book next flight before landing to keep cooldown rolling.
+                <strong>Travel:</strong> Book return flight on landing.
               </li>
               <li>
-                <strong>Faction:</strong> Join Organized Crimes and chain hits as slots open.
+                <strong>Faction:</strong> Fill OC slots; chain if live.
               </li>
               <li>
-                <strong>Education:</strong> Always keep a course queued.
+                <strong>Education:</strong> Queue next course instantly.
               </li>
               <li>
-                <strong>Bank sweep:</strong> Deposit spare cash into 31‑day term weekly.
+                <strong>Bank:</strong> Sweep spare cash weekly.
               </li>
               <li>
-                <strong>Happy care:</strong> Wine + Plush Bear daily; rehab after six Xanax.
+                <strong>Happy:</strong> Wine + Plush Bear daily, rehab after 6 Xanax.
               </li>
             </ul>
           </div>
         </details>
-        <!-- Donator status -->
-        <details class="faq-item">
+        <!-- Donator -->
+        <details class="faq-item reveal">
           <summary>
             <span class="faq-icon">
               <i class="fa-solid fa-gem"></i>
@@ -590,25 +618,21 @@ faq-body">
           <div class="faq-body">
             <h4>Benefits</h4>
             <ul>
-              <li>
-                <strong>+240 Energy/day</strong> (720 E vs 480 E) – equivalent to one free Xanax every 30 h.
-              </li>
-              <li>
-                <strong>Energy cap 150</strong> (300 with marriage overfill).
-              </li>
-              <li>Faster Happy regen, personal bazaar, no chat delay, stat graphs, extra merits.</li>
+              <li>+240 Energy/day (720 E vs 480 E).</li>
+              <li>Energy cap 150 (300 w/ marriage overfill).</li>
+              <li>Faster Happy regen, personal bazaar, extra merits.</li>
             </ul>
-            <h4>Funding options</h4>
+            <h4>Funding</h4>
             <ul>
-              <li>Buy a Donator Pack (~ $23 million).</li>
-              <li>Monthly subscription ($5) → 90 points, tradeable if you need cash.</li>
+              <li>Donator Pack (~$23 m).</li>
+              <li>$5 monthly sub → 90 points (resell if broke).</li>
             </ul>
-            <p>Best long‑term return on investment in Torn – activate as soon as possible.</p>
+            <p>Activate early—energy advantage compounds for life.</p>
           </div>
         </details>
-        <!-- closing notice -->
+        <!-- Closing notice -->
         <div class="notice" style="margin-top:3rem">
-          <i class="fa-solid fa-lightbulb"></i> Question not covered? Drop it in <a href="https://discord.gg/DmxrRAjBdk" target="_blank">Discord</a> and we’ll add it next patch!
+          <i class="fa-solid fa-lightbulb"></i> Question not covered? Ask in <a href="https://discord.gg/DmxrRAjBdk" target="_blank">Discord</a> and we’ll add it next patch!
         </div>
       </div>
     </section>
@@ -616,15 +640,16 @@ faq-body">
     <footer>
       <p>&copy; <span id="year"></span> Privé Cartel. </p>
     </footer>
+    <!-- GLOBAL JS (adds back‑to‑top, progress bar, reveal‑on‑scroll, etc.) -->
+    <script src="/assets/script.js"></script>
     <!-- PAGE JS -->
     <script>
-      /* allow only one FAQ open at a time for cleaner mobile UX */
+      /* one‑open accordion */
       document.querySelectorAll('.faq-item').forEach(d => {
         d.addEventListener('toggle', () => {
           if (d.open) document.querySelectorAll('.faq-item').forEach(o => o !== d && o.removeAttribute('open'));
         });
       });
-      document.getElementById('year').textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
