@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <!-- META -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Privé Cartel • Contact</title>
   <meta name="description" content="Get in touch with our leadership team.">
   <link rel="icon" type="image/png" href="/images/Emblem.png">
@@ -86,6 +86,49 @@
     .contact-section a:not(.profile-card):hover,
     .contact-section a:not(.profile-card):focus-visible{background-size:100% 1px}
 
+    /* status pill */
+    .status-pill{
+      position:absolute;top:.55rem;left:.6rem;
+      font-size:.72rem;line-height:1;
+      padding:.25rem .45rem .28rem;
+      border-radius:.45rem;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(4px);
+      border:1px solid rgba(255,255,255,.15);
+      font-weight:600;letter-spacing:.01em;
+      color:#aaa;
+      display:flex;align-items:center;gap:.35rem;
+      pointer-events:none;
+      min-width:60px;justify-content:center;
+      transition: color .25s ease, background .25s ease, border-color .25s ease;
+    }
+    .status-pill::before{
+      content:"";
+      width:.45rem;height:.45rem;border-radius:50%;
+      background:#888;
+      transition: background-color .25s ease;
+    }
+    .status-pill.online{color:#49e96c;}
+    .status-pill.online::before{background:#49e96c;}
+    .status-pill.offline{color:#ff5e5e;}
+    .status-pill.offline::before{background:#ff5e5e;}
+    .status-pill.idle{color:#ffd95a;}
+    .status-pill.idle::before{background:#ffd95a;}
+    .status-pill.traveling{color:#29cfff;}
+    .status-pill.traveling::before{background:#29cfff;}
+    .status-pill.error{color:#ff8d8d;}
+    .status-pill.error::before{background:#ff8d8d;}
+
+    /* pop animation when state changes */
+    @keyframes pill-pop {
+      0%   { transform: scale(.9); opacity:.4; }
+      50%  { transform: scale(1.12); opacity:1; }
+      100% { transform: scale(1); opacity:1; }
+    }
+    .status-pill.changed{
+      animation: pill-pop .38s cubic-bezier(.22,.61,.36,1);
+    }
+
     @media(prefers-reduced-motion:reduce){
       *,*:before,*:after{animation:none!important;transition:none!important}
       .profile-card:hover{transform:none}
@@ -118,6 +161,7 @@
         <a class="profile-card" href="https://www.torn.com/profiles.php?XID=2753560"
            target="_blank" rel="noopener"
            aria-label="Open ForeverHydrox's Torn profile in a new tab">
+          <span class="status-pill" data-id="2753560">…</span>
           <img class="avatar" src="/images/blankprofile.jpg" data-id="2753560" alt="">
           <h3>ForeverHydrox</h3>
           <p class="role">Leader</p>
@@ -133,6 +177,7 @@
         <a class="profile-card" href="https://www.torn.com/profiles.php?XID=3212954"
            target="_blank" rel="noopener"
            aria-label="Open Skillerious's Torn profile in a new tab">
+          <span class="status-pill" data-id="3212954">…</span>
           <img class="avatar" src="/images/blankprofile.jpg" data-id="3212954" alt="">
           <h3>Skillerious</h3>
           <p class="role">Co-Leader</p>
@@ -147,13 +192,13 @@
         <a class="profile-card" href="https://www.torn.com/profiles.php?XID=3400392"
            target="_blank" rel="noopener"
            aria-label="Open JdedPrincess's Torn profile in a new tab">
+          <span class="status-pill" data-id="3400392">…</span>
           <img class="avatar" src="/images/blankprofile.jpg" data-id="3400392" alt="">
           <h3>JdedPrincess</h3>
           <p class="role">Co-Leader</p>
           <p class="bio">
-  Creative tactician and morale champion, JdedPrincess keeps Privé Cartel cohesive, inspired, and tactically one step ahead.
-</p>
-
+            Creative tactician and morale champion, JdedPrincess keeps Privé Cartel cohesive, inspired, and tactically one step ahead.
+          </p>
         </a>
 
       </div><!-- /.contact-grid -->
@@ -173,32 +218,158 @@
 <!-- GLOBAL SCRIPT -->
 <script src="/assets/script.js"></script>
 
-<!-- dynamic avatars (unchanged) -->
+<!-- LIVE STATUS & AVATARS -->
 <script>
 (async () => {
-  const hex=localStorage.getItem('pcApiCipher');
-  if(!hex||!crypto?.subtle) return;
+  const YEAR_EL = document.getElementById('year');
+  YEAR_EL.textContent = new Date().getFullYear();
 
-  const originHash = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(location.origin));
-  const key = await crypto.subtle.importKey('raw',originHash,{name:'AES-GCM'},false,['decrypt']);
+  const LS_KEY          = 'pcApiCipher';
+  const REFRESH_MS      = 60_000;
+  const MAX_BACKOFF_MS  = 10 * 60_000;
+  let   delay           = REFRESH_MS;
+  let   timer           = null;
 
-  const bytes=Uint8Array.from(hex.match(/../g).map(h=>parseInt(h,16)));
-  const iv=bytes.slice(0,12), cipher=bytes.slice(12);
-  let apiKey;
-  try{
-    apiKey=new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher));
-  }catch{return}
-  if(!apiKey) return;
-
-  document.querySelectorAll('img.avatar[data-id]').forEach(img=>{
-    fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${apiKey}`)
-      .then(r=>r.json())
-      .then(j=>{if(!j.error && j.profile_image) img.src=j.profile_image;})
-      .catch(()=>{});
+  const cards = [...document.querySelectorAll('.profile-card')].map(card=>{
+    const pill = card.querySelector('.status-pill');
+    const img  = card.querySelector('.avatar');
+    return { id: pill?.dataset.id, pill, img };
   });
+
+  function classifyStatus(s){
+    const v = (s||'').toLowerCase();
+    if(v === 'online') return {cls:'online', txt:'Online'};
+    if(v === 'idle' || v === 'recovering') return {cls:'idle', txt:'Idle'};
+    if(/travel/.test(v)) return {cls:'traveling', txt:'Traveling'};
+    return {cls:'offline', txt:'Offline'};
+  }
+  function humanAgo(ts){
+    if(!ts) return '';
+    const diff = Math.max(0, Date.now()/1000 - ts);
+    const mins = Math.floor(diff/60);
+    if(diff < 60) return 'Just now';
+    if(mins < 60) return `${mins} minute${mins!==1?'s':''} ago`;
+    const hrs = Math.floor(mins/60);
+    if(hrs < 24) return `${hrs} hour${hrs!==1?'s':''} ago`;
+    const days = Math.floor(hrs/24);
+    return `${days} day${days!==1?'s':''} ago`;
+  }
+  function setStatus(pill, status, lastAction){
+    if(!pill) return;
+    const prev = pill.dataset.state || '';
+    const {cls, txt} = classifyStatus(status);
+
+    pill.textContent = txt;
+    pill.classList.remove('online','offline','idle','traveling','error','changed');
+    pill.classList.add(cls);
+
+    if(lastAction){
+      const ts = lastAction.timestamp || lastAction.last_action || 0;
+      pill.title = lastAction.relative || humanAgo(ts) || '';
+    }else pill.title = '';
+
+    if(prev !== (status||'').toLowerCase()){
+      void pill.offsetWidth;
+      pill.classList.add('changed');
+    }
+    pill.dataset.state = (status||'').toLowerCase();
+  }
+  function setError(pill,msg='Error'){
+    if(!pill) return;
+    pill.textContent = msg;
+    pill.title = msg;
+    pill.classList.remove('online','offline','idle','traveling','changed');
+    pill.classList.add('error');
+  }
+
+  async function decryptKey(hex){
+    if(!hex || !crypto?.subtle) return '';
+    try{
+      const bytes = Uint8Array.from(hex.match(/../g).map(h=>parseInt(h,16)));
+      const iv    = bytes.slice(0,12);
+      const data  = bytes.slice(12);
+
+      const originHash = await crypto.subtle.digest('SHA-256',
+        new TextEncoder().encode(location.origin));
+      const aesKey = await crypto.subtle.importKey('raw', originHash,
+        {name:'AES-GCM'}, false, ['decrypt']);
+
+      const plain = await crypto.subtle.decrypt({name:'AES-GCM',iv}, aesKey, data);
+      return new TextDecoder().decode(plain);
+    }catch(e){
+      console.warn('Decrypt failed', e);
+      return '';
+    }
+  }
+
+  async function fetchUser(id, sels, key){
+    const url = `https://api.torn.com/user/${id}?selections=${sels}&key=${key}`;
+    const res = await fetch(url);
+    return res.json();
+  }
+
+  async function hydrateOnce(key){
+    await Promise.all(cards.map(async ({id,pill,img})=>{
+      if(!id) return;
+      try{
+        const d = await fetchUser(id, 'basic,profile', key);
+        if(d?.error){ setError(pill, d.error.error); return; }
+        if(d.profile_image && img) img.src = d.profile_image;
+        setStatus(pill, d.last_action?.status, d.last_action);
+      }catch(err){
+        console.error(err);
+        setError(pill);
+      }
+    }));
+    delay = REFRESH_MS;
+  }
+
+  async function refreshStatuses(key){
+    try{
+      let someoneOnline = false;
+      await Promise.all(cards.map(async ({id,pill})=>{
+        if(!id) return;
+        try{
+          const d = await fetchUser(id, 'basic', key);
+          if(d?.error){ setError(pill, d.error.error); return; }
+          const status = d.last_action?.status;
+          if((status||'').toLowerCase()==='online') someoneOnline = true;
+          setStatus(pill, status, d.last_action);
+        }catch(err){
+          console.error(err);
+          setError(pill);
+        }
+      }));
+      delay = someoneOnline ? REFRESH_MS : Math.max(REFRESH_MS*5, delay);
+    }catch(err){
+      delay = Math.min(delay*2, MAX_BACKOFF_MS);
+      console.error(err);
+    }finally{
+      schedule(key);
+    }
+  }
+
+  function schedule(key){
+    clearTimeout(timer);
+    if(document.hidden) return;
+    timer = setTimeout(()=>refreshStatuses(key), delay + Math.floor(Math.random()*1500));
+  }
+
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden){
+      clearTimeout(timer);
+    }else if(apiKey){
+      refreshStatuses(apiKey);
+    }
+  });
+
+  const cipher = localStorage.getItem(LS_KEY);
+  const apiKey = await decryptKey(cipher);
+  if(!apiKey) return; // no key, leave placeholders
+
+  await hydrateOnce(apiKey);
+  schedule(apiKey);
 })();
 </script>
-
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
