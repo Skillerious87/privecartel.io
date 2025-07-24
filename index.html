@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- META -->
+  <!-- ───────────────────────── META ───────────────────────── -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privé Cartel | Discreet-Luxury Faction Hub</title>
   <meta name="description" content="Official hub for Privé Cartel – a discreet refuge amid Torn’s chaos. Join us for OC 2.0, guidance and profit." />
 
-  <!-- ICONS / SPLASH -->
+  <!-- ─────────────────────── ICONS / PWA ───────────────────── -->
   <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="assets/icon-192.png" />
   <link rel="manifest" href="manifest.json?v=7" />
@@ -16,278 +16,312 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Privé Cartel" />
 
-  <!-- FONTS & ICONS -->
+  <!-- ───────────────────── FONTS & ICONS ────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
-  <!-- GLOBAL THEME -->
+  <!-- ─────────────────────── GLOBAL THEME ───────────────────── -->
   <link rel="stylesheet" href="assets/style.css" />
 
-  <!-- PAGE-SPECIFIC ENHANCEMENTS -->
+  <!-- ───────────────────── PAGE-SPECIFIC CSS ────────────────── -->
   <style>
     /* ============ 1. BASE (mobile-first) ============ */
-    body {
-      background:
-        radial-gradient(ellipse at 50% -70%, rgba(255,255,255,.04) 0%, transparent 65%),
-        #0e0e0e;
-      color: #e6e3d4;
+    :root{
+      --accent:#d6b86d;
+      --accent-rgb:214,184,109;
+      --bg-1:#0e0e0e;
+      --text-1:#e6e3d4;
+      --text-2:#d3c79c;
+      --radius:14px;
+    }
+    body{
+      background: radial-gradient(ellipse at 50% -70%, rgba(255,255,255,.04) 0%, transparent 65%), var(--bg-1);
+      color: var(--text-1);
       font-family: 'Poppins', system-ui, sans-serif;
       line-height: 1.7;
       margin: 0;
       overflow-x: hidden;
     }
-    .container {
-      max-width: 1000px;
-      margin-inline: auto;
-      padding: 1.75rem 1rem;
+    .container{
+      max-width:1000px;
+      margin-inline:auto;
+      padding:1.75rem 1rem;
     }
-    .container.glass {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(214,184,109,.32);
-      border-radius: 14px;
-      box-shadow: 0 6px 28px rgba(0,0,0,.5);
+    .container.glass{
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(var(--accent-rgb),.32);
+      border-radius:var(--radius);
+      box-shadow:0 6px 28px rgba(0,0,0,.5);
     }
 
     /* ============ 2. TITLES ============ */
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.9rem;
-      color: #d6b86d;
-      margin: 0 0 1.25rem;
-      letter-spacing: .3px;
-      position: relative;
+    .section-title{
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.9rem;
+      color:var(--accent);
+      margin:0 0 1.25rem;
+      letter-spacing:.3px;
+      position:relative;
     }
-    .section-title::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 38px;
-      height: 2px;
-      background: linear-gradient(to right, #d6b86d 0%, rgba(214,184,109,0) 100%);
+    .section-title::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:38px;
+      height:2px;
+      background:linear-gradient(to right, var(--accent) 0%, rgba(214,184,109,0) 100%);
     }
 
     /* ============ 3. HERO ============ */
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1.5rem;
-      padding: 4.75rem 1rem 3.5rem;
-      position: relative;
-      overflow: hidden;
+    .hero{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:1.5rem;
+      padding:4.75rem 1rem 3.5rem;
+      position:relative;
+      overflow:hidden;
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("images/hero-bg.jpg") repeat center/180px;
-      opacity: .05;
-      mix-blend-mode: overlay;
-      pointer-events: none;
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:url("images/hero-bg.jpg") repeat center/180px;
+      opacity:.05;
+      mix-blend-mode:overlay;
+      pointer-events:none;
     }
-    .hero .emblem {
-      width: 110px;
-      filter: drop-shadow(0 0 12px rgba(214,184,109,.55));
+    .hero .emblem{
+      width:110px;
+      filter:drop-shadow(0 0 12px rgba(var(--accent-rgb),.55));
     }
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.9rem, 5.6vw, 2.85rem);
-      font-weight: 600;
-      line-height: 1.3;
-      margin: 0;
-      text-shadow: 0 2px 6px rgba(0,0,0,.55);
+    .hero h1{
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(1.9rem,5.6vw,2.85rem);
+      font-weight:600;
+      line-height:1.3;
+      margin:0;
+      text-shadow:0 2px 6px rgba(0,0,0,.55);
     }
 
     /* ============ 4. CARD GRID (Services) ============ */
-    .card-grid {
-      display: grid;
-      gap: 1.4rem;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      margin-top: 1.4rem;
+    .card-grid{
+      display:grid;
+      gap:1.4rem;
+      grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+      margin-top:1.4rem;
     }
-    .card {
-      position: relative;
-      background: rgba(255,255,255,.045);
-      border: 1px solid rgba(214,184,109,.24);
-      padding: 1.4rem 1.35rem 1.6rem;
-      border-radius: 12px;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
-      transition: transform .28s ease, box-shadow .28s ease;
-      will-change: transform, box-shadow;
+    .card{
+      position:relative;
+      background:rgba(255,255,255,.045);
+      border:1px solid rgba(var(--accent-rgb),.24);
+      padding:1.4rem 1.35rem 1.6rem;
+      border-radius:12px;
+      box-shadow:0 0 0 rgba(0,0,0,0);
+      transition:transform .28s ease, box-shadow .28s ease;
+      will-change:transform, box-shadow;
     }
-    .card:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 8px 20px rgba(0,0,0,.6);
+    .card:hover{
+      transform:translateY(-6px) scale(1.03);
+      box-shadow:0 8px 20px rgba(0,0,0,.6);
     }
-    .card h3 {
-      margin: 0 0 .6rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #d6b86d;
-      display: flex;
-      align-items: center;
-      gap: .45rem;
+    .card h3{
+      margin:0 0 .6rem;
+      font-size:1.1rem;
+      font-weight:600;
+      color:var(--accent);
+      display:flex;
+      align-items:center;
+      gap:.45rem;
     }
-    .card p {
-      margin: 0;
-      font-size: .92rem;
-      color: #d3c79c;
-      line-height: 1.6;
+    .card p{
+      margin:0;
+      font-size:.92rem;
+      color:var(--text-2);
+      line-height:1.6;
     }
-    .card i {
-      color: #c4a46a;
-      font-size: 1.1rem;
+    .card i{
+      color:#c4a46a;
+      font-size:1.1rem;
     }
 
     /* ============ 5. PERK GRID ============ */
-    .perk-grid {
-      list-style: none;
-      padding: 0;
-      margin: 1.35rem 0;
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    .perk-grid{
+      list-style:none;
+      padding:0;
+      margin:1.35rem 0;
+      display:grid;
+      gap:1rem;
+      grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
     }
-    .perk-grid li {
-      background: rgba(255,255,255,.055);
-      border: 1px solid rgba(214,184,109,.2);
-      border-radius: 9px;
-      min-height: 125px;
-      padding: 1rem .6rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      transition: transform .28s ease, box-shadow .28s ease;
+    .perk-grid li{
+      background:rgba(255,255,255,.055);
+      border:1px solid rgba(var(--accent-rgb),.2);
+      border-radius:9px;
+      min-height:125px;
+      padding:1rem .6rem;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      transition:transform .28s ease, box-shadow .28s ease;
     }
-    .perk-grid li:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 8px 20px rgba(0,0,0,.6);
+    .perk-grid li:hover{
+      transform:translateY(-6px) scale(1.03);
+      box-shadow:0 8px 20px rgba(0,0,0,.6);
     }
-    .perk-grid li i {
-      color: #c4a46a;
-      font-size: 1.55rem;
-      margin-bottom: .55rem;
+    .perk-grid li i{
+      color:#c4a46a;
+      font-size:1.55rem;
+      margin-bottom:.55rem;
     }
 
     /* ============ 6. TABLE (Chain Rewards) ============ */
-    .table-wrapper {
-      overflow-x: auto;
-      margin: 1.25rem 0;
+    .table-wrapper{overflow-x:auto;margin:1.25rem 0;}
+    .reward-table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:.93rem;
+      min-width:300px;
     }
-    .reward-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .93rem;
-      min-width: 300px;
-    }
-    .reward-table thead {
-      background: rgba(255,255,255,.06);
-    }
+    .reward-table thead{background:rgba(255,255,255,.06);}
     .reward-table th,
-    .reward-table td {
-      padding: .7rem .65rem;
-      border: 1px solid rgba(214,184,109,.22);
-      text-align: left;
+    .reward-table td{
+      padding:.7rem .65rem;
+      border:1px solid rgba(var(--accent-rgb),.22);
+      text-align:left;
     }
-    .reward-table th {
-      color: #c4a46a;
-      font-weight: 600;
+    .reward-table th{
+      color:var(--accent);
+      font-weight:600;
     }
-    .reward-table tbody tr:nth-child(even) {
-      background: rgba(255,255,255,.03);
+    .reward-table tbody tr:nth-child(even){
+      background:rgba(255,255,255,.03);
     }
-    .reward-table tbody tr:hover {
-      background: rgba(255,255,255,.06);
+    .reward-table tbody tr:hover{
+      background:rgba(255,255,255,.06);
     }
-    .reward-table td i {
-      margin-right: .45rem;
-      color: #c4a46a;
+    .reward-table td i{
+      margin-right:.45rem;
+      color:var(--accent);
     }
-    .table-note {
-      font-size: .88rem;
-      font-style: italic;
-      color: rgba(230,230,230,.8);
+    .table-note{
+      font-size:.88rem;
+      font-style:italic;
+      color:rgba(230,230,230,.8);
     }
 
     /* ============ 6a. ALERT CARD ============ */
-    .alert-card {
-      background: rgba(214,184,109,0.1);
-      border: 1px solid #d6b86d;
-      border-radius: 9px;
-      padding: 1rem;
-      margin: 1rem 0;
+    .alert-card{
+      background:rgba(var(--accent-rgb),0.1);
+      border:1px solid var(--accent);
+      border-radius:9px;
+      padding:1rem;
+      margin:1rem 0;
     }
-    .alert-card p {
-      margin: 0;
-      font-size: .92rem;
-      color: #d3c79c;
-    }
-    .alert-card p strong {
-      color: #d6b86d;
-    }
+    .alert-card p{margin:0;font-size:.92rem;color:var(--text-2);}
+    .alert-card p strong{color:var(--accent);}
 
     /* ============ 7. STANDARD LISTS ============ */
     ol.standard,
-    ul.standard {
-      list-style-position: outside;
-      padding-left: 1.8rem;
-      margin: 1rem 0;
+    ul.standard{
+      list-style-position:outside;
+      padding-left:1.8rem;
+      margin:1rem 0;
     }
     ol.standard li,
-    ul.standard li {
-      margin-bottom: .55rem;
+    ul.standard li{
+      margin-bottom:.55rem;
     }
     ol.standard li::marker,
-    ul.standard li::marker {
-      font-weight: 700;
+    ul.standard li::marker{
+      font-weight:700;
     }
 
-    /* ============ 8. MEDIA QUERIES (≥600px) ============ */
-    @media(min-width: 600px) {
-      .container {
-        padding: 2rem 1.5rem;
-      }
-      .section-title {
-        font-size: 2.15rem;
-      }
-      .hero {
-        padding: 5.5rem 1rem 4rem;
-      }
-      .hero .emblem {
-        width: 135px;
-      }
-      .card-grid {
-        gap: 1.6rem;
-      }
-      .card {
-        padding: 1.6rem 1.45rem 1.8rem;
-      }
-      .perk-grid li {
-        min-height: 138px;
-      }
-      .reward-table {
-        font-size: 1rem;
-      }
-      ol.standard,
-      ul.standard {
-        padding-left: 2rem;
-      }
+    /* ============ 8. CHAIN CARD ============ */
+    .chain-card{
+      padding:1.5rem 1.4rem;
+      border:1px solid rgba(var(--accent-rgb),.26);
+      border-radius:12px;
+      background:rgba(255,255,255,0.045);
+      box-shadow:0 4px 16px rgba(0,0,0,.4);
+      position:relative;
+    }
+    .chain-meta{
+      margin:0 0 .9rem;
+      font-size:.96rem;
+      color:var(--text-2);
+    }
+    .chain-count{
+      font-weight:600;
+      color:var(--accent);
+      font-size:1.05rem;
+      margin:.75rem 0 .5rem;
+    }
+    .chain-bar{
+      height:18px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(var(--accent-rgb),.25);
+      border-radius:12px;
+      overflow:hidden;
+    }
+    .chain-fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, var(--accent) 0%, #b99c5c 100%);
+      transition:width .8s ease;
+    }
+    .chain-refresh{
+      position:absolute;
+      top:1rem;
+      right:1rem;
+      background:none;
+      border:1px solid rgba(var(--accent-rgb),.4);
+      color:var(--accent);
+      padding:.3rem .6rem;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:.8rem;
+      transition:background .25s;
+    }
+    .chain-refresh:hover{
+      background:rgba(var(--accent-rgb),.15);
+    }
+
+    /* ============ 9. FOOTER ============ */
+    footer{
+      text-align:center;
+      padding:2rem 1rem 3.5rem;
+      color:var(--text-2);
+      font-size:.85rem;
+    }
+
+    /* ============ 10. MEDIA QUERIES (≥600px) ============ */
+    @media(min-width:600px){
+      .container{padding:2rem 1.5rem;}
+      .section-title{font-size:2.15rem;}
+      .hero{padding:5.5rem 1rem 4rem;}
+      .hero .emblem{width:135px;}
+      .card-grid{gap:1.6rem;}
+      .card{padding:1.6rem 1.45rem 1.8rem;}
+      .perk-grid li{min-height:138px;}
+      .reward-table{font-size:1rem;}
+      ol.standard,ul.standard{padding-left:2rem;}
     }
   </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<script type="module" src="/assets/navbar.js"></script>
-<pc-navbar></pc-navbar>
-<div class="nav-overlay"></div>
+  <!-- NAVBAR (Web Component) -->
+  <script type="module" src="/assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+  <div class="nav-overlay"></div>
 
   <!-- HERO -->
   <section class="hero">
@@ -295,7 +329,7 @@
     <h1>“What happens behind the curtain…<br>stays ours.”</h1>
   </section>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main>
 
     <!-- MANIFESTO -->
@@ -324,21 +358,21 @@
         <ol class="standard">
           <li>
             <strong>War fanatics &nbsp;(Feb – Apr 2024)</strong><br>
-            Founded by <em>Flaccid_peanut</em>, the crew cut its teeth in back-to-back 10-25 hit chains before upsetting <em>The Olympians</em>
+            Founded by <em>Flaccid_peanut</em>, the crew cut its teeth in back-to-back 10–25 hit chains before upsetting <em>The Olympians</em>
             in its first ranked war on&nbsp;21&nbsp;Mar, vaulting straight to <em>Bronze&nbsp;I</em>.
           </li>
 
           <li>
             <strong>WF Academy &nbsp;(Apr – Oct 2024)</strong><br>
             Re-branded by new leader <em>ForeverHydrox</em>, the faction became a training ground: war-mode weekends, disciplined 50-hit chains
-            and a leadership trio completed by <em>Skillerious</em>. By autumn the Academy was consistently posting 150-200&nbsp;respect runs.
+            and a leadership trio completed by <em>Skillerious</em>. By autumn the Academy was consistently posting 150–200&nbsp;respect runs.
           </li>
 
           <li>
             <strong>PB Enterprises / Associates &nbsp;(Oct 2024 – May 2025)</strong><br>
             A corporate makeover unlocked bigger bankrolls and, on 31&nbsp;Dec, the <strong>first 100-hit chain</strong> (379&nbsp;respect).
             The switch to <strong>Organised Crimes 2.0</strong> on&nbsp;16&nbsp;Feb 2025 gave the team a fresh revenue stream, while spring saw
-            successful 100-chains week after week—despite fending off simultaneous raids from the
+            successful 100-chains week after week — despite fending off simultaneous raids from the
             <em>Mickey Mouse&nbsp;Clubhouse/Playhouse</em>.
           </li>
 
@@ -361,26 +395,26 @@
         <h2 class="section-title">Cartel Services</h2>
         <div class="card-grid">
           <article class="card">
-            <h3><i class="fa-solid fa-user-ninja"></i>&nbsp;Organised Crimes&nbsp;2.0</h3>
+            <h3><i class="fa-solid fa-user-ninja"></i> Organised Crimes&nbsp;2.0</h3>
             <p>Operations prepared with precision and profit in mind, leveraging Scope wisely.</p>
           </article>
           <article class="card">
-            <h3><i class="fa-solid fa-house-user"></i>&nbsp;Flexible Residency</h3>
+            <h3><i class="fa-solid fa-house-user"></i> Flexible Residency</h3>
             <p>Stay active every 24&nbsp;h; no forced wars or mandatory fees. Vacation Mode respected.</p>
           </article>
           <article class="card">
-            <h3><i class="fa-solid fa-shield-heart"></i>&nbsp;Armoury Access</h3>
+            <h3><i class="fa-solid fa-shield-heart"></i> Armoury Access</h3>
             <p>Weapons, meds and travel kits issued on request—because preparation saves lives.</p>
           </article>
           <article class="card">
-            <h3><i class="fa-solid fa-hands-helping"></i>&nbsp;Member Guidance</h3>
+            <h3><i class="fa-solid fa-hands-helping"></i> Member Guidance</h3>
             <p>Seasoned players ready with builds, routes and revenue streams for every stage.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- STANDING BENEFITS -->
+    <!-- PERKS -->
     <section id="perks">
       <div class="container">
         <h2 class="section-title">Standing Benefits</h2>
@@ -390,6 +424,28 @@
           <li><i class="fa-solid fa-link"></i>100-Chain Capability</li>
           <li><i class="fa-solid fa-star"></i>Priority in OC 2.0</li>
         </ul>
+      </div>
+    </section>
+
+    <!-- CHAIN PROGRESS -->
+    <section id="chain-progress">
+      <div class="container glass">
+        <h2 class="section-title">Current Chain</h2>
+        <div class="chain-card" id="chainCard">
+          <p class="chain-meta">Our current chain status, fetched live:</p>
+
+          <div class="chain-count">
+            <span id="chainHits">—</span> / <span id="chainMax">100</span> Hits
+          </div>
+
+          <div class="chain-bar">
+            <div class="chain-fill" id="chainBar"></div>
+          </div>
+
+          <button class="chain-refresh" id="chainRefresh" title="Refresh now">
+            <i class="fa-solid fa-rotate-right"></i> Refresh
+          </button>
+        </div>
       </div>
     </section>
 
@@ -433,10 +489,10 @@
       <div class="container glass">
         <h2 class="section-title">Leadership Council</h2>
         <ul class="standard">
-          <li><strong>Founder:</strong> <a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank">XanderPTV</a></li>
-          <li><strong>Cartel Assembly &amp; Expansion:</strong> <a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank">ForeverHydrox</a></li>
-          <li><strong>Cartel Frontrunner:</strong> <a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank">Skillerious</a></li>
-          <li><strong>Cartel Frontrunner:</strong> <a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank">JdedPrincess</a></li>
+          <li><strong>Founder:</strong> <a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank" rel="noopener">XanderPTV</a></li>
+          <li><strong>Cartel Assembly &amp; Expansion:</strong> <a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank" rel="noopener">ForeverHydrox</a></li>
+          <li><strong>Cartel Frontrunner:</strong> <a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank" rel="noopener">Skillerious</a></li>
+          <li><strong>Cartel Frontrunner:</strong> <a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank" rel="noopener">JdedPrincess</a></li>
         </ul>
       </div>
     </section>
@@ -448,10 +504,147 @@
     <p>&copy; <span id="year"></span> Privé Cartel.</p>
   </footer>
 
-  <!-- SCRIPTS -->
+  <!-- ───────────────────────── SCRIPTS ───────────────────────── -->
   <script src="assets/script.js"></script>
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    /* ============================================================
+       Privé Cartel • index.html inline JS
+       - Updates © year
+       - Decrypts stored API key (AES-GCM, same as members.html: pcApiCipher)
+       - Polls Torn faction chain endpoint every 10 seconds
+       - Manual refresh button support
+       ============================================================ */
+    (() => {
+      "use strict";
+
+      /* ─────────────────── 0. Footer Year ─────────────────── */
+      const yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      /* ─────────────────── 1. DOM Refs ─────────────────────── */
+      const LS_KEY     = "pcApiCipher";
+      const hitsEl     = document.getElementById("chainHits");
+      const maxEl      = document.getElementById("chainMax");
+      const barEl      = document.getElementById("chainBar");
+      const refreshBtn = document.getElementById("chainRefresh");
+
+      if (!hitsEl || !maxEl || !barEl) {
+        console.warn("[ChainCard] Missing DOM nodes. Aborting chain logic.");
+        return;
+      }
+
+      /* ─────────────────── 2. Crypto Helpers ───────────────── */
+      const cryptoOK = !!(crypto?.subtle);
+
+      async function getKey() {
+        const originHash = await crypto.subtle.digest(
+          "SHA-256",
+          new TextEncoder().encode(location.origin)
+        );
+        return crypto.subtle.importKey(
+          "raw",
+          originHash,
+          { name: "AES-GCM" },
+          false,
+          ["encrypt", "decrypt"]
+        );
+      }
+
+      async function decryptHex(hex) {
+        if (!cryptoOK) return hex; // fallback: plain storage
+        try {
+          const bytes = new Uint8Array(hex.match(/../g).map(h => parseInt(h, 16)));
+          const iv    = bytes.slice(0, 12);
+          const data  = bytes.slice(12);
+          const plain = await crypto.subtle.decrypt(
+            { name: "AES-GCM", iv },
+            await getKey(),
+            data
+          );
+          return new TextDecoder().decode(plain);
+        } catch {
+          return "";
+        }
+      }
+
+      /* ─────────────────── 3. Chain Fetch Logic ────────────── */
+      const POLL_MS   = 10_000;     // 10 seconds
+      let   apiKey    = null;
+      let   timerId   = null;
+      let   inFlight  = null;       // AbortController to cancel overlapping calls
+
+      async function fetchChain() {
+        if (!apiKey) return;
+
+        // cancel previous request if still running
+        if (inFlight) inFlight.abort();
+        inFlight = new AbortController();
+
+        try {
+          const res = await fetch(
+            `https://api.torn.com/faction/?selections=chain&key=${apiKey}`,
+            { signal: inFlight.signal }
+          );
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const data = await res.json();
+          if (data.error) throw new Error(data.error.error);
+
+          const hits = data.chain?.current  ?? 0;
+          const max  = data.chain?.maximum ?? 100;
+          const pct  = Math.min(100, (hits / max) * 100);
+
+          hitsEl.textContent = hits;
+          maxEl.textContent  = max;
+          barEl.style.width  = pct + "%";
+        } catch (err) {
+          console.warn("[ChainCard] Fetch error:", err.message || err);
+          hitsEl.textContent = "—";
+          barEl.style.width  = "0%";
+        } finally {
+          inFlight = null;
+        }
+      }
+
+      function startPolling() {
+        stopPolling();
+        fetchChain(); // immediate fire
+        timerId = setInterval(fetchChain, POLL_MS);
+      }
+
+      function stopPolling() {
+        if (timerId) {
+          clearInterval(timerId);
+          timerId = null;
+        }
+      }
+
+      /* ─────────────────── 4. Visibility Optimisation ───────── */
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          stopPolling();
+        } else {
+          startPolling();
+        }
+      });
+
+      /* ─────────────────── 5. Manual Refresh Button ────────── */
+      refreshBtn?.addEventListener("click", fetchChain);
+
+      /* ─────────────────── 6. INIT ─────────────────────────── */
+      (async () => {
+        const cipher = localStorage.getItem(LS_KEY);
+        if (!cipher) {
+          console.info("[ChainCard] No API key stored. Card will remain static.");
+          return;
+        }
+        apiKey = await decryptHex(cipher);
+        if (!apiKey) {
+          console.warn("[ChainCard] Unable to decrypt API key.");
+          return;
+        }
+        startPolling();
+      })();
+    })();
   </script>
 </body>
 </html>
