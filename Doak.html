@@ -15,6 +15,9 @@
   <link rel="preload" as="image" href="images/Kilmadock_Parish_Church,_Doune,_Stirling_council_area.jpg">
   <link rel="preload" as="image" href="images/Drummond_Castle_&amp;_Gardens.jpg">
   <link rel="preload" as="image" href="images/loch%20lomond.jpg">
+  <link rel="preload" as="image" href="images/Doak-Family-crest.png">
+  <link rel="preload" as="image" href="images/Drummond-tartan.jpg">
+  <link rel="preload" as="image" href="images/Brechin-cathedral.jpg">
 
   <style>
     :root{
@@ -195,6 +198,12 @@
       font-style:italic;
     }
 
+    /* Timeline (genealogy summary) */
+    .timeline{list-style:none; padding:0; margin:0}
+    .timeline li{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:start; padding:8px 0}
+    .year{min-width:80px; color:var(--gold); font-weight:600}
+    @media (max-width:520px){ .year{min-width:70px} }
+
     /* Lightbox */
     .lightbox{
       position:fixed; inset:0; background:rgba(0,0,0,.88);
@@ -257,7 +266,6 @@
       align-items: center;
       gap: 12px;
     }
-
     .footer-left{
       display:flex; align-items:center; gap:12px; min-width:0;
       color: var(--ink, #e8ecf4);
@@ -353,9 +361,12 @@
     <nav class="chips" aria-label="On this page">
       <a class="chip" href="#history">History</a>
       <a class="chip" href="#origins">Origins & Meaning</a>
+      <a class="chip" href="#genealogy">Genealogy</a>
       <a class="chip" href="#records">Early Records</a>
+      <a class="chip" href="#heraldry">Heraldry & Arms</a>
       <a class="chip" href="#drummond">Clan Drummond</a>
       <a class="chip" href="#variants">Variants & Spread</a>
+      <a class="chip" href="#diaspora">Emigration & Diaspora</a>
       <a class="chip" href="#legacy">Legacy</a>
       <a class="chip" href="#sources">Sources</a>
     </nav>
@@ -397,6 +408,28 @@
       </div>
     </section>
 
+    <!-- GENEALOGY -->
+    <section id="genealogy">
+      <div class="kicker">Genealogy</div>
+      <h2>Early Genealogical Footprint (Scotland & Ulster)</h2>
+      <div class="panel">
+        <p>Documented bearers cluster in districts linked to Cadoc’s cult and later Drummond territories. The entries below help anchor early Doak/Doig lines that genealogists often build from:</p>
+        <ul class="timeline">
+          <li><div class="year">1372</div><div><strong>Alexander Doge</strong>, vicar of <a class="inline" href="https://en.wikipedia.org/wiki/Dunnichen" target="_blank" rel="noopener">Dunnichen</a> (Angus) — earliest attested bearer in Scottish church registers.</div></li>
+          <li><div class="year">1468</div><div><strong>John Dog</strong> recorded as an <em>armiger</em> (landed gentleman) — indicates minor nobility/status.</div></li>
+          <li><div class="year">1478</div><div><strong>Dene Thomas Dog</strong> associated with <a class="inline" href="https://en.wikipedia.org/wiki/Inchmahome_Priory" target="_blank" rel="noopener">Inchmahome Priory</a> (Menteith) — ties to Cadoc areas.</div></li>
+          <li><div class="year">1488–98</div><div><strong>James Dog</strong>, <em>Keeper of the King’s Wardrobe</em> to <a class="inline" href="https://en.wikipedia.org/wiki/James_IV_of_Scotland" target="_blank" rel="noopener">James IV</a> — prominent royal office.</div></li>
+          <li><div class="year">c.1500</div><div><strong>John Doig</strong>, Provost of <a class="inline" href="https://en.wikipedia.org/wiki/Brechin" target="_blank" rel="noopener">Brechin</a> (Angus) — early civic leadership with the “Doig” spelling.</div></li>
+          <li><div class="year">1523</div><div><strong>James Dogge</strong> (“Jamie Dogg”) — royal messenger; court records note his service.</div></li>
+          <li><div class="year">1552</div><div><strong>James of Dunroben</strong> (Doig/Doak family) — raising men in Menteith for service in France under the <a class="inline" href="https://en.wikipedia.org/wiki/Auld_Alliance" target="_blank" rel="noopener">Auld Alliance</a>.</div></li>
+          <li><div class="year">1600s</div><div>Doig/Doak families documented across <strong>Perthshire</strong>, <strong>Angus</strong>, and <strong>Stirling/Loch Lomond</strong>; Scots migration to <strong>Ulster</strong> begins (Antrim & Down).</div></li>
+          <li><div class="year">1719</div><div><strong>Robert Doak</strong> recorded arriving in <a class="inline" href="https://en.wikipedia.org/wiki/New_England" target="_blank" rel="noopener">New England</a> — an early Scots‑Irish migration note.</div></li>
+          <li><div class="year">1782</div><div><strong>Robert Doak</strong> noted at <a class="inline" href="https://en.wikipedia.org/wiki/Prestwick" target="_blank" rel="noopener">Prestwick</a>, Ayrshire — “Doak” spelling fully established in records.</div></li>
+        </ul>
+        <p style="margin-top:.6rem">Researchers typically trace modern lines to one of three hubs: <strong>Perthshire/Menteith (Kilmadock–Inchmahome)</strong>, <strong>Angus/Brechin</strong>, and <strong>Ulster (Antrim/Down)</strong>, the latter often being Scots planters or later migrants.</p>
+      </div>
+    </section>
+
     <!-- EARLY RECORDS -->
     <section id="records">
       <div class="kicker">Medieval Mentions</div>
@@ -420,6 +453,42 @@
 
           <p>Through the 16th century, the surname continued to appear in noteworthy contexts. In 1523, <em>James Dogge</em> (also recorded as <strong>“Jamie Dogg”</strong>) acted as a royal messenger for the Scottish crown. A few decades later, in 1552, a man recorded as <strong>“James of Dunroben”</strong> (likely from the Doig/Doak family of <a class="inline" href="https://en.wikipedia.org/wiki/Dunrobin" target="_blank" rel="noopener">Dunrobin</a>, Perthshire) was noted for <strong>raising men in Menteith to serve in France</strong> – possibly as part of the <strong><a class="inline" href="https://en.wikipedia.org/wiki/Auld_Alliance" target="_blank" rel="noopener">Auld Alliance</a></strong>, Scotland’s military alliance with France. These references show the Doak/Doig name embedded in the fabric of Scottish medieval life, from church affairs to royal service and international ventures. By the 1600s the spelling “Doig” had become common, and by the late 17th century we see “Doak” in use – for example, a <strong>Robert Doak</strong> is mentioned in <a class="inline" href="https://en.wikipedia.org/wiki/Prestwick" target="_blank" rel="noopener">Prestwick</a>, Ayrshire, records of 1782, solidifying “Doak” as a recognized variant. Throughout these centuries, branches of the family established themselves in various parts of Scotland, especially in <strong><a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a>, and the <a class="inline" href="https://en.wikipedia.org/wiki/Loch_Lomond" target="_blank" rel="noopener">Stirling/Loch Lomond</a> area</strong>, where St. Cadoc’s legacy was strongest.</p>
         </div>
+
+        <!-- NEW: Brechin Cathedral image supporting the c.1500 Provost of Brechin reference -->
+        <figure class="media">
+          <img
+            class="zoomable"
+            loading="lazy"
+            src="images/Brechin-cathedral.jpg"
+            alt="Brechin Cathedral, historically associated with the burgh where John Doig served as Provost"
+            data-full="images/Brechin-cathedral.jpg">
+          <figcaption>
+            <span class="badge">Brechin Cathedral</span> Burgh of Brechin (Angus).
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- HERALDRY -->
+    <section id="heraldry">
+      <div class="kicker">Heraldry & Arms</div>
+      <h2>Heraldry & Arms (Context and Usage)</h2>
+      <div class="panel grid">
+        <div>
+          <p>In Scottish heraldry, coats of arms are granted to <em>individuals</em> by the Court of the Lord Lyon, not to surnames as a whole. Over time, versions of arms have been used or depicted for <strong>Doak/Doig</strong> bearers and are commonly reproduced by genealogy vendors. These designs act as historical identifiers for particular armigers and cadet branches, rather than a universal “family coat.”</p>
+          <p>The crest shown here is a widely-circulated representation associated with the <strong>Doak</strong> name in popular sources. It is included for historical interest and visual context. To determine entitlement to arms or to matriculate a variant, modern claimants would consult the <a class="inline" href="https://en.wikipedia.org/wiki/Court_of_the_Lord_Lyon" target="_blank" rel="noopener">Court of the Lord Lyon</a> or established heraldic registers.</p>
+        </div>
+        <figure class="media">
+          <img
+            class="zoomable"
+            loading="lazy"
+            src="images/Doak-Family-crest.png"
+            alt="A commonly reproduced Doak coat-of-arms illustration"
+            data-full="images/Doak-Family-crest.png">
+          <figcaption>
+            <span class="badge">Crest (Popular Depiction)</span> Included for context; arms are personal in Scots law.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -446,6 +515,19 @@
             <span class="badge">Drummond Castle</span> Perthshire.
           </figcaption>
         </figure>
+
+        <!-- NEW: Drummond tartan image alongside clan narrative -->
+        <figure class="media">
+          <img
+            class="zoomable"
+            loading="lazy"
+            src="images/Drummond-tartan.jpg"
+            alt="Clan Drummond tartan pattern"
+            data-full="images/Drummond-tartan.jpg">
+          <figcaption>
+            <span class="badge">Clan Drummond Tartan</span> Traditional sett associated with the clan.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -456,7 +538,7 @@
 
       <div class="panel grid">
         <div>
-          <p>From its origin as <em>Mac Gille Doig</em>, this surname has appeared in many <strong>spelling variations</strong>. Common variants in historical records include <strong>Dog, Doig, Doeg, Doag, Doak, Doake, Doock, and Doidge</strong>, among others. All derive from the same Gaelic root and were often used interchangeably or evolved as spelling standardized. The spelling “Doig” became frequent in eastern Scotland (e.g. <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and <a class="inline" href="https://en.wikipedia.org/wiki/Fife" target="_blank" rel="noopener">Fife</a>) by the 17th century, while “Doak” and “Doack” appeared more in some regions and in later centuries. Even within one family line, the name might be recorded differently over generations due to inconsistent spelling in old parish registers.</p>
+          <p>From its origin as <em>Mac Gille Doig</em>, this surname has appeared in many <strong>spelling variations</strong>. Common variants in historical records include <strong>Dog, Doge, Dogg, Doig, Doeg, Doag, Doak, Doake, Doock/Doack, and Doidge</strong>, among others. All derive from the same Gaelic root and were often used interchangeably or evolved as spelling standardized. The spelling “Doig” became frequent in eastern Scotland (e.g. <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and <a class="inline" href="https://en.wikipedia.org/wiki/Fife" target="_blank" rel="noopener">Fife</a>) by the 17th century, while “Doak” and “Doack” appeared more in some regions and in later centuries. Even within one family line, the name might be recorded differently over generations due to inconsistent spelling in old parish registers.</p>
 
           <p>Beyond Scotland, the name Doak also has connections in <strong><a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ireland (Ulster)</a></strong>. In some cases, especially in <a class="inline" href="https://en.wikipedia.org/wiki/County_Down" target="_blank" rel="noopener">County Down</a>, <strong>Doak</strong> is an <strong>Anglicized form of the Irish Gaelic name <em><a class="inline" href="https://en.wiktionary.org/wiki/Mac_Dabh%C3%B3c" target="_blank" rel="noopener">Mac Dabhóc</a></em></strong>. This Irish surname <em>Mac Dabhóc</em> means “son of Dabhóc,” with <em>Dabhóc</em> being a pet form of <strong><a class="inline" href="https://en.wikipedia.org/wiki/David" target="_blank" rel="noopener">David</a></strong>. (Notably, when the “D” sound in <em>Mac Dabhóc</em> was lenited in Gaelic, it produced a <strong><a class="inline" href="https://en.wikipedia.org/wiki/McCook" target="_blank" rel="noopener">McCook</a></strong> in English; indeed, McCook is considered another rendering of the same Irish name.) The <em>Mac Dabhóc</em> family has a different origin – it has been linked to the Anglo-Norman <strong><a class="inline" href="https://en.wikipedia.org/wiki/House_of_Burgh" target="_blank" rel="noopener">Burke (de Burgh)</a></strong> family in <a class="inline" href="https://en.wikipedia.org/wiki/Connacht" target="_blank" rel="noopener">Connacht</a>, Ireland. However, many of the Doak families found in Ulster are believed to be <strong>Scottish transplants</strong> (Planter or immigrant families) rather than native Irish. Genealogists note that in <a class="inline" href="https://en.wikipedia.org/wiki/County_Antrim" target="_blank" rel="noopener">Antrim</a> and <a class="inline" href="https://en.wikipedia.org/wiki/County_Down" target="_blank" rel="noopener">Down</a>, the Doaks were more likely Scottish-origin Doig septs, since in those areas the name “usually appears as Doig” historically. In summary, <em>some</em> Irish Doaks may descend from Gaelic MacDabhóc roots, but a great number trace back to Scottish forebears who moved to Ulster, especially during the 1600s settlement of Ulster.</p>
 
@@ -477,18 +559,15 @@
       </div>
     </section>
 
-    <!-- LEGACY -->
-    <section id="legacy">
-      <div class="kicker">Legacy</div>
-      <h2>Legacy and Conclusion</h2>
-
+    <!-- DIASPORA -->
+    <section id="diaspora">
+      <div class="kicker">Global Movement</div>
+      <h2>Emigration & Diaspora</h2>
       <div class="panel grid">
         <div>
-          <p>Throughout its history, the name Doak has been tied to Scotland’s cultural and religious heritage. Its very meaning preserves the memory of Saint <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> and the early Christian influence in Scotland. The Doaks, as part of <a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a>, participated indirectly in clan wars and national struggles, from medieval court life to the Jacobite rebellions. Over time the family name spread beyond <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a> – <strong>north into <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_Lowlands" target="_blank" rel="noopener">Lowlands</a>, west into <a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ulster</a></strong>, and eventually overseas. By the 18th and 19th centuries, bearers of the name emigrated further afield; for instance, records show a Robert Doak arriving in <a class="inline" href="https://en.wikipedia.org/wiki/New_England" target="_blank" rel="noopener">New England</a> in 1719, and others later settling in <a class="inline" href="https://en.wikipedia.org/wiki/Canada" target="_blank" rel="noopener">Canada</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Australia" target="_blank" rel="noopener">Australia</a>, and elsewhere as the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_diaspora" target="_blank" rel="noopener">Scottish diaspora</a> expanded.</p>
-
-          <p>Today, the surname Doak and its variants remain a reminder of this rich lineage. It carries a Scottish identity at its core – rooted in Gaelic language (<em>Mac Gille Doig</em>), associated with a Highland clan, and linked to a Celtic saint’s legacy. From the misty kirkyards of <a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a> to the battlefields of Jacobite Scotland and beyond, the Doak name’s journey is interwoven with significant events and traditions of Scottish and Celtic history.</p>
+          <p>From the 17th century onward, <strong>Doak</strong> lines moved from Scotland into <strong>Ulster</strong> (notably Antrim and Down) as part of the Scots‑Irish current, and later across the Atlantic and to the southern hemisphere. Records note a <strong>Robert Doak</strong> arriving in New England in <strong>1719</strong>. Through the 18th–19th centuries, additional arrivals appear in shipping lists for <strong>New York</strong> and <strong>Canada</strong>, and later for <strong>Australia</strong> and <strong>New Zealand</strong>. These migrations carried the Perthshire/Angus/Ulster strands of the surname into new communities where the name remains established today.</p>
+          <blockquote>Typical research path: parish registers and tax rolls in Perthshire/Angus → plantation/estate papers in Ulster → passenger lists and land grants in North America or Australasia.</blockquote>
         </div>
-
         <figure class="media">
           <img
             class="zoomable"
@@ -498,6 +577,18 @@
             data-full="images/loch%20lomond.jpg">
           <figcaption><span class="badge">Loch Lomond</span> Near early Drummond territory.</figcaption>
         </figure>
+      </div>
+    </section>
+
+    <!-- LEGACY -->
+    <section id="legacy">
+      <div class="kicker">Legacy</div>
+      <h2>Legacy and Conclusion</h2>
+
+      <div class="panel">
+        <p>Throughout its history, the name Doak has been tied to Scotland’s cultural and religious heritage. Its very meaning preserves the memory of Saint <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> and the early Christian influence in Scotland. The Doaks, as part of <a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a>, participated indirectly in clan wars and national struggles, from medieval court life to the Jacobite rebellions. Over time the family name spread beyond <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a> – <strong>north into <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_Lowlands" target="_blank" rel="noopener">Lowlands</a>, west into <a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ulster</a></strong>, and eventually overseas. By the 18th and 19th centuries, bearers of the name emigrated further afield; for instance, records show a Robert Doak arriving in <a class="inline" href="https://en.wikipedia.org/wiki/New_England" target="_blank" rel="noopener">New England</a> in 1719, and others later settling in <a class="inline" href="https://en.wikipedia.org/wiki/Canada" target="_blank" rel="noopener">Canada</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Australia" target="_blank" rel="noopener">Australia</a>, and elsewhere as the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_diaspora" target="_blank" rel="noopener">Scottish diaspora</a> expanded.</p>
+
+        <p>Today, the surname Doak and its variants remain a reminder of this rich lineage. It carries a Scottish identity at its core – rooted in Gaelic language (<em>Mac Gille Doig</em>), associated with a Highland clan, and linked to a Celtic saint’s legacy. From the misty kirkyards of <a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a> to the battlefields of Jacobite Scotland and beyond, the Doak name’s journey is interwoven with significant events and traditions of Scottish and Celtic history.</p>
       </div>
     </section>
 
