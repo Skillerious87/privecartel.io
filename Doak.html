@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>History of the Doak Family Name — Immersive Edition</title>
+
+  <!-- Typefaces -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Preload key images to improve perceived performance -->
+  <link rel="preload" as="image" href="images/Vitrail_Saint_Cado_Carnac.jpg">
+  <link rel="preload" as="image" href="images/Inchmahome_Priory_-_geograph.org.uk_-_4583487.jpg">
+  <link rel="preload" as="image" href="images/Kilmadock_Parish_Church,_Doune,_Stirling_council_area.jpg">
+  <link rel="preload" as="image" href="images/Drummond_Castle_&amp;_Gardens.jpg">
+  <link rel="preload" as="image" href="images/loch%20lomond.jpg">
+
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --panel:#0f1217;
+      --ink:#e8ecf4;
+      --muted:#aab2bf;
+      --gold:#c4a46a;
+      --gold-2:#9e7e46;
+      --line:rgba(255,255,255,.085);
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius-sm:12px;
+      --w: min(1100px, 92vw);
+      --nav-h: 66px;
+      --anchor-offset: 86px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 700px at 90% -10%, #19212a 0%, #0b0d10 55%),
+        radial-gradient(900px 600px at 5% 110%, #151b22 0%, #0b0d10 60%),
+        linear-gradient(180deg, #0b0d10, #0b0d10);
+      color:var(--ink);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height:1.7;
+      letter-spacing:.15px;
+      overflow-x:hidden;
+    }
+
+    /* Reading progress */
+    #progress{
+      position:fixed; left:0; top:0; height:3px; width:0%;
+      background: linear-gradient(90deg, var(--gold), #e2c89b);
+      z-index:9999; box-shadow:0 0 12px rgba(196,164,106,.75);
+      transition: width .08s linear;
+    }
+
+    .wrap{width:var(--w); margin-inline:auto}
+
+    /* Sticky top bar (always visible while scrolling) */
+    header{
+      position:sticky; top:0; z-index:60;
+      -webkit-backdrop-filter: saturate(130%) blur(10px);
+      backdrop-filter: saturate(130%) blur(10px);
+      background:linear-gradient(180deg, rgba(11,13,16,.84), rgba(11,13,16,.55));
+      border-bottom:1px solid var(--line);
+      transition: box-shadow .25s ease, background .25s ease, border-color .25s ease;
+    }
+    header.scrolled{
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      background:linear-gradient(180deg, rgba(11,13,16,.92), rgba(11,13,16,.65));
+      border-bottom-color: rgba(196,164,106,.22);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .crest{
+      width:46px; height:46px; border-radius:50%;
+      border:1px solid var(--gold);
+      display:grid; place-content:center;
+      background: radial-gradient(60% 60% at 50% 30%, rgba(196,164,106,.15), transparent 70%);
+      box-shadow: inset 0 0 0 2px rgba(196,164,106,.18);
+    }
+    .crest svg{opacity:.9}
+    .actions{display:flex; gap:10px}
+    .btn{
+      appearance:none; border:1px solid var(--line); background:rgba(255,255,255,.02);
+      color:var(--ink); border-radius:999px; padding:8px 12px; cursor:pointer;
+      font-size:.92rem; transition:.2s border-color,.2s background, transform .12s ease;
+    }
+    .btn:hover{border-color:rgba(196,164,106,.5); background:rgba(196,164,106,.08)}
+    .btn:active{transform: translateY(1px)}
+    .btn.gold{border-color:var(--gold-2); color:var(--gold); background:rgba(196,164,106,.10)}
+    .btn.gold:hover{background:rgba(196,164,106,.18)}
+
+    /* HERO (scrolls with page and leaves visual air before Main Narrative) */
+    .hero{
+      padding:58px 0 34px;
+      margin-top: 8px;
+    }
+    .hero h1{
+      font-family:"Playfair Display", serif;
+      font-weight:700; letter-spacing:.4px;
+      font-size: clamp(32px, 5vw, 52px);
+      margin:0 0 8px;
+      text-shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+    .subtitle{
+      color:var(--muted); margin:0 0 16px; font-size: clamp(14px, 2.2vw, 18px);
+    }
+
+    /* Chips / TOC */
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .chip{
+      padding:9px 14px; border:1px solid var(--line); color:var(--muted);
+      border-radius:999px; background:rgba(255,255,255,.02);
+      transition:.2s border-color, .2s background, .2s color, transform .12s ease;
+      text-decoration:none; display:inline-block;
+    }
+    .chip:hover{border-color:rgba(196,164,106,.5); background:rgba(196,164,106,.10); color:var(--ink); transform: translateY(-1px)}
+    .chip.active{border-color:rgba(196,164,106,.65); background:rgba(196,164,106,.14); color:var(--ink)}
+
+    /* Sections */
+    main{padding: 0 0 80px}
+    section{margin-top:42px; scroll-margin-top: var(--anchor-offset)}
+    .kicker{color:var(--gold); text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; margin-bottom:6px}
+    h2{
+      font-family:"Playfair Display", serif; font-weight:600;
+      font-size: clamp(24px, 3.5vw, 34px); margin:0 0 14px;
+    }
+    .panel{
+      border:1px solid var(--line); border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0));
+      box-shadow:var(--shadow);
+      padding: clamp(16px, 2vw, 24px);
+    }
+
+    .grid{display:grid; gap:22px; grid-template-columns:1.15fr .95fr}
+    @media (max-width: 940px){ .grid{grid-template-columns:1fr} }
+
+    /* Figures (carded images) */
+    figure{margin:0}
+    .media{
+      overflow:hidden; border-radius:var(--radius-sm); border:1px solid var(--line); background:#07090c;
+    }
+    .media img{
+      display:block; width:100%; height: clamp(240px, 38vw, 420px); object-fit: cover;
+      transform:translateZ(0); will-change: transform, filter;
+    }
+    figcaption{
+      font-size:.9rem; color:var(--muted); padding:10px 12px; border-top:1px solid var(--line);
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .badge{font-size:.72rem; padding:4px 8px; border:1px solid var(--gold-2); color:var(--gold); border-radius:999px; background:rgba(196,164,106,.08)}
+
+    /* Drop cap in first paragraph of each panel */
+    .panel p:first-of-type::first-letter{
+      font-family:"Playfair Display", serif;
+      float:left; font-size:3.1em; line-height:.85; padding:.08em .14em 0 0; color:var(--gold);
+      text-shadow: 0 6px 24px rgba(196,164,106,.25);
+    }
+
+    blockquote{
+      margin:12px 0; padding:12px 16px;
+      border-left:3px solid var(--gold); border-radius:10px;
+      color:#eadcc5; background:linear-gradient(180deg, rgba(196,164,106,.08), rgba(255,255,255,0));
+      font-style:italic;
+    }
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed; inset:0; background:rgba(0,0,0,.88);
+      display:none; align-items:center; justify-content:center; z-index:9990;
+      padding:4vmin;
+    }
+    .lightbox.open{display:flex;}
+    .lightbox img{
+      max-width:96vw; max-height:92vh; width:auto; height:auto; border-radius:12px;
+      box-shadow:0 20px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08) inset;
+    }
+    .lightbox .close, .lightbox .prev, .lightbox .next{
+      position:absolute; border:1px solid var(--gold-2); color:var(--gold);
+      background:rgba(196,164,106,.12); padding:10px 14px; border-radius:999px; cursor:pointer;
+      display:flex; align-items:center; gap:8px;
+    }
+    .lightbox .close{ top:16px; right:16px; }
+    .lightbox .prev{ left:16px; top:50%; transform:translateY(-50%); }
+    .lightbox .next{ right:16px; top:50%; transform:translateY(-50%); }
+    .zoomable{cursor:zoom-in}
+    .zoomable:hover{filter:brightness(1.02)}
+
+    /* Floating "Back to Top" chip (kept for convenience) */
+    .top{
+      position:fixed; right:18px; bottom:18px; z-index:40;
+      border-radius:999px; border:1px solid var(--gold-2); background:rgba(196,164,106,.12);
+      padding:12px 14px; display:flex; align-items:center; gap:8px; color:var(--gold); text-decoration:none;
+      opacity:0; pointer-events:none; transform: translateY(10px); transition:.2s ease;
+    }
+    .top.visible{opacity:1; pointer-events:auto; transform: translateY(0)}
+    .top:hover{background:rgba(196,164,106,.18)}
+
+    /* Link styling inside prose */
+    a.inline { color: var(--gold); text-decoration: none; border-bottom: 1px dotted rgba(196,164,106,.45); }
+    a.inline:hover { border-bottom-color: var(--gold); }
+
+    /* ===== Footer — Minimal, elegant (simplified) ===== */
+    footer.site-footer{
+      position: relative;
+      background:
+        radial-gradient(700px 400px at 100% 10%, rgba(196,164,106,.10), transparent 40%),
+        linear-gradient(180deg, #0b0d10, #0a0c0f);
+      border-top:1px solid rgba(196,164,106,.18);
+      box-shadow: 0 -10px 30px rgba(0,0,0,.35) inset;
+      color: var(--muted, #aab2bf);
+    }
+    footer.site-footer::before{
+      content:""; position:absolute; left:0; right:0; top:0; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(196,164,106,.35), transparent);
+      pointer-events:none;
+    }
+    .footer-inner{
+      width: var(--w, min(1100px, 92vw));
+      margin-inline: auto;
+      padding: 20px 0 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;   /* brand on left, copyright on right */
+      align-items: center;
+      gap: 18px;
+    }
+
+    .footer-left{
+      display:flex; align-items:center; gap:12px; min-width:0;
+      color: var(--ink, #e8ecf4);
+    }
+    .footer-crest{
+      width:34px; height:34px; border-radius:50%; border:1px solid var(--gold, #c4a46a);
+      display:grid; place-content:center;
+      box-shadow: inset 0 0 0 2px rgba(196,164,106,.18);
+      background: radial-gradient(60% 60% at 50% 30%, rgba(196,164,106,.10), transparent 70%);
+      flex: 0 0 auto;
+    }
+    .brand-lines{ display:grid; gap:2px; min-width:0; }
+    .brand-lines strong{
+      font-weight:600; color: var(--ink, #e8ecf4);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .brand-lines small{ color: var(--muted, #aab2bf); opacity:.9; }
+
+    .footer-right{
+      display:flex; align-items:center; gap:10px; justify-content:flex-end;
+      color: var(--ink, #e8ecf4);
+      white-space:nowrap;
+    }
+
+    @media (max-width: 900px){
+      .footer-inner{
+        grid-template-columns: 1fr;
+        text-align:center;
+        gap:12px;
+      }
+      .footer-left{ justify-content:center; }
+      .footer-right{ justify-content:center; }
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      #progress{transition:none}
+      .btn, .chip, .top{transition:none}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reading progress -->
+  <div id="progress" aria-hidden="true"></div>
+
+  <!-- Sticky top bar -->
+  <header id="site-header">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="crest" aria-hidden="true">
+          <!-- Celtic-inspired ring -->
+          <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="44" stroke="#c4a46a" stroke-width="3" opacity=".65"/>
+            <path d="M20,50 C20,30 35,20 50,20 C65,20 80,30 80,50 C80,70 65,80 50,80 C35,80 20,70 20,50 Z
+                     M30,50 C30,38 39,30 50,30 C61,30 70,38 70,50 C70,62 61,70 50,70 C39,70 30,62 30,50 Z"
+                  stroke="#c4a46a" stroke-width="2" fill="none" opacity=".75"/>
+          </svg>
+        </div>
+        <div>
+          <div style="font-weight:700;color:var(--ink)">Doak — Family History</div>
+          <div style="color:var(--muted);font-size:.9rem">Origins, History & Legacy</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="window.print()">Print</button>
+        <a class="btn gold" href="#sources">Sources</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO (scrolls with page) -->
+  <div class="wrap hero" id="top">
+    <h1>History of the Doak Family Name — Immersive Edition</h1>
+    <p class="subtitle">
+      A Scottish surname rooted in devotion to <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Saint Cadoc</a>; first recorded in Perthshire and Menteith,
+      shaped by church service and royal offices, and later tied as a sept to <a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a>
+      through the Jacobite era and beyond.
+    </p>
+    <nav class="chips" aria-label="On this page">
+      <a class="chip" href="#history">History</a>
+      <a class="chip" href="#origins">Origins & Meaning</a>
+      <a class="chip" href="#records">Early Records</a>
+      <a class="chip" href="#drummond">Clan Drummond</a>
+      <a class="chip" href="#variants">Variants & Spread</a>
+      <a class="chip" href="#legacy">Legacy</a>
+      <a class="chip" href="#sources">Sources</a>
+    </nav>
+  </div>
+
+  <main class="wrap">
+
+    <!-- HISTORY -->
+    <section id="history">
+      <div class="kicker">Main Narrative</div>
+      <h2>History of the Doak Family Name</h2>
+
+      <div class="panel grid">
+        <div>
+          <p><strong>Figure:</strong> Sculpture representing Saint <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> (Cadog), a 6th-century Celtic saint. The Scottish surname <strong>Doak</strong> originates from devotion to St. Cadoc – the Gaelic name <em>Mac Gille Doig</em> means “son of the servant of St. Cadog,” and early forms of the name included <strong>Dog</strong>, <strong>Doig</strong>, <strong>Dock</strong>, and <strong>Doak</strong>. Saint Cadoc was a Welsh-born abbot who established churches across Celtic lands, including a monastery in 6th-century Scotland at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a></strong> (a place named after him, near <a class="inline" href="https://en.wikipedia.org/wiki/Doune" target="_blank" rel="noopener">Doune</a> in present-day <a class="inline" href="https://en.wikipedia.org/wiki/Stirling_(council_area)" target="_blank" rel="noopener">Stirling</a>). His followers in Scotland were called “Gille Dog” (Gaelic for “servant of Cadog”), which became a hereditary surname as his devotees’ descendants took <em>Gille Dog</em> (and its variants) as a family name. In this way, <strong>Doak</strong> and its variants ultimately grew out of the cult of Saint Cadoc in early medieval Scotland.</p>
+        </div>
+
+        <figure class="media">
+          <img
+            class="zoomable"
+            loading="lazy"
+            src="images/Vitrail_Saint_Cado_Carnac.jpg"
+            alt="Stained glass of Saint Cadoc"
+            data-full="images/Vitrail_Saint_Cado_Carnac.jpg">
+          <figcaption>
+            <span class="badge">Saint Cadoc</span> Stained glass.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ORIGINS -->
+    <section id="origins">
+      <div class="kicker">Origins & Meaning</div>
+      <h2>Gaelic Origins and Meaning</h2>
+
+      <div class="panel">
+        <p>The surname Doak is an anglicized form of the Old Scottish Gaelic <strong>Mac Gille Doig</strong>, a compound of <em>mac</em> (“son of”) + <em>gille</em> (“servant”) + <strong>Doig</strong> (a short form of <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadog</a></em>). In other words, it literally signifies “son of <em>St. Cadoc’s</em> servant.” The personal name <em>Cadog</em> was originally Welsh (Cadoc is known in Welsh as <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc#Names" target="_blank" rel="noopener">Cattwg</a></em>) and unrelated to the English word “dog” (the animal). This saint’s name entered Scottish tradition due to Cadoc’s missionary work in Scotland. <strong><a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a></strong> parish in <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a> – whose name means “church of Cadoc” – is one locale where the saint’s influence was strong. It is in such areas that families first adopted the surname. By the late 14th century, records show the name in use: for example, <em>Alexander Doge</em>, vicar of <a class="inline" href="https://en.wikipedia.org/wiki/Dunnichen" target="_blank" rel="noopener">Dunnichen</a>, is recorded in 1372. This early spelling “Dog(e)” reflects the original Gaelic pronunciation. Over time, the name’s spelling evolved: by the 15th–16th centuries it appears as <strong>Dog</strong>, <strong>Dogge</strong> or <strong>Doig</strong>, and eventually as <strong>Doak</strong> (among other forms) in later records. All of these are essentially the same name, modified by Scots dialects and English phonetic spelling.</p>
+      </div>
+    </section>
+
+    <!-- EARLY RECORDS -->
+    <section id="records">
+      <div class="kicker">Medieval Mentions</div>
+      <h2>Early Records and Notable Bearers in History</h2>
+
+      <div class="panel grid">
+        <figure class="media">
+          <img
+            class="zoomable"
+            loading="lazy"
+            src="images/Inchmahome_Priory_-_geograph.org.uk_-_4583487.jpg"
+            alt="Inchmahome Priory ruins on the Lake of Menteith"
+            data-full="images/Inchmahome_Priory_-_geograph.org.uk_-_4583487.jpg">
+          <figcaption>
+            <span class="badge">Inchmahome Priory</span> Lake of Menteith.
+          </figcaption>
+        </figure>
+
+        <div>
+          <p>Historical documents trace the Doak/Doig family in various roles. After the 1372 mention of Alexander Doge, another early bearer was <em>John Dog</em>, listed as an <strong>armiger</strong> (armour-bearer or minor noble) in 1468. A <em>Dene Thomas Dog</em> was associated with <strong><a class="inline" href="https://en.wikipedia.org/wiki/Inchmahome_Priory" target="_blank" rel="noopener">Inchmahome Priory</a></strong> in 1478 – notably Inchmahome is a monastery in the same district (<a class="inline" href="https://en.wikipedia.org/wiki/Menteith" target="_blank" rel="noopener">Menteith</a>) where St. Cadoc’s Scottish church sites existed. By the late 1400s, a <em>James Dog</em> served as <strong><a class="inline" href="https://en.wikipedia.org/wiki/Yeoman_of_the_Wardrobe#Scotland" target="_blank" rel="noopener">Keeper of the King’s Wardrobe</a></strong> (in charge of royal garments and treasures) for <a class="inline" href="https://en.wikipedia.org/wiki/James_IV_of_Scotland" target="_blank" rel="noopener">King James IV of Scotland</a> between 1488–1498, indicating the family had risen to positions in the royal court. An <em>Alexander Dog</em> was a canon of Inchmahome in 1491, and by the early 1500s a <strong>John Doig</strong> had become Provost (mayor) of the burgh of <a class="inline" href="https://en.wikipedia.org/wiki/Brechin" target="_blank" rel="noopener">Brechin</a> in <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> – one of the first instances of the modernized spelling “Doig.”</p>
+
+          <p>Through the 16th century, the surname continued to appear in noteworthy contexts. In 1523, <em>James Dogge</em> (also recorded as <strong>“Jamie Dogg”</strong>) acted as a royal messenger for the Scottish crown. A few decades later, in 1552, a man recorded as <strong>“James of Dunroben”</strong> (likely from the Doig/Doak family of <a class="inline" href="https://en.wikipedia.org/wiki/Dunrobin" target="_blank" rel="noopener">Dunrobin</a>, Perthshire) was noted for <strong>raising men in Menteith to serve in France</strong> – possibly as part of the <strong><a class="inline" href="https://en.wikipedia.org/wiki/Auld_Alliance" target="_blank" rel="noopener">Auld Alliance</a></strong>, Scotland’s military alliance with France. These references show the Doak/Doig name embedded in the fabric of Scottish medieval life, from church affairs to royal service and international ventures. By the 1600s the spelling “Doig” had become common, and by the late 17th century we see “Doak” in use – for example, a <strong>Robert Doak</strong> is mentioned in <a class="inline" href="https://en.wikipedia.org/wiki/Prestwick" target="_blank" rel="noopener">Prestwick</a>, Ayrshire, records of 1782, solidifying “Doak” as a recognized variant. Throughout these centuries, branches of the family established themselves in various parts of Scotland, especially in <strong><a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a>, and the <a class="inline" href="https://en.wikipedia.org/wiki/Loch_Lomond" target="_blank" rel="noopener">Stirling/Loch Lomond</a> area</strong>, where St. Cadoc’s legacy was strongest.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DRUMMOND -->
+    <section id="drummond">
+      <div class="kicker">Clan Association</div>
+      <h2>Clan Drummond Connections and Historic Events</h2>
+
+      <div class="panel grid">
+        <div>
+          <p>In Scotland’s clan system, the Doak/Doig families became associated with <strong><a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a></strong>, a prominent Highland clan. In fact, <strong>Doak (along with Doig, Doeg, Doag, etc.) is listed as a sept of Clan Drummond</strong>. (A <em>sept</em> is a family branch allied to a larger clan.) This connection likely arose because many early “Dog/Doak” families lived on Drummond lands. By tradition, the Drummonds’ original estate was at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Drymen" target="_blank" rel="noopener">Drymen</a></strong> on the edge of <a class="inline" href="https://en.wikipedia.org/wiki/Loch_Lomond" target="_blank" rel="noopener">Loch Lomond</a> in south <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a>, and it’s noted that in this region “Dog” or “Dock” was a sept of Clan Drummond, the name being taken from the clan’s earliest land at Drymen. Thus, bearers of the surname Doak in that area would owe fealty to the Drummond chiefs.</p>
+
+          <p>Being part of Clan Drummond tied the Doaks to some significant chapters of Scottish history. The Drummonds themselves played major roles in national events – for example, tradition holds that a Drummond helped <a class="inline" href="https://en.wikipedia.org/wiki/Robert_the_Bruce" target="_blank" rel="noopener">King Robert the Bruce</a> secure victory at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Bannockburn" target="_blank" rel="noopener">Bannockburn (1314)</a></strong> by guiding the Scottish army through a marsh. Centuries later, during the <strong><a class="inline" href="https://en.wikipedia.org/wiki/Jacobite_risings" target="_blank" rel="noopener">Jacobite Risings</a></strong> of the 18th century, Clan Drummond was staunchly Jacobite. The Drummond chiefs (the Earls/Dukes of Perth) joined the uprisings in support of the exiled Stuart kings. As part of the Drummond sept, it is likely that some Doak/Doig families were among the clan supporters who fought in these conflicts. Clan Drummond adherents took part in key battles such as <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Sheriffmuir" target="_blank" rel="noopener">Sheriffmuir (1715)</a></strong> and the battles of <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Falkirk_Muir" target="_blank" rel="noopener">Falkirk Muir</a></strong> and <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Culloden" target="_blank" rel="noopener">Culloden (1746)</a></strong> during the second rising. At Culloden, the clan’s chief <a class="inline" href="https://en.wikipedia.org/wiki/James_Drummond,_3rd_Duke_of_Perth" target="_blank" rel="noopener">James Drummond</a> (3rd Duke of Perth) was mortally wounded. In the aftermath, the Drummond estates were forfeited for a time due to their Jacobite support. Although individual Doaks are not named in the surviving battle rolls, their identity as a Drummond sept means the family shared in the clan’s fortunes and struggles in these historic events.</p>
+        </div>
+
+        <figure class="media">
+          <img
+            class="zoomable"
+            loading="lazy"
+            src="images/Drummond_Castle_&amp;_Gardens.jpg"
+            alt="Drummond Castle and Gardens, Perthshire"
+            data-full="images/Drummond_Castle_&amp;_Gardens.jpg">
+          <figcaption>
+            <span class="badge">Drummond Castle</span> Perthshire.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section id="variants">
+      <div class="kicker">Name Forms</div>
+      <h2>Variations and Spread of the Name</h2>
+
+      <div class="panel grid">
+        <div>
+          <p>From its origin as <em>Mac Gille Doig</em>, this surname has appeared in many <strong>spelling variations</strong>. Common variants in historical records include <strong>Dog, Doig, Doeg, Doag, Doak, Doake, Doock, and Doidge</strong>, among others. All derive from the same Gaelic root and were often used interchangeably or evolved as spelling standardized. The spelling “Doig” became frequent in eastern Scotland (e.g. <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and <a class="inline" href="https://en.wikipedia.org/wiki/Fife" target="_blank" rel="noopener">Fife</a>) by the 17th century, while “Doak” and “Doack” appeared more in some regions and in later centuries. Even within one family line, the name might be recorded differently over generations due to inconsistent spelling in old parish registers.</p>
+
+          <p>Beyond Scotland, the name Doak also has connections in <strong><a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ireland (Ulster)</a></strong>. In some cases, especially in <a class="inline" href="https://en.wikipedia.org/wiki/County_Down" target="_blank" rel="noopener">County Down</a>, <strong>Doak</strong> is an <strong>Anglicized form of the Irish Gaelic name <em><a class="inline" href="https://en.wiktionary.org/wiki/Mac_Dabh%C3%B3c" target="_blank" rel="noopener">Mac Dabhóc</a></em></strong>. This Irish surname <em>Mac Dabhóc</em> means “son of Dabhóc,” with <em>Dabhóc</em> being a pet form of <strong><a class="inline" href="https://en.wikipedia.org/wiki/David" target="_blank" rel="noopener">David</a></strong>. (Notably, when the “D” sound in <em>Mac Dabhóc</em> was lenited in Gaelic, it produced a <strong><a class="inline" href="https://en.wikipedia.org/wiki/McCook" target="_blank" rel="noopener">McCook</a></strong> in English; indeed, McCook is considered another rendering of the same Irish name.) The <em>Mac Dabhóc</em> family has a different origin – it has been linked to the Anglo-Norman <strong><a class="inline" href="https://en.wikipedia.org/wiki/House_of_Burgh" target="_blank" rel="noopener">Burke (de Burgh)</a></strong> family in <a class="inline" href="https://en.wikipedia.org/wiki/Connacht" target="_blank" rel="noopener">Connacht</a>, Ireland. However, many of the Doak families found in Ulster are believed to be <strong>Scottish transplants</strong> (Planter or immigrant families) rather than native Irish. Genealogists note that in <a class="inline" href="https://en.wikipedia.org/wiki/County_Antrim" target="_blank" rel="noopener">Antrim</a> and <a class="inline" href="https://en.wikipedia.org/wiki/County_Down" target="_blank" rel="noopener">Down</a>, the Doaks were more likely Scottish-origin Doig septs, since in those areas the name “usually appears as Doig” historically. In summary, <em>some</em> Irish Doaks may descend from Gaelic MacDabhóc roots, but a great number trace back to Scottish forebears who moved to Ulster, especially during the 1600s settlement of Ulster.</p>
+
+          <p>It is also worth mentioning that one source notes a <strong>rare English</strong> origin of the surname: in England, <em>Doak</em> has occasionally appeared as a variant of the surname <strong><a class="inline" href="https://en.wikipedia.org/wiki/Duke_(surname)" target="_blank" rel="noopener">Duke</a></strong>. This seems to have been an uncommon and likely coincidental usage (possibly a mis-spelling in certain records). The dominant narrative of the name’s history points back to the Scottish Gaelic and Celtic saint origin.</p>
+        </div>
+
+        <figure class="media">
+          <img
+            class="zoomable"
+            loading="lazy"
+            src="images/Kilmadock_Parish_Church,_Doune,_Stirling_council_area.jpg"
+            alt="Kilmadock Parish Church, Doune, Stirling"
+            data-full="images/Kilmadock_Parish_Church,_Doune,_Stirling_council_area.jpg">
+          <figcaption>
+            <span class="badge">Kilmadock Parish Church</span> Doune, Stirling.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- LEGACY -->
+    <section id="legacy">
+      <div class="kicker">Legacy</div>
+      <h2>Legacy and Conclusion</h2>
+
+      <div class="panel grid">
+        <div>
+          <p>Throughout its history, the name Doak has been tied to Scotland’s cultural and religious heritage. Its very meaning preserves the memory of Saint <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> and the early Christian influence in Scotland. The Doaks, as part of <a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a>, participated indirectly in clan wars and national struggles, from medieval court life to the Jacobite rebellions. Over time the family name spread beyond <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a> – <strong>north into <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_Lowlands" target="_blank" rel="noopener">Lowlands</a>, west into <a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ulster</a></strong>, and eventually overseas. By the 18th and 19th centuries, bearers of the name emigrated further afield; for instance, records show a Robert Doak arriving in <a class="inline" href="https://en.wikipedia.org/wiki/New_England" target="_blank" rel="noopener">New England</a> in 1719, and others later settling in <a class="inline" href="https://en.wikipedia.org/wiki/Canada" target="_blank" rel="noopener">Canada</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Australia" target="_blank" rel="noopener">Australia</a>, and elsewhere as the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_diaspora" target="_blank" rel="noopener">Scottish diaspora</a> expanded.</p>
+
+          <p>Today, the surname Doak and its variants remain a reminder of this rich lineage. It carries a Scottish identity at its core – rooted in Gaelic language (<em>Mac Gille Doig</em>), associated with a Highland clan, and linked to a Celtic saint’s legacy. From the misty kirkyards of <a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a> to the battlefields of Jacobite Scotland and beyond, the Doak name’s journey is interwoven with significant events and traditions of Scottish and Celtic history.</p>
+        </div>
+
+        <figure class="media">
+          <img
+            class="zoomable"
+            loading="lazy"
+            src="images/loch%20lomond.jpg"
+            alt="Loch Lomond at dusk"
+            data-full="images/loch%20lomond.jpg">
+          <figcaption><span class="badge">Loch Lomond</span> Near early Drummond territory.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SOURCES -->
+    <section id="sources">
+      <div class="kicker">Sources & Further Reading</div>
+      <h2>Sources</h2>
+
+      <div class="panel">
+        <ul>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Saint Cadoc (Cadog)</a></em> – details on St. Cadoc’s life and Scottish followers named “Gille Dog”</li>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Doig_(surname)" target="_blank" rel="noopener">Doig (surname)</a></em> – origin of the name (Mac Gille Doig) and variant spellings including Doak</li>
+          <li><em><a class="inline" href="https://www.raitt.org/other-names.html#Doig" target="_blank" rel="noopener">The Raitt Stuff</a></em> (Genealogy site) – historical notes on the Doig/Doak family, early records (1372 onwards), and sept of Clan Drummond</li>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a></em> – listing of Doak/Doig as a sept and notes on the clan’s role in Jacobite risings</li>
+          <li><a class="inline" href="https://www.johngrenham.com/surnames/" target="_blank" rel="noopener">John Grenham’s Irish Surnames</a> – entry on Doak (Mac Dabhóc in Ireland, and Scottish-Ulster connection)</li>
+          <li><a class="inline" href="https://en.wikipedia.org/wiki/Oxford_Dictionary_of_Family_Names_in_Britain_and_Ireland" target="_blank" rel="noopener">Oxford Dictionary of Family Names</a> – confirming Scottish and Irish origins and the rare English “Duke” variant</li>
+          <li><a class="inline" href="https://en.wikipedia.org/wiki/Houseofnames" target="_blank" rel="noopener">House of Names</a> – general family origin narrative (Kilmadock in Perthshire and early spellings).</li>
+        </ul>
+        <p class="muted" style="color:var(--muted);margin-top:.6rem">
+          Images on this page are loaded from the local <code>images</code> folder and open at full size when clicked.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Simplified footer (no nav, no Top button) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <!-- Left: brand -->
+      <div class="footer-left">
+        <div class="footer-crest" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="40" stroke="#c4a46a" stroke-width="3" opacity=".7"/>
+            <path d="M25,50 C25,35 37,28 50,28 C63,28 75,35 75,50 C75,65 63,72 50,72 C37,72 25,65 25,50 Z"
+                  stroke="#c4a46a" stroke-width="2" fill="none" opacity=".75"/>
+          </svg>
+        </div>
+        <div class="brand-lines">
+          <strong>Doak Family History</strong>
+          <small>Origins · Scotland · Clan Drummond</small>
+        </div>
+      </div>
+
+      <!-- Right: fixed copyright text -->
+      <div class="footer-right">
+        <span>© 2025 Doak Family - Researchd by Robin Doak</span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#top" class="top" aria-label="Back to top" id="backToTop">↑ Top</a>
+
+  <!-- Enhanced JS: progress, sticky header effects, smooth anchors, active chips, lightbox with nav, parallax (reduced-motion aware) -->
+  <script>
+    (function(){
+      const $ = (sel, ctx=document) => ctx.querySelector(sel);
+      const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+      const header = $('#site-header');
+      const progress = $('#progress');
+      const backToTop = $('#backToTop');
+      const chips = $$('.chips .chip');
+      const chipMap = new Map(chips.map(c => [c.getAttribute('href').slice(1), c]));
+      const sections = $$('main section[id]');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // RAF throttle
+      const throttleRAF = (fn) => {
+        let ticking = false;
+        return (...args) => {
+          if (!ticking) {
+            requestAnimationFrame(() => { fn.apply(null, args); ticking = false; });
+            ticking = true;
+          }
+        };
+      };
+
+      // Reading progress + sticky header shadow + back-to-top visibility
+      const onScroll = throttleRAF(() => {
+        const h = document.documentElement;
+        const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+        progress.style.width = Math.max(0, Math.min(100, scrolled * 100)) + '%';
+
+        if (window.scrollY > 8) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+        if (window.scrollY > 400) backToTop.classList.add('visible'); else backToTop.classList.remove('visible');
+      });
+      document.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+
+      // Smooth anchor scroll with sticky offset
+      const stickyOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--anchor-offset')) || 86;
+      const smoothScrollToId = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const top = window.scrollY + rect.top - stickyOffset + 1;
+        window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' });
+      };
+
+      // Intercept internal anchor clicks for smooth offset scroll
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('a[href^="#"]');
+        if (!a) return;
+        const id = a.getAttribute('href').slice(1);
+        if (!id) return;
+        if (document.getElementById(id)) {
+          e.preventDefault();
+          smoothScrollToId(id);
+        }
+      });
+
+      // Active chip highlight with IntersectionObserver
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.id;
+          const chip = chipMap.get(id);
+          if (!chip) return;
+          if (entry.isIntersecting) chip.classList.add('active');
+          else chip.classList.remove('active');
+        });
+      }, { rootMargin: `-${stickyOffset}px 0px -65% 0px`, threshold: 0.1 });
+      sections.forEach(sec => observer.observe(sec));
+
+      // LIGHTBOX with next/prev + keyboard + preloading
+      const zoomables = $$('.zoomable');
+      const lightbox = (() => {
+        const lb = document.createElement('div');
+        lb.className = 'lightbox';
+        lb.innerHTML = `
+          <button class="close" aria-label="Close">Close ✕</button>
+          <button class="prev" aria-label="Previous image">←</button>
+          <img alt="">
+          <button class="next" aria-label="Next image">→</button>
+        `;
+        document.body.appendChild(lb);
+        return lb;
+      })();
+      const viewer = $('img', lightbox);
+      const btnClose = $('.close', lightbox);
+      const btnPrev = $('.prev', lightbox);
+      const btnNext = $('.next', lightbox);
+
+      let current = -1;
+
+      const show = (index) => {
+        if (index < 0 || index >= zoomables.length) return;
+        current = index;
+        const img = zoomables[current];
+        const full = img.getAttribute('data-full') || img.src;
+        const alt = img.getAttribute('alt') || '';
+        viewer.src = full;
+        viewer.alt = alt;
+        lightbox.classList.add('open');
+        // Preload neighbors
+        const prevIdx = (current - 1 + zoomables.length) % zoomables.length;
+        theNextIdx = (current + 1) % zoomables.length;
+        [prevIdx, theNextIdx].forEach(i => { const p = new Image(); p.src = zoomables[i].getAttribute('data-full') || zoomables[i].src; });
+      };
+
+      const hide = () => { lightbox.classList.remove('open'); };
+      const next = () => show((current + 1) % zoomables.length);
+      const prev = () => show((current - 1 + zoomables.length) % zoomables.length);
+
+      zoomables.forEach((img, i) => img.addEventListener('click', () => show(i)));
+      btnClose.addEventListener('click', hide);
+      btnNext.addEventListener('click', next);
+      btnPrev.addEventListener('click', prev);
+      lightbox.addEventListener('click', (e) => { if (e.target === lightbox) hide(); });
+      document.addEventListener('keydown', (e)=> {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') hide();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+      });
+
+      // Subtle parallax on images (desktop pointers only, no reduced motion)
+      const allowParallax = !reducedMotion && matchMedia('(pointer:fine)').matches;
+      if (allowParallax){
+        const imgs = $$('.media img');
+        const onMove = throttleRAF((e) => {
+          const { innerWidth: w, innerHeight: h } = window;
+          const dx = (e.clientX / w - .5) * 2;  // -1..1
+          const dy = (e.clientY / h - .5) * 2;
+          imgs.forEach(img => {
+            img.style.transform = `translateZ(0) scale(1.01) translate(${dx * 2}px, ${dy * 2}px)`;
+          });
+        });
+        window.addEventListener('mousemove', onMove, { passive:true });
+      }
+    })();
+  </script>
+</body>
+</html>
