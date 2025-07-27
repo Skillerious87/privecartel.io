@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0d10" />
   <title>History of the Doak Family Name — Immersive Edition</title>
 
   <!-- Typefaces -->
@@ -18,7 +19,7 @@
   <style>
     :root{
       --bg:#0b0d10;
-      --panel:#0f1217;
+      --panel:#0f1217;               /* solid, opaque surface to avoid banding */
       --ink:#e8ecf4;
       --muted:#aab2bf;
       --gold:#c4a46a;
@@ -29,7 +30,7 @@
       --radius-sm:12px;
       --w: min(1100px, 92vw);
       --nav-h: 66px;
-      --anchor-offset: 86px;
+      --anchor-offset: 86px; /* offset for sticky header when jumping to anchors */
     }
 
     *{box-sizing:border-box}
@@ -37,6 +38,7 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;
+      -webkit-text-size-adjust:100%;
       background:
         radial-gradient(1200px 700px at 90% -10%, #19212a 0%, #0b0d10 55%),
         radial-gradient(900px 600px at 5% 110%, #151b22 0%, #0b0d10 60%),
@@ -56,7 +58,7 @@
       transition: width .08s linear;
     }
 
-    .wrap{width:var(--w); margin-inline:auto}
+    .wrap{width:var(--w); margin-inline:auto; padding-inline: 0}
 
     /* Sticky top bar (always visible while scrolling) */
     header{
@@ -72,50 +74,57 @@
       background:linear-gradient(180deg, rgba(11,13,16,.92), rgba(11,13,16,.65));
       border-bottom-color: rgba(196,164,106,.22);
     }
-    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0}
-    .brand{display:flex; align-items:center; gap:12px}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; flex-wrap:wrap}
+    .brand{display:flex; align-items:center; gap:12px; min-width:0}
     .crest{
       width:46px; height:46px; border-radius:50%;
       border:1px solid var(--gold);
       display:grid; place-content:center;
       background: radial-gradient(60% 60% at 50% 30%, rgba(196,164,106,.15), transparent 70%);
       box-shadow: inset 0 0 0 2px rgba(196,164,106,.18);
+      flex: 0 0 auto;
     }
     .crest svg{opacity:.9}
-    .actions{display:flex; gap:10px}
+    .actions{display:flex; gap:10px; flex-wrap:wrap}
     .btn{
       appearance:none; border:1px solid var(--line); background:rgba(255,255,255,.02);
-      color:var(--ink); border-radius:999px; padding:8px 12px; cursor:pointer;
-      font-size:.92rem; transition:.2s border-color,.2s background, transform .12s ease;
+      color:var(--ink); border-radius:999px; padding:10px 14px; cursor:pointer;
+      font-size:.95rem; transition:.2s border-color,.2s background, transform .12s ease; touch-action:manipulation
     }
     .btn:hover{border-color:rgba(196,164,106,.5); background:rgba(196,164,106,.08)}
     .btn:active{transform: translateY(1px)}
     .btn.gold{border-color:var(--gold-2); color:var(--gold); background:rgba(196,164,106,.10)}
     .btn.gold:hover{background:rgba(196,164,106,.18)}
 
-    /* HERO (scrolls with page and leaves visual air before Main Narrative) */
+    /* HERO */
     .hero{
-      padding:58px 0 34px;
+      padding:48px 0 28px;
       margin-top: 8px;
     }
     .hero h1{
       font-family:"Playfair Display", serif;
       font-weight:700; letter-spacing:.4px;
-      font-size: clamp(32px, 5vw, 52px);
+      font-size: clamp(28px, 6vw, 52px);
       margin:0 0 8px;
       text-shadow: 0 10px 30px rgba(0,0,0,.45);
     }
     .subtitle{
-      color:var(--muted); margin:0 0 16px; font-size: clamp(14px, 2.2vw, 18px);
+      color:var(--muted); margin:0 0 16px; font-size: clamp(14px, 2.8vw, 18px);
     }
 
     /* Chips / TOC */
-    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .chips{
+      display:flex; flex-wrap:nowrap; gap:10px; margin-top:10px;
+      overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:6px;
+      scrollbar-width:none;
+    }
+    .chips::-webkit-scrollbar{display:none}
     .chip{
-      padding:9px 14px; border:1px solid var(--line); color:var(--muted);
+      padding:10px 14px; border:1px solid var(--line); color:var(--muted);
       border-radius:999px; background:rgba(255,255,255,.02);
       transition:.2s border-color, .2s background, .2s color, transform .12s ease;
-      text-decoration:none; display:inline-block;
+      text-decoration:none; display:inline-block; white-space:nowrap;
+      flex:0 0 auto;
     }
     .chip:hover{border-color:rgba(196,164,106,.5); background:rgba(196,164,106,.10); color:var(--ink); transform: translateY(-1px)}
     .chip.active{border-color:rgba(196,164,106,.65); background:rgba(196,164,106,.14); color:var(--ink)}
@@ -126,13 +135,26 @@
     .kicker{color:var(--gold); text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; margin-bottom:6px}
     h2{
       font-family:"Playfair Display", serif; font-weight:600;
-      font-size: clamp(24px, 3.5vw, 34px); margin:0 0 14px;
+      font-size: clamp(22px, 5.2vw, 34px); margin:0 0 14px;
     }
+
+    /* === Card surface (banding fix: make opaque) === */
     .panel{
-      border:1px solid var(--line); border-radius:var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0));
-      box-shadow:var(--shadow);
-      padding: clamp(16px, 2vw, 24px);
+      position: relative;
+      isolation: isolate;              /* new stacking context; helps on some mobile GPUs */
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);        /* solid opaque surface */
+      box-shadow: var(--shadow);
+      padding: clamp(14px, 3.5vw, 24px);
+    }
+    .panel::before{
+      content:"";
+      position:absolute; inset:0; border-radius: inherit; pointer-events:none;
+      background:
+        radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.03), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%);
+      mix-blend-mode: normal;
     }
 
     .grid{display:grid; gap:22px; grid-template-columns:1.15fr .95fr}
@@ -144,10 +166,16 @@
       overflow:hidden; border-radius:var(--radius-sm); border:1px solid var(--line); background:#07090c;
     }
     .media img{
-      display:block; width:100%; height: clamp(240px, 38vw, 420px); object-fit: cover;
-      transform:translateZ(0); will-change: transform, filter;
+      display:block; width:100%; height: clamp(200px, 52vw, 420px);
+      object-fit: cover;
+      transform:translateZ(0);
+    }
+    @media (max-width: 540px){
+      .media img{ height: clamp(180px, 56vw, 320px); }
+      :root{ --anchor-offset: 78px; }
     }
     figcaption{
+      background: var(--panel);        /* match opaque card surface */
       font-size:.9rem; color:var(--muted); padding:10px 12px; border-top:1px solid var(--line);
       display:flex; gap:10px; align-items:center; flex-wrap:wrap;
     }
@@ -156,7 +184,7 @@
     /* Drop cap in first paragraph of each panel */
     .panel p:first-of-type::first-letter{
       font-family:"Playfair Display", serif;
-      float:left; font-size:3.1em; line-height:.85; padding:.08em .14em 0 0; color:var(--gold);
+      float:left; font-size:3em; line-height:.85; padding:.08em .14em 0 0; color:var(--gold);
       text-shadow: 0 6px 24px rgba(196,164,106,.25);
     }
 
@@ -182,6 +210,7 @@
       position:absolute; border:1px solid var(--gold-2); color:var(--gold);
       background:rgba(196,164,106,.12); padding:10px 14px; border-radius:999px; cursor:pointer;
       display:flex; align-items:center; gap:8px;
+      touch-action:manipulation;
     }
     .lightbox .close{ top:16px; right:16px; }
     .lightbox .prev{ left:16px; top:50%; transform:translateY(-50%); }
@@ -189,12 +218,13 @@
     .zoomable{cursor:zoom-in}
     .zoomable:hover{filter:brightness(1.02)}
 
-    /* Floating "Back to Top" chip (kept for convenience) */
+    /* Floating "Back to Top" chip */
     .top{
-      position:fixed; right:18px; bottom:18px; z-index:40;
+      position:fixed; right:16px; bottom:16px; z-index:40;
       border-radius:999px; border:1px solid var(--gold-2); background:rgba(196,164,106,.12);
       padding:12px 14px; display:flex; align-items:center; gap:8px; color:var(--gold); text-decoration:none;
       opacity:0; pointer-events:none; transform: translateY(10px); transition:.2s ease;
+      -webkit-tap-highlight-color: transparent;
     }
     .top.visible{opacity:1; pointer-events:auto; transform: translateY(0)}
     .top:hover{background:rgba(196,164,106,.18)}
@@ -221,11 +251,11 @@
     .footer-inner{
       width: var(--w, min(1100px, 92vw));
       margin-inline: auto;
-      padding: 20px 0 18px;
+      padding: 18px 0 16px;
       display: grid;
-      grid-template-columns: 1fr auto;   /* brand on left, copyright on right */
+      grid-template-columns: 1fr auto;
       align-items: center;
-      gap: 18px;
+      gap: 12px;
     }
 
     .footer-left{
@@ -247,26 +277,38 @@
     .brand-lines small{ color: var(--muted, #aab2bf); opacity:.9; }
 
     .footer-right{
-      display:flex; align-items:center; gap:10px; justify-content:flex-end;
+      display:flex; align-items:center; justify-content:flex-end;
       color: var(--ink, #e8ecf4);
       white-space:nowrap;
+      font-size: .98rem;
     }
 
     @media (max-width: 900px){
       .footer-inner{
         grid-template-columns: 1fr;
         text-align:center;
-        gap:12px;
+        gap:8px;
       }
       .footer-left{ justify-content:center; }
       .footer-right{ justify-content:center; }
+      .actions{width:100%}
+      .actions .btn{flex:1 1 auto}
     }
 
-    /* Respect reduced motion preferences */
+    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
-      #progress{transition:none}
-      .btn, .chip, .top{transition:none}
+      #progress, .btn, .chip, .top{transition:none}
+    }
+
+    /* Optional: slightly adjust base bg on very small screens to keep stripes between cards only */
+    @media (max-width: 540px){
+      body{
+        background:
+          radial-gradient(1200px 700px at 90% -10%, #161c23 0%, #0b0d10 55%),
+          radial-gradient(900px 600px at 5% 110%, #12181f 0%, #0b0d10 60%),
+          linear-gradient(180deg, #0b0d10, #0b0d10);
+      }
     }
   </style>
 </head>
@@ -300,7 +342,7 @@
     </div>
   </header>
 
-  <!-- HERO (scrolls with page) -->
+  <!-- HERO -->
   <div class="wrap hero" id="top">
     <h1>History of the Doak Family Name — Immersive Edition</h1>
     <p class="subtitle">
@@ -328,7 +370,7 @@
 
       <div class="panel grid">
         <div>
-          <p><strong>Figure:</strong> Sculpture representing Saint <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> (Cadog), a 6th-century Celtic saint. The Scottish surname <strong>Doak</strong> originates from devotion to St. Cadoc – the Gaelic name <em>Mac Gille Doig</em> means “son of the servant of St. Cadog,” and early forms of the name included <strong>Dog</strong>, <strong>Doig</strong>, <strong>Dock</strong>, and <strong>Doak</strong>. Saint Cadoc was a Welsh-born abbot who established churches across Celtic lands, including a monastery in 6th-century Scotland at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a></strong> (a place named after him, near <a class="inline" href="https://en.wikipedia.org/wiki/Doune" target="_blank" rel="noopener">Doune</a> in present-day <a class="inline" href="https://en.wikipedia.org/wiki/Stirling_(council_area)" target="_blank" rel="noopener">Stirling</a>). His followers in Scotland were called “Gille Dog” (Gaelic for “servant of Cadog”), which became a hereditary surname as his devotees’ descendants took <em>Gille Dog</em> (and its variants) as a family name. In this way, <strong>Doak</strong> and its variants ultimately grew out of the cult of Saint Cadoc in early medieval Scotland.</p>
+          <p><strong>Saint</strong> <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> (Cadog), a 6th-century Celtic saint. The Scottish surname <strong>Doak</strong> originates from devotion to St. Cadoc – the Gaelic name <em>Mac Gille Doig</em> means “son of the servant of St. Cadog,” and early forms of the name included <strong>Dog</strong>, <strong>Doig</strong>, <strong>Dock</strong>, and <strong>Doak</strong>. Saint Cadoc was a Welsh-born abbot who established churches across Celtic lands, including a monastery in 6th-century Scotland at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a></strong> (a place named after him, near <a class="inline" href="https://en.wikipedia.org/wiki/Doune" target="_blank" rel="noopener">Doune</a> in present-day <a class="inline" href="https://en.wikipedia.org/wiki/Stirling_(council_area)" target="_blank" rel="noopener">Stirling</a>). His followers in Scotland were called “Gille Dog” (Gaelic for “servant of Cadog”), which became a hereditary surname as his devotees’ descendants took <em>Gille Dog</em> (and its variants) as a family name. In this way, <strong>Doak</strong> and its variants ultimately grew out of the cult of Saint Cadoc in early medieval Scotland.</p>
         </div>
 
         <figure class="media">
@@ -482,7 +524,7 @@
 
   </main>
 
-  <!-- Simplified footer (no nav, no Top button) -->
+  <!-- Simplified footer -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
       <!-- Left: brand -->
@@ -502,14 +544,15 @@
 
       <!-- Right: fixed copyright text -->
       <div class="footer-right">
-        <span>© 2025 Doak Family - Researchd by Robin Doak</span>
+        <span>© 2025 Doak Family - Research by Robin Doak</span>
       </div>
     </div>
   </footer>
 
   <a href="#top" class="top" aria-label="Back to top" id="backToTop">↑ Top</a>
 
-  <!-- Enhanced JS: progress, sticky header effects, smooth anchors, active chips, lightbox with nav, parallax (reduced-motion aware) -->
+  <!-- Enhanced JS: progress, sticky header effects, smooth anchors, active chips, lightbox with nav.
+       NOTE: Parallax/mouse-move image effect has been removed. -->
   <script>
     (function(){
       const $ = (sel, ctx=document) => ctx.querySelector(sel);
@@ -612,8 +655,8 @@
         lightbox.classList.add('open');
         // Preload neighbors
         const prevIdx = (current - 1 + zoomables.length) % zoomables.length;
-        theNextIdx = (current + 1) % zoomables.length;
-        [prevIdx, theNextIdx].forEach(i => { const p = new Image(); p.src = zoomables[i].getAttribute('data-full') || zoomables[i].src; });
+        const nextIdx = (current + 1) % zoomables.length;
+        [prevIdx, nextIdx].forEach(i => { const p = new Image(); p.src = zoomables[i].getAttribute('data-full') || zoomables[i].src; });
       };
 
       const hide = () => { lightbox.classList.remove('open'); };
@@ -632,20 +675,7 @@
         if (e.key === 'ArrowLeft') prev();
       });
 
-      // Subtle parallax on images (desktop pointers only, no reduced motion)
-      const allowParallax = !reducedMotion && matchMedia('(pointer:fine)').matches;
-      if (allowParallax){
-        const imgs = $$('.media img');
-        const onMove = throttleRAF((e) => {
-          const { innerWidth: w, innerHeight: h } = window;
-          const dx = (e.clientX / w - .5) * 2;  // -1..1
-          const dy = (e.clientY / h - .5) * 2;
-          imgs.forEach(img => {
-            img.style.transform = `translateZ(0) scale(1.01) translate(${dx * 2}px, ${dy * 2}px)`;
-          });
-        });
-        window.addEventListener('mousemove', onMove, { passive:true });
-      }
+      /* NOTE: No parallax/mouse-move effect — removed for mobile friendliness. */
     })();
   </script>
 </body>
