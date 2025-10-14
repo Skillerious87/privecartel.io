@@ -70,5 +70,14 @@
     "tag": "Milestone",
     "file": "2025-06-18-scope.html",
     "image": "milestone.png"
+  },
+  {
+    "title": "Welcome to Privé Cartel",
+    "date": "2025-10-14",
+    "summary": "We welcome a handful of new members to the Cartel, bringing our total to 33 active operatives. More heists and chains ahead!",
+    "icon": "coins",
+    "tag": "Announcement",
+    "file": "2025-10-14-Welcome.html",
+    "image": "Announcement.png"
   }
 ]

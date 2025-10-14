@@ -1,0 +1,364 @@
+<!-- FILE: news/2025-10-14-new-members.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privé Cartel • Welcome Our Newest Members (14 Oct 2025)</title>
+  <meta name="description" content="Privé Cartel welcomes the newest members to the family — strong, loyal, and ready to make their mark." />
+  <link rel="icon" type="image/png" href="../images/Emblem.png" />
+
+  <!-- Fonts & icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Site theme (keeps your variables & global styles) -->
+  <link rel="stylesheet" href="../assets/style.css"/>
+
+  <!-- confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root{
+      --gold: #c9a86b;
+      --gold-opaque: rgba(201,168,107,.12);
+      --text-1: #e9e6e0;
+      --text-2: #bfb9ae;
+      --bg-panel: rgba(12,12,12,.55);
+      --radius: 12px;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      gap:.75rem;
+      padding:3.5rem 1rem 2.5rem;
+      overflow:visible;
+      background: radial-gradient(1200px 400px at 50% 10%, rgba(255,255,255,.01), transparent 8%);
+    }
+
+    /* Canvas intentionally behind the emblem (lower z-index) */
+    #confettiCanvas{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:0; /* behind emblem */
+    }
+
+    .hero .emblem {
+      width:112px;
+      z-index:3; /* above confetti */
+      border-radius:999px;
+      box-shadow: 0 12px 34px rgba(0,0,0,.6);
+      border: 6px solid rgba(201,168,107,.06);
+      background: radial-gradient(circle at 35% 20%, rgba(255,255,255,.02), transparent 15%);
+    }
+
+    .hero h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1.8rem,5vw,2.4rem);
+      color:var(--gold);
+      margin:0;
+      z-index:3;
+      text-shadow: 0 6px 18px rgba(0,0,0,.6);
+      letter-spacing:.01em;
+    }
+
+    .hero .tagline{
+      color:var(--text-2);
+      margin:0;
+      z-index:3;
+      font-weight:500;
+    }
+
+    #celebrateBtn{
+      margin-top:.7rem;
+      padding:.52rem 1rem;
+      background: linear-gradient(90deg, rgba(201,168,107,1), rgba(201,168,107,.86));
+      border:none;
+      border-radius:10px;
+      color:#080808;
+      font-weight:700;
+      cursor:pointer;
+      z-index:3;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    #celebrateBtn:active{ transform: translateY(1px) scale(.997) }
+    #celebrateBtn:hover{ filter: brightness(.96) }
+
+    /* ---------- ARTICLE ---------- */
+    .article{ max-width:980px; margin-inline:auto; padding-bottom:2.4rem }
+    .breadcrumb{ font-size:.9rem; margin-bottom:1rem }
+    .byline{ font-size:.9rem; color:var(--text-2); font-style:italic; margin-bottom:1rem }
+
+    .intro{
+      font-size:1.03rem;
+      color:var(--text-1);
+      line-height:1.6;
+      margin-bottom:1.2rem;
+      font-weight:500;
+    }
+
+    /* ---------- MEMBER GRID ---------- */
+    .member-list{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:1rem;
+      margin:1.2rem 0 1.8rem;
+    }
+
+    /* subtle refined card: thin gold border, glassy background, single-line name */
+    .member-card{
+      display:block;
+      position:relative;
+      padding:1rem 1.25rem;
+      min-height:74px;
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(12,12,12,.56), rgba(18,18,18,.5));
+      border: 1px solid rgba(201,168,107,.12);
+      box-shadow: 0 8px 22px rgba(0,0,0,.55);
+      text-decoration:none;
+      color:inherit;
+      transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s, border-color .22s, background .22s;
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      overflow:hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .member-card::before{
+      content: "";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width:6px;
+      background: linear-gradient(180deg, rgba(201,168,107,1), rgba(201,168,107,.62));
+      border-top-left-radius:var(--radius);
+      border-bottom-left-radius:var(--radius);
+      transition: width .22s ease;
+    }
+    .member-card:hover::before{ width:10px }
+
+    .member-card .name{
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-weight:700;
+      color:var(--gold);
+      font-size:1.08rem;
+      letter-spacing:0.05em;
+      margin-left:14px;
+      line-height:1;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .member-card:hover{
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0,0,0,.72);
+      border-color: rgba(201,168,107,.22);
+      background: linear-gradient(180deg, rgba(14,14,14,.68), rgba(20,20,20,.58));
+    }
+    .member-card:active{ transform: translateY(-3px) scale(.999) }
+
+    @media (max-width:520px){
+      .member-list{ grid-template-columns: repeat(2, 1fr) }
+      .member-card{ min-height:64px; padding:.75rem 1rem; }
+      .member-card .name{ font-size:1rem; margin-left:10px }
+      :root{ --radius:10px }
+    }
+
+    /* reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .member-card, #celebrateBtn{ transition:none; transform:none; }
+    }
+
+    .callout{
+      background: rgba(201,168,107,.04);
+      border: 1px solid rgba(201,168,107,.16);
+      border-left: 4px solid var(--gold);
+      padding:1rem 1.15rem;
+      border-radius:calc(var(--radius) * 0.9);
+      color:var(--text-1);
+      margin-top:1.6rem;
+      font-weight:600;
+      line-height:1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <script type="module" src="/assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+  <div class="nav-overlay"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- canvas sits behind emblem (z-index:0) -->
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+    <!-- emblem sits above the confetti (z-index:3) -->
+    <img src="../images/Emblem.png" alt="Cartel Emblem" class="emblem" id="emblem"/>
+
+    <h1>Welcome&nbsp;to&nbsp;Privé&nbsp;Cartel</h1>
+    <p class="tagline">14&nbsp;Oct&nbsp;2025&nbsp;|&nbsp;New&nbsp;Recruits&nbsp;Rise</p>
+
+    <button id="celebrateBtn" aria-label="Celebrate new members">Celebrate again!</button>
+  </section>
+
+  <!-- ARTICLE -->
+  <section class="rules-block">
+    <div class="container glass article">
+      <p class="breadcrumb"><a href="../news.html"><i class="fa-solid fa-arrow-left"></i> Back&nbsp;to&nbsp;News</a></p>
+      <p class="byline">Published&nbsp;14&nbsp;Oct&nbsp;2025 — Skillerious</p>
+
+      <p class="intro">
+        The Cartel grows sharper. We welcome eight new operators — tested, focused and ready to push the family forward.
+        This roster infusion widens our reach: more hands on deck, more minds at work, more influence where it counts.
+      </p>
+
+      <div class="member-list" aria-live="polite">
+        <a class="member-card" href="https://www.torn.com/profiles.php?XID=2941516" target="_blank" rel="noopener noreferrer">
+          <span class="name">aw3w</span>
+        </a>
+
+        <a class="member-card" href="https://www.torn.com/profiles.php?XID=3968324" target="_blank" rel="noopener noreferrer">
+          <span class="name">Don-JayVanDyne</span>
+        </a>
+
+        <a class="member-card" href="https://www.torn.com/profiles.php?XID=3858382" target="_blank" rel="noopener noreferrer">
+          <span class="name">Gkonvyk</span>
+        </a>
+
+        <a class="member-card" href="https://www.torn.com/profiles.php?XID=2814918" target="_blank" rel="noopener noreferrer">
+          <span class="name">RedemptionSZN</span>
+        </a>
+
+        <a class="member-card" href="https://www.torn.com/profiles.php?XID=3940086" target="_blank" rel="noopener noreferrer">
+          <span class="name">Diptough</span>
+        </a>
+
+        <a class="member-card" href="https://www.torn.com/profiles.php?XID=3945884" target="_blank" rel="noopener noreferrer">
+          <span class="name">Jevonos</span>
+        </a>
+
+        <a class="member-card" href="https://www.torn.com/profiles.php?XID=2544604" target="_blank" rel="noopener noreferrer">
+          <span class="name">ImpatoentSpoon</span>
+        </a>
+
+        <a class="member-card" href="https://www.torn.com/profiles.php?XID=2096480" target="_blank" rel="noopener noreferrer">
+          <span class="name">Nullbows</span>
+        </a>
+      </div>
+
+      <p>
+        These operators arrive ready for action — in ops, market plays, and every corner where the Cartel exerts pressure.
+        Bring them up to speed, share the code, and watch them convert potential into reputation. Their actions will speak louder
+        than any welcome; earn respect, protect the brand, and become the reason rivals think twice.
+      </p>
+
+      <div class="callout">
+        <strong>Welcome to the family.</strong> You’ve earned your place in the syndicate.
+        Now — represent the cartel, follow the code, and make the streets remember your name.
+      </div>
+    </div>
+  </section>
+
+  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+
+  <!-- keep your site script, then our confetti controller -->
+  <script src="../assets/script.js"></script>
+  <script>
+    // ---------- Utility & init ----------
+    window.scrollTo(0,0);
+
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const emblem = document.getElementById('emblem');
+    let myConfetti = null;
+
+    // resize canvas to fit hero area (we match viewport so origin calculations are normalized easily)
+    function resizeCanvas(){
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // create confetti instance once (useWorker true for performance)
+    myConfetti = confetti.create(confettiCanvas, { resize: true, useWorker: true });
+
+    // compute confetti origin based on emblem position.
+    // we place origin slightly **behind** the emblem center (lower than top) so particles appear to erupt
+    // from inside the emblem and come out from the top.
+    function computeEmblemOrigin() {
+      const rect = emblem.getBoundingClientRect();
+      // center x of emblem
+      const centerX = (rect.left + rect.width / 2);
+      // pick a vertical origin slightly below the emblem center so particles appear to emerge upward through the top
+      const originYpx = rect.top + rect.height * 0.55;
+      // convert to normalized coordinates for confetti (0..1)
+      const origin = {
+        x: centerX / window.innerWidth,
+        y: originYpx / window.innerHeight
+      };
+      // clamp to safe range
+      origin.x = Math.max(0, Math.min(1, origin.x));
+      origin.y = Math.max(0, Math.min(1, origin.y));
+      return origin;
+    }
+
+    // Single-origin celebration: one rich burst from the emblem area.
+    function celebrate() {
+      // Respect reduced motion preference
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      const origin = computeEmblemOrigin();
+
+      // Primary burst: denser and upward-biased
+      myConfetti({
+        particleCount: 260,
+        startVelocity: 40,
+        spread: 65,
+        ticks: 220,
+        gravity: 0.9,
+        decay: 0.92,
+        origin: origin
+      });
+
+      // Small secondary soft burst to add variety but same origin
+      myConfetti({
+        particleCount: 90,
+        startVelocity: 18,
+        spread: 34,
+        ticks: 200,
+        gravity: 0.9,
+        decay: 0.95,
+        origin: origin
+      });
+    }
+
+    // init on DOM ready
+    document.addEventListener('DOMContentLoaded', function(){
+      // initial burst
+      setTimeout(celebrate, 280); // brief delay so layout is stable and emblem has loaded
+      // wire the button
+      const btn = document.getElementById('celebrateBtn');
+      if (btn) btn.addEventListener('click', celebrate);
+      // year
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
