@@ -22,7 +22,7 @@
   <style>
     :root{
       --bg:#0b0d10;
-      --panel:#0f1217;               /* solid, opaque surface to avoid banding */
+      --panel:#0f1217;
       --ink:#e8ecf4;
       --muted:#aab2bf;
       --gold:#c4a46a;
@@ -33,7 +33,7 @@
       --radius-sm:12px;
       --w: min(1100px, 92vw);
       --nav-h: 66px;
-      --anchor-offset: 86px; /* offset for sticky header when jumping to anchors */
+      --anchor-offset: 86px;
     }
 
     *{box-sizing:border-box}
@@ -63,7 +63,7 @@
 
     .wrap{width:var(--w); margin-inline:auto; padding-inline: 0}
 
-    /* Sticky top bar (always visible while scrolling) */
+    /* Sticky top bar */
     header{
       position:sticky; top:0; z-index:60;
       -webkit-backdrop-filter: saturate(130%) blur(10px);
@@ -141,13 +141,13 @@
       font-size: clamp(22px, 5.2vw, 34px); margin:0 0 14px;
     }
 
-    /* === Card surface (banding fix: make opaque) === */
+    /* Card surface */
     .panel{
       position: relative;
-      isolation: isolate;              /* new stacking context; helps on some mobile GPUs */
+      isolation: isolate;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: var(--panel);        /* solid opaque surface */
+      background: var(--panel);
       box-shadow: var(--shadow);
       padding: clamp(14px, 3.5vw, 24px);
     }
@@ -163,7 +163,7 @@
     .grid{display:grid; gap:22px; grid-template-columns:1.15fr .95fr}
     @media (max-width: 940px){ .grid{grid-template-columns:1fr} }
 
-    /* Figures (carded images) */
+    /* Figures */
     figure{margin:0}
     .media{
       overflow:hidden; border-radius:var(--radius-sm); border:1px solid var(--line); background:#07090c;
@@ -178,13 +178,13 @@
       :root{ --anchor-offset: 78px; }
     }
     figcaption{
-      background: var(--panel);        /* match opaque card surface */
+      background: var(--panel);
       font-size:.9rem; color:var(--muted); padding:10px 12px; border-top:1px solid var(--line);
       display:flex; gap:10px; align-items:center; flex-wrap:wrap;
     }
     .badge{font-size:.72rem; padding:4px 8px; border:1px solid var(--gold-2); color:var(--gold); border-radius:999px; background:rgba(196,164,106,.08)}
 
-    /* Drop cap in first paragraph of each panel */
+    /* Drop cap */
     .panel p:first-of-type::first-letter{
       font-family:"Playfair Display", serif;
       float:left; font-size:3em; line-height:.85; padding:.08em .14em 0 0; color:var(--gold);
@@ -198,11 +198,90 @@
       font-style:italic;
     }
 
-    /* Timeline (genealogy summary) */
+    /* Timeline */
     .timeline{list-style:none; padding:0; margin:0}
     .timeline li{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:start; padding:8px 0}
     .year{min-width:80px; color:var(--gold); font-weight:600}
     @media (max-width:520px){ .year{min-width:70px} }
+
+    /* ===== Notable Bearers Cards ===== */
+    .notable-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+      gap:20px;
+      margin-top:8px;
+    }
+    .notable-card{
+      position:relative;
+      isolation:isolate;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:var(--panel);
+      box-shadow: var(--shadow);
+      padding:0;
+      overflow:hidden;
+      transition: border-color .3s ease, transform .25s ease, box-shadow .3s ease;
+    }
+    .notable-card:hover{
+      border-color:rgba(196,164,106,.35);
+      transform:translateY(-3px);
+      box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(196,164,106,.12) inset;
+    }
+    .notable-card::before{
+      content:"";
+      position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+      background:
+        radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.03), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%);
+    }
+    .notable-header{
+      position:relative;
+      padding:20px 20px 16px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(135deg, rgba(196,164,106,.06) 0%, transparent 60%);
+    }
+    .notable-era{
+      display:inline-block;
+      font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+      color:var(--gold); border:1px solid var(--gold-2); border-radius:999px;
+      padding:3px 10px; margin-bottom:10px;
+      background:rgba(196,164,106,.08);
+    }
+    .notable-name{
+      font-family:"Playfair Display", serif;
+      font-size:clamp(18px, 4vw, 22px); font-weight:700;
+      margin:0 0 2px; color:var(--ink);
+      line-height:1.3;
+    }
+    .notable-title{
+      color:var(--muted); font-size:.88rem; margin:0;
+      line-height:1.5;
+    }
+    .notable-body{
+      padding:16px 20px 20px;
+      font-size:.94rem; line-height:1.72;
+      color:var(--ink);
+    }
+    .notable-body p{margin:0 0 10px}
+    .notable-body p:last-child{margin:0}
+    .notable-stat{
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:.8rem; color:var(--gold); margin-top:6px;
+      padding:4px 10px; border:1px solid rgba(196,164,106,.25); border-radius:999px;
+      background:rgba(196,164,106,.06);
+    }
+    .notable-link{
+      color:var(--gold); text-decoration:none; border-bottom:1px dotted rgba(196,164,106,.45);
+    }
+    .notable-link:hover{ border-bottom-color:var(--gold); }
+
+    /* Decorative accent line on notable cards */
+    .notable-card::after{
+      content:"";
+      position:absolute; top:0; left:20px; right:20px; height:2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity:.35;
+    }
 
     /* Lightbox */
     .lightbox{
@@ -227,7 +306,7 @@
     .zoomable{cursor:zoom-in}
     .zoomable:hover{filter:brightness(1.02)}
 
-    /* Floating "Back to Top" chip */
+    /* Back to top */
     .top{
       position:fixed; right:16px; bottom:16px; z-index:40;
       border-radius:999px; border:1px solid var(--gold-2); background:rgba(196,164,106,.12);
@@ -238,11 +317,11 @@
     .top.visible{opacity:1; pointer-events:auto; transform: translateY(0)}
     .top:hover{background:rgba(196,164,106,.18)}
 
-    /* Link styling inside prose */
+    /* Inline links */
     a.inline { color: var(--gold); text-decoration: none; border-bottom: 1px dotted rgba(196,164,106,.45); }
     a.inline:hover { border-bottom-color: var(--gold); }
 
-    /* ===== Footer — Minimal, elegant (simplified) ===== */
+    /* ===== Footer ===== */
     footer.site-footer{
       position: relative;
       background:
@@ -306,10 +385,9 @@
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
-      #progress, .btn, .chip, .top{transition:none}
+      #progress, .btn, .chip, .top, .notable-card{transition:none}
     }
 
-    /* Optional: slightly adjust base bg on very small screens to keep stripes between cards only */
     @media (max-width: 540px){
       body{
         background:
@@ -330,7 +408,6 @@
     <div class="wrap nav">
       <div class="brand">
         <div class="crest" aria-hidden="true">
-          <!-- Celtic-inspired ring -->
           <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="44" stroke="#c4a46a" stroke-width="3" opacity=".65"/>
             <path d="M20,50 C20,30 35,20 50,20 C65,20 80,30 80,50 C80,70 65,80 50,80 C35,80 20,70 20,50 Z
@@ -367,6 +444,7 @@
       <a class="chip" href="#drummond">Clan Drummond</a>
       <a class="chip" href="#variants">Variants & Spread</a>
       <a class="chip" href="#diaspora">Emigration & Diaspora</a>
+      <a class="chip" href="#notables">Notable Bearers</a>
       <a class="chip" href="#legacy">Legacy</a>
       <a class="chip" href="#sources">Sources</a>
     </nav>
@@ -381,7 +459,7 @@
 
       <div class="panel grid">
         <div>
-          <p><strong>Saint</strong> <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> (Cadog), a 6th-century Celtic saint. The Scottish surname <strong>Doak</strong> originates from devotion to St. Cadoc – the Gaelic name <em>Mac Gille Doig</em> means “son of the servant of St. Cadog,” and early forms of the name included <strong>Dog</strong>, <strong>Doig</strong>, <strong>Dock</strong>, and <strong>Doak</strong>. Saint Cadoc was a Welsh-born abbot who established churches across Celtic lands, including a monastery in 6th-century Scotland at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a></strong> (a place named after him, near <a class="inline" href="https://en.wikipedia.org/wiki/Doune" target="_blank" rel="noopener">Doune</a> in present-day <a class="inline" href="https://en.wikipedia.org/wiki/Stirling_(council_area)" target="_blank" rel="noopener">Stirling</a>). His followers in Scotland were called “Gille Dog” (Gaelic for “servant of Cadog”), which became a hereditary surname as his devotees’ descendants took <em>Gille Dog</em> (and its variants) as a family name. In this way, <strong>Doak</strong> and its variants ultimately grew out of the cult of Saint Cadoc in early medieval Scotland.</p>
+          <p><strong>Saint</strong> <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> (Cadog), a 6th-century Celtic saint. The Scottish surname <strong>Doak</strong> originates from devotion to St. Cadoc – the Gaelic name <em>Mac Gille Doig</em> means "son of the servant of St. Cadog," and early forms of the name included <strong>Dog</strong>, <strong>Doig</strong>, <strong>Dock</strong>, and <strong>Doak</strong>. Saint Cadoc was a Welsh-born abbot who established churches across Celtic lands, including a monastery in 6th-century Scotland at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a></strong> (a place named after him, near <a class="inline" href="https://en.wikipedia.org/wiki/Doune" target="_blank" rel="noopener">Doune</a> in present-day <a class="inline" href="https://en.wikipedia.org/wiki/Stirling_(council_area)" target="_blank" rel="noopener">Stirling</a>). His followers in Scotland were called "Gille Dog" (Gaelic for "servant of Cadog"), which became a hereditary surname as his devotees' descendants took <em>Gille Dog</em> (and its variants) as a family name. In this way, <strong>Doak</strong> and its variants ultimately grew out of the cult of Saint Cadoc in early medieval Scotland.</p>
         </div>
 
         <figure class="media">
@@ -404,7 +482,7 @@
       <h2>Gaelic Origins and Meaning</h2>
 
       <div class="panel">
-        <p>The surname Doak is an anglicized form of the Old Scottish Gaelic <strong>Mac Gille Doig</strong>, a compound of <em>mac</em> (“son of”) + <em>gille</em> (“servant”) + <strong>Doig</strong> (a short form of <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadog</a></em>). In other words, it literally signifies “son of <em>St. Cadoc’s</em> servant.” The personal name <em>Cadog</em> was originally Welsh (Cadoc is known in Welsh as <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc#Names" target="_blank" rel="noopener">Cattwg</a></em>) and unrelated to the English word “dog” (the animal). This saint’s name entered Scottish tradition due to Cadoc’s missionary work in Scotland. <strong><a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a></strong> parish in <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a> – whose name means “church of Cadoc” – is one locale where the saint’s influence was strong. It is in such areas that families first adopted the surname. By the late 14th century, records show the name in use: for example, <em>Alexander Doge</em>, vicar of <a class="inline" href="https://en.wikipedia.org/wiki/Dunnichen" target="_blank" rel="noopener">Dunnichen</a>, is recorded in 1372. This early spelling “Dog(e)” reflects the original Gaelic pronunciation. Over time, the name’s spelling evolved: by the 15th–16th centuries it appears as <strong>Dog</strong>, <strong>Dogge</strong> or <strong>Doig</strong>, and eventually as <strong>Doak</strong> (among other forms) in later records. All of these are essentially the same name, modified by Scots dialects and English phonetic spelling.</p>
+        <p>The surname Doak is an anglicized form of the Old Scottish Gaelic <strong>Mac Gille Doig</strong>, a compound of <em>mac</em> ("son of") + <em>gille</em> ("servant") + <strong>Doig</strong> (a short form of <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadog</a></em>). In other words, it literally signifies "son of <em>St. Cadoc's</em> servant." The personal name <em>Cadog</em> was originally Welsh (Cadoc is known in Welsh as <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc#Names" target="_blank" rel="noopener">Cattwg</a></em>) and unrelated to the English word "dog" (the animal). This saint's name entered Scottish tradition due to Cadoc's missionary work in Scotland. <strong><a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a></strong> parish in <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a> – whose name means "church of Cadoc" – is one locale where the saint's influence was strong. It is in such areas that families first adopted the surname. By the late 14th century, records show the name in use: for example, <em>Alexander Doge</em>, vicar of <a class="inline" href="https://en.wikipedia.org/wiki/Dunnichen" target="_blank" rel="noopener">Dunnichen</a>, is recorded in 1372. This early spelling "Dog(e)" reflects the original Gaelic pronunciation. Over time, the name's spelling evolved: by the 15th–16th centuries it appears as <strong>Dog</strong>, <strong>Dogge</strong> or <strong>Doig</strong>, and eventually as <strong>Doak</strong> (among other forms) in later records. All of these are essentially the same name, modified by Scots dialects and English phonetic spelling.</p>
       </div>
     </section>
 
@@ -413,20 +491,23 @@
       <div class="kicker">Genealogy</div>
       <h2>Early Genealogical Footprint (Scotland & Ulster)</h2>
       <div class="panel">
-        <p>Documented bearers cluster in districts linked to Cadoc’s cult and later Drummond territories. The entries below help anchor early Doak/Doig lines that genealogists often build from:</p>
+        <p>Documented bearers cluster in districts linked to Cadoc's cult and later Drummond territories. The entries below help anchor early Doak/Doig lines that genealogists often build from:</p>
         <ul class="timeline">
           <li><div class="year">1372</div><div><strong>Alexander Doge</strong>, vicar of <a class="inline" href="https://en.wikipedia.org/wiki/Dunnichen" target="_blank" rel="noopener">Dunnichen</a> (Angus) — earliest attested bearer in Scottish church registers.</div></li>
           <li><div class="year">1468</div><div><strong>John Dog</strong> recorded as an <em>armiger</em> (landed gentleman) — indicates minor nobility/status.</div></li>
           <li><div class="year">1478</div><div><strong>Dene Thomas Dog</strong> associated with <a class="inline" href="https://en.wikipedia.org/wiki/Inchmahome_Priory" target="_blank" rel="noopener">Inchmahome Priory</a> (Menteith) — ties to Cadoc areas.</div></li>
-          <li><div class="year">1488–98</div><div><strong>James Dog</strong>, <em>Keeper of the King’s Wardrobe</em> to <a class="inline" href="https://en.wikipedia.org/wiki/James_IV_of_Scotland" target="_blank" rel="noopener">James IV</a> — prominent royal office.</div></li>
-          <li><div class="year">c.1500</div><div><strong>John Doig</strong>, Provost of <a class="inline" href="https://en.wikipedia.org/wiki/Brechin" target="_blank" rel="noopener">Brechin</a> (Angus) — early civic leadership with the “Doig” spelling.</div></li>
-          <li><div class="year">1523</div><div><strong>James Dogge</strong> (“Jamie Dogg”) — royal messenger; court records note his service.</div></li>
-          <li><div class="year">1552</div><div><strong>James of Dunroben</strong> (Doig/Doak family) — raising men in Menteith for service in France under the <a class="inline" href="https://en.wikipedia.org/wiki/Auld_Alliance" target="_blank" rel="noopener">Auld Alliance</a>.</div></li>
+          <li><div class="year">1488–98</div><div><strong>James Dog</strong>, <em>Keeper of the King's Wardrobe</em> to <a class="inline" href="https://en.wikipedia.org/wiki/James_IV_of_Scotland" target="_blank" rel="noopener">James IV</a> — prominent royal office.</div></li>
+          <li><div class="year">c.1500</div><div><strong>John Doig</strong>, Provost of <a class="inline" href="https://en.wikipedia.org/wiki/Brechin" target="_blank" rel="noopener">Brechin</a> (Angus) — early civic leadership with the "Doig" spelling.</div></li>
+          <li><div class="year">1523</div><div><strong>James Dogge</strong> ("Jamie Dogg") — royal messenger; court records note his service.</div></li>
+          <li><div class="year">1532</div><div><strong>James Dog of Dunrobin</strong> (Menteith) — granted the lands of Severie in the parish of <a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a>; later noted raising men for service in France under the <a class="inline" href="https://en.wikipedia.org/wiki/Auld_Alliance" target="_blank" rel="noopener">Auld Alliance</a>.</div></li>
           <li><div class="year">1600s</div><div>Doig/Doak families documented across <strong>Perthshire</strong>, <strong>Angus</strong>, and <strong>Stirling/Loch Lomond</strong>; Scots migration to <strong>Ulster</strong> begins (Antrim & Down).</div></li>
+          <li><div class="year">1623</div><div><strong>William Dowok</strong> recorded in Lones — an early variant spelling in <a class="inline" href="https://en.wikipedia.org/wiki/Prestwick" target="_blank" rel="noopener">Prestwick</a> parish records.</div></li>
+          <li><div class="year">1646</div><div><strong>Robert Dook</strong>, treasurer (<em>thesaurer</em>) of the burgh of <a class="inline" href="https://en.wikipedia.org/wiki/Ayr" target="_blank" rel="noopener">Ayr</a> — civic office in Ayrshire.</div></li>
+          <li><div class="year">1654</div><div><strong>James Dock</strong>, heir of John Dock, described as a burgess of Ayr — continued Ayrshire presence.</div></li>
           <li><div class="year">1719</div><div><strong>Robert Doak</strong> recorded arriving in <a class="inline" href="https://en.wikipedia.org/wiki/New_England" target="_blank" rel="noopener">New England</a> — an early Scots‑Irish migration note.</div></li>
-          <li><div class="year">1782</div><div><strong>Robert Doak</strong> noted at <a class="inline" href="https://en.wikipedia.org/wiki/Prestwick" target="_blank" rel="noopener">Prestwick</a>, Ayrshire — “Doak” spelling fully established in records.</div></li>
+          <li><div class="year">1782</div><div><strong>Robert Doak</strong> noted at <a class="inline" href="https://en.wikipedia.org/wiki/Prestwick" target="_blank" rel="noopener">Prestwick</a>, Ayrshire — "Doak" spelling fully established in records.</div></li>
         </ul>
-        <p style="margin-top:.6rem">Researchers typically trace modern lines to one of three hubs: <strong>Perthshire/Menteith (Kilmadock–Inchmahome)</strong>, <strong>Angus/Brechin</strong>, and <strong>Ulster (Antrim/Down)</strong>, the latter often being Scots planters or later migrants.</p>
+        <p style="margin-top:.6rem">Researchers typically trace modern lines to one of four hubs: <strong>Perthshire/Menteith (Kilmadock–Inchmahome)</strong>, <strong>Angus/Brechin</strong>, <strong>Ayrshire (Ayr–Prestwick)</strong>, and <strong>Ulster (Antrim/Down)</strong>, the latter often being Scots planters or later migrants.</p>
       </div>
     </section>
 
@@ -449,12 +530,11 @@
         </figure>
 
         <div>
-          <p>Historical documents trace the Doak/Doig family in various roles. After the 1372 mention of Alexander Doge, another early bearer was <em>John Dog</em>, listed as an <strong>armiger</strong> (armour-bearer or minor noble) in 1468. A <em>Dene Thomas Dog</em> was associated with <strong><a class="inline" href="https://en.wikipedia.org/wiki/Inchmahome_Priory" target="_blank" rel="noopener">Inchmahome Priory</a></strong> in 1478 – notably Inchmahome is a monastery in the same district (<a class="inline" href="https://en.wikipedia.org/wiki/Menteith" target="_blank" rel="noopener">Menteith</a>) where St. Cadoc’s Scottish church sites existed. By the late 1400s, a <em>James Dog</em> served as <strong><a class="inline" href="https://en.wikipedia.org/wiki/Yeoman_of_the_Wardrobe#Scotland" target="_blank" rel="noopener">Keeper of the King’s Wardrobe</a></strong> (in charge of royal garments and treasures) for <a class="inline" href="https://en.wikipedia.org/wiki/James_IV_of_Scotland" target="_blank" rel="noopener">King James IV of Scotland</a> between 1488–1498, indicating the family had risen to positions in the royal court. An <em>Alexander Dog</em> was a canon of Inchmahome in 1491, and by the early 1500s a <strong>John Doig</strong> had become Provost (mayor) of the burgh of <a class="inline" href="https://en.wikipedia.org/wiki/Brechin" target="_blank" rel="noopener">Brechin</a> in <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> – one of the first instances of the modernized spelling “Doig.”</p>
+          <p>Historical documents trace the Doak/Doig family in various roles. After the 1372 mention of Alexander Doge, another early bearer was <em>John Dog</em>, listed as an <strong>armiger</strong> (armour-bearer or minor noble) in 1468. A <em>Dene Thomas Dog</em> was associated with <strong><a class="inline" href="https://en.wikipedia.org/wiki/Inchmahome_Priory" target="_blank" rel="noopener">Inchmahome Priory</a></strong> in 1478 – notably Inchmahome is a monastery in the same district (<a class="inline" href="https://en.wikipedia.org/wiki/Menteith" target="_blank" rel="noopener">Menteith</a>) where St. Cadoc's Scottish church sites existed. By the late 1400s, a <em>James Dog</em> served as <strong><a class="inline" href="https://en.wikipedia.org/wiki/Yeoman_of_the_Wardrobe#Scotland" target="_blank" rel="noopener">Keeper of the King's Wardrobe</a></strong> (in charge of royal garments and treasures) for <a class="inline" href="https://en.wikipedia.org/wiki/James_IV_of_Scotland" target="_blank" rel="noopener">King James IV of Scotland</a> between 1488–1498, indicating the family had risen to positions in the royal court. An <em>Alexander Dog</em> was a canon of Inchmahome in 1491, and by the early 1500s a <strong>John Doig</strong> had become Provost (mayor) of the burgh of <a class="inline" href="https://en.wikipedia.org/wiki/Brechin" target="_blank" rel="noopener">Brechin</a> in <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> – one of the first instances of the modernized spelling "Doig."</p>
 
-          <p>Through the 16th century, the surname continued to appear in noteworthy contexts. In 1523, <em>James Dogge</em> (also recorded as <strong>“Jamie Dogg”</strong>) acted as a royal messenger for the Scottish crown. A few decades later, in 1552, a man recorded as <strong>“James of Dunroben”</strong> (likely from the Doig/Doak family of <a class="inline" href="https://en.wikipedia.org/wiki/Dunrobin" target="_blank" rel="noopener">Dunrobin</a>, Perthshire) was noted for <strong>raising men in Menteith to serve in France</strong> – possibly as part of the <strong><a class="inline" href="https://en.wikipedia.org/wiki/Auld_Alliance" target="_blank" rel="noopener">Auld Alliance</a></strong>, Scotland’s military alliance with France. These references show the Doak/Doig name embedded in the fabric of Scottish medieval life, from church affairs to royal service and international ventures. By the 1600s the spelling “Doig” had become common, and by the late 17th century we see “Doak” in use – for example, a <strong>Robert Doak</strong> is mentioned in <a class="inline" href="https://en.wikipedia.org/wiki/Prestwick" target="_blank" rel="noopener">Prestwick</a>, Ayrshire, records of 1782, solidifying “Doak” as a recognized variant. Throughout these centuries, branches of the family established themselves in various parts of Scotland, especially in <strong><a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a>, and the <a class="inline" href="https://en.wikipedia.org/wiki/Loch_Lomond" target="_blank" rel="noopener">Stirling/Loch Lomond</a> area</strong>, where St. Cadoc’s legacy was strongest.</p>
+          <p>Through the 16th century, the surname continued to appear in noteworthy contexts. In 1523, <em>James Dogge</em> (also recorded as <strong>"Jamie Dogg"</strong>) acted as a royal messenger for the Scottish crown. In 1532, <strong>James Dog of Dunrobin</strong> in Menteith received the lands of Severie in the parish of <a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a>, and was later noted for <strong>raising men in Menteith to serve in France</strong> – likely as part of the <strong><a class="inline" href="https://en.wikipedia.org/wiki/Auld_Alliance" target="_blank" rel="noopener">Auld Alliance</a></strong>, Scotland's military alliance with France. These references show the Doak/Doig name embedded in the fabric of Scottish medieval life, from church affairs to royal service and international ventures. By the 1600s the spelling "Doig" had become common, and new variants emerged in Ayrshire: <strong>William Dowok</strong> appears in Prestwick parish records in 1623, <strong>Robert Dook</strong> served as treasurer of the burgh of Ayr in 1646, and <strong>James Dock</strong> was recorded as a burgess of Ayr in 1654. By the late 18th century, a <strong>Robert Doak</strong> is mentioned in <a class="inline" href="https://en.wikipedia.org/wiki/Prestwick" target="_blank" rel="noopener">Prestwick</a>, Ayrshire, records of 1782, solidifying "Doak" as a recognized variant. Throughout these centuries, branches of the family established themselves in various parts of Scotland, especially in <strong><a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Ayrshire" target="_blank" rel="noopener">Ayrshire</a>, and the <a class="inline" href="https://en.wikipedia.org/wiki/Loch_Lomond" target="_blank" rel="noopener">Stirling/Loch Lomond</a> area</strong>, where St. Cadoc's legacy was strongest.</p>
         </div>
 
-        <!-- NEW: Brechin Cathedral image supporting the c.1500 Provost of Brechin reference -->
         <figure class="media">
           <img
             class="zoomable"
@@ -475,7 +555,7 @@
       <h2>Heraldry & Arms (Context and Usage)</h2>
       <div class="panel grid">
         <div>
-          <p>In Scottish heraldry, coats of arms are granted to <em>individuals</em> by the Court of the Lord Lyon, not to surnames as a whole. Over time, versions of arms have been used or depicted for <strong>Doak/Doig</strong> bearers and are commonly reproduced by genealogy vendors. These designs act as historical identifiers for particular armigers and cadet branches, rather than a universal “family coat.”</p>
+          <p>In Scottish heraldry, coats of arms are granted to <em>individuals</em> by the Court of the Lord Lyon, not to surnames as a whole. Over time, versions of arms have been used or depicted for <strong>Doak/Doig</strong> bearers and are commonly reproduced by genealogy vendors. These designs act as historical identifiers for particular armigers and cadet branches, rather than a universal "family coat."</p>
           <p>The crest shown here is a widely-circulated representation associated with the <strong>Doak</strong> name in popular sources. It is included for historical interest and visual context. To determine entitlement to arms or to matriculate a variant, modern claimants would consult the <a class="inline" href="https://en.wikipedia.org/wiki/Court_of_the_Lord_Lyon" target="_blank" rel="noopener">Court of the Lord Lyon</a> or established heraldic registers.</p>
         </div>
         <figure class="media">
@@ -499,9 +579,9 @@
 
       <div class="panel grid">
         <div>
-          <p>In Scotland’s clan system, the Doak/Doig families became associated with <strong><a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a></strong>, a prominent Highland clan. In fact, <strong>Doak (along with Doig, Doeg, Doag, etc.) is listed as a sept of Clan Drummond</strong>. (A <em>sept</em> is a family branch allied to a larger clan.) This connection likely arose because many early “Dog/Doak” families lived on Drummond lands. By tradition, the Drummonds’ original estate was at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Drymen" target="_blank" rel="noopener">Drymen</a></strong> on the edge of <a class="inline" href="https://en.wikipedia.org/wiki/Loch_Lomond" target="_blank" rel="noopener">Loch Lomond</a> in south <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a>, and it’s noted that in this region “Dog” or “Dock” was a sept of Clan Drummond, the name being taken from the clan’s earliest land at Drymen. Thus, bearers of the surname Doak in that area would owe fealty to the Drummond chiefs.</p>
+          <p>In Scotland's clan system, the Doak/Doig families became associated with <strong><a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a></strong>, a prominent Highland clan. In fact, <strong>Doak (along with Doig, Doeg, Doag, etc.) is listed as a sept of Clan Drummond</strong>. (A <em>sept</em> is a family branch allied to a larger clan.) This connection likely arose because many early "Dog/Doak" families lived on Drummond lands. By tradition, the Drummonds' original estate was at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Drymen" target="_blank" rel="noopener">Drymen</a></strong> on the edge of <a class="inline" href="https://en.wikipedia.org/wiki/Loch_Lomond" target="_blank" rel="noopener">Loch Lomond</a> in south <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a>, and it's noted that in this region "Dog" or "Dock" was a sept of Clan Drummond, the name being taken from the clan's earliest land at Drymen. Thus, bearers of the surname Doak in that area would owe fealty to the Drummond chiefs.</p>
 
-          <p>Being part of Clan Drummond tied the Doaks to some significant chapters of Scottish history. The Drummonds themselves played major roles in national events – for example, tradition holds that a Drummond helped <a class="inline" href="https://en.wikipedia.org/wiki/Robert_the_Bruce" target="_blank" rel="noopener">King Robert the Bruce</a> secure victory at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Bannockburn" target="_blank" rel="noopener">Bannockburn (1314)</a></strong> by guiding the Scottish army through a marsh. Centuries later, during the <strong><a class="inline" href="https://en.wikipedia.org/wiki/Jacobite_risings" target="_blank" rel="noopener">Jacobite Risings</a></strong> of the 18th century, Clan Drummond was staunchly Jacobite. The Drummond chiefs (the Earls/Dukes of Perth) joined the uprisings in support of the exiled Stuart kings. As part of the Drummond sept, it is likely that some Doak/Doig families were among the clan supporters who fought in these conflicts. Clan Drummond adherents took part in key battles such as <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Sheriffmuir" target="_blank" rel="noopener">Sheriffmuir (1715)</a></strong> and the battles of <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Falkirk_Muir" target="_blank" rel="noopener">Falkirk Muir</a></strong> and <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Culloden" target="_blank" rel="noopener">Culloden (1746)</a></strong> during the second rising. At Culloden, the clan’s chief <a class="inline" href="https://en.wikipedia.org/wiki/James_Drummond,_3rd_Duke_of_Perth" target="_blank" rel="noopener">James Drummond</a> (3rd Duke of Perth) was mortally wounded. In the aftermath, the Drummond estates were forfeited for a time due to their Jacobite support. Although individual Doaks are not named in the surviving battle rolls, their identity as a Drummond sept means the family shared in the clan’s fortunes and struggles in these historic events.</p>
+          <p>Being part of Clan Drummond tied the Doaks to some significant chapters of Scottish history. The Drummonds themselves played major roles in national events – for example, tradition holds that a Drummond helped <a class="inline" href="https://en.wikipedia.org/wiki/Robert_the_Bruce" target="_blank" rel="noopener">King Robert the Bruce</a> secure victory at <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Bannockburn" target="_blank" rel="noopener">Bannockburn (1314)</a></strong> by guiding the Scottish army through a marsh. Centuries later, during the <strong><a class="inline" href="https://en.wikipedia.org/wiki/Jacobite_risings" target="_blank" rel="noopener">Jacobite Risings</a></strong> of the 18th century, Clan Drummond was staunchly Jacobite. The Drummond chiefs (the Earls/Dukes of Perth) joined the uprisings in support of the exiled Stuart kings. As part of the Drummond sept, it is likely that some Doak/Doig families were among the clan supporters who fought in these conflicts. Clan Drummond adherents took part in key battles such as <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Sheriffmuir" target="_blank" rel="noopener">Sheriffmuir (1715)</a></strong> and the battles of <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Falkirk_Muir" target="_blank" rel="noopener">Falkirk Muir</a></strong> and <strong><a class="inline" href="https://en.wikipedia.org/wiki/Battle_of_Culloden" target="_blank" rel="noopener">Culloden (1746)</a></strong> during the second rising. At Culloden, the clan's chief <a class="inline" href="https://en.wikipedia.org/wiki/James_Drummond,_3rd_Duke_of_Perth" target="_blank" rel="noopener">James Drummond</a> (3rd Duke of Perth) was mortally wounded. In the aftermath, the Drummond estates were forfeited for a time due to their Jacobite support. Although individual Doaks are not named in the surviving battle rolls, their identity as a Drummond sept means the family shared in the clan's fortunes and struggles in these historic events.</p>
         </div>
 
         <figure class="media">
@@ -516,7 +596,6 @@
           </figcaption>
         </figure>
 
-        <!-- NEW: Drummond tartan image alongside clan narrative -->
         <figure class="media">
           <img
             class="zoomable"
@@ -538,11 +617,11 @@
 
       <div class="panel grid">
         <div>
-          <p>From its origin as <em>Mac Gille Doig</em>, this surname has appeared in many <strong>spelling variations</strong>. Common variants in historical records include <strong>Dog, Doge, Dogg, Doig, Doeg, Doag, Doak, Doake, Doock/Doack, and Doidge</strong>, among others. All derive from the same Gaelic root and were often used interchangeably or evolved as spelling standardized. The spelling “Doig” became frequent in eastern Scotland (e.g. <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and <a class="inline" href="https://en.wikipedia.org/wiki/Fife" target="_blank" rel="noopener">Fife</a>) by the 17th century, while “Doak” and “Doack” appeared more in some regions and in later centuries. Even within one family line, the name might be recorded differently over generations due to inconsistent spelling in old parish registers.</p>
+          <p>From its origin as <em>Mac Gille Doig</em>, this surname has appeared in many <strong>spelling variations</strong>. Common variants in historical records include <strong>Dog, Doge, Dogg, Doig, Doeg, Doag, Doak, Doake, Doock/Doack, Dowok, Dook, Dock, and Doidge</strong>, among others. All derive from the same Gaelic root and were often used interchangeably or evolved as spelling standardized. The spelling "Doig" became frequent in eastern Scotland (e.g. <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and <a class="inline" href="https://en.wikipedia.org/wiki/Fife" target="_blank" rel="noopener">Fife</a>) by the 17th century, while "Doak" and "Doack" appeared more in some regions and in later centuries. Even within one family line, the name might be recorded differently over generations due to inconsistent spelling in old parish registers.</p>
 
-          <p>Beyond Scotland, the name Doak also has connections in <strong><a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ireland (Ulster)</a></strong>. In some cases, especially in <a class="inline" href="https://en.wikipedia.org/wiki/County_Down" target="_blank" rel="noopener">County Down</a>, <strong>Doak</strong> is an <strong>Anglicized form of the Irish Gaelic name <em><a class="inline" href="https://en.wiktionary.org/wiki/Mac_Dabh%C3%B3c" target="_blank" rel="noopener">Mac Dabhóc</a></em></strong>. This Irish surname <em>Mac Dabhóc</em> means “son of Dabhóc,” with <em>Dabhóc</em> being a pet form of <strong><a class="inline" href="https://en.wikipedia.org/wiki/David" target="_blank" rel="noopener">David</a></strong>. (Notably, when the “D” sound in <em>Mac Dabhóc</em> was lenited in Gaelic, it produced a <strong><a class="inline" href="https://en.wikipedia.org/wiki/McCook" target="_blank" rel="noopener">McCook</a></strong> in English; indeed, McCook is considered another rendering of the same Irish name.) The <em>Mac Dabhóc</em> family has a different origin – it has been linked to the Anglo-Norman <strong><a class="inline" href="https://en.wikipedia.org/wiki/House_of_Burgh" target="_blank" rel="noopener">Burke (de Burgh)</a></strong> family in <a class="inline" href="https://en.wikipedia.org/wiki/Connacht" target="_blank" rel="noopener">Connacht</a>, Ireland. However, many of the Doak families found in Ulster are believed to be <strong>Scottish transplants</strong> (Planter or immigrant families) rather than native Irish. Genealogists note that in <a class="inline" href="https://en.wikipedia.org/wiki/County_Antrim" target="_blank" rel="noopener">Antrim</a> and <a class="inline" href="https://en.wikipedia.org/wiki/County_Down" target="_blank" rel="noopener">Down</a>, the Doaks were more likely Scottish-origin Doig septs, since in those areas the name “usually appears as Doig” historically. In summary, <em>some</em> Irish Doaks may descend from Gaelic MacDabhóc roots, but a great number trace back to Scottish forebears who moved to Ulster, especially during the 1600s settlement of Ulster.</p>
+          <p>Beyond Scotland, the name Doak also has connections in <strong><a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ireland (Ulster)</a></strong>. In some cases, especially in <a class="inline" href="https://en.wikipedia.org/wiki/County_Down" target="_blank" rel="noopener">County Down</a>, <strong>Doak</strong> is an <strong>Anglicized form of the Irish Gaelic name <em><a class="inline" href="https://en.wiktionary.org/wiki/Mac_Dabh%C3%B3c" target="_blank" rel="noopener">Mac Dabhóc</a></em></strong>. This Irish surname <em>Mac Dabhóc</em> means "son of Dabhóc," with <em>Dabhóc</em> being a pet form of <strong><a class="inline" href="https://en.wikipedia.org/wiki/David" target="_blank" rel="noopener">David</a></strong>. (Notably, when the "D" sound in <em>Mac Dabhóc</em> was lenited in Gaelic, it produced a <strong><a class="inline" href="https://en.wikipedia.org/wiki/McCook" target="_blank" rel="noopener">McCook</a></strong> in English; indeed, McCook is considered another rendering of the same Irish name.) The <em>Mac Dabhóc</em> family has a different origin – it has been linked to the Anglo-Norman <strong><a class="inline" href="https://en.wikipedia.org/wiki/House_of_Burgh" target="_blank" rel="noopener">Burke (de Burgh)</a></strong> family in <a class="inline" href="https://en.wikipedia.org/wiki/Connacht" target="_blank" rel="noopener">Connacht</a>, Ireland. However, many of the Doak families found in Ulster are believed to be <strong>Scottish transplants</strong> (Planter or immigrant families) rather than native Irish. Genealogists note that in <a class="inline" href="https://en.wikipedia.org/wiki/County_Antrim" target="_blank" rel="noopener">Antrim</a> and <a class="inline" href="https://en.wikipedia.org/wiki/County_Down" target="_blank" rel="noopener">Down</a>, the Doaks were more likely Scottish-origin Doig septs, since in those areas the name "usually appears as Doig" historically. In summary, <em>some</em> Irish Doaks may descend from Gaelic MacDabhóc roots, but a great number trace back to Scottish forebears who moved to Ulster, especially during the 1600s settlement of Ulster.</p>
 
-          <p>It is also worth mentioning that one source notes a <strong>rare English</strong> origin of the surname: in England, <em>Doak</em> has occasionally appeared as a variant of the surname <strong><a class="inline" href="https://en.wikipedia.org/wiki/Duke_(surname)" target="_blank" rel="noopener">Duke</a></strong>. This seems to have been an uncommon and likely coincidental usage (possibly a mis-spelling in certain records). The dominant narrative of the name’s history points back to the Scottish Gaelic and Celtic saint origin.</p>
+          <p>It is also worth mentioning that one source notes a <strong>rare English</strong> origin of the surname: in England, <em>Doak</em> has occasionally appeared as a variant of the surname <strong><a class="inline" href="https://en.wikipedia.org/wiki/Duke_(surname)" target="_blank" rel="noopener">Duke</a></strong>. This seems to have been an uncommon and likely coincidental usage (possibly a mis-spelling in certain records). The dominant narrative of the name's history points back to the Scottish Gaelic and Celtic saint origin.</p>
         </div>
 
         <figure class="media">
@@ -567,6 +646,7 @@
         <div>
           <p>From the 17th century onward, <strong>Doak</strong> lines moved from Scotland into <strong>Ulster</strong> (notably Antrim and Down) as part of the Scots‑Irish current, and later across the Atlantic and to the southern hemisphere. Records note a <strong>Robert Doak</strong> arriving in New England in <strong>1719</strong>. Through the 18th–19th centuries, additional arrivals appear in shipping lists for <strong>New York</strong> and <strong>Canada</strong>, and later for <strong>Australia</strong> and <strong>New Zealand</strong>. These migrations carried the Perthshire/Angus/Ulster strands of the surname into new communities where the name remains established today.</p>
           <blockquote>Typical research path: parish registers and tax rolls in Perthshire/Angus → plantation/estate papers in Ulster → passenger lists and land grants in North America or Australasia.</blockquote>
+          <p>Today, the surname Doak is most concentrated in the <strong>United States</strong> (over 4,000 bearers), with notable clusters in Texas, Ohio, and Missouri, and the highest per-capita density in Montana. Significant populations also exist in <strong>Canada</strong>, <strong>Australia</strong>, and <strong>Northern Ireland</strong>. Genetic data from 23andMe confirms the European ancestry of Doak bearers, with the dominant paternal haplogroup being <strong>R-P311</strong> — a lineage widespread among populations of northwestern European descent. In Ireland, 54% of Doak families identify as <strong>Presbyterian</strong>, consistent with their Scots-Irish planter origins.</p>
         </div>
         <figure class="media">
           <img
@@ -580,15 +660,115 @@
       </div>
     </section>
 
+    <!-- NOTABLE BEARERS — NEW SECTION -->
+    <section id="notables">
+      <div class="kicker">Distinguished Names</div>
+      <h2>Notable Bearers of the Doak Name</h2>
+
+      <div class="panel" style="padding-bottom:10px">
+        <p>From frontier educators to cabinet ministers, from baseball innovators to scholars who dined with Robert Burns — bearers of the Doak and Doig name have left distinctive marks well beyond Scotland's borders. The figures below represent some of the most historically significant.</p>
+      </div>
+
+      <div class="notable-grid">
+
+        <!-- Samuel Doak -->
+        <article class="notable-card">
+          <div class="notable-header">
+            <div class="notable-era">1749 – 1830</div>
+            <h3 class="notable-name">Rev. Samuel Doak</h3>
+            <p class="notable-title">Presbyterian Minister, Educator & Pioneer</p>
+          </div>
+          <div class="notable-body">
+            <p>Born in Augusta County, Virginia, to Scotch-Irish immigrants, Samuel Doak became one of the most consequential figures in early American frontier history. A Princeton graduate, he crossed the Appalachians into what is now Tennessee and in 1780 founded <strong>Salem Church</strong> and a school that would be chartered as <strong>Martin Academy</strong> in 1783 — the first chartered school in the trans-Appalachian region.</p>
+            <p>In 1795, Martin Academy was elevated to become <a class="notable-link" href="https://en.wikipedia.org/wiki/Washington_College_(Tennessee)" target="_blank" rel="noopener">Washington College</a>, with Doak as its first president. He later founded <strong>Tusculum Academy</strong> (now <a class="notable-link" href="https://en.wikipedia.org/wiki/Tusculum_University" target="_blank" rel="noopener">Tusculum University</a>), making him the father of two enduring institutions.</p>
+            <p>His most famous moment came at <strong>Sycamore Shoals</strong> in September 1780, when he delivered a fiery sermon to the assembled <a class="notable-link" href="https://en.wikipedia.org/wiki/Overmountain_Men" target="_blank" rel="noopener">Overmountain Men</a> as they mustered for the march that would culminate in the pivotal Patriot victory at the <a class="notable-link" href="https://en.wikipedia.org/wiki/Battle_of_Kings_Mountain" target="_blank" rel="noopener">Battle of Kings Mountain</a>. He was also a delegate to the convention that formed the short-lived <a class="notable-link" href="https://en.wikipedia.org/wiki/State_of_Franklin" target="_blank" rel="noopener">State of Franklin</a> in 1784, and was an early voice in the movement for the abolition of slavery.</p>
+            <div class="notable-stat">⛪ Founded two colleges &amp; multiple churches across the frontier</div>
+          </div>
+        </article>
+
+        <!-- Dr David Doig -->
+        <article class="notable-card">
+          <div class="notable-header">
+            <div class="notable-era">1719 – 1800</div>
+            <h3 class="notable-name">Dr David Doig <span style="font-size:.72em;font-weight:400;color:var(--muted)">FRSE LLD</span></h3>
+            <p class="notable-title">Scholar, Philologist & Educator — Stirling</p>
+          </div>
+          <div class="notable-body">
+            <p>Born at Mill of Melgund in Aberlemno, Angus, David Doig won a Latin bursary to the University of St Andrews. After teaching at parish schools across Fife, he was appointed <strong>Rector of Stirling Grammar School</strong> (now <a class="notable-link" href="https://en.wikipedia.org/wiki/Stirling_High_School" target="_blank" rel="noopener">Stirling High School</a>) — a post he held for over <strong>40 years</strong> from 1760 to 1800.</p>
+            <p>Doig was a formidable intellectual: he contributed the articles on <em>Mythology</em>, <em>Mysteries</em>, and <em>Philology</em> to the third edition of the <strong>Encyclopædia Britannica</strong>, was elected a Fellow of the <a class="notable-link" href="https://en.wikipedia.org/wiki/Royal_Society_of_Edinburgh" target="_blank" rel="noopener">Royal Society of Edinburgh</a>, and published philosophical works challenging Lord Kames. He is also believed to have been the <strong>inventor of the tartan pattern</strong> now associated with <a class="notable-link" href="https://en.wikipedia.org/wiki/Burberry" target="_blank" rel="noopener">Burberry</a>.</p>
+            <p>In August 1787, the poet <a class="notable-link" href="https://en.wikipedia.org/wiki/Robert_Burns" target="_blank" rel="noopener">Robert Burns</a> dined with Doig during his Highland tour. Burns described him as "a queerish figure and something of a pedant" — though for many years afterwards, 27 August was celebrated as Burns Night in Stirling in honour of that very dinner. The town erected a marble monument to Doig's memory with a Latin epitaph he had composed himself.</p>
+            <div class="notable-stat">📖 Encyclopædia Britannica contributor · FRSE</div>
+          </div>
+        </article>
+
+        <!-- William N. Doak -->
+        <article class="notable-card">
+          <div class="notable-header">
+            <div class="notable-era">1882 – 1933</div>
+            <h3 class="notable-name">William N. Doak</h3>
+            <p class="notable-title">U.S. Secretary of Labor under President Hoover</p>
+          </div>
+          <div class="notable-body">
+            <p>Born in Rural Retreat, Virginia, William Nuckles Doak rose through the American labour movement as Vice-President of the <a class="notable-link" href="https://en.wikipedia.org/wiki/Brotherhood_of_Railroad_Trainmen" target="_blank" rel="noopener">Brotherhood of Railroad Trainmen</a> (1916–1928), where he earned a reputation as a skilled mediator between management and unions.</p>
+            <p>On 9 December 1930, <a class="notable-link" href="https://en.wikipedia.org/wiki/Herbert_Hoover" target="_blank" rel="noopener">President Hoover</a> appointed Doak as the third <strong><a class="notable-link" href="https://en.wikipedia.org/wiki/United_States_Secretary_of_Labor" target="_blank" rel="noopener">United States Secretary of Labor</a></strong>. His most enduring achievement in office was championing the <strong><a class="notable-link" href="https://en.wikipedia.org/wiki/Davis%E2%80%93Bacon_Act" target="_blank" rel="noopener">Davis–Bacon Act</a></strong> of 1931, which established prevailing-wage requirements on federally funded construction — legislation that remains in force today. He also introduced a five-day work week within the Department of Labor in 1932.</p>
+            <p>Doak served until the end of Hoover's administration in March 1933 and passed away from cardiovascular disease just months later, at age 50.</p>
+            <div class="notable-stat">🏛 3rd U.S. Secretary of Labor · Davis–Bacon Act champion</div>
+          </div>
+        </article>
+
+        <!-- Bill Doak -->
+        <article class="notable-card">
+          <div class="notable-header">
+            <div class="notable-era">1891 – 1954</div>
+            <h3 class="notable-name">Bill "Spittin' Bill" Doak</h3>
+            <p class="notable-title">MLB Pitcher & Inventor of the Modern Baseball Glove</p>
+          </div>
+          <div class="notable-body">
+            <p>William Leopold Doak pitched 16 seasons in Major League Baseball, primarily for the <a class="notable-link" href="https://en.wikipedia.org/wiki/St._Louis_Cardinals" target="_blank" rel="noopener">St. Louis Cardinals</a> (1913–1924, 1929). He won <strong>169 career games</strong>, led the National League in ERA twice (1914 and 1921), and threw 32 shutouts for St. Louis — second only to <a class="notable-link" href="https://en.wikipedia.org/wiki/Bob_Gibson" target="_blank" rel="noopener">Bob Gibson</a> in franchise history. As one of 17 pitchers grandfathered when the spitball was banned in 1920, he earned the nickname "Spittin' Bill."</p>
+            <p>Yet Doak's greatest legacy lies off the mound. In 1919, he approached the <a class="notable-link" href="https://en.wikipedia.org/wiki/Rawlings_(company)" target="_blank" rel="noopener">Rawlings</a> Sporting Goods Company with a revolutionary idea: <strong>a laced web between the thumb and forefinger</strong> that would create a natural pocket for catching. The <strong>Bill Doak glove</strong>, first sold in 1920, replaced all prior designs and became the basis for every modern baseball glove. Rawlings produced versions of his design until 1953, and Doak earned up to $25,000 a year in royalties — often more than his playing salary.</p>
+            <p>In 2016, <em>The Sporting News</em> ranked him among the <strong>40 most important people in baseball history</strong>.</p>
+            <div class="notable-stat">⚾ 169 wins · 2× ERA champion · Revolutionised the baseball glove</div>
+          </div>
+        </article>
+
+        <!-- David Doak — Video Games -->
+        <article class="notable-card">
+          <div class="notable-header">
+            <div class="notable-era">Born 1967</div>
+            <h3 class="notable-name">David Doak</h3>
+            <p class="notable-title">Video Game Designer — GoldenEye 007</p>
+          </div>
+          <div class="notable-body">
+            <p>Born in Northern Ireland, David Doak began his career at <a class="notable-link" href="https://en.wikipedia.org/wiki/Rare_(company)" target="_blank" rel="noopener">Rare</a>, where he was a key designer and character artist on <strong><a class="notable-link" href="https://en.wikipedia.org/wiki/GoldenEye_007_(1997_video_game)" target="_blank" rel="noopener">GoldenEye 007</a></strong> (1997) for the Nintendo 64 — one of the most influential first-person shooters ever made and a landmark in multiplayer gaming. He went on to co-found <a class="notable-link" href="https://en.wikipedia.org/wiki/Free_Radical_Design" target="_blank" rel="noopener">Free Radical Design</a>, the studio behind the <em>TimeSplitters</em> series and <em>Haze</em>.</p>
+            <div class="notable-stat">🎮 GoldenEye 007 · TimeSplitters · Free Radical Design</div>
+          </div>
+        </article>
+
+        <!-- Wade Doak -->
+        <article class="notable-card">
+          <div class="notable-header">
+            <div class="notable-era">1940 – 2019</div>
+            <h3 class="notable-name">Wade Doak</h3>
+            <p class="notable-title">Marine Conservationist & Author — New Zealand</p>
+          </div>
+          <div class="notable-body">
+            <p>A pioneering New Zealand scuba diver, underwater photographer, filmmaker, and marine conservationist, Wade Doak authored numerous books on dolphins, reef ecosystems, and ocean conservation. His decades of fieldwork around the coast of New Zealand made him one of the country's foremost advocates for marine protection and interspecies communication research. His work exemplifies the global reach of the Doak diaspora in the southern hemisphere.</p>
+            <div class="notable-stat">🌊 Author · Diver · Marine conservationist</div>
+          </div>
+        </article>
+
+      </div><!-- /notable-grid -->
+    </section>
+
     <!-- LEGACY -->
     <section id="legacy">
       <div class="kicker">Legacy</div>
       <h2>Legacy and Conclusion</h2>
 
       <div class="panel">
-        <p>Throughout its history, the name Doak has been tied to Scotland’s cultural and religious heritage. Its very meaning preserves the memory of Saint <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> and the early Christian influence in Scotland. The Doaks, as part of <a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a>, participated indirectly in clan wars and national struggles, from medieval court life to the Jacobite rebellions. Over time the family name spread beyond <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a> – <strong>north into <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_Lowlands" target="_blank" rel="noopener">Lowlands</a>, west into <a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ulster</a></strong>, and eventually overseas. By the 18th and 19th centuries, bearers of the name emigrated further afield; for instance, records show a Robert Doak arriving in <a class="inline" href="https://en.wikipedia.org/wiki/New_England" target="_blank" rel="noopener">New England</a> in 1719, and others later settling in <a class="inline" href="https://en.wikipedia.org/wiki/Canada" target="_blank" rel="noopener">Canada</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Australia" target="_blank" rel="noopener">Australia</a>, and elsewhere as the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_diaspora" target="_blank" rel="noopener">Scottish diaspora</a> expanded.</p>
+        <p>Throughout its history, the name Doak has been tied to Scotland's cultural and religious heritage. Its very meaning preserves the memory of Saint <a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Cadoc</a> and the early Christian influence in Scotland. The Doaks, as part of <a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a>, participated indirectly in clan wars and national struggles, from medieval court life to the Jacobite rebellions. Over time the family name spread beyond <a class="inline" href="https://en.wikipedia.org/wiki/Perthshire" target="_blank" rel="noopener">Perthshire</a> – <strong>north into <a class="inline" href="https://en.wikipedia.org/wiki/Angus,_Scotland" target="_blank" rel="noopener">Angus</a> and the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_Lowlands" target="_blank" rel="noopener">Lowlands</a>, west into <a class="inline" href="https://en.wikipedia.org/wiki/Ulster" target="_blank" rel="noopener">Ulster</a></strong>, and eventually overseas. By the 18th and 19th centuries, bearers of the name emigrated further afield; for instance, records show a Robert Doak arriving in <a class="inline" href="https://en.wikipedia.org/wiki/New_England" target="_blank" rel="noopener">New England</a> in 1719, and others later settling in <a class="inline" href="https://en.wikipedia.org/wiki/Canada" target="_blank" rel="noopener">Canada</a>, <a class="inline" href="https://en.wikipedia.org/wiki/Australia" target="_blank" rel="noopener">Australia</a>, and elsewhere as the <a class="inline" href="https://en.wikipedia.org/wiki/Scottish_diaspora" target="_blank" rel="noopener">Scottish diaspora</a> expanded.</p>
 
-        <p>Today, the surname Doak and its variants remain a reminder of this rich lineage. It carries a Scottish identity at its core – rooted in Gaelic language (<em>Mac Gille Doig</em>), associated with a Highland clan, and linked to a Celtic saint’s legacy. From the misty kirkyards of <a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a> to the battlefields of Jacobite Scotland and beyond, the Doak name’s journey is interwoven with significant events and traditions of Scottish and Celtic history.</p>
+        <p>The legacy of individual Doaks and Doigs speaks to this breadth: a frontier minister who helped forge Tennessee's earliest institutions of higher learning; a scholar in Stirling whose intellect impressed the Encyclopædia Britannica and whose dinner table hosted Robert Burns; a cabinet secretary who shaped American labour law during the Great Depression; and a baseball pitcher whose sketch on a napkin revolutionised the most iconic piece of sporting equipment in America. From the misty kirkyards of <a class="inline" href="https://en.wikipedia.org/wiki/Kilmadock" target="_blank" rel="noopener">Kilmadock</a> to the battlefields of Jacobite Scotland and beyond, the Doak name's journey is interwoven with significant events and traditions of Scottish, Celtic, and global history.</p>
       </div>
     </section>
 
@@ -599,13 +779,21 @@
 
       <div class="panel">
         <ul>
-          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Saint Cadoc (Cadog)</a></em> – details on St. Cadoc’s life and Scottish followers named “Gille Dog”</li>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Cadoc" target="_blank" rel="noopener">Saint Cadoc (Cadog)</a></em> – details on St. Cadoc's life and Scottish followers named "Gille Dog"</li>
           <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Doig_(surname)" target="_blank" rel="noopener">Doig (surname)</a></em> – origin of the name (Mac Gille Doig) and variant spellings including Doak</li>
           <li><em><a class="inline" href="https://www.raitt.org/other-names.html#Doig" target="_blank" rel="noopener">The Raitt Stuff</a></em> (Genealogy site) – historical notes on the Doig/Doak family, early records (1372 onwards), and sept of Clan Drummond</li>
-          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a></em> – listing of Doak/Doig as a sept and notes on the clan’s role in Jacobite risings</li>
-          <li><a class="inline" href="https://www.johngrenham.com/surnames/" target="_blank" rel="noopener">John Grenham’s Irish Surnames</a> – entry on Doak (Mac Dabhóc in Ireland, and Scottish-Ulster connection)</li>
-          <li><a class="inline" href="https://en.wikipedia.org/wiki/Oxford_Dictionary_of_Family_Names_in_Britain_and_Ireland" target="_blank" rel="noopener">Oxford Dictionary of Family Names</a> – confirming Scottish and Irish origins and the rare English “Duke” variant</li>
-          <li><a class="inline" href="https://en.wikipedia.org/wiki/Houseofnames" target="_blank" rel="noopener">House of Names</a> – general family origin narrative (Kilmadock in Perthshire and early spellings).</li>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Clan_Drummond" target="_blank" rel="noopener">Clan Drummond</a></em> – listing of Doak/Doig as a sept and notes on the clan's role in Jacobite risings</li>
+          <li><a class="inline" href="https://www.johngrenham.com/surnames/" target="_blank" rel="noopener">John Grenham's Irish Surnames</a> – entry on Doak (Mac Dabhóc in Ireland, and Scottish-Ulster connection)</li>
+          <li><a class="inline" href="https://en.wikipedia.org/wiki/Oxford_Dictionary_of_Family_Names_in_Britain_and_Ireland" target="_blank" rel="noopener">Oxford Dictionary of Family Names</a> – confirming Scottish and Irish origins and the rare English "Duke" variant</li>
+          <li><a class="inline" href="https://en.wikipedia.org/wiki/Houseofnames" target="_blank" rel="noopener">House of Names</a> – general family origin narrative (Kilmadock in Perthshire and early spellings)</li>
+          <li>George Fraser Black, <em>The Surnames of Scotland</em> (1946) – primary reference for Dowok/Dook/Dock variants and Ayrshire records (via <a class="inline" href="https://forebears.io/surnames/doak" target="_blank" rel="noopener">Forebears.io</a>)</li>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Samuel_Doak" target="_blank" rel="noopener">Samuel Doak</a></em> – life of the frontier minister and educator; founding of Washington College and Tusculum</li>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/David_Doig" target="_blank" rel="noopener">David Doig</a></em> – Rector of Stirling Grammar School, Encyclopædia Britannica contributor, and Burns connection</li>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/William_N._Doak" target="_blank" rel="noopener">William N. Doak</a></em> – U.S. Secretary of Labor and champion of the Davis–Bacon Act</li>
+          <li>Wikipedia: <em><a class="inline" href="https://en.wikipedia.org/wiki/Bill_Doak" target="_blank" rel="noopener">Bill Doak</a></em> – MLB pitcher and inventor of the modern baseball glove pocket</li>
+          <li><a class="inline" href="https://sabr.org/bioproj/person/bill-doak/" target="_blank" rel="noopener">SABR Bio Project: Bill Doak</a> – detailed career biography and glove innovation history</li>
+          <li><a class="inline" href="https://discover.23andme.com/last-name/Doak" target="_blank" rel="noopener">23andMe: Doak surname data</a> – genetic haplogroup and demographic distribution</li>
+          <li><a class="inline" href="https://surnamedb.com/Surname/Doak" target="_blank" rel="noopener">SurnameDB: Doak</a> – first recorded spelling (1372) and surname development</li>
         </ul>
         <p class="muted" style="color:var(--muted);margin-top:.6rem">
           Images on this page are loaded from the local <code>images</code> folder and open at full size when clicked.
@@ -615,10 +803,9 @@
 
   </main>
 
-  <!-- Simplified footer -->
+  <!-- Footer -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-inner">
-      <!-- Left: brand -->
       <div class="footer-left">
         <div class="footer-crest" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -632,8 +819,6 @@
           <small>Origins · Scotland · Clan Drummond</small>
         </div>
       </div>
-
-      <!-- Right: fixed copyright text -->
       <div class="footer-right">
         <span>© 2025 Doak Family - Research by Robin Doak</span>
       </div>
@@ -642,8 +827,6 @@
 
   <a href="#top" class="top" aria-label="Back to top" id="backToTop">↑ Top</a>
 
-  <!-- Enhanced JS: progress, sticky header effects, smooth anchors, active chips, lightbox with nav.
-       NOTE: Parallax/mouse-move image effect has been removed. -->
   <script>
     (function(){
       const $ = (sel, ctx=document) => ctx.querySelector(sel);
@@ -657,7 +840,6 @@
       const sections = $$('main section[id]');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // RAF throttle
       const throttleRAF = (fn) => {
         let ticking = false;
         return (...args) => {
@@ -668,7 +850,6 @@
         };
       };
 
-      // Reading progress + sticky header shadow + back-to-top visibility
       const onScroll = throttleRAF(() => {
         const h = document.documentElement;
         const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
@@ -680,7 +861,6 @@
       document.addEventListener('scroll', onScroll, {passive:true});
       onScroll();
 
-      // Smooth anchor scroll with sticky offset
       const stickyOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--anchor-offset')) || 86;
       const smoothScrollToId = (id) => {
         const el = document.getElementById(id);
@@ -690,7 +870,6 @@
         window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' });
       };
 
-      // Intercept internal anchor clicks for smooth offset scroll
       document.addEventListener('click', (e) => {
         const a = e.target.closest('a[href^="#"]');
         if (!a) return;
@@ -702,7 +881,6 @@
         }
       });
 
-      // Active chip highlight with IntersectionObserver
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           const id = entry.target.id;
@@ -714,7 +892,7 @@
       }, { rootMargin: `-${stickyOffset}px 0px -65% 0px`, threshold: 0.1 });
       sections.forEach(sec => observer.observe(sec));
 
-      // LIGHTBOX with next/prev + keyboard + preloading
+      // LIGHTBOX
       const zoomables = $$('.zoomable');
       const lightbox = (() => {
         const lb = document.createElement('div');
@@ -744,7 +922,6 @@
         viewer.src = full;
         viewer.alt = alt;
         lightbox.classList.add('open');
-        // Preload neighbors
         const prevIdx = (current - 1 + zoomables.length) % zoomables.length;
         const nextIdx = (current + 1) % zoomables.length;
         [prevIdx, nextIdx].forEach(i => { const p = new Image(); p.src = zoomables[i].getAttribute('data-full') || zoomables[i].src; });
@@ -766,7 +943,29 @@
         if (e.key === 'ArrowLeft') prev();
       });
 
-      /* NOTE: No parallax/mouse-move effect — removed for mobile friendliness. */
+      // Staggered reveal for notable cards
+      const notableCards = $$('.notable-card');
+      if (!reducedMotion && notableCards.length) {
+        notableCards.forEach((card, i) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(24px)';
+          card.style.transition = 'opacity .5s ease, transform .5s ease';
+        });
+        const cardObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const card = entry.target;
+              const idx = notableCards.indexOf(card);
+              setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              }, idx * 100);
+              cardObserver.unobserve(card);
+            }
+          });
+        }, { threshold: 0.15 });
+        notableCards.forEach(card => cardObserver.observe(card));
+      }
     })();
   </script>
 </body>
