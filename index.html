@@ -107,6 +107,35 @@
       margin:0;
       text-shadow:0 2px 6px rgba(0,0,0,.55);
     }
+    .hero .tagline{
+      max-width:42rem;
+      margin:-.55rem auto 0;
+      color:var(--text-2);
+      font-size:.98rem;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.8rem;
+    }
+    .hero-actions .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      border-radius:999px;
+      padding:.72rem 1.1rem;
+      border:1px solid var(--accent);
+      background:var(--accent);
+      color:#080808;
+      font-weight:600;
+      text-decoration:none;
+      box-shadow:0 8px 22px rgba(0,0,0,.35);
+    }
+    .hero-actions .btn.secondary{
+      background:rgba(255,255,255,.045);
+      color:var(--accent);
+    }
 
     /* ============ 4. CARD GRID (Services) ============ */
     .card-grid{
@@ -200,6 +229,10 @@
       color:var(--accent);
       font-weight:600;
     }
+    .reward-table tbody th{
+      color:var(--text-1);
+      font-weight:500;
+    }
     .reward-table tbody tr:nth-child(even){
       background:rgba(255,255,255,.03);
     }
@@ -243,54 +276,44 @@
       font-weight:700;
     }
 
-    /* ============ 8. CHAIN CARD ============ */
-    .chain-card{
-      padding:1.5rem 1.4rem;
-      border:1px solid rgba(var(--accent-rgb),.26);
-      border-radius:12px;
-      background:rgba(255,255,255,0.045);
-      box-shadow:0 4px 16px rgba(0,0,0,.4);
-      position:relative;
+    /* ============ 8. OPERATIONS SNAPSHOT ============ */
+    .snapshot-grid{
+      display:grid;
+      gap:1rem;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      margin-top:1.25rem;
     }
-    .chain-meta{
-      margin:0 0 .9rem;
-      font-size:.96rem;
+    .snapshot-card{
+      min-height:112px;
+      display:flex;
+      align-items:flex-start;
+      gap:.85rem;
+      padding:1rem;
+      border:1px solid rgba(var(--accent-rgb),.24);
+      border-radius:12px;
+      background:rgba(255,255,255,.045);
+    }
+    .snapshot-card i{
+      flex:0 0 2.45rem;
+      width:2.45rem;
+      height:2.45rem;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:rgba(var(--accent-rgb),.13);
+      color:var(--accent);
+    }
+    .snapshot-card strong{
+      display:block;
+      margin-bottom:.2rem;
+      color:var(--accent);
+      font-size:.98rem;
+    }
+    .snapshot-card span{
+      display:block;
       color:var(--text-2);
-    }
-    .chain-count{
-      font-weight:600;
-      color:var(--accent);
-      font-size:1.05rem;
-      margin:.75rem 0 .5rem;
-    }
-    .chain-bar{
-      height:18px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(var(--accent-rgb),.25);
-      border-radius:12px;
-      overflow:hidden;
-    }
-    .chain-fill{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, var(--accent) 0%, #b99c5c 100%);
-      transition:width .8s ease;
-    }
-    .chain-refresh{
-      position:absolute;
-      top:1rem;
-      right:1rem;
-      background:none;
-      border:1px solid rgba(var(--accent-rgb),.4);
-      color:var(--accent);
-      padding:.3rem .6rem;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:.8rem;
-      transition:background .25s;
-    }
-    .chain-refresh:hover{
-      background:rgba(var(--accent-rgb),.15);
+      font-size:.88rem;
+      line-height:1.5;
     }
 
     /* ============ 9. FOOTER ============ */
@@ -327,6 +350,11 @@
   <section class="hero">
     <img src="images/Emblem.png" alt="Cartel Emblem" class="emblem" />
     <h1>“What happens behind the curtain…<br>stays ours.”</h1>
+    <p class="tagline">A quiet Torn faction hub for organised crime planning, member guidance, chain rewards and council updates.</p>
+    <div class="hero-actions" aria-label="Primary actions">
+      <a class="btn" href="contact.html"><i class="fa-solid fa-address-card"></i> Contact Council</a>
+      <a class="btn secondary" href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Read Rules</a>
+    </div>
   </section>
 
   <!-- MAIN -->
@@ -429,24 +457,32 @@
       </div>
     </section>
 
-    <!-- CHAIN PROGRESS -->
-    <section id="chain-progress">
+    <!-- OPERATIONS SNAPSHOT -->
+    <section id="operations">
       <div class="container glass">
-        <h2 class="section-title">Current Chain</h2>
-        <div class="chain-card" id="chainCard">
-          <p class="chain-meta">Our current chain status, fetched live:</p>
-
-          <div class="chain-count">
-            <span id="chainHits">—</span> / <span id="chainMax">250</span> Hits
-          </div>
-
-          <div class="chain-bar">
-            <div class="chain-fill" id="chainBar"></div>
-          </div>
-
-          <button class="chain-refresh" id="chainRefresh" title="Refresh now">
-            <i class="fa-solid fa-rotate-right"></i> Refresh
-          </button>
+        <h2 class="section-title">Operations Snapshot</h2>
+        <div class="snapshot-grid">
+          <article class="snapshot-card">
+            <i class="fa-solid fa-user-ninja"></i>
+            <div>
+              <strong>OC 2.0 Focus</strong>
+              <span>Slots, scouting and Scope decisions are coordinated for steady returns.</span>
+            </div>
+          </article>
+          <article class="snapshot-card">
+            <i class="fa-solid fa-capsules"></i>
+            <div>
+              <strong>Rewarded Chain Work</strong>
+              <span>Hit contributions are reviewed after reports and paid through the faction reward table.</span>
+            </div>
+          </article>
+          <article class="snapshot-card">
+            <i class="fa-solid fa-shield-heart"></i>
+            <div>
+              <strong>Armoury Support</strong>
+              <span>Weapons, meds, travel kits, consumables and drugs are available to active members.</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -455,10 +491,11 @@
     <section id="rewards">
       <div class="container">
         <h2 class="section-title">Chain Rewards</h2>
-        <p>Record <strong>6 + hits</strong> in any chain and claim your reward:</p>
+        <p>Record <strong>6+ hits</strong> in any chain and claim your reward:</p>
 
         <div class="table-wrapper">
-          <table class="reward-table">
+          <table class="reward-table" aria-describedby="reward-note">
+            <caption class="sr-only">Chain reward payouts by kill count.</caption>
             <thead>
               <tr>
                 <th scope="col">Kill Count</th>
@@ -467,20 +504,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>0 – 5</td><td><i class="fa-solid fa-capsules"></i>0 × Xanax</td><td>Below payout threshold</td></tr>
-              <tr><td>6 – 15</td><td><i class="fa-solid fa-capsules"></i>1 × Xanax</td><td>Entry-level contribution</td></tr>
-              <tr><td>16 – 25</td><td><i class="fa-solid fa-capsules"></i>2 × Xanax</td><td>Steady performers</td></tr>
-              <tr><td>26 – 35</td><td><i class="fa-solid fa-capsules"></i>3 × Xanax</td><td>Solid chain runners</td></tr>
-              <tr><td>36 – 45</td><td><i class="fa-solid fa-capsules"></i>4 × Xanax</td><td>High achievers</td></tr>
-              <tr><td>≥ 46</td><td><i class="fa-solid fa-capsules"></i>5 × Xanax</td><td>Top-tier reward</td></tr>
+              <tr><th scope="row">0 – 5</th><td><i class="fa-solid fa-capsules"></i>0 × Xanax</td><td>Below payout threshold</td></tr>
+              <tr><th scope="row">6 – 15</th><td><i class="fa-solid fa-capsules"></i>1 × Xanax</td><td>Entry-level contribution</td></tr>
+              <tr><th scope="row">16 – 25</th><td><i class="fa-solid fa-capsules"></i>2 × Xanax</td><td>Steady performers</td></tr>
+              <tr><th scope="row">26 – 35</th><td><i class="fa-solid fa-capsules"></i>3 × Xanax</td><td>Solid chain runners</td></tr>
+              <tr><th scope="row">36 – 45</th><td><i class="fa-solid fa-capsules"></i>4 × Xanax</td><td>High achievers</td></tr>
+              <tr><th scope="row">46+</th><td><i class="fa-solid fa-capsules"></i>5 × Xanax</td><td>Top-tier reward</td></tr>
             </tbody>
           </table>
         </div>
 
-        <p class="table-note">*Subject to change upon Council leadership review.</p>
+        <p class="table-note" id="reward-note">*Subject to change upon Council leadership review.</p>
 
         <div class="alert-card">
-          <p><strong>Note:</strong> Rewards will automatically be sent upon chain completion and review of Chain report.</p>
+          <p><strong>Note:</strong> Rewards are sent after chain completion and council review of the chain report.</p>
         </div>
 
       </div>
@@ -492,10 +529,10 @@
         <h2 class="section-title">Leadership Council</h2>
         <ul class="standard">
           <li><strong>Founder:</strong> <a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank" rel="noopener">XanderPTV</a></li>
-          <li><strong>Cartel Assembly &amp; Expansion:</strong> <a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank" rel="noopener">ForeverHydrox</a></li>
-          <li><strong>Underboss of Accounts:</strong> <a href="https://www.torn.com/profiles.php?XID=2541592" target="_blank" rel="noopener">Igniatus</a></li>
-          <li><strong>Cartel Frontrunner:</strong> <a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank" rel="noopener">Skillerious</a></li>
-          <li><strong>Cartel Frontrunner:</strong> <a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank" rel="noopener">JdedPrincess</a></li>
+          <li><strong>Leader:</strong> <a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank" rel="noopener">ForeverHydrox</a></li>
+          <li><strong>Co-Leader:</strong> <a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank" rel="noopener">Skillerious</a></li>
+          <li><strong>Treasurer:</strong> <a href="https://www.torn.com/profiles.php?XID=2541592" target="_blank" rel="noopener">Igniatus</a></li>
+          <li><strong>Council Member:</strong> <a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank" rel="noopener">JdedPrincess</a></li>
         </ul>
       </div>
     </section>
@@ -509,145 +546,5 @@
 
   <!-- ───────────────────────── SCRIPTS ───────────────────────── -->
   <script src="assets/script.js"></script>
-  <script>
-    /* ============================================================
-       Privé Cartel • index.html inline JS
-       - Updates © year
-       - Decrypts stored API key (AES-GCM, same as members.html: pcApiCipher)
-       - Polls Torn faction chain endpoint every 10 seconds
-       - Manual refresh button support
-       ============================================================ */
-    (() => {
-      "use strict";
-
-      /* ─────────────────── 0. Footer Year ─────────────────── */
-      const yearEl = document.getElementById("year");
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-      /* ─────────────────── 1. DOM Refs ─────────────────────── */
-      const LS_KEY     = "pcApiCipher";
-      const hitsEl     = document.getElementById("chainHits");
-      const maxEl      = document.getElementById("chainMax");
-      const barEl      = document.getElementById("chainBar");
-      const refreshBtn = document.getElementById("chainRefresh");
-
-      if (!hitsEl || !maxEl || !barEl) {
-        console.warn("[ChainCard] Missing DOM nodes. Aborting chain logic.");
-        return;
-      }
-
-      /* ─────────────────── 2. Crypto Helpers ───────────────── */
-      const cryptoOK = !!(crypto?.subtle);
-
-      async function getKey() {
-        const originHash = await crypto.subtle.digest(
-          "SHA-256",
-          new TextEncoder().encode(location.origin)
-        );
-        return crypto.subtle.importKey(
-          "raw",
-          originHash,
-          { name: "AES-GCM" },
-          false,
-          ["encrypt", "decrypt"]
-        );
-      }
-
-      async function decryptHex(hex) {
-        if (!cryptoOK) return hex; // fallback: plain storage
-        try {
-          const bytes = new Uint8Array(hex.match(/../g).map(h => parseInt(h, 16)));
-          const iv    = bytes.slice(0, 12);
-          const data  = bytes.slice(12);
-          const plain = await crypto.subtle.decrypt(
-            { name: "AES-GCM", iv },
-            await getKey(),
-            data
-          );
-          return new TextDecoder().decode(plain);
-        } catch {
-          return "";
-        }
-      }
-
-      /* ─────────────────── 3. Chain Fetch Logic ────────────── */
-      const POLL_MS   = 10_000;     // 10 seconds
-      let   apiKey    = null;
-      let   timerId   = null;
-      let   inFlight  = null;       // AbortController to cancel overlapping calls
-
-      async function fetchChain() {
-        if (!apiKey) return;
-
-        // cancel previous request if still running
-        if (inFlight) inFlight.abort();
-        inFlight = new AbortController();
-
-        try {
-          const res = await fetch(
-            `https://api.torn.com/faction/?selections=chain&key=${apiKey}`,
-            { signal: inFlight.signal }
-          );
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          const data = await res.json();
-          if (data.error) throw new Error(data.error.error);
-
-          const hits = data.chain?.current  ?? 0;
-          const max  = data.chain?.maximum ?? 100;
-          const pct  = Math.min(100, (hits / max) * 100);
-
-          hitsEl.textContent = hits;
-          maxEl.textContent  = max;
-          barEl.style.width  = pct + "%";
-        } catch (err) {
-          console.warn("[ChainCard] Fetch error:", err.message || err);
-          hitsEl.textContent = "—";
-          barEl.style.width  = "0%";
-        } finally {
-          inFlight = null;
-        }
-      }
-
-      function startPolling() {
-        stopPolling();
-        fetchChain(); // immediate fire
-        timerId = setInterval(fetchChain, POLL_MS);
-      }
-
-      function stopPolling() {
-        if (timerId) {
-          clearInterval(timerId);
-          timerId = null;
-        }
-      }
-
-      /* ─────────────────── 4. Visibility Optimisation ───────── */
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-          stopPolling();
-        } else {
-          startPolling();
-        }
-      });
-
-      /* ─────────────────── 5. Manual Refresh Button ────────── */
-      refreshBtn?.addEventListener("click", fetchChain);
-
-      /* ─────────────────── 6. INIT ─────────────────────────── */
-      (async () => {
-        const cipher = localStorage.getItem(LS_KEY);
-        if (!cipher) {
-          console.info("[ChainCard] No API key stored. Card will remain static.");
-          return;
-        }
-        apiKey = await decryptHex(cipher);
-        if (!apiKey) {
-          console.warn("[ChainCard] Unable to decrypt API key.");
-          return;
-        }
-        startPolling();
-      })();
-    })();
-  </script>
 </body>
 </html>

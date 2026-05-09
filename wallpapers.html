@@ -595,10 +595,7 @@
       btn.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
     })();
 
-    // PWA service worker
-    if('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(()=>{/* ignore */});
-    }
+    // Service worker intentionally omitted until sw.js exists.
   </script>
 </body>
 </html>
