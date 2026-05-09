@@ -9,6 +9,13 @@ class PCNavbar extends HTMLElement {
   disconnectedCallback() {
     if (this.onEscape) document.removeEventListener("keydown", this.onEscape);
     if (this.onScroll) window.removeEventListener("scroll", this.onScroll);
+    if (this.mobileQuery && this.onMediaChange) {
+      if (this.mobileQuery.removeEventListener) {
+        this.mobileQuery.removeEventListener("change", this.onMediaChange);
+      } else {
+        this.mobileQuery.removeListener(this.onMediaChange);
+      }
+    }
   }
 
   async render() {
@@ -65,24 +72,40 @@ class PCNavbar extends HTMLElement {
     const toggle = this.querySelector("#nav-toggle");
     const overlay = this.querySelector(".nav-overlay");
     const label = this.querySelector(".hamburger");
+    const mobileQuery = window.matchMedia("(max-width: 720px)");
 
     if (!toggle) return;
+    this.mobileQuery = mobileQuery;
 
     const sync = () => {
       const open = toggle.checked;
       document.body.classList.toggle("menu-open", open);
       overlay?.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", String(open));
+      label?.setAttribute("aria-expanded", String(open));
       label?.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    };
+
+    const setOpen = (open) => {
+      toggle.checked = open;
+      sync();
     };
 
     const close = () => {
       if (!toggle.checked) return;
-      toggle.checked = false;
-      sync();
+      setOpen(false);
     };
 
     toggle.addEventListener("change", sync);
+    label?.addEventListener("click", (event) => {
+      event.preventDefault();
+      setOpen(!toggle.checked);
+    });
+    label?.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      setOpen(!toggle.checked);
+    });
     overlay?.addEventListener("click", close);
     this.querySelectorAll(".nav-links a").forEach((link) => {
       link.addEventListener("click", close);
@@ -92,6 +115,15 @@ class PCNavbar extends HTMLElement {
       if (event.key === "Escape") close();
     };
     document.addEventListener("keydown", this.onEscape);
+
+    this.onMediaChange = (event) => {
+      if (!event.matches) close();
+    };
+    if (mobileQuery.addEventListener) {
+      mobileQuery.addEventListener("change", this.onMediaChange);
+    } else {
+      mobileQuery.addListener(this.onMediaChange);
+    }
 
     sync();
   }
