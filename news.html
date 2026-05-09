@@ -220,11 +220,20 @@ function buildCards(){
         <p>${a.summary}</p>
       </div>`;
 
-    if(a.file && a.file!=='#') card.onclick=()=>location.href='/news/'+a.file;
+    if(a.file && a.file!=='#') {
+      card.setAttribute('role','link');
+      card.setAttribute('tabindex','0');
+      card.onclick=()=>location.href=articleUrl(a.file);
+      card.onkeydown=e=>{if(e.key==='Enter') location.href=articleUrl(a.file);};
+    }
     grid.appendChild(card);
     return card;
   });
   filterCards();
+}
+
+function articleUrl(file){
+  return file.startsWith('../') || file.startsWith('/') ? file : '/news/' + file;
 }
 
 /* ---------- Search & filter ---------- */

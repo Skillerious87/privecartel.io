@@ -174,12 +174,19 @@ function buildCards(){
         <p>${itm.summary}</p>
       </div>`;
     if(itm.file && itm.file !== '#'){
-      card.addEventListener('click',()=> location.href = 'news/' + itm.file);
+      card.setAttribute('role','link');
+      card.setAttribute('tabindex','0');
+      card.addEventListener('click',()=> location.href = articleUrl(itm.file));
+      card.addEventListener('keydown',e=>{ if(e.key==='Enter') location.href = articleUrl(itm.file); });
     }
     grid.appendChild(card);
     return card;
   });
   filter();
+}
+
+function articleUrl(file){
+  return file.startsWith('../') || file.startsWith('/') ? file : 'news/' + file;
 }
 
 /* ---------- SEARCH / FILTER ---------- */
