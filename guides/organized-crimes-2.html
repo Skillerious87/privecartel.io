@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Privé Cartel • Organized Crimes 2.0 Guide</title>
+  <meta name="description" content="A clear new-member guide to Organized Crimes 2.0: joining slots, planning timers, role success, items, readiness, payouts and faction expectations." />
+  <link rel="icon" type="image/png" href="../images/Emblem.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+
+  <style>
+    .oc-hero .tagline {
+      max-width: 780px;
+    }
+    .guide-layout {
+      width: min(92%, 1180px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .guide-toc {
+      position: sticky;
+      top: calc(var(--nav-h) + 1rem);
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, .46);
+      padding: 1rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .25);
+    }
+    .guide-toc h2 {
+      margin: 0 0 .7rem;
+      font-family: "Poppins", sans-serif;
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .guide-toc a {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      color: rgba(232, 226, 206, .86);
+      text-decoration: none;
+      padding: .42rem 0;
+      font-size: .9rem;
+    }
+    .guide-toc a::before {
+      content: "";
+      width: .35rem;
+      height: 1px;
+      background: rgba(var(--accent-rgb), .7);
+    }
+    .guide-toc a:hover,
+    .guide-toc a:focus-visible {
+      color: var(--accent);
+    }
+    .guide-article {
+      min-width: 0;
+    }
+    .guide-panel {
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .035);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .22);
+    }
+    .guide-panel h2 {
+      margin: 0 0 .85rem;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+    }
+    .guide-panel h3 {
+      margin: 1.2rem 0 .45rem;
+      font-family: "Poppins", sans-serif;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+    .guide-panel p {
+      margin: .75rem 0;
+      color: rgba(232, 226, 206, .88);
+    }
+    .breadcrumb {
+      margin: 0 0 1rem;
+      font-size: .9rem;
+    }
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .summary-grid,
+    .phase-grid,
+    .role-grid,
+    .mistake-grid {
+      display: grid;
+      gap: .9rem;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      margin-top: 1rem;
+    }
+    .mini-card {
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, .26);
+      padding: .95rem;
+    }
+    .mini-card i {
+      color: var(--accent);
+      font-size: 1.25rem;
+      margin-bottom: .55rem;
+    }
+    .mini-card strong {
+      display: block;
+      color: var(--text-1);
+      margin-bottom: .25rem;
+    }
+    .mini-card span,
+    .mini-card p {
+      color: rgba(214, 197, 154, .86);
+      font-size: .9rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+    .flow-list,
+    .check-list,
+    .standard-list {
+      padding-left: 1.35rem;
+      margin: 1rem 0;
+    }
+    .flow-list li,
+    .check-list li,
+    .standard-list li {
+      margin-bottom: .7rem;
+      color: rgba(232, 226, 206, .88);
+    }
+    .flow-list strong,
+    .check-list strong,
+    .standard-list strong {
+      color: var(--text-1);
+    }
+    .notice {
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      background: rgba(var(--accent-rgb), .11);
+      padding: .85rem 1rem;
+      margin: 1rem 0;
+      color: var(--text-1);
+    }
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: 10px;
+      border: 1px solid rgba(var(--accent-rgb), .18);
+    }
+    .guide-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+    .guide-table th,
+    .guide-table td {
+      padding: .75rem .85rem;
+      border-bottom: 1px solid rgba(var(--accent-rgb), .15);
+      text-align: left;
+      vertical-align: top;
+    }
+    .guide-table th {
+      color: var(--accent);
+      background: rgba(255, 255, 255, .055);
+      font-weight: 600;
+    }
+    .guide-table tbody tr:last-child th,
+    .guide-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+    .status-good,
+    .status-warn,
+    .status-stop {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: .2rem .55rem;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .status-good {
+      color: #071008;
+      background: #95d79f;
+    }
+    .status-warn {
+      color: #120d02;
+      background: #e6c46d;
+    }
+    .status-stop {
+      color: #fff;
+      background: #9e3f3f;
+    }
+    .example-box {
+      display: grid;
+      gap: .8rem;
+      margin-top: 1rem;
+    }
+    .example-row {
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      gap: .75rem;
+      align-items: start;
+      border: 1px solid rgba(var(--accent-rgb), .16);
+      border-radius: 10px;
+      padding: .8rem;
+      background: rgba(0, 0, 0, .24);
+    }
+    .example-row strong {
+      color: var(--accent);
+    }
+    .source-list a {
+      color: var(--accent);
+    }
+    @media (max-width: 900px) {
+      .guide-layout {
+        grid-template-columns: 1fr;
+      }
+      .guide-toc {
+        position: static;
+      }
+    }
+    @media (max-width: 560px) {
+      .guide-panel {
+        padding: 1rem;
+      }
+      .example-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script type="module" src="/assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+  <div class="nav-overlay"></div>
+
+  <section class="rules-hero oc-hero">
+    <img src="../images/Emblem.png" alt="Cartel Emblem" class="emblem" />
+    <h1>Organized Crimes 2.0</h1>
+    <p class="tagline">A new-member field guide for joining, preparing for, and completing OC 2.0 scenarios without holding up the faction.</p>
+  </section>
+
+  <main>
+    <section>
+      <div class="guide-layout">
+        <aside class="guide-toc" aria-label="Guide contents">
+          <h2>On This Page</h2>
+          <a href="#quick-start">Quick Start</a>
+          <a href="#what-it-is">What OC 2.0 Is</a>
+          <a href="#screens">Where To Go</a>
+          <a href="#joining">Joining A Slot</a>
+          <a href="#planning">Planning & Execution</a>
+          <a href="#items">Tools & Materials</a>
+          <a href="#success">Success Chance</a>
+          <a href="#readiness">Readiness Checklist</a>
+          <a href="#payouts">Payouts</a>
+          <a href="#mistakes">Common Mistakes</a>
+          <a href="#faq">FAQ</a>
+        </aside>
+
+        <article class="guide-article">
+          <p class="breadcrumb">
+            <a href="../guides.html"><i class="fa-solid fa-arrow-left"></i> Back to Guides</a>
+          </p>
+
+          <section class="guide-panel" id="quick-start">
+            <h2>Quick Start</h2>
+            <p>If you only read one section before joining your first OC, read this.</p>
+            <div class="summary-grid">
+              <div class="mini-card">
+                <i class="fa-solid fa-gauge-high"></i>
+                <strong>Join sensible slots</strong>
+                <span>Pick roles with a strong success score. If your score is low, ask before joining.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-toolbox"></i>
+                <strong>Check item needs</strong>
+                <span>Some roles need tools or materials. Ask early if you do not have the item.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-plane-slash"></i>
+                <strong>Be in Torn at launch</strong>
+                <span>When the timer ends, you must not be travelling, hospitalized, or jailed.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-comments"></i>
+                <strong>Communicate fast</strong>
+                <span>Ping leadership if your timer, travel plan, or item requirement may block the OC.</span>
+              </div>
+            </div>
+            <div class="notice">
+              Privé Cartel rule of thumb: if joining the slot might delay or risk the crime, ask first. Nobody is expected to know every scenario on day one.
+            </div>
+          </section>
+
+          <section class="guide-panel" id="what-it-is">
+            <h2>What OC 2.0 Is</h2>
+            <p>
+              Organized Crimes 2.0 is faction group content. Leadership starts scenarios, members fill assigned roles, the crime spends time planning, then it initiates when all requirements are met. Successful scenarios can award faction respect, money or items, and crime experience for participants.
+            </p>
+            <ol class="flow-list">
+              <li><strong>Recruiting:</strong> open roles are available. Members join slots that match their success score and item access.</li>
+              <li><strong>Planning:</strong> once filled, the scenario moves through participant timers. This can take days depending on the crime.</li>
+              <li><strong>Initiating:</strong> the final launch check happens. Everyone must be eligible at that moment.</li>
+              <li><strong>Completed:</strong> the result is visible in the completed tab. Leadership reviews payouts and any lessons learned.</li>
+            </ol>
+          </section>
+
+          <section class="guide-panel" id="screens">
+            <h2>Where To Go</h2>
+            <p>Open your faction page, then go to the Organized Crime panel. OC 2.0 is usually split into these working areas:</p>
+            <div class="phase-grid">
+              <div class="mini-card">
+                <i class="fa-solid fa-user-plus"></i>
+                <strong>Recruiting</strong>
+                <span>Open scenarios with unfilled roles. This is where you normally join.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-hourglass-half"></i>
+                <strong>Planning</strong>
+                <span>Filled crimes counting down toward launch. Watch the timer and your travel plans.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <strong>Completed</strong>
+                <span>Results, rewards, logs and payout information after the scenario resolves.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="guide-panel" id="joining">
+            <h2>Joining A Slot</h2>
+            <p>Do not join purely because a slot is empty. Read the role, success score, scenario level, timer and item requirements first.</p>
+            <div class="table-wrapper">
+              <table class="guide-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Check</th>
+                    <th scope="col">What It Means</th>
+                    <th scope="col">Privé Cartel Standard</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Success score</th>
+                    <td>Your estimated chance of performing that role checkpoint well.</td>
+                    <td><span class="status-good">Good</span> Join when comfortably strong. Ask before joining borderline slots.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Role importance</th>
+                    <td>Some roles matter more to the total scenario than others.</td>
+                    <td><span class="status-warn">Ask</span> Low scores are more dangerous on key roles.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Items</th>
+                    <td>The role may require a reusable tool or a consumed material.</td>
+                    <td><span class="status-warn">Ask</span> Request faction stock immediately if you lack it.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Availability</th>
+                    <td>You must be in Torn and not jailed or hospitalized when it initiates.</td>
+                    <td><span class="status-stop">Stop</span> Do not join if you know you will be travelling at launch.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h3>When to ask before joining</h3>
+            <ul class="check-list">
+              <li>Your success score is visibly lower than other available members.</li>
+              <li>The role needs an item you do not own.</li>
+              <li>The scenario is high level or unfamiliar to you.</li>
+              <li>You are about to fly, revive, self-hospitalize, or go inactive.</li>
+            </ul>
+          </section>
+
+          <section class="guide-panel" id="planning">
+            <h2>Planning & Execution</h2>
+            <p>Once all roles are filled, the scenario enters planning. You usually do not need to sit online, but you do need to keep the final launch in mind.</p>
+            <div class="example-box">
+              <div class="example-row">
+                <strong>During planning</strong>
+                <span>Keep playing normally. Watch the OC timer before flights or long hospital risk. If the launch time becomes inconvenient, tell leadership early.</span>
+              </div>
+              <div class="example-row">
+                <strong>Near launch</strong>
+                <span>Return to Torn, avoid unnecessary attacks, avoid jail-risk actions, and make sure the required item is available.</span>
+              </div>
+              <div class="example-row">
+                <strong>At initiation</strong>
+                <span>The crime checks that participants are healthy, in Torn, and that all tools/materials are available. A missing requirement can delay or block the scenario.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="guide-panel" id="items">
+            <h2>Tools & Materials</h2>
+            <p>OC 2.0 item wording matters. Some items are reusable requirements, while others are consumed during the scenario.</p>
+            <div class="role-grid">
+              <div class="mini-card">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <strong>Tools</strong>
+                <span>Required for a role, generally reusable. You need access to one, but it is not normally consumed.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-box-open"></i>
+                <strong>Materials</strong>
+                <span>Used by the scenario and consumed if the crime requires them. These should usually come from faction stock.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-warehouse"></i>
+                <strong>Faction Stock</strong>
+                <span>If you need something, ask early in faction chat or Discord. Do not wait until the timer is ending.</span>
+              </div>
+            </div>
+            <div class="notice">
+              Best practice: once you join, immediately confirm the role requirement. If the item line says something is used, assume it will be consumed and ask leadership before buying anything expensive yourself.
+            </div>
+          </section>
+
+          <section class="guide-panel" id="success">
+            <h2>How To Improve Your Success</h2>
+            <p>Your role score is influenced by your account development and crime progress. You improve over time by consistently doing Crimes 2.0, building your character, and joining roles that fit your current strength.</p>
+            <ul class="standard-list">
+              <li><strong>Train your Crimes 2.0 skills:</strong> keep spending nerve. Idle nerve is lost progress.</li>
+              <li><strong>Grow your natural nerve bar:</strong> more crime progress usually means stronger crime reliability over time.</li>
+              <li><strong>Keep battle stats moving:</strong> some scenarios and outcomes may care about broader account strength.</li>
+              <li><strong>Learn your role history:</strong> if you repeatedly score well in certain role types, prioritize those when slots open.</li>
+              <li><strong>Avoid gambling with key slots:</strong> a low score on a critical role can cost the whole team more than waiting for a better fit.</li>
+            </ul>
+          </section>
+
+          <section class="guide-panel" id="readiness">
+            <h2>Readiness Checklist</h2>
+            <p>Use this before joining and again when the timer is close to completion.</p>
+            <div class="table-wrapper">
+              <table class="guide-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Timing</th>
+                    <th scope="col">Checklist</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Before joining</th>
+                    <td>Check success score, role, scenario level, item requirement, and your next 24-72 hours of activity.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">After joining</th>
+                    <td>Confirm you have the needed item or ask for it. Set a reminder if the timer ends during your usual flight window.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Final hours</th>
+                    <td>Return to Torn. Avoid risky attacks, jail-risk crimes, and long flights. Watch faction chat for pings.</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">After completion</th>
+                    <td>Check the completed tab, wait for leadership payout processing, and note any role types where you performed well.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="guide-panel" id="payouts">
+            <h2>Payouts</h2>
+            <p>Successful OC 2.0 rewards are processed by leadership or members with the correct Organized Crimes permission. The payout tool can split a chosen percentage between participants and faction reserves. Participant shares are split evenly from the participant allocation.</p>
+            <ul class="standard-list">
+              <li><strong>Money rewards:</strong> may be paid directly or added to faction balances, depending on leadership handling.</li>
+              <li><strong>Item rewards:</strong> are reviewed and handled according to faction needs and council decision.</li>
+              <li><strong>Faction cut:</strong> may be retained for materials, tools, war stock, armoury support and future OC costs.</li>
+            </ul>
+            <div class="notice">
+              If your payout is delayed, ask politely after leadership has had time to review the completed scenario. Do not spam chat immediately after completion.
+            </div>
+          </section>
+
+          <section class="guide-panel" id="mistakes">
+            <h2>Common Mistakes</h2>
+            <div class="mistake-grid">
+              <div class="mini-card">
+                <i class="fa-solid fa-plane"></i>
+                <strong>Flying through launch</strong>
+                <span>The most avoidable blocker. Check the timer before long trips.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-kit-medical"></i>
+                <strong>Ending in hospital</strong>
+                <span>Avoid risky fights near execution. Ask for help if you get stuck.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-lock"></i>
+                <strong>Missing required items</strong>
+                <span>Ask for tools or materials early, not when everyone is waiting.</span>
+              </div>
+              <div class="mini-card">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <strong>Joining weak slots silently</strong>
+                <span>Low score can be fine only when leadership agrees the role risk is acceptable.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="guide-panel" id="faq">
+            <h2>FAQ</h2>
+            <h3>Do I need to be online when the OC launches?</h3>
+            <p>You do not normally need to be actively online, but your character must be eligible: in Torn, healthy enough, not jailed, and with required items available.</p>
+
+            <h3>What if I do not own the required item?</h3>
+            <p>Ask in faction chat or Discord immediately. Privé Cartel can often provide items from stock, but leadership needs time to act.</p>
+
+            <h3>Should I join a low success score slot?</h3>
+            <p>Ask first. Some roles are less critical than others, but new members should not guess. A low score on a key checkpoint can risk the full scenario.</p>
+
+            <h3>How do I get better at OC 2.0?</h3>
+            <p>Use your nerve, keep improving Crimes 2.0 skills, grow your account, and build a history of reliable role completions.</p>
+
+            <h3>Where do I ask questions?</h3>
+            <p>Use faction chat for quick item or timing issues. Use Discord for planning questions, screenshots, and anything that needs leadership review.</p>
+          </section>
+
+          <section class="guide-panel" id="sources">
+            <h2>Sources Checked</h2>
+            <p>This guide is written for Privé Cartel members and intentionally simplifies leadership-side mechanics. It was checked against current public references:</p>
+            <ul class="standard-list source-list">
+              <li><a href="https://wiki.torn.com/wiki/Organized_Crime_2.0" target="_blank" rel="noopener noreferrer">Torn Wiki: Organized Crime 2.0</a></li>
+              <li><a href="https://wiki.torn.com/wiki/Factions" target="_blank" rel="noopener noreferrer">Torn Wiki: Factions and Organized Crimes upgrades</a></li>
+              <li><a href="https://www.torn.com/forums.php?a=0&b=0&f=61&p=threads&t=16545897" target="_blank" rel="noopener noreferrer">Torn Forums: new-member OC 2.0 guide thread</a></li>
+            </ul>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
+
+  <script src="../assets/script.js"></script>
+</body>
+</html>
