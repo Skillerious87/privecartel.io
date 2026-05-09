@@ -1,5 +1,14 @@
 [
   {
+    "title": "Website Refresh & OC 2.0 Guide",
+    "date": "2026-05-09",
+    "summary": "The faction hub has been polished with a stronger footer, homepage cleanup and a new Organized Crimes 2.0 guide for members.",
+    "icon": "screwdriver-wrench",
+    "tag": "Announcement",
+    "file": "2026-05-09-site-refresh.html",
+    "image": "announcement.png"
+  },
+  {
     "title": "Double Century Chain Report",
     "date": "2025-07-16",
     "summary": "Two 100‑hit chains completed on 16 Jul 2025: a 20‑minute sprint and a 22‑minute push—totalling 857.39 respect.",
@@ -78,7 +87,6 @@
     "icon": "coins",
     "tag": "Announcement",
     "file": "2025-10-14-Welcome.html",
-    "image": "announcement.png"
+    "image": "Announcement.png"
   }
 ]
-

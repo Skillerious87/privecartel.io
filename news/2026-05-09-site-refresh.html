@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privé Cartel • Website Refresh & OC 2.0 Guide (09 May 2026)</title>
+  <meta name="description" content="Privé Cartel announces a polished website refresh, a stronger footer, homepage cleanup, and a new Organized Crimes 2.0 guide for members." />
+  <link rel="icon" type="image/png" href="../images/Emblem.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+
+  <style>
+    .article-hero {
+      min-height: 52vh;
+      padding: calc(var(--nav-h) + 3rem) 1rem 3rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(5, 6, 7, .66), rgba(5, 6, 7, .96)),
+        url("../images/announcement.png") center/cover;
+      border-bottom: 1px solid rgba(var(--accent-rgb), .35);
+    }
+    .article-hero-inner {
+      width: min(92%, 820px);
+    }
+    .article-hero .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: #090909;
+      background: var(--accent);
+      border-radius: 999px;
+      padding: .38rem .8rem;
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 1rem;
+    }
+    .article-hero h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      text-shadow: 0 10px 30px rgba(0, 0, 0, .65);
+    }
+    .article-hero .tagline {
+      max-width: 720px;
+      margin: 1rem auto 0;
+      color: rgba(232, 226, 206, .9);
+      font-size: 1rem;
+    }
+    .article {
+      max-width: 940px;
+      margin-inline: auto;
+      padding: 2rem clamp(1rem, 3vw, 2rem);
+    }
+    .breadcrumb {
+      margin: 0 0 1rem;
+      font-size: .9rem;
+    }
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .byline {
+      color: var(--text-2);
+      font-size: .9rem;
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+    .intro {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(232, 226, 206, .92);
+      margin: 1rem 0 1.4rem;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--accent);
+      border-radius: 12px;
+      background: rgba(var(--accent-rgb), .07);
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1.6rem 0 2rem;
+    }
+    .feature-card {
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .035);
+      padding: 1rem;
+      display: flex;
+      gap: .85rem;
+      align-items: flex-start;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .22);
+    }
+    .feature-card i {
+      flex: 0 0 2.45rem;
+      width: 2.45rem;
+      height: 2.45rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb), .14);
+      color: var(--accent);
+    }
+    .feature-card h3 {
+      margin: 0 0 .35rem;
+      font-family: "Poppins", sans-serif;
+      font-size: 1rem;
+    }
+    .feature-card p {
+      margin: 0;
+      color: rgba(214, 197, 154, .88);
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    .article h2 {
+      margin-top: 1.8rem;
+    }
+    .article > p:not(.breadcrumb):not(.byline):not(.intro) {
+      color: rgba(232, 226, 206, .9);
+      line-height: 1.75;
+    }
+    .release-list {
+      display: grid;
+      gap: .85rem;
+      margin: 1rem 0 2rem;
+    }
+    .release-item {
+      display: grid;
+      grid-template-columns: 2.4rem minmax(0, 1fr);
+      gap: .85rem;
+      align-items: start;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .025));
+      padding: .95rem;
+    }
+    .release-item i {
+      width: 2.4rem;
+      height: 2.4rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--accent);
+      background: rgba(var(--accent-rgb), .13);
+    }
+    .release-item strong {
+      display: block;
+      color: var(--text-1);
+      margin-bottom: .22rem;
+    }
+    .release-item span {
+      display: block;
+      color: rgba(214, 197, 154, .88);
+      line-height: 1.6;
+      font-size: .93rem;
+    }
+    .impact-panel {
+      position: relative;
+      border: 1px solid rgba(var(--accent-rgb), .26);
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(var(--accent-rgb), .1), rgba(255, 255, 255, .025) 45%),
+        rgba(0, 0, 0, .28);
+      padding: 1.2rem;
+      margin: 1rem 0 1.6rem;
+      overflow: hidden;
+    }
+    .impact-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--accent);
+    }
+    .impact-panel p {
+      margin: 0;
+      color: rgba(232, 226, 206, .92);
+      line-height: 1.75;
+    }
+    .impact-panel p + p {
+      margin-top: .9rem;
+    }
+    .callout {
+      display: grid;
+      grid-template-columns: 3rem minmax(0, 1fr);
+      gap: 1rem;
+      align-items: start;
+      border: 1px solid rgba(var(--accent-rgb), .3);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(var(--accent-rgb), .18), rgba(255, 255, 255, .035) 42%, rgba(0, 0, 0, .2)),
+        rgba(0, 0, 0, .35);
+      padding: 1.2rem;
+      margin-top: 1.8rem;
+      color: rgba(232, 226, 206, .95);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .28);
+    }
+    .callout-icon {
+      width: 3rem;
+      height: 3rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #080808;
+      background: var(--accent);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .35);
+    }
+    .callout h2 {
+      margin: 0 0 .35rem;
+      font-family: "Poppins", sans-serif;
+      font-size: 1.05rem;
+      color: var(--text-1);
+    }
+    .callout p {
+      margin: 0;
+      color: rgba(232, 226, 206, .88);
+      line-height: 1.65;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1rem;
+    }
+    .cta-row a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+      border-radius: 999px;
+      min-height: 2.8rem;
+      padding: .72rem 1.1rem;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .cta-primary,
+    .cta-primary:link,
+    .cta-primary:visited {
+      color: #080808;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .3);
+    }
+    .cta-secondary,
+    .cta-secondary:link,
+    .cta-secondary:visited {
+      color: var(--accent);
+      border: 1px solid rgba(var(--accent-rgb), .36);
+      background: rgba(255, 255, 255, .035);
+    }
+    .cta-primary:hover,
+    .cta-primary:focus-visible,
+    .cta-secondary:hover,
+    .cta-secondary:focus-visible {
+      transform: translateY(-2px);
+    }
+    .cta-secondary:hover,
+    .cta-secondary:focus-visible {
+      color: #080808;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    @media (max-width: 620px) {
+      .callout,
+      .release-item {
+        grid-template-columns: 1fr;
+      }
+      .cta-row a {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script type="module" src="/assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+  <div class="nav-overlay"></div>
+
+  <section class="article-hero">
+    <div class="article-hero-inner">
+      <span class="eyebrow"><i class="fa-solid fa-screwdriver-wrench"></i> Site Update</span>
+      <h1>Website Refresh & OC 2.0 Guide</h1>
+      <p class="tagline">A sharper faction hub, clearer member resources, and a new guide built to help every member join Organized Crimes 2.0 with confidence.</p>
+    </div>
+  </section>
+
+  <section class="rules-block">
+    <div class="container glass article">
+      <p class="breadcrumb"><a href="../news.html"><i class="fa-solid fa-arrow-left"></i> Back to News</a></p>
+      <p class="byline">Published 09 May 2026 — Privé Cartel Council</p>
+
+      <p class="intro">
+        The Privé Cartel website has received a focused quality pass aimed at making the hub easier to use, more professional, and more useful for day-to-day faction life. The work tightens the homepage, improves shared navigation and footer presentation, and introduces a full new-member guide for Organized Crimes 2.0.
+      </p>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <i class="fa-solid fa-book-open"></i>
+          <div>
+            <h3>New OC 2.0 Guide</h3>
+            <p>A complete walkthrough covering slot selection, timers, items, readiness checks, payouts, mistakes and member expectations.</p>
+          </div>
+        </article>
+        <article class="feature-card">
+          <i class="fa-solid fa-layer-group"></i>
+          <div>
+            <h3>Cleaner Homepage</h3>
+            <p>The live chain panel was retired and replaced with a clearer operations snapshot that better reflects current faction priorities.</p>
+          </div>
+        </article>
+        <article class="feature-card">
+          <i class="fa-solid fa-compass"></i>
+          <div>
+            <h3>Professional Footer</h3>
+            <p>The plain footer has been replaced with a structured site footer, quick resources, council details and member links.</p>
+          </div>
+        </article>
+      </div>
+
+      <h2 class="section-title">What Changed</h2>
+      <div class="release-list">
+        <div class="release-item">
+          <i class="fa-solid fa-user-ninja"></i>
+          <div>
+            <strong>Organized Crimes 2.0 guide added</strong>
+            <span>New members now have one clear page explaining how to join scenarios without delaying or risking the operation.</span>
+          </div>
+        </div>
+        <div class="release-item">
+          <i class="fa-solid fa-book"></i>
+          <div>
+            <strong>Guides hub updated</strong>
+            <span>The OC 2.0 guide is now a first-class card in the faction knowledge hub and appears in the shared footer resources.</span>
+          </div>
+        </div>
+        <div class="release-item">
+          <i class="fa-solid fa-scale-balanced"></i>
+          <div>
+            <strong>Rules page linked</strong>
+            <span>The OC rules section now points directly to the guide for slot selection, item checks, timers and payout expectations.</span>
+          </div>
+        </div>
+        <div class="release-item">
+          <i class="fa-solid fa-compass"></i>
+          <div>
+            <strong>Footer rebuilt</strong>
+            <span>Every page now has a stronger footer with navigation groups, resources, Discord access and council contact.</span>
+          </div>
+        </div>
+        <div class="release-item">
+          <i class="fa-solid fa-layer-group"></i>
+          <div>
+            <strong>Homepage improved</strong>
+            <span>The old Current Chain live panel and associated API polling were removed, reducing clutter and stale live-status behavior.</span>
+          </div>
+        </div>
+        <div class="release-item">
+          <i class="fa-solid fa-universal-access"></i>
+          <div>
+            <strong>Accessibility and reliability improved</strong>
+            <span>Navigation, focus states, reduced-motion handling and shared link behavior were tightened across the site.</span>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Why It Matters</h2>
+      <div class="impact-panel">
+        <p>
+          The website is no longer just a noticeboard. It is becoming the faction's operating manual: a place where new members can learn expectations quickly, active members can find resources without digging through chat, and everyone can rely on consistent guidance.
+        </p>
+        <p>
+          The new Organized Crimes 2.0 guide is the most important part of this release. OC participation depends on small details: joining the right slot, checking required tools and materials, watching the timer, and being in Torn when the operation initiates. The guide turns those details into a simple process members can follow.
+        </p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-icon"><i class="fa-solid fa-route"></i></div>
+        <div>
+          <h2>Next Step For Members</h2>
+          <p>Read the OC 2.0 guide before joining your next scenario. If your role score, timer, or item requirement looks questionable, ask before joining.</p>
+          <div class="cta-row">
+            <a class="cta-primary" href="../guides/organized-crimes-2.html"><i class="fa-solid fa-user-ninja"></i> Read OC 2.0 Guide</a>
+            <a class="cta-secondary" href="../guides.html"><i class="fa-solid fa-book"></i> Open Guides Hub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+
+  <script src="../assets/script.js"></script>
+</body>
+</html>
