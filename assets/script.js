@@ -2,20 +2,39 @@
     ───────────────────────────────────────────────────────────
     • Auto-update © year in footer
     • Smooth in-page scrolling (fixed-nav offset)
-    • Mobile drawer: slide-in menu, dim overlay, body-lock
-    • Navbar shadow after 60 px
+    • External-link safety attributes
+    • Legacy mobile drawer support
+    • Navbar shadow fallback after 60 px
     • “Back-to-top” button (>400 px)
     • Reading-progress bar
     • Reveal-on-scroll animation (class="reveal")
-    • Prefetch internal pages on link hover
-    • Optional Service-Worker registration
+    • Prefetch internal pages on hover/focus
 */
 
+const scriptSrc = document.currentScript?.src || "";
+const siteRoot = (() => {
+  if (!scriptSrc) return "/";
+  const path = new URL(scriptSrc).pathname;
+  return path.replace(/assets\/script\.js$/, "");
+})();
+const siteLink = (path) => `${siteRoot}${path}`;
+
 document.addEventListener("DOMContentLoaded", () => {
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
+  const year = new Date().getFullYear();
 
   /* ───── 1. © year ───── */
   const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  if (yearEl) yearEl.textContent = year;
+  enhanceFooter(year);
+
+  document.querySelectorAll('a[target="_blank"]').forEach((link) => {
+    const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
+    rel.add("noopener");
+    rel.add("noreferrer");
+    link.setAttribute("rel", [...rel].join(" "));
+  });
 
   /* ───── 2. Smooth in-page scrolling ───── */
   const navH =
@@ -33,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const y =
         target.getBoundingClientRect().top + window.pageYOffset - navH - 20;
-      window.scrollTo({ top: y, behavior: "smooth" });
+      window.scrollTo({ top: y, behavior: scrollBehavior });
       closeDrawer();
     });
   });
@@ -70,10 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", addShadow, { passive: true });
 
   /* ───── 5. Back-to-top button ───── */
-  const backBtn = document.createElement("button");
+  const backBtn = document.getElementById("backTop") || document.createElement("button");
   backBtn.id = "backTop";
-  backBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
-  document.body.appendChild(backBtn);
+  backBtn.type = "button";
+  backBtn.title = "Back to top";
+  backBtn.setAttribute("aria-label", "Back to top");
+  if (!backBtn.innerHTML.trim()) {
+    backBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+  }
+  if (!backBtn.isConnected) document.body.appendChild(backBtn);
 
   const css = `
     #backTop{
@@ -103,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleTopBtn();
   window.addEventListener("scroll", toggleTopBtn, { passive: true });
   backBtn.addEventListener("click", () =>
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    window.scrollTo({ top: 0, behavior: scrollBehavior })
   );
 
   /* ───── 6. Reading-progress bar ───── */
@@ -115,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const max =
       document.documentElement.scrollHeight -
       document.documentElement.clientHeight;
-    const percent = (window.scrollY / max) * 100;
+    const percent = max > 0 ? (window.scrollY / max) * 100 : 0;
     bar.style.width = percent + "%";
   }
   updateBar();
@@ -140,20 +164,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ───── 8. Prefetch internal pages ───── */
   document.querySelectorAll('a[href$=".html"]:not([target])').forEach((a) => {
-    a.addEventListener("mouseenter", () => {
+    const prefetch = () => {
       if (a.dataset.prefetched) return;
       const link = document.createElement("link");
       link.rel = "prefetch";
       link.href = a.href;
       document.head.appendChild(link);
       a.dataset.prefetched = "1";
-    });
+    };
+    a.addEventListener("pointerenter", prefetch);
+    a.addEventListener("focus", prefetch);
   });
 
-  /* ───── 9. Optional Service-Worker ───── */
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .catch(() => {/* ignore if no sw */});
+  /* ───── 9. Service worker intentionally omitted until sw.js exists. ───── */
+
+  function enhanceFooter(currentYear) {
+    const footer = document.querySelector("footer");
+    if (!footer || footer.dataset.enhanced === "true") return;
+
+    footer.classList.add("site-footer");
+    footer.dataset.enhanced = "true";
+    footer.innerHTML = `
+      <div class="footer-shell">
+        <div class="footer-kicker">
+          <span>Faction HQ</span>
+          <span>OC 2.0 coordination • Chain rewards • Member support</span>
+        </div>
+
+        <div class="footer-main">
+          <section class="footer-brand" aria-label="Privé Cartel">
+            <a class="footer-logo" href="${siteLink("index.html")}">
+              <img src="${siteLink("images/Emblem.png")}" alt="" loading="lazy">
+              <span><strong>PRIVÉ</strong> CARTEL</span>
+            </a>
+            <p>Discreet operations hub for Torn members who value presence, discipline and mutual aid.</p>
+            <ul class="footer-values" aria-label="Faction values">
+              <li>Presence</li>
+              <li>Discretion</li>
+              <li>Mutual Aid</li>
+            </ul>
+          </section>
+
+          <nav class="footer-column" aria-label="Main pages">
+            <h2>Navigate</h2>
+            <a href="${siteLink("index.html")}">Home</a>
+            <a href="${siteLink("rules.html")}">Rules</a>
+            <a href="${siteLink("guides.html")}">Guides</a>
+            <a href="${siteLink("news.html")}">News</a>
+          </nav>
+
+          <nav class="footer-column" aria-label="Member resources">
+            <h2>Resources</h2>
+            <a href="${siteLink("members.html")}">Members</a>
+            <a href="${siteLink("faq.html")}">FAQ</a>
+            <a href="${siteLink("wallpapers.html")}">Wallpapers</a>
+            <a href="${siteLink("archive.html")}">Archive</a>
+          </nav>
+
+          <section class="footer-council" aria-label="Leadership and contact">
+            <h2>Council Desk</h2>
+            <dl>
+              <div><dt>Leader</dt><dd>ForeverHydrox</dd></div>
+              <div><dt>Co-Leader</dt><dd>Skillerious</dd></div>
+            </dl>
+            <div class="footer-actions">
+              <a class="footer-primary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-discord" aria-hidden="true"></i>
+                <span>Join Discord</span>
+              </a>
+              <a class="footer-secondary" href="${siteLink("contact.html")}">Contact Council</a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="year">${currentYear}</span> Privé Cartel.</p>
+        <p>What happens behind the curtain stays ours.</p>
+      </div>
+    `;
   }
 });

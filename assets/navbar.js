@@ -1,45 +1,112 @@
-/* /assets/navbar.js   —  one-file GitHub Pages helper ************************
-   ‣ Works on both *user* sites (root-level) and *project* sites (/repo/).
-   ‣ Takes care of…
-      1. figuring out the site prefix (e.g. "/prive-cartel/")
-      2. fetching   <prefix>navbar.html
-      3. rewriting every internal link to include that prefix
-      4. highlighting the current page
-      5. wiring the burger + overlay
-******************************************************************************/
+/* /assets/navbar.js
+   Shared navigation loader for GitHub Pages root and project sites. */
 
 class PCNavbar extends HTMLElement {
-  async connectedCallback() {
-    /* 1 ── work out the prefix this file was served from
-            e.g.  https://user.github.io/prive-cartel/assets/navbar.js
-            ==>   prefix = "/prive-cartel/"                */
-    const path   = new URL('.', import.meta.url).pathname;   // "/prive-cartel/assets/"
-    const PREFIX = path.replace(/assets\/$/, '');            // "/prive-cartel/"
+  connectedCallback() {
+    this.render();
+  }
 
-    /* 2 ── fetch the shared markup */
-    const html = await fetch(`${PREFIX}navbar.html`).then(r => r.text());
-    this.innerHTML = html;
+  disconnectedCallback() {
+    if (this.onEscape) document.removeEventListener("keydown", this.onEscape);
+    if (this.onScroll) window.removeEventListener("scroll", this.onScroll);
+  }
 
-    /* 3 ── make every internal <a> absolute to PREFIX */
-    this.querySelectorAll('a[href]:not([href^="http"]):not([href^="/"])')
-      .forEach(a => a.setAttribute('href', PREFIX + a.getAttribute('href')));
+  async render() {
+    const path = new URL(".", import.meta.url).pathname;
+    const prefix = path.replace(/assets\/$/, "");
 
-    /* 4 ── highlight the link that matches location.pathname */
-    const here = location.pathname.replace(/\/$/, '/index.html');
-    this.querySelectorAll('a').forEach(a => {
-      const target = new URL(a.href).pathname.replace(/\/$/, '/index.html');
-      if (target === here) a.classList.add('active');
+    try {
+      const response = await fetch(`${prefix}navbar.html`);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      this.innerHTML = await response.text();
+    } catch (error) {
+      console.error("[PCNavbar] Unable to load navbar.html:", error);
+      return;
+    }
+
+    this.rewriteInternalLinks(prefix);
+    this.markActiveLink();
+    this.hardenExternalLinks();
+    this.setupDrawer();
+    this.setupShadow();
+
+    this.dispatchEvent(new CustomEvent("pc-navbar-ready", { bubbles: true }));
+  }
+
+  rewriteInternalLinks(prefix) {
+    this.querySelectorAll('a[href]:not([href^="http"]):not([href^="/"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"])')
+      .forEach((link) => {
+        link.setAttribute("href", prefix + link.getAttribute("href"));
+      });
+  }
+
+  markActiveLink() {
+    const here = location.pathname.replace(/\/$/, "/index.html");
+
+    this.querySelectorAll("a").forEach((link) => {
+      const target = new URL(link.href).pathname.replace(/\/$/, "/index.html");
+      if (target === here) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+      }
+    });
+  }
+
+  hardenExternalLinks() {
+    this.querySelectorAll('a[target="_blank"]').forEach((link) => {
+      const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
+      rel.add("noopener");
+      rel.add("noreferrer");
+      link.setAttribute("rel", [...rel].join(" "));
+    });
+  }
+
+  setupDrawer() {
+    const toggle = this.querySelector("#nav-toggle");
+    const overlay = this.querySelector(".nav-overlay");
+    const label = this.querySelector(".hamburger");
+
+    if (!toggle) return;
+
+    const sync = () => {
+      const open = toggle.checked;
+      document.body.classList.toggle("menu-open", open);
+      overlay?.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      label?.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    };
+
+    const close = () => {
+      if (!toggle.checked) return;
+      toggle.checked = false;
+      sync();
+    };
+
+    toggle.addEventListener("change", sync);
+    overlay?.addEventListener("click", close);
+    this.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", close);
     });
 
-    /* 5 ── burger & overlay wiring */
-    const toggle  = this.querySelector('#nav-toggle');
-    const overlay = this.querySelector('.nav-overlay');
-    if (toggle && overlay) {
-      overlay.addEventListener('click', () => (toggle.checked = false));
-      this.querySelectorAll('.nav-links a').forEach(a =>
-        a.addEventListener('click', () => (toggle.checked = false))
-      );
-    }
+    this.onEscape = (event) => {
+      if (event.key === "Escape") close();
+    };
+    document.addEventListener("keydown", this.onEscape);
+
+    sync();
+  }
+
+  setupShadow() {
+    const nav = this.querySelector(".navbar");
+    if (!nav) return;
+
+    this.onScroll = () => {
+      nav.classList.toggle("nav-shadow", window.scrollY > 60);
+    };
+
+    this.onScroll();
+    window.addEventListener("scroll", this.onScroll, { passive: true });
   }
 }
-customElements.define('pc-navbar', PCNavbar);
+
+customElements.define("pc-navbar", PCNavbar);
