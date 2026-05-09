@@ -9,6 +9,7 @@
     • Reading-progress bar
     • Reveal-on-scroll animation (class="reveal")
     • Prefetch internal pages on hover/focus
+    • Skip link and image loading defaults
 */
 
 const scriptSrc = document.currentScript?.src || "";
@@ -23,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
   const year = new Date().getFullYear();
+  installSkipLink();
+  optimizeImages();
 
   /* ───── 1. © year ───── */
   const yearEl = document.getElementById("year");
@@ -177,6 +180,32 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ───── 9. Service worker intentionally omitted until sw.js exists. ───── */
+
+  function installSkipLink() {
+    if (document.querySelector(".skip-link")) return;
+    const skip = document.createElement("a");
+    skip.className = "skip-link";
+    skip.href = "#main-content";
+    skip.textContent = "Skip to content";
+
+    const main = document.querySelector("main") || document.querySelector(".rules-block");
+    if (main && !main.id) main.id = "main-content";
+    if (!main) return;
+
+    document.body.insertBefore(skip, document.body.firstChild);
+  }
+
+  function optimizeImages() {
+    document.querySelectorAll("img").forEach((img) => {
+      if (!img.hasAttribute("decoding")) img.decoding = "async";
+      if (
+        !img.hasAttribute("loading") &&
+        !img.closest(".hero, .rules-hero, .article-hero, .carousel-slide.active")
+      ) {
+        img.loading = "lazy";
+      }
+    });
+  }
 
   function enhanceFooter(currentYear) {
     const footer = document.querySelector("footer");

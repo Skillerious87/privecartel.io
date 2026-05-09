@@ -50,6 +50,27 @@ body {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1200;
+  transform: translateY(-150%);
+  opacity: 0;
+  background: var(--accent);
+  color: #050505;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+  transition: transform var(--transition), opacity var(--transition);
+}
+.skip-link:focus {
+  transform: translateY(0);
+  opacity: 1;
+  color: #050505;
+}
 h1,
 h2,
 h3 {
