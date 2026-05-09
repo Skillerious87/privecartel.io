@@ -215,6 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <nav class="footer-column" aria-label="Member resources">
             <h2>Resources</h2>
+            <a href="${siteLink("guides/organized-crimes-2.html")}">OC 2.0 Guide</a>
             <a href="${siteLink("members.html")}">Members</a>
             <a href="${siteLink("faq.html")}">FAQ</a>
             <a href="${siteLink("wallpapers.html")}">Wallpapers</a>
