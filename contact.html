@@ -665,6 +665,15 @@
       opacity:.65;
       transform:none;
     }
+    .application-actions button.is-cooling{
+      cursor:not-allowed;
+      color:rgba(214,197,154,.78);
+      background:rgba(0,0,0,.34);
+      border-color:rgba(var(--accent-rgb),.24);
+    }
+    .application-actions button.is-sending{
+      cursor:progress;
+    }
     .application-hint{
       font-size:.83rem;
       line-height:1.5;
@@ -1061,6 +1070,9 @@
   const LS_KEY          = 'pcApiCipher';
   const CONTACT_ENDPOINT = (window.PRIVE_CONTACT_ENDPOINT || '').trim();
   const CONTACT_SOURCE   = 'prive-contact-v1';
+  const SUBMIT_COOLDOWN_MS = 2 * 60_000;
+  const SUBMIT_RETRY_MS    = 15_000;
+  const SUBMIT_COOLDOWN_KEY = 'pcContactSubmitCooldownUntil';
   const REFRESH_MS      = 60_000;
   const MAX_BACKOFF_MS  = 10 * 60_000;
   let   delay           = REFRESH_MS;
@@ -1191,10 +1203,70 @@
     const status = document.getElementById('applicationStatus');
     if(!name || !level || !contact || !focus || !activity || !output) return;
 
+    let sending = false;
+    let cooldownTimer = null;
+    let cooldownMessage = 'Application sending is temporarily locked. You can send again in';
+    let cooldownType = 'warn';
+    const sendDefaultHtml = send?.innerHTML || '';
+
     const setStatus = (message, type='') => {
       if(!status) return;
       status.textContent = message;
       status.className = `form-status ${type}`.trim();
+    };
+
+    const formatWait = ms => {
+      const seconds = Math.max(0, Math.ceil(ms / 1000));
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return mins ? `${mins}:${String(secs).padStart(2,'0')}` : `${secs}s`;
+    };
+
+    const cooldownRemaining = () => {
+      const until = Number(localStorage.getItem(SUBMIT_COOLDOWN_KEY) || 0);
+      return Math.max(0, until - Date.now());
+    };
+
+    const restoreSendButton = () => {
+      if(!send) return;
+      send.disabled = false;
+      send.classList.remove('is-cooling','is-sending');
+      send.removeAttribute('aria-disabled');
+      send.removeAttribute('title');
+      send.innerHTML = sendDefaultHtml;
+    };
+
+    const renderCooldown = () => {
+      if(!send) return;
+      const remaining = cooldownRemaining();
+      if(remaining <= 0){
+        localStorage.removeItem(SUBMIT_COOLDOWN_KEY);
+        clearInterval(cooldownTimer);
+        cooldownTimer = null;
+        restoreSendButton();
+        if(status && /(send another|retry|temporarily locked)/i.test(status.textContent)){
+          setStatus('Ready to send another application.');
+        }
+        return;
+      }
+
+      const wait = formatWait(remaining);
+      send.disabled = true;
+      send.classList.remove('is-sending');
+      send.classList.add('is-cooling');
+      send.setAttribute('aria-disabled','true');
+      send.title = `Application sending is cooling down for ${wait}`;
+      send.innerHTML = `<i class="fa-solid fa-hourglass-half" aria-hidden="true"></i> Wait ${wait}`;
+      setStatus(`${cooldownMessage} ${wait}.`, cooldownType);
+    };
+
+    const startCooldown = (duration = SUBMIT_COOLDOWN_MS, message, type='warn') => {
+      cooldownMessage = message || 'Application sending is temporarily locked. You can send again in';
+      cooldownType = type;
+      localStorage.setItem(SUBMIT_COOLDOWN_KEY, String(Date.now() + duration));
+      renderCooldown();
+      clearInterval(cooldownTimer);
+      cooldownTimer = setInterval(renderCooldown, 1000);
     };
 
     const build = () => {
@@ -1227,6 +1299,13 @@
     [name, level, contact, focus, activity].forEach(field=>field.addEventListener('input', build));
     [focus, activity].forEach(field=>field.addEventListener('change', build));
     send?.addEventListener('click', async ()=>{
+      if(sending) return;
+      const remaining = cooldownRemaining();
+      if(remaining > 0){
+        renderCooldown();
+        return;
+      }
+
       const error = validate();
       if(error){
         setStatus(error, 'error');
@@ -1238,8 +1317,13 @@
         return;
       }
 
+      sending = true;
       send.disabled = true;
-      setStatus('Sending application...', '');
+      send.classList.remove('is-cooling');
+      send.classList.add('is-sending');
+      send.setAttribute('aria-disabled','true');
+      send.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
+      setStatus('Sending application securely...', '');
       try{
         const endpointUrl = new URL(CONTACT_ENDPOINT, location.href);
         const sameOrigin = endpointUrl.origin === location.origin;
@@ -1259,12 +1343,13 @@
           if(!response.ok || body.ok === false) throw new Error(body.error || `HTTP ${response.status}`);
         }
 
-        setStatus('Application submitted. Council should receive it by email shortly.', 'ok');
         showToast('Application submitted');
+        startCooldown(SUBMIT_COOLDOWN_MS, 'Application submitted. You can send another in', 'ok');
       }catch{
-        setStatus('Submission failed. Copy the message and send it through Torn or Discord.', 'error');
+        startCooldown(SUBMIT_RETRY_MS, 'Submission failed. You can retry in', 'error');
       }finally{
-        send.disabled = false;
+        sending = false;
+        if(cooldownRemaining() <= 0) restoreSendButton();
       }
     });
     copy?.addEventListener('click', async ()=>{
@@ -1281,10 +1366,12 @@
       contact.value = '';
       focus.selectedIndex = 0;
       activity.selectedIndex = 0;
-      setStatus('');
+      if(cooldownRemaining() > 0) renderCooldown();
+      else setStatus('');
       build();
     });
     build();
+    if(cooldownRemaining() > 0) startCooldown(cooldownRemaining());
   }
 
   async function decryptKey(hex){
