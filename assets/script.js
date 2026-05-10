@@ -12,19 +12,16 @@
     • Skip link and image loading defaults
 */
 
-const scriptSrc = document.currentScript?.src || "";
-const siteRoot = (() => {
-  if (!scriptSrc) return "/";
-  const path = new URL(scriptSrc).pathname;
-  return path.replace(/assets\/script\.js$/, "");
-})();
-const siteLink = (path) => `${siteRoot}${path}`;
+const scriptSrc = document.currentScript?.src || document.baseURI;
+const siteRoot = new URL("../", scriptSrc);
+const siteLink = (path) => new URL(path, siteRoot).href;
 
 document.addEventListener("DOMContentLoaded", () => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
   const year = new Date().getFullYear();
   installSkipLink();
+  enhanceMetadata();
   optimizeImages();
 
   /* ───── 1. © year ───── */
@@ -62,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ───── 3. Mobile drawer & overlay ───── */
   const navToggle = document.getElementById("nav-toggle");
-  const overlay = document.querySelector(".nav-overlay");
+  const overlay = document.querySelector("pc-navbar .nav-overlay");
   const body = document.body;
 
   function toggleBodyScroll() {
@@ -134,9 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   /* ───── 6. Reading-progress bar ───── */
-  const bar = document.createElement("div");
+  const bar = document.getElementById("readBar") || document.createElement("div");
   bar.id = "readBar";
-  document.body.appendChild(bar);
+  if (!bar.isConnected) document.body.appendChild(bar);
 
   function updateBar() {
     const max =
@@ -198,13 +195,54 @@ document.addEventListener("DOMContentLoaded", () => {
   function optimizeImages() {
     document.querySelectorAll("img").forEach((img) => {
       if (!img.hasAttribute("decoding")) img.decoding = "async";
-      if (
-        !img.hasAttribute("loading") &&
-        !img.closest(".hero, .rules-hero, .article-hero, .carousel-slide.active")
-      ) {
+      const isPriorityImage = Boolean(img.closest(".hero, .rules-hero, .article-hero, .carousel-slide.active"));
+      if (isPriorityImage) {
+        if (!img.hasAttribute("loading")) img.loading = "eager";
+        if ("fetchPriority" in img && !img.hasAttribute("fetchpriority")) {
+          img.fetchPriority = "high";
+        }
+      } else if (!img.hasAttribute("loading")) {
         img.loading = "lazy";
       }
     });
+  }
+
+  function enhanceMetadata() {
+    const title = document.title || "Privé Cartel";
+    const description =
+      document.querySelector('meta[name="description"]')?.content ||
+      "Official hub for Privé Cartel faction members.";
+    const pageUrl = location.href.split("#")[0];
+    const imageUrl = siteLink("images/Emblem.png");
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = pageUrl;
+
+    setMeta("property", "og:site_name", "Privé Cartel");
+    setMeta("property", "og:type", "website");
+    setMeta("property", "og:title", title);
+    setMeta("property", "og:description", description);
+    setMeta("property", "og:url", pageUrl);
+    setMeta("property", "og:image", imageUrl);
+    setMeta("name", "twitter:card", "summary");
+    setMeta("name", "twitter:title", title);
+    setMeta("name", "twitter:description", description);
+    setMeta("name", "twitter:image", imageUrl);
+  }
+
+  function setMeta(attr, key, content) {
+    let meta = document.querySelector(`meta[${attr}="${key}"]`);
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute(attr, key);
+      document.head.appendChild(meta);
+    }
+    meta.content = content;
   }
 
   function enhanceFooter(currentYear) {
