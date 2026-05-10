@@ -406,6 +406,8 @@
     .rules-hero{
       padding-top:calc(var(--nav-h) + 4rem);
       padding-bottom:2.6rem;
+      min-height:27rem;
+      overflow:hidden;
     }
     .rules-hero img{
       width:150px;
@@ -416,12 +418,18 @@
       animation:none;
     }
     .rules-hero h1{
+      max-width:min(92vw,680px);
+      min-width:0;
       opacity:1;
       transform:none;
       animation:none;
+      text-align:center;
+      overflow-wrap:break-word;
     }
     .rules-hero .tagline{
       width:min(92vw,680px);
+      min-width:0;
+      overflow-wrap:break-word;
     }
     .contact-section{
       padding:clamp(2rem,4vw,3.25rem) 0 4.5rem;
@@ -442,6 +450,13 @@
       border-bottom:1px solid rgba(var(--accent-rgb),.24);
     }
     .section-copy{max-width:660px}
+    .section-copy,
+    .profile-card,
+    .application-panel,
+    .contact-panel,
+    .readiness-panel{
+      min-width:0;
+    }
     .section-kicker{
       display:block;
       margin-bottom:.25rem;
@@ -495,6 +510,7 @@
       border:1px solid rgba(var(--accent-rgb),.28);
       border-radius:.85rem;
       box-shadow:0 14px 28px rgba(0,0,0,.24);
+      overflow:hidden;
     }
     .profile-card:hover,
     .profile-card:focus-visible{
@@ -536,6 +552,7 @@
       font-size:.86rem;
       line-height:1.55;
       text-align:left;
+      overflow-wrap:break-word;
     }
     .profile-meta{
       justify-content:flex-start;
@@ -544,6 +561,7 @@
     .profile-actions .btn,
     .copy-xid{
       min-height:2.45rem;
+      min-width:0;
     }
     .application-layout{
       display:grid;
@@ -743,10 +761,14 @@
       .rules-hero{
         padding-top:calc(var(--nav-h) + 2.8rem);
         padding-bottom:2rem;
+        min-height:25rem;
       }
       .rules-hero img{
         width:132px;
         height:132px;
+      }
+      .rules-hero h1{
+        font-size:clamp(1.85rem,6.4vw,2.15rem);
       }
       .contact-grid{grid-template-columns:1fr}
       .application-badge{width:max-content}
