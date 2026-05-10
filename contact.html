@@ -402,6 +402,358 @@
       .application-actions button{width:100%}
     }
 
+    /* refined contact layout */
+    .rules-hero{
+      padding-top:calc(var(--nav-h) + 4rem);
+      padding-bottom:2.6rem;
+    }
+    .rules-hero img{
+      width:150px;
+      height:150px;
+      margin-bottom:1.15rem;
+      opacity:1;
+      transform:none;
+      animation:none;
+    }
+    .rules-hero h1{
+      opacity:1;
+      transform:none;
+      animation:none;
+    }
+    .rules-hero .tagline{
+      width:min(92vw,680px);
+    }
+    .contact-section{
+      padding:clamp(2rem,4vw,3.25rem) 0 4.5rem;
+    }
+    .contact-shell{
+      gap:clamp(2.1rem,5vw,3.25rem);
+    }
+    .leadership-section{
+      display:grid;
+      gap:1.35rem;
+    }
+    .section-heading{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:1.5rem;
+      padding-bottom:1rem;
+      border-bottom:1px solid rgba(var(--accent-rgb),.24);
+    }
+    .section-copy{max-width:660px}
+    .section-kicker{
+      display:block;
+      margin-bottom:.25rem;
+      color:rgba(var(--accent-rgb),.86);
+      font-size:.74rem;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .section-heading h2,
+    .application-panel h2,
+    .contact-panel h2{
+      margin:0;
+      font-size:clamp(1.55rem,3vw,2rem);
+    }
+    .section-heading p,
+    .application-panel p,
+    .contact-panel p,
+    .contact-method span,
+    .readiness-panel li{
+      margin:0;
+      color:rgba(232,226,206,.76);
+      font-size:.94rem;
+      line-height:1.6;
+    }
+    .section-stat{
+      min-width:9rem;
+      color:var(--text-2);
+      font-size:.82rem;
+      text-align:right;
+    }
+    .section-stat strong{
+      display:block;
+      color:var(--accent);
+      font-family:"Cormorant Garamond",serif;
+      font-size:2rem;
+      line-height:1;
+    }
+    .contact-grid{
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1rem;
+      justify-content:stretch;
+      opacity:1;
+      transform:none;
+      animation:none;
+    }
+    .profile-card{
+      align-items:flex-start;
+      padding:1.15rem;
+      background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
+      border:1px solid rgba(var(--accent-rgb),.28);
+      border-radius:.85rem;
+      box-shadow:0 14px 28px rgba(0,0,0,.24);
+    }
+    .profile-card:hover,
+    .profile-card:focus-visible{
+      border-color:rgba(var(--accent-rgb),.72);
+      background:linear-gradient(180deg,rgba(var(--accent-rgb),.11),rgba(255,255,255,.028));
+    }
+    .profile-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 34px rgba(0,0,0,.34);
+    }
+    .profile-card .avatar{
+      width:72px;
+      height:72px;
+      margin-bottom:.9rem;
+      border:2px solid rgba(var(--accent-rgb),.78);
+      box-shadow:0 0 0 4px rgba(var(--accent-rgb),.08);
+    }
+    .profile-card h3{
+      margin:.05rem 0 .12rem;
+      font-size:1.22rem;
+      text-align:left;
+    }
+    .profile-card .role{
+      margin:0 0 .75rem;
+      color:rgba(232,226,206,.74);
+      font-size:.84rem;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-align:left;
+      text-transform:uppercase;
+    }
+    .profile-card h3::after{
+      margin:.55rem 0 .8rem;
+      width:42px;
+    }
+    .profile-card .bio{
+      margin:0 0 1rem;
+      color:rgba(232,226,206,.74);
+      font-size:.86rem;
+      line-height:1.55;
+      text-align:left;
+    }
+    .profile-meta{
+      justify-content:flex-start;
+      margin:0 0 .95rem;
+    }
+    .profile-actions .btn,
+    .copy-xid{
+      min-height:2.45rem;
+    }
+    .application-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(280px,340px);
+      gap:1.15rem;
+      align-items:start;
+    }
+    .application-panel,
+    .contact-panel,
+    .readiness-panel{
+      background:linear-gradient(180deg,rgba(255,255,255,.052),rgba(255,255,255,.025));
+      border:1px solid rgba(var(--accent-rgb),.27);
+      border-radius:.85rem;
+      box-shadow:0 14px 28px rgba(0,0,0,.24);
+    }
+    .application-panel{
+      padding:clamp(1.1rem,2.4vw,1.6rem);
+    }
+    .application-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:1.2rem;
+      margin-bottom:1.15rem;
+    }
+    .application-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      min-height:2.25rem;
+      padding:.42rem .7rem;
+      border:1px solid rgba(var(--accent-rgb),.34);
+      border-radius:999px;
+      color:var(--accent);
+      background:rgba(0,0,0,.24);
+      font-size:.78rem;
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .application-grid{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:.85rem;
+      margin:1rem 0;
+    }
+    .application-field{
+      grid-column:span 3;
+      gap:.42rem;
+    }
+    .application-field:nth-child(3){grid-column:span 6}
+    .application-field:nth-child(4),
+    .application-field:nth-child(5){grid-column:span 3}
+    .application-field label{
+      font-size:.74rem;
+      letter-spacing:.08em;
+    }
+    .application-field input,
+    .application-field select,
+    .application-template{
+      border-color:rgba(var(--accent-rgb),.28);
+      border-radius:.55rem;
+      background:rgba(0,0,0,.42);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+      transition:border-color var(--transition),box-shadow var(--transition),background var(--transition);
+    }
+    .application-field input,
+    .application-field select{
+      min-height:2.85rem;
+      padding:.64rem .75rem;
+    }
+    .application-field input:focus,
+    .application-field select:focus,
+    .application-template:focus{
+      outline:none;
+      border-color:rgba(var(--accent-rgb),.78);
+      background:rgba(0,0,0,.55);
+      box-shadow:0 0 0 3px rgba(var(--accent-rgb),.12);
+    }
+    .application-template{
+      min-height:11rem;
+      margin-bottom:1rem;
+      padding:.85rem .9rem;
+    }
+    .application-footer{
+      display:grid;
+      gap:.8rem;
+      align-items:start;
+    }
+    .application-actions button{
+      min-height:2.65rem;
+      padding:.62rem 1rem;
+      transition:transform var(--transition),background var(--transition),color var(--transition),border-color var(--transition);
+    }
+    .application-actions button:hover,
+    .application-actions button:focus-visible{
+      border-color:var(--accent);
+      transform:translateY(-1px);
+    }
+    .application-actions button:disabled{
+      cursor:progress;
+      opacity:.65;
+      transform:none;
+    }
+    .application-hint{
+      font-size:.83rem;
+      line-height:1.5;
+    }
+    .contact-aside{
+      display:grid;
+      gap:1rem;
+    }
+    .contact-panel,
+    .readiness-panel{
+      padding:1.1rem;
+    }
+    .contact-actions{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:.65rem;
+      margin-top:1rem;
+    }
+    .contact-actions .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.5rem;
+      min-height:2.65rem;
+      text-align:center;
+      text-decoration:none!important;
+    }
+    .contact-methods{
+      gap:.7rem;
+      margin-top:1rem;
+    }
+    .contact-method{
+      grid-template-columns:2.25rem 1fr;
+      gap:.75rem;
+      padding:.75rem;
+      border:1px solid rgba(var(--accent-rgb),.18);
+      border-radius:.7rem;
+      background:rgba(0,0,0,.2);
+      box-shadow:none;
+    }
+    .contact-method i{
+      width:2.25rem;
+      height:2.25rem;
+    }
+    .contact-method strong{
+      margin-bottom:.08rem;
+      font-size:.9rem;
+    }
+    .readiness-panel h3{
+      margin:0 0 .75rem;
+      font-size:1.25rem;
+    }
+    .readiness-panel ul{
+      display:grid;
+      gap:.45rem;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .readiness-panel li{
+      position:relative;
+      padding-left:1.1rem;
+    }
+    .readiness-panel li::before{
+      content:"";
+      position:absolute;
+      top:.68rem;
+      left:0;
+      width:.38rem;
+      height:.38rem;
+      border-radius:50%;
+      background:var(--accent);
+    }
+    @media(max-width:1100px){
+      .contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .application-layout{grid-template-columns:1fr}
+      .contact-aside{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(max-width:760px){
+      .section-heading,
+      .application-header{
+        display:grid;
+        align-items:start;
+      }
+      .section-stat{text-align:left}
+      .contact-aside{grid-template-columns:1fr}
+      .application-grid{grid-template-columns:1fr}
+      .application-field,
+      .application-field:nth-child(3),
+      .application-field:nth-child(4),
+      .application-field:nth-child(5){grid-column:1}
+    }
+    @media(max-width:520px){
+      .rules-hero{
+        padding-top:calc(var(--nav-h) + 2.8rem);
+        padding-bottom:2rem;
+      }
+      .rules-hero img{
+        width:132px;
+        height:132px;
+      }
+      .contact-grid{grid-template-columns:1fr}
+      .application-badge{width:max-content}
+      .application-actions,
+      .application-actions button{width:100%}
+    }
+
     @media(prefers-reduced-motion:reduce){
       *,*:before,*:after{animation:none!important;transition:none!important}
       .profile-card:hover{transform:none}
@@ -427,112 +779,20 @@
 <main>
   <section class="contact-section">
     <div class="container contact-shell">
-      <div class="contact-intro">
-        <section class="contact-panel" aria-labelledby="contact-priority">
-          <div>
-            <h2 id="contact-priority">Best Contact Route</h2>
-            <p>Use Discord for urgent coordination, Torn mail for direct leadership messages, and include enough context for recruitment or support requests.</p>
+      <section class="leadership-section" aria-labelledby="leadership-heading">
+        <div class="section-heading">
+          <div class="section-copy">
+            <span class="section-kicker">Leadership</span>
+            <h2 id="leadership-heading">Leadership Council</h2>
+            <p>Reach the right council member quickly. Live status appears when you have saved a Torn API key on the members page; otherwise the cards still work as direct profile links.</p>
           </div>
-          <div class="contact-actions">
-            <a class="btn" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">
-              <i class="fa-brands fa-discord" aria-hidden="true"></i>
-              Join Discord
-            </a>
-            <a class="btn" href="members.html">
-              <i class="fa-solid fa-users" aria-hidden="true"></i>
-              View Roster
-            </a>
-          </div>
-        </section>
-
-        <div class="contact-methods" aria-label="Contact guidance">
-          <div class="contact-method">
-            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
-            <div>
-              <strong>Fastest reply</strong>
-              <span>Discord is best for chain calls, OC readiness and quick leadership pings.</span>
-            </div>
-          </div>
-          <div class="contact-method">
-            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-            <div>
-              <strong>Direct messages</strong>
-              <span>Torn profile links below open in a new tab for in-game mail or profile checks.</span>
-            </div>
-          </div>
-          <div class="contact-method">
-            <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
-            <div>
-              <strong>Applicants</strong>
-              <span>Share your level, activity pattern, goals and any OC or chaining experience.</span>
-            </div>
+          <div class="section-stat" aria-label="Leadership count">
+            <strong>04</strong>
+            Council contacts
           </div>
         </div>
-      </div>
 
-      <section class="contact-roster" aria-labelledby="leadership-heading">
-        <h2 id="leadership-heading">Leadership Council</h2>
-        <p>Live status appears when you have saved a Torn API key on the members page; otherwise the cards still work as direct profile links.</p>
-      </section>
-
-      <section class="application-panel" aria-labelledby="application-heading">
-        <h2 id="application-heading">Application Starter</h2>
-        <p>Build a short message before you contact council. It keeps recruitment requests clear and saves a few back-and-forth messages.</p>
-        <div class="application-grid">
-          <div class="application-field">
-            <label for="appName">Torn name</label>
-            <input id="appName" type="text" autocomplete="nickname" placeholder="Your Torn name">
-          </div>
-          <div class="application-field">
-            <label for="appLevel">Level</label>
-            <input id="appLevel" type="number" min="1" inputmode="numeric" placeholder="15">
-          </div>
-          <div class="application-field">
-            <label for="appContact">Reply contact</label>
-            <input id="appContact" type="text" autocomplete="email" placeholder="Email, Discord, or Torn ID">
-          </div>
-          <div class="application-field">
-            <label for="appFocus">Primary focus</label>
-            <select id="appFocus">
-              <option>OC 2.0</option>
-              <option>Chaining</option>
-              <option>Travel income</option>
-              <option>Training</option>
-              <option>General growth</option>
-            </select>
-          </div>
-          <div class="application-field">
-            <label for="appActivity">Activity</label>
-            <select id="appActivity">
-              <option>Daily</option>
-              <option>Several times daily</option>
-              <option>Evenings only</option>
-              <option>Weekends mostly</option>
-            </select>
-          </div>
-        </div>
-        <textarea id="applicationTemplate" class="application-template" aria-label="Generated application message"></textarea>
-        <div class="application-footer">
-          <span class="application-hint">Edit the message before sending if you want to add stats, merits or travel capacity.</span>
-          <div class="application-actions">
-            <button id="sendApplication" class="submit-application" type="button">
-              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-              Send Application
-            </button>
-            <button id="copyApplication" type="button">
-              <i class="fa-regular fa-copy" aria-hidden="true"></i>
-              Copy Message
-            </button>
-            <button id="resetApplication" type="button">
-              <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
-              Reset
-            </button>
-          </div>
-          <span id="applicationStatus" class="form-status" role="status" aria-live="polite"></span>
-        </div>
-      </section>
-
-      <div class="contact-grid">
+        <div class="contact-grid">
 
         <!-- ForeverHydrox -->
         <article class="profile-card">
@@ -641,11 +901,122 @@
           </div>
         </article>
 
-      </div><!-- /.contact-grid -->
+        </div><!-- /.contact-grid -->
+      </section>
 
-      <p class="contact-note">
-        For recruitment, include your Torn name, expected activity, travel readiness and whether you can join OC 2.0 timers.
-      </p>
+      <section class="application-layout" aria-label="Application and contact routes">
+        <section class="application-panel" aria-labelledby="application-heading">
+          <div class="application-header">
+            <div>
+              <span class="section-kicker">Applicant Intake</span>
+              <h2 id="application-heading">Application Starter</h2>
+              <p>Send council a clear, structured application with the details they need to route your request.</p>
+            </div>
+            <span class="application-badge">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              Council Review
+            </span>
+          </div>
+
+          <div class="application-grid">
+            <div class="application-field">
+              <label for="appName">Torn name</label>
+              <input id="appName" type="text" autocomplete="nickname" placeholder="Your Torn name">
+            </div>
+            <div class="application-field">
+              <label for="appLevel">Level</label>
+              <input id="appLevel" type="number" min="1" inputmode="numeric" placeholder="15">
+            </div>
+            <div class="application-field">
+              <label for="appContact">Reply contact</label>
+              <input id="appContact" type="text" autocomplete="email" placeholder="Email, Discord, or Torn ID">
+            </div>
+            <div class="application-field">
+              <label for="appFocus">Primary focus</label>
+              <select id="appFocus">
+                <option>OC 2.0</option>
+                <option>Chaining</option>
+                <option>Travel income</option>
+                <option>Training</option>
+                <option>General growth</option>
+              </select>
+            </div>
+            <div class="application-field">
+              <label for="appActivity">Activity</label>
+              <select id="appActivity">
+                <option>Daily</option>
+                <option>Several times daily</option>
+                <option>Evenings only</option>
+                <option>Weekends mostly</option>
+              </select>
+            </div>
+          </div>
+
+          <textarea id="applicationTemplate" class="application-template" aria-label="Generated application message"></textarea>
+          <div class="application-footer">
+            <span class="application-hint">Edit the message if you want to add stats, merits, travel capacity or OC availability.</span>
+            <div class="application-actions">
+              <button id="sendApplication" class="submit-application" type="button">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                Send Application
+              </button>
+              <button id="copyApplication" type="button">
+                <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                Copy Message
+              </button>
+              <button id="resetApplication" type="button">
+                <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                Reset
+              </button>
+            </div>
+            <span id="applicationStatus" class="form-status" role="status" aria-live="polite"></span>
+          </div>
+        </section>
+
+        <aside class="contact-aside" aria-label="Contact guidance">
+          <section class="contact-panel" aria-labelledby="contact-priority">
+            <span class="section-kicker">Contact Routes</span>
+            <h2 id="contact-priority">Best Route</h2>
+            <p>Use Discord for urgent coordination and the application form for structured recruitment requests.</p>
+            <div class="contact-actions">
+              <a class="btn" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-discord" aria-hidden="true"></i>
+                Join Discord
+              </a>
+              <a class="btn" href="members.html">
+                <i class="fa-solid fa-users" aria-hidden="true"></i>
+                View Roster
+              </a>
+            </div>
+            <div class="contact-methods">
+              <div class="contact-method">
+                <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                <div>
+                  <strong>Fastest reply</strong>
+                  <span>Discord is best for chain calls, OC readiness and quick leadership pings.</span>
+                </div>
+              </div>
+              <div class="contact-method">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <div>
+                  <strong>Direct messages</strong>
+                  <span>Torn profile links open in a new tab for in-game mail or profile checks.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="readiness-panel" aria-labelledby="readiness-heading">
+            <h3 id="readiness-heading">Include Before Sending</h3>
+            <ul>
+              <li>Torn name and level</li>
+              <li>Expected activity window</li>
+              <li>OC 2.0 and chain availability</li>
+              <li>Travel, training or income goals</li>
+            </ul>
+          </section>
+        </aside>
+      </section>
     </div>
   </section>
 </main>
