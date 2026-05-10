@@ -656,6 +656,7 @@
 </footer>
 
 <!-- GLOBAL SCRIPT -->
+<script src="assets/contact-config.js"></script>
 <script src="assets/script.js"></script>
 
 <!-- LIVE STATUS & AVATARS -->
@@ -665,7 +666,7 @@
   if(YEAR_EL) YEAR_EL.textContent = new Date().getFullYear();
 
   const LS_KEY          = 'pcApiCipher';
-  const CONTACT_ENDPOINT = '/api/contact';
+  const CONTACT_ENDPOINT = (window.PRIVE_CONTACT_ENDPOINT || '').trim();
   const CONTACT_SOURCE   = 'prive-contact-v1';
   const REFRESH_MS      = 60_000;
   const MAX_BACKOFF_MS  = 10 * 60_000;
@@ -840,22 +841,32 @@
       }
 
       if(!CONTACT_ENDPOINT){
-        setStatus('Gmail SMTP endpoint is not configured yet. Copy the message and send it through Torn or Discord for now.', 'warn');
+        setStatus('Gmail mail endpoint is not configured yet. Copy the message and send it through Torn or Discord for now.', 'warn');
         return;
       }
 
       send.disabled = true;
       setStatus('Sending application...', '');
       try{
-        await fetch(CONTACT_ENDPOINT, {
+        const endpointUrl = new URL(CONTACT_ENDPOINT, location.href);
+        const sameOrigin = endpointUrl.origin === location.origin;
+        const response = await fetch(endpointUrl.href, sameOrigin ? {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(payload()),
-        }).then(async response => {
+        } : {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {'Content-Type': 'text/plain;charset=utf-8'},
+          body: JSON.stringify(payload()),
+        });
+
+        if(sameOrigin){
           const body = await response.json().catch(() => ({}));
           if(!response.ok || body.ok === false) throw new Error(body.error || `HTTP ${response.status}`);
-        });
-        setStatus('Application submitted through the Gmail SMTP endpoint. Council should receive it by email shortly.', 'ok');
+        }
+
+        setStatus('Application submitted. Council should receive it by email shortly.', 'ok');
         showToast('Application submitted');
       }catch{
         setStatus('Submission failed. Copy the message and send it through Torn or Discord.', 'error');
