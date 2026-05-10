@@ -1,0 +1,15 @@
+{
+  "name": "prive-cartel-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static Prive Cartel website with a Gmail SMTP contact endpoint.",
+  "scripts": {
+    "start": "node server/contact-server.js",
+    "check": "node --check assets/script.js && node --check assets/navbar.js && node --check server/contact-server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemailer": "^8.0.7"
+  }
+}

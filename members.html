@@ -126,7 +126,6 @@
 <!-- ─────────────────────────── NAVBAR ─────────────────────────── -->
 <script type="module" src="assets/navbar.js"></script>
 <pc-navbar></pc-navbar>
-<div class="nav-overlay"></div>
 
 <!-- ─────────────────────────── HERO ───────────────────────────── -->
 <section class="rules-hero">
@@ -141,10 +140,10 @@
 
     <!-- FILTER BAR -->
     <div class="filter-bar">
-      <input type="text"     id="memberSearch" placeholder="Search IGN, role, status…">
-      <input type="password" id="apiKeyInput"  placeholder="Paste API key…">
+      <input type="text"     id="memberSearch" placeholder="Search IGN, role, status…" aria-label="Search members by name, role, or status">
+      <input type="password" id="apiKeyInput"  placeholder="Paste API key…" aria-label="Torn API key">
       <button id="saveKeyBtn"><i class="fa-solid fa-key"></i> Save</button>
-      <button id="clearKeyBtn" title="Clear key"><i class="fa-solid fa-trash"></i></button>
+      <button id="clearKeyBtn" title="Clear key" aria-label="Clear saved API key"><i class="fa-solid fa-trash"></i></button>
     </div>
 
     <!-- TABLE -->
@@ -440,7 +439,7 @@ async function snapshot(){
 async function live(key){
   notice.classList.add('loading');
   try{
-    const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${key}`);
+    const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${encodeURIComponent(key)}`);
     if(!r.ok) throw new Error('Torn API error');
     const d=await r.json();
     if(d.error) throw new Error(d.error.error);
@@ -466,7 +465,7 @@ async function live(key){
         if(!v.isIntersecting) return;
         const img=v.target;
         io.unobserve(img);
-        fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${key}`)
+        fetch(`https://api.torn.com/user/${img.dataset.id}?selections=profile&key=${encodeURIComponent(key)}`)
           .then(r=>r.json())
           .then(j=>{ if(!j.error && j.profile_image) img.src=j.profile_image; })
           .catch(()=>{});
@@ -475,7 +474,7 @@ async function live(key){
     body.querySelectorAll('img.avatar').forEach(i=>i.dataset.id && io.observe(i));
 
   }catch(err){
-    alert(err.message);
+    showToast(err.message || 'Live API unavailable; showing snapshot');
     snapshot(); // fallback
   }
   notice.classList.remove('loading');
@@ -484,7 +483,7 @@ async function live(key){
 /*━━━━━━━━━━ CONTROLS ━━━━━━━━━━━━━━━━━━━━━*/
 save.onclick=async()=>{
   const k=apiInput.value.trim();
-  if(k.length<10){ alert('Invalid API key'); return; }
+  if(k.length<10){ showToast('Invalid API key'); return; }
   await enc(k).then(cipher=>localStorage.setItem(LS,cipher));
   live(k);
   showToast('API saved');

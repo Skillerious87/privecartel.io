@@ -24,6 +24,7 @@
       border:2px solid var(--accent);border-radius:var(--radius);background:var(--bg-1);color:var(--text-1)}
     #newsSearch:focus{outline:2px solid var(--accent)}
     .pill{padding:.45rem .9rem;border:1px solid var(--accent);border-radius:999px;
+      background:transparent;font:inherit;
       font-size:.85rem;cursor:pointer;user-select:none;color:var(--accent);
       transition:background .25s,color .25s,transform .25s}
     .pill:hover{transform:translateY(-2px)}
@@ -62,7 +63,6 @@
 <!-- NAVBAR -->
 <script type="module" src="assets/navbar.js"></script>
 <pc-navbar></pc-navbar>
-<div class="nav-overlay"></div>
 
 <!-- HERO -->
 <section class="rules-hero">
@@ -112,6 +112,7 @@ $('.news-filters').append(pillWrap);
 let items = [];
 let cards = [];
 let activeTag = 'All';
+const newsBase = new URL('news/', location.href);
 
 /* ---------- FETCH DATA ---------- */
 fetch('news/news.json',{cache:'no-cache'})
@@ -138,14 +139,12 @@ function buildTags(){
   items.forEach(i => tags.add(i.tag || 'Other'));
   pillWrap.innerHTML = '';
   tags.forEach(t => {
-    const p = document.createElement('span');
+    const p = document.createElement('button');
+    p.type = 'button';
     p.className = 'pill' + (t === 'All' ? ' active' : '');
     p.textContent = t;
-    p.setAttribute('role','button');
-    p.setAttribute('tabindex','0');
     p.setAttribute('aria-pressed',t==='All');
     p.addEventListener('click', ()=> setTag(t));
-    p.addEventListener('keydown', e=>{ if(e.key==='Enter') setTag(t); });
     pillWrap.appendChild(p);
   });
 }
@@ -186,7 +185,8 @@ function buildCards(){
 }
 
 function articleUrl(file){
-  return file.startsWith('../') || file.startsWith('/') ? file : 'news/' + file;
+  if(/^https?:\/\//i.test(file)) return file;
+  return new URL(file, newsBase).href;
 }
 
 /* ---------- SEARCH / FILTER ---------- */

@@ -5,8 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Privé Cartel | Contact</title>
-  <meta name="description" content="Get in touch with our leadership team.">
-  <link rel="icon" type="image/png" href="/images/Emblem.png">
+  <meta name="description" content="Contact the Privé Cartel leadership team through Torn or Discord for recruitment, OC coordination and faction support.">
+  <link rel="icon" type="image/png" href="images/Emblem.png">
 
   <!-- FONTS & ICONS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,15 +31,183 @@
     html,body{height:100%}
     body{display:flex;flex-direction:column;margin:0}
     main{flex:1}
-    .contact-section{padding-top:6rem}
+    .contact-section{padding:3rem 0 4.5rem}
+    .contact-shell{display:grid;gap:2rem}
+    .contact-intro{
+      display:grid;
+      grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
+      gap:1.4rem;
+      align-items:stretch;
+    }
+    .contact-panel,
+    .contact-method{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(var(--accent-rgb),.28);
+      border-radius:var(--radius);
+      box-shadow:0 10px 28px rgba(0,0,0,.28);
+    }
+    .contact-panel{
+      padding:1.35rem;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:1.1rem;
+    }
+    .contact-panel h2,
+    .contact-roster h2{
+      margin:0 0 .55rem;
+      font-size:1.55rem;
+    }
+    .contact-panel p,
+    .contact-roster p,
+    .application-panel p{
+      margin:0;
+      color:var(--text-2);
+      font-size:.95rem;
+      line-height:1.6;
+    }
+    .contact-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.75rem;
+    }
+    .contact-methods{
+      display:grid;
+      gap:.8rem;
+    }
+    .contact-method{
+      display:grid;
+      grid-template-columns:2.6rem 1fr;
+      gap:.85rem;
+      align-items:start;
+      padding:1rem;
+    }
+    .contact-method i{
+      width:2.6rem;height:2.6rem;
+      display:grid;place-items:center;
+      border-radius:50%;
+      background:rgba(var(--accent-rgb),.14);
+      color:var(--accent);
+    }
+    .contact-method strong{
+      display:block;
+      margin-bottom:.15rem;
+      color:var(--accent);
+    }
+    .contact-method span{
+      display:block;
+      color:var(--text-2);
+      font-size:.88rem;
+      line-height:1.5;
+    }
+    .contact-roster{
+      text-align:center;
+      max-width:760px;
+      margin:0 auto;
+    }
+    .application-panel{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(var(--accent-rgb),.28);
+      border-radius:var(--radius);
+      padding:1.35rem;
+      box-shadow:0 10px 28px rgba(0,0,0,.28);
+    }
+    .application-panel h2{
+      margin:0 0 .55rem;
+      font-size:1.55rem;
+    }
+    .application-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:.85rem;
+      margin:1.2rem 0;
+    }
+    .application-field{
+      display:grid;
+      gap:.35rem;
+    }
+    .application-field label{
+      color:var(--accent);
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .application-field input,
+    .application-field select,
+    .application-template{
+      width:100%;
+      border:1px solid rgba(var(--accent-rgb),.34);
+      border-radius:.65rem;
+      background:rgba(0,0,0,.38);
+      color:var(--text-1);
+      font:inherit;
+    }
+    .application-field input,
+    .application-field select{
+      min-height:2.8rem;
+      padding:.62rem .75rem;
+    }
+    .application-template{
+      min-height:8.5rem;
+      padding:.8rem .9rem;
+      resize:vertical;
+      line-height:1.55;
+    }
+    .application-footer{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.75rem;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .application-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.65rem;
+    }
+    .application-actions .submit-application{
+      color:#050505;
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+    .application-actions button{
+      border:1px solid rgba(var(--accent-rgb),.34);
+      border-radius:999px;
+      min-height:2.55rem;
+      padding:.58rem .9rem;
+      background:rgba(255,255,255,.035);
+      color:var(--accent);
+      font:inherit;
+      font-size:.86rem;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .application-actions button:hover,
+    .application-actions button:focus-visible{
+      background:var(--accent);
+      color:#050505;
+    }
+    .application-hint{
+      color:rgba(214,197,154,.78);
+      font-size:.82rem;
+    }
+    .form-status{
+      min-height:1.25rem;
+      color:var(--text-2);
+      font-size:.84rem;
+    }
+    .form-status.ok{color:#6ee787}
+    .form-status.warn{color:#ffd95a}
+    .form-status.error{color:#ff8d8d}
 
     /* grid — centered tracks + tidy card width, upgrades to 4 cols on very wide screens */
     .contact-grid{
       display:grid;
       gap:1.6rem;
       grid-template-columns:repeat(auto-fit,minmax(280px,320px));
-      justify-content:center;                 /* centers the final row */
-      margin:2.8rem 0;
+      justify-content:center;
+      margin:0;
       opacity:0;transform:translateY(16px);
       animation:fadeSlide .6s ease forwards .25s;
     }
@@ -60,11 +228,12 @@
       text-decoration:none!important;
       transition:transform var(--t),box-shadow var(--t),border-color var(--t);
       height:100%;
+      min-height:100%;
     }
     .profile-card:hover,
     .profile-card:focus-visible{border-color:var(--card-gold)}
     .profile-card:hover{
-      transform:translateY(-6px) rotateX(4deg) rotateY(-2deg);
+      transform:translateY(-6px);
       box-shadow:var(--lift);
     }
     .profile-card:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
@@ -74,22 +243,90 @@
       border-radius:50%;object-fit:cover;border:2px solid var(--accent);
     }
     .profile-card h3{margin:.1rem 0 .35rem;color:var(--accent);font-size:1.25rem;text-align:center}
-    .profile-card .role{margin:0 0 1rem;color:var(--text-2);font-size:.95rem;text-align:center}
+    .profile-card .role{margin:0 0 .75rem;color:var(--text-2);font-size:.95rem;text-align:center}
     .profile-card h3::after{content:"";display:block;margin:.6rem auto 1rem;width:44px;height:1px;background:var(--accent)}
-    .profile-card .bio{margin:0;font-size:.9rem;line-height:1.45;color:var(--text-2);text-align:center}
+    .profile-card .bio{
+      margin:0 0 1.2rem;
+      font-size:.9rem;
+      line-height:1.55;
+      color:var(--text-2);
+      text-align:center;
+    }
+    .profile-meta{
+      width:100%;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.45rem;
+      margin:0 0 1rem;
+    }
+    .profile-meta span{
+      border:1px solid rgba(var(--accent-rgb),.24);
+      border-radius:999px;
+      padding:.25rem .55rem;
+      color:rgba(232,226,206,.82);
+      font-size:.76rem;
+      line-height:1.2;
+      background:rgba(0,0,0,.25);
+    }
+    .profile-actions{
+      width:100%;
+      margin-top:auto;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:.65rem;
+    }
+    .profile-actions .btn,
+    .copy-xid{
+      min-height:2.55rem;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.45rem;
+      border-radius:999px;
+      padding:.58rem .9rem;
+      font:inherit;
+      font-size:.86rem;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .profile-actions .btn{
+      color:#050505!important;
+      background:var(--accent);
+      border:1px solid var(--accent);
+      text-decoration:none!important;
+    }
+    .copy-xid{
+      width:2.65rem;
+      color:var(--accent);
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(var(--accent-rgb),.32);
+    }
+    .profile-actions .btn:hover,
+    .profile-actions .btn:focus-visible,
+    .copy-xid:hover,
+    .copy-xid:focus-visible{
+      transform:translateY(-2px);
+      box-shadow:0 8px 18px rgba(0,0,0,.28);
+    }
 
-    .contact-note{text-align:center;color:var(--text-2);font-size:.9rem;margin-top:1.2rem}
+    .contact-note{text-align:center;color:var(--text-2);font-size:.9rem;margin-top:.2rem}
     footer{background:#000;border-top:2px solid var(--accent);text-align:center;padding:1.25rem 1rem;color:var(--text-2)}
 
     /* underline hover only in contact body */
-    .contact-section a:not(.profile-card){
+    .contact-section a{
       text-decoration:none;
       background-image:linear-gradient(var(--accent),var(--accent));
       background-size:0 1px;background-position:0 95%;background-repeat:no-repeat;
       transition:background-size .25s ease;
     }
-    .contact-section a:not(.profile-card):hover,
-    .contact-section a:not(.profile-card):focus-visible{background-size:100% 1px}
+    .contact-section a:hover,
+    .contact-section a:focus-visible{background-size:100% 1px}
+    .contact-section .btn,
+    .contact-section .btn:hover,
+    .contact-section .btn:focus-visible{
+      background-image:none;
+    }
 
     /* status pill */
     .status-pill{
@@ -131,6 +368,39 @@
       100% { transform: scale(1); opacity:1; }
     }
     .status-pill.changed{ animation: pill-pop .38s cubic-bezier(.22,.61,.36,1); }
+    .copy-toast{
+      position:fixed;
+      right:1.25rem;
+      bottom:1.25rem;
+      z-index:1100;
+      background:var(--accent);
+      color:#050505;
+      border-radius:999px;
+      padding:.65rem 1rem;
+      font-size:.88rem;
+      font-weight:700;
+      box-shadow:0 10px 28px rgba(0,0,0,.4);
+      opacity:0;
+      transform:translateY(12px);
+      animation:toastIn .22s ease forwards, toastOut .25s ease forwards 2.2s;
+    }
+    @keyframes toastIn{to{opacity:1;transform:none}}
+    @keyframes toastOut{to{opacity:0;transform:translateY(12px)}}
+
+    @media(max-width:820px){
+      .contact-intro{grid-template-columns:1fr}
+      .application-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:520px){
+      .contact-section{padding-top:2rem}
+      .contact-grid{grid-template-columns:1fr}
+      .profile-actions{grid-template-columns:1fr}
+      .copy-xid{width:100%}
+      .application-grid{grid-template-columns:1fr}
+      .application-footer{display:grid}
+      .application-actions,
+      .application-actions button{width:100%}
+    }
 
     @media(prefers-reduced-motion:reduce){
       *,*:before,*:after{animation:none!important;transition:none!important}
@@ -143,86 +413,238 @@
 <!-- NAVBAR -->
 <script type="module" src="assets/navbar.js"></script>
 <pc-navbar></pc-navbar>
-<div class="nav-overlay"></div>
 
 <!-- HERO -->
 <section class="rules-hero">
-  <img src="/images/Emblem.png" alt="Cartel Emblem">
+  <img src="images/Emblem.png" alt="Cartel Emblem">
   <h1>Contact Our Leadership</h1>
   <p class="tagline" style="max-width:680px">
-    Reach out to the Privé Cartel leadership team—tap a card to open a Torn profile.
+    Reach the Privé Cartel council for recruitment, OC coordination, chain support and faction questions.
   </p>
 </section>
 
 <!-- CONTACT GRID -->
 <main>
   <section class="contact-section">
-    <div class="container">
+    <div class="container contact-shell">
+      <div class="contact-intro">
+        <section class="contact-panel" aria-labelledby="contact-priority">
+          <div>
+            <h2 id="contact-priority">Best Contact Route</h2>
+            <p>Use Discord for urgent coordination, Torn mail for direct leadership messages, and include enough context for recruitment or support requests.</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-discord" aria-hidden="true"></i>
+              Join Discord
+            </a>
+            <a class="btn" href="members.html">
+              <i class="fa-solid fa-users" aria-hidden="true"></i>
+              View Roster
+            </a>
+          </div>
+        </section>
+
+        <div class="contact-methods" aria-label="Contact guidance">
+          <div class="contact-method">
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+            <div>
+              <strong>Fastest reply</strong>
+              <span>Discord is best for chain calls, OC readiness and quick leadership pings.</span>
+            </div>
+          </div>
+          <div class="contact-method">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <div>
+              <strong>Direct messages</strong>
+              <span>Torn profile links below open in a new tab for in-game mail or profile checks.</span>
+            </div>
+          </div>
+          <div class="contact-method">
+            <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+            <div>
+              <strong>Applicants</strong>
+              <span>Share your level, activity pattern, goals and any OC or chaining experience.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="contact-roster" aria-labelledby="leadership-heading">
+        <h2 id="leadership-heading">Leadership Council</h2>
+        <p>Live status appears when you have saved a Torn API key on the members page; otherwise the cards still work as direct profile links.</p>
+      </section>
+
+      <section class="application-panel" aria-labelledby="application-heading">
+        <h2 id="application-heading">Application Starter</h2>
+        <p>Build a short message before you contact council. It keeps recruitment requests clear and saves a few back-and-forth messages.</p>
+        <div class="application-grid">
+          <div class="application-field">
+            <label for="appName">Torn name</label>
+            <input id="appName" type="text" autocomplete="nickname" placeholder="Your Torn name">
+          </div>
+          <div class="application-field">
+            <label for="appLevel">Level</label>
+            <input id="appLevel" type="number" min="1" inputmode="numeric" placeholder="15">
+          </div>
+          <div class="application-field">
+            <label for="appContact">Reply contact</label>
+            <input id="appContact" type="text" autocomplete="email" placeholder="Email, Discord, or Torn ID">
+          </div>
+          <div class="application-field">
+            <label for="appFocus">Primary focus</label>
+            <select id="appFocus">
+              <option>OC 2.0</option>
+              <option>Chaining</option>
+              <option>Travel income</option>
+              <option>Training</option>
+              <option>General growth</option>
+            </select>
+          </div>
+          <div class="application-field">
+            <label for="appActivity">Activity</label>
+            <select id="appActivity">
+              <option>Daily</option>
+              <option>Several times daily</option>
+              <option>Evenings only</option>
+              <option>Weekends mostly</option>
+            </select>
+          </div>
+        </div>
+        <textarea id="applicationTemplate" class="application-template" aria-label="Generated application message"></textarea>
+        <div class="application-footer">
+          <span class="application-hint">Edit the message before sending if you want to add stats, merits or travel capacity.</span>
+          <div class="application-actions">
+            <button id="sendApplication" class="submit-application" type="button">
+              <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              Send Application
+            </button>
+            <button id="copyApplication" type="button">
+              <i class="fa-regular fa-copy" aria-hidden="true"></i>
+              Copy Message
+            </button>
+            <button id="resetApplication" type="button">
+              <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+              Reset
+            </button>
+          </div>
+          <span id="applicationStatus" class="form-status" role="status" aria-live="polite"></span>
+        </div>
+      </section>
+
       <div class="contact-grid">
 
         <!-- ForeverHydrox -->
-        <a class="profile-card" href="https://www.torn.com/profiles.php?XID=2753560"
-           target="_blank" rel="noopener"
-           aria-label="Open ForeverHydrox's Torn profile in a new tab">
-          <span class="status-pill" data-id="2753560">…</span>
-          <img class="avatar" src="/images/blankprofile.jpg" data-id="2753560" alt="">
+        <article class="profile-card">
+          <span class="status-pill" data-id="2753560" role="status" aria-live="polite">Status</span>
+          <img class="avatar" src="images/blankprofile.jpg" data-id="2753560" alt="ForeverHydrox avatar">
           <h3>ForeverHydrox</h3>
           <p class="role">Leader</p>
+          <div class="profile-meta" aria-label="Focus areas">
+            <span>Diplomacy</span>
+            <span>Operations</span>
+            <span>Strategy</span>
+          </div>
           <p class="bio">
             Seasoned faction leader with more than three years of hands-on experience 
             orchestrating wars, coordinating chain-calls and shaping long-term strategy. 
             Oversees day-to-day operations, negotiates high-stakes diplomacy and ensures 
             every member has a clear path to growth and glory.
           </p>
-        </a>
+          <div class="profile-actions">
+            <a class="btn" href="https://www.torn.com/profiles.php?XID=2753560" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              Open Torn
+            </a>
+            <button class="copy-xid" type="button" data-copy="2753560" aria-label="Copy ForeverHydrox XID">
+              <i class="fa-regular fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </article>
 
         <!-- Skillerious -->
-        <a class="profile-card" href="https://www.torn.com/profiles.php?XID=3212954"
-           target="_blank" rel="noopener"
-           aria-label="Open Skillerious's Torn profile in a new tab">
-          <span class="status-pill" data-id="3212954">…</span>
-          <img class="avatar" src="/images/blankprofile.jpg" data-id="3212954" alt="">
+        <article class="profile-card">
+          <span class="status-pill" data-id="3212954" role="status" aria-live="polite">Status</span>
+          <img class="avatar" src="images/blankprofile.jpg" data-id="3212954" alt="Skillerious avatar">
           <h3>Skillerious</h3>
           <p class="role">Co-Leader</p>
+          <div class="profile-meta" aria-label="Focus areas">
+            <span>Tools</span>
+            <span>Data</span>
+            <span>Combat</span>
+          </div>
           <p class="bio">
             Open-source userscript developer, data analyst and combat tactician. 
             Builds custom tools that automate faction workflows, crunches the numbers behind every OC, heist and territory push to give us 
             an edge nobody else can match.
           </p>
-        </a>
+          <div class="profile-actions">
+            <a class="btn" href="https://www.torn.com/profiles.php?XID=3212954" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              Open Torn
+            </a>
+            <button class="copy-xid" type="button" data-copy="3212954" aria-label="Copy Skillerious XID">
+              <i class="fa-regular fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </article>
 
         <!-- JdedPrincess -->
-        <a class="profile-card" href="https://www.torn.com/profiles.php?XID=3400392"
-           target="_blank" rel="noopener"
-           aria-label="Open JdedPrincess's Torn profile in a new tab">
-          <span class="status-pill" data-id="3400392">…</span>
-          <img class="avatar" src="/images/blankprofile.jpg" data-id="3400392" alt="">
+        <article class="profile-card">
+          <span class="status-pill" data-id="3400392" role="status" aria-live="polite">Status</span>
+          <img class="avatar" src="images/blankprofile.jpg" data-id="3400392" alt="JdedPrincess avatar">
           <h3>JdedPrincess</h3>
           <p class="role">Council Member</p>
+          <div class="profile-meta" aria-label="Focus areas">
+            <span>Morale</span>
+            <span>Support</span>
+            <span>Culture</span>
+          </div>
           <p class="bio">
             Creative tactician and morale champion, JdedPrincess keeps Privé Cartel cohesive, inspired, and tactically one step ahead.
           </p>
-        </a>
+          <div class="profile-actions">
+            <a class="btn" href="https://www.torn.com/profiles.php?XID=3400392" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              Open Torn
+            </a>
+            <button class="copy-xid" type="button" data-copy="3400392" aria-label="Copy JdedPrincess XID">
+              <i class="fa-regular fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </article>
 
         <!-- Igniatus -->
-        <a class="profile-card" href="https://www.torn.com/profiles.php?XID=2541592"
-           target="_blank" rel="noopener"
-           aria-label="Open Igniatus's Torn profile in a new tab">
-          <span class="status-pill" data-id="2541592">…</span>
-          <img class="avatar" src="/images/blankprofile.jpg" data-id="2541592" alt="">
+        <article class="profile-card">
+          <span class="status-pill" data-id="2541592" role="status" aria-live="polite">Status</span>
+          <img class="avatar" src="images/blankprofile.jpg" data-id="2541592" alt="Igniatus avatar">
           <h3>Igniatus</h3>
           <p class="role">Treasurer</p>
+          <div class="profile-meta" aria-label="Focus areas">
+            <span>Banking</span>
+            <span>Payouts</span>
+            <span>Records</span>
+          </div>
           <p class="bio">
             Vault guardian and fiscal strategist. Reconciles OC payouts and member balances, 
             audits logs, and keeps our war chest liquid, accurate, and ready for whatever the 
             Cartel takes on next.
           </p>
-        </a>
+          <div class="profile-actions">
+            <a class="btn" href="https://www.torn.com/profiles.php?XID=2541592" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              Open Torn
+            </a>
+            <button class="copy-xid" type="button" data-copy="2541592" aria-label="Copy Igniatus XID">
+              <i class="fa-regular fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </article>
 
       </div><!-- /.contact-grid -->
 
       <p class="contact-note">
-        Looking to join? Message any leader in-game or find us on Discord.
+        For recruitment, include your Torn name, expected activity, travel readiness and whether you can join OC 2.0 timers.
       </p>
     </div>
   </section>
@@ -240,19 +662,25 @@
 <script>
 (async () => {
   const YEAR_EL = document.getElementById('year');
-  YEAR_EL.textContent = new Date().getFullYear();
+  if(YEAR_EL) YEAR_EL.textContent = new Date().getFullYear();
 
   const LS_KEY          = 'pcApiCipher';
+  const CONTACT_ENDPOINT = '/api/contact';
+  const CONTACT_SOURCE   = 'prive-contact-v1';
   const REFRESH_MS      = 60_000;
   const MAX_BACKOFF_MS  = 10 * 60_000;
   let   delay           = REFRESH_MS;
   let   timer           = null;
+  let   apiKey          = '';
 
   const cards = [...document.querySelectorAll('.profile-card')].map(card=>{
     const pill = card.querySelector('.status-pill');
     const img  = card.querySelector('.avatar');
     return { id: pill?.dataset.id, pill, img };
   });
+
+  wireCopyButtons();
+  wireApplicationBuilder();
 
   function classifyStatus(s){
     const v = (s||'').toLowerCase();
@@ -285,6 +713,7 @@
       const ts = lastAction.timestamp || lastAction.last_action || 0;
       pill.title = lastAction.relative || humanAgo(ts) || '';
     }else pill.title = '';
+    pill.setAttribute('aria-label', pill.title ? `${txt}, ${pill.title}` : txt);
 
     if(prev !== (status||'').toLowerCase()){
       void pill.offsetWidth;
@@ -296,8 +725,162 @@
     if(!pill) return;
     pill.textContent = msg;
     pill.title = msg;
+    pill.setAttribute('aria-label', msg);
     pill.classList.remove('online','offline','idle','traveling','changed');
     pill.classList.add('error');
+  }
+
+  function setNoKey(){
+    cards.forEach(({pill})=>{
+      if(!pill) return;
+      pill.textContent = 'No key';
+      pill.title = 'Save a Torn API key on the members page to show live status';
+      pill.setAttribute('aria-label', pill.title);
+    });
+  }
+
+  function showToast(message){
+    const existing = document.querySelector('.copy-toast');
+    if(existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'copy-toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    toast.addEventListener('animationend', event=>{
+      if(event.animationName === 'toastOut') toast.remove();
+    });
+  }
+
+  function wireCopyButtons(){
+    document.querySelectorAll('.copy-xid').forEach(button=>{
+      button.addEventListener('click', async ()=>{
+        const value = button.dataset.copy || '';
+        if(!value) return;
+        try{
+          await copyText(value);
+          showToast(`Copied XID ${value}`);
+        }catch{
+          showToast(`XID ${value}`);
+        }
+      });
+    });
+  }
+
+  async function copyText(value){
+    if(navigator.clipboard?.writeText){
+      await navigator.clipboard.writeText(value);
+      return;
+    }
+
+    const field = document.createElement('textarea');
+    field.value = value;
+    field.setAttribute('readonly','');
+    field.style.position = 'fixed';
+    field.style.opacity = '0';
+    document.body.appendChild(field);
+    field.select();
+    const copied = document.execCommand('copy');
+    field.remove();
+    if(!copied) throw new Error('Copy failed');
+  }
+
+  function wireApplicationBuilder(){
+    const name = document.getElementById('appName');
+    const level = document.getElementById('appLevel');
+    const contact = document.getElementById('appContact');
+    const focus = document.getElementById('appFocus');
+    const activity = document.getElementById('appActivity');
+    const output = document.getElementById('applicationTemplate');
+    const send = document.getElementById('sendApplication');
+    const copy = document.getElementById('copyApplication');
+    const reset = document.getElementById('resetApplication');
+    const status = document.getElementById('applicationStatus');
+    if(!name || !level || !contact || !focus || !activity || !output) return;
+
+    const setStatus = (message, type='') => {
+      if(!status) return;
+      status.textContent = message;
+      status.className = `form-status ${type}`.trim();
+    };
+
+    const build = () => {
+      const player = name.value.trim() || '[Torn name]';
+      const lvl = level.value.trim() || '[level]';
+      const reply = contact.value.trim() || '[reply contact]';
+      output.value = `Hi Privé Cartel council, I am ${player}, level ${lvl}. I am interested in joining or speaking with leadership.\n\nReply contact: ${reply}\nPrimary focus: ${focus.value}\nActivity pattern: ${activity.value}\n\nI can follow faction rules, communicate around OC 2.0 timers, and help with chains when available.`;
+    };
+
+    const payload = () => ({
+      source: CONTACT_SOURCE,
+      website: '',
+      name: name.value.trim(),
+      level: level.value.trim(),
+      contact: contact.value.trim(),
+      focus: focus.value,
+      activity: activity.value,
+      message: output.value.trim(),
+      page: location.href,
+    });
+
+    const validate = () => {
+      const data = payload();
+      if(!data.name) return 'Enter your Torn name before sending.';
+      if(!data.level || Number(data.level) < 1) return 'Enter a valid Torn level before sending.';
+      if(!data.message) return 'Write a message before sending.';
+      return '';
+    };
+
+    [name, level, contact, focus, activity].forEach(field=>field.addEventListener('input', build));
+    [focus, activity].forEach(field=>field.addEventListener('change', build));
+    send?.addEventListener('click', async ()=>{
+      const error = validate();
+      if(error){
+        setStatus(error, 'error');
+        return;
+      }
+
+      if(!CONTACT_ENDPOINT){
+        setStatus('Gmail SMTP endpoint is not configured yet. Copy the message and send it through Torn or Discord for now.', 'warn');
+        return;
+      }
+
+      send.disabled = true;
+      setStatus('Sending application...', '');
+      try{
+        await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload()),
+        }).then(async response => {
+          const body = await response.json().catch(() => ({}));
+          if(!response.ok || body.ok === false) throw new Error(body.error || `HTTP ${response.status}`);
+        });
+        setStatus('Application submitted through the Gmail SMTP endpoint. Council should receive it by email shortly.', 'ok');
+        showToast('Application submitted');
+      }catch{
+        setStatus('Submission failed. Copy the message and send it through Torn or Discord.', 'error');
+      }finally{
+        send.disabled = false;
+      }
+    });
+    copy?.addEventListener('click', async ()=>{
+      try{
+        await copyText(output.value);
+        showToast('Application message copied');
+      }catch{
+        showToast('Application message ready to copy');
+      }
+    });
+    reset?.addEventListener('click', ()=>{
+      name.value = '';
+      level.value = '';
+      contact.value = '';
+      focus.selectedIndex = 0;
+      activity.selectedIndex = 0;
+      setStatus('');
+      build();
+    });
+    build();
   }
 
   async function decryptKey(hex){
@@ -321,8 +904,9 @@
   }
 
   async function fetchUser(id, sels, key){
-    const url = `https://api.torn.com/user/${id}?selections=${sels}&key=${key}`;
+    const url = `https://api.torn.com/user/${id}?selections=${sels}&key=${encodeURIComponent(key)}`;
     const res = await fetch(url);
+    if(!res.ok) throw new Error(`Torn API HTTP ${res.status}`);
     return res.json();
   }
 
@@ -382,8 +966,11 @@
   });
 
   const cipher = localStorage.getItem(LS_KEY);
-  const apiKey = await decryptKey(cipher);
-  if(!apiKey) return; // no key, leave placeholders
+  apiKey = await decryptKey(cipher);
+  if(!apiKey){
+    setNoKey();
+    return;
+  }
 
   await hydrateOnce(apiKey);
   schedule(apiKey);

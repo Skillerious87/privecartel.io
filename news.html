@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privé Cartel | News & Milestones</title>
   <meta name="description" content="Latest announcements and milestones for Privé Cartel." />
-  <link rel="icon" type="image/png" href="/images/Emblem.png" />
+  <link rel="icon" type="image/png" href="images/Emblem.png" />
 
   <!-- FONTS & ICONS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,6 +26,7 @@
       background:var(--bg-1);color:var(--text-1)}
     #newsSearch:focus{outline:2px solid var(--accent)}
     .pill{padding:.45rem .9rem;border:1px solid var(--accent);border-radius:999px;
+      background:transparent;font:inherit;
       font-size:.85rem;cursor:pointer;user-select:none;color:var(--accent);
       transition:background .25s,color .25s,transform .25s}
     .pill:hover{transform:translateY(-2px)}
@@ -95,11 +96,10 @@
 <!-- NAVBAR -->
 <script type="module" src="assets/navbar.js"></script>
 <pc-navbar></pc-navbar>
-<div class="nav-overlay"></div>
 
 <!-- HERO -->
 <section class="rules-hero">
-  <img src="/images/Emblem.png" alt="Cartel Emblem" />
+  <img src="images/Emblem.png" alt="Cartel Emblem" />
   <h1>Faction&nbsp;News</h1>
   <p class="tagline">Announcements, milestones &amp; OC triumphs.</p>
 </section>
@@ -123,7 +123,7 @@
 
     <div class="notice">
       <i class="fa-solid fa-box-archive"></i>
-      Older headlines automatically move to our <a href="/archive.html">archive</a> after 30&nbsp;days.
+      Older headlines automatically move to our <a href="archive.html">archive</a> after 30&nbsp;days.
     </div>
   </div>
 </section>
@@ -151,7 +151,10 @@ $('.news-filters').append(pillWrap);
 let articles=[], cards=[], activeTag='All';
 
 /* ========== FETCH & BUILD ========== */
-fetch('/news/news.json',{cache:'no-cache'})
+const newsBase = new URL('news/', location.href);
+const assetBase = new URL('images/', location.href);
+
+fetch('news/news.json',{cache:'no-cache'})
   .then(r=> r.ok ? r.json() : Promise.reject())
   .then(applyDateWindow)
   .catch(()=>{
@@ -180,14 +183,12 @@ function buildTags(){
   const tags=new Set(['All']);articles.forEach(a=>tags.add(a.tag||'Other'));
   pillWrap.innerHTML='';
   tags.forEach(t=>{
-    const btn=document.createElement('span');
+    const btn=document.createElement('button');
+    btn.type='button';
     btn.textContent=t;
     btn.className='pill'+(t==='All'?' active':'');
-    btn.setAttribute('role','button');
-    btn.setAttribute('tabindex','0');
     btn.setAttribute('aria-pressed',t==='All');
     btn.onclick =()=>selectTag(t);
-    btn.onkeypress=e=>{if(e.key==='Enter')selectTag(t)};
     pillWrap.appendChild(btn);
   });
 }
@@ -210,9 +211,9 @@ function buildCards(){
     card.className='news-card reveal';
     card.dataset.tag=a.tag||'Other';
 
-    const thumb=a.image||'placeholder.png';
+    const thumb=a.image||'announcement.png';
     card.innerHTML=`
-      <img src="/images/${thumb}" alt="" class="news-thumb">
+      <img src="${imageUrl(thumb)}" alt="${a.title} thumbnail" class="news-thumb">
       <div class="icon-badge"><i class="fa-solid fa-${a.icon||'newspaper'}"></i></div>
       <div class="news-meta">
         <h3>${a.title}</h3>
@@ -233,7 +234,8 @@ function buildCards(){
 }
 
 function articleUrl(file){
-  return file.startsWith('../') || file.startsWith('/') ? file : '/news/' + file;
+  if(/^https?:\/\//i.test(file)) return file;
+  return new URL(file, newsBase).href;
 }
 
 /* ---------- Search & filter ---------- */
@@ -288,6 +290,7 @@ function revealInView(){
 
 /* ---------- Utilities ---------- */
 const fmtDate=d=>new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+const imageUrl=name=>new URL(name, assetBase).href;
 const sample=()=>[{title:'Chain Record Shattered!',date:'2025-06-23',summary:'The Cartel set a new high of 410.78 respect in a single 100-hit chain. Rewards paid, morale sky-high.',icon:'fire',tag:'OC',file:'#',image:'chain.png'}];
 
 /* ---------- footer year ---------- */
