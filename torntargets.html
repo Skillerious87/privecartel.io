@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Privé Cartel | Finding Chain Targets</title>
+  <meta name="description" content="A practical Privé Cartel guide to building chain target lists now that TornTargets is no longer used." />
+  <link rel="icon" type="image/png" href="../images/Emblem.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+
+  <style>
+    .guide-layout {
+      width: min(92%, 1160px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: calc(var(--nav-h) + 1rem);
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, .48);
+      padding: 1rem;
+    }
+    .toc h2 {
+      margin: 0 0 .7rem;
+      font-family: "Poppins", sans-serif;
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .toc a {
+      display: flex;
+      gap: .45rem;
+      align-items: center;
+      color: rgba(232, 226, 206, .86);
+      text-decoration: none;
+      padding: .4rem 0;
+      font-size: .9rem;
+    }
+    .toc a::before {
+      content: "";
+      width: .35rem;
+      height: 1px;
+      background: rgba(var(--accent-rgb), .7);
+    }
+    .toc a:hover,
+    .toc a:focus-visible {
+      color: var(--accent);
+    }
+    .guide {
+      min-width: 0;
+    }
+    .panel {
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .035);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .22);
+    }
+    .panel h2 {
+      margin: 0 0 .85rem;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+    }
+    .panel h3 {
+      margin: 1.15rem 0 .45rem;
+      font-family: "Poppins", sans-serif;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+    .panel p {
+      margin: .75rem 0;
+      color: rgba(232, 226, 206, .88);
+      line-height: 1.7;
+    }
+    .breadcrumb {
+      margin: 0 0 1rem;
+      font-size: .9rem;
+    }
+    .breadcrumb a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .notice {
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      background: rgba(var(--accent-rgb), .1);
+      padding: .85rem 1rem;
+      margin: 1rem 0;
+      color: var(--text-1);
+    }
+    .method-grid,
+    .quick-grid,
+    .mistake-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: .9rem;
+      margin-top: 1rem;
+    }
+    .cardlet {
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 10px;
+      background: rgba(0, 0, 0, .28);
+      padding: .95rem;
+    }
+    .cardlet i {
+      color: var(--accent);
+      font-size: 1.25rem;
+      margin-bottom: .55rem;
+    }
+    .cardlet strong {
+      display: block;
+      color: var(--text-1);
+      margin-bottom: .25rem;
+    }
+    .cardlet span {
+      display: block;
+      color: rgba(214, 197, 154, .86);
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    .standard {
+      padding-left: 1.35rem;
+      margin: 1rem 0;
+    }
+    .standard li {
+      margin-bottom: .7rem;
+      color: rgba(232, 226, 206, .88);
+    }
+    .standard strong {
+      color: var(--text-1);
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(var(--accent-rgb), .18);
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    .target-table {
+      width: 100%;
+      min-width: 660px;
+      border-collapse: collapse;
+      font-size: .92rem;
+    }
+    .target-table th,
+    .target-table td {
+      padding: .75rem .85rem;
+      border-bottom: 1px solid rgba(var(--accent-rgb), .15);
+      text-align: left;
+      vertical-align: top;
+    }
+    .target-table th {
+      color: var(--accent);
+      background: rgba(255, 255, 255, .055);
+      font-weight: 600;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: .18rem .55rem;
+      background: rgba(var(--accent-rgb), .14);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .source-list a {
+      color: var(--accent);
+    }
+    @media (max-width: 900px) {
+      .guide-layout {
+        grid-template-columns: 1fr;
+      }
+      .toc {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script type="module" src="../assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+
+  <section class="rules-hero">
+    <img src="../images/Emblem.png" alt="Cartel Emblem" class="emblem" />
+    <h1>Finding Chain Targets</h1>
+    <p class="tagline">How to build reliable target lists now that TornTargets is no longer part of our workflow.</p>
+  </section>
+
+  <main>
+    <section>
+      <div class="guide-layout">
+        <aside class="toc" aria-label="Guide contents">
+          <h2>On This Page</h2>
+          <a href="#quick-start">Quick Start</a>
+          <a href="#principles">Good Target Rules</a>
+          <a href="#duke">Duke Missions</a>
+          <a href="#methods">Target Sources</a>
+          <a href="#recording">Recording Targets</a>
+          <a href="#testing">Testing Safely</a>
+          <a href="#chain-day">Chain Day</a>
+          <a href="#mistakes">Mistakes</a>
+          <a href="#sources">Sources</a>
+        </aside>
+
+        <article class="guide">
+          <p class="breadcrumb">
+            <a href="../guides.html"><i class="fa-solid fa-arrow-left"></i> Back to Guides</a>
+          </p>
+
+          <section class="panel" id="quick-start">
+            <h2>Quick Start</h2>
+            <p>TornTargets used to be a convenient shortcut, but members should now build target lists from repeatable in-game sources. The best list is personal, tested, and refreshed regularly.</p>
+            <div class="quick-grid">
+              <div class="cardlet">
+                <i class="fa-solid fa-scroll"></i>
+                <strong>Use Duke missions</strong>
+                <span>Mission targets often become excellent chain candidates, especially once your mission difficulty rises.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-bookmark"></i>
+                <strong>Bookmark winners</strong>
+                <span>If you can beat them cleanly and they give useful respect, save them immediately.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-rotate"></i>
+                <strong>Refresh monthly</strong>
+                <span>Stats, activity, factions and equipment change. Stale target lists cause failed hits.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <strong>Keep emergency hits</strong>
+                <span>Low-risk low-respect targets are useful when the chain timer is close to dropping.</span>
+              </div>
+            </div>
+            <div class="notice">
+              Do not paste your Torn API key into random replacement sites just because TornTargets is gone. If a tool is not trusted by leadership, build manually.
+            </div>
+          </section>
+
+          <section class="panel" id="principles">
+            <h2>What Makes A Good Chain Target?</h2>
+            <p>A chain target is not just someone you can defeat. A good target balances reliability, respect, speed and repeatability.</p>
+            <ul class="standard">
+              <li><strong>Beatable:</strong> you should win consistently without wasting turns or burning through meds.</li>
+              <li><strong>Worthwhile respect:</strong> higher-level targets usually matter more, but a guaranteed hit can be better than a risky one.</li>
+              <li><strong>Fast to execute:</strong> avoid targets that require gear swaps, long fights or heavy RNG unless the respect is worth it.</li>
+              <li><strong>Available:</strong> inactive or low-response targets are easier to reuse than active players who change gear or self-hospitalize.</li>
+              <li><strong>Documented:</strong> note what worked, what weapon you used, damage taken and whether the target is safe for emergencies.</li>
+            </ul>
+          </section>
+
+          <section class="panel" id="duke">
+            <h2>Duke Missions Are A Target Source</h2>
+            <p>Duke missions are one of the best ways to discover practical chain targets because the mission system regularly presents attack targets around your progression. Do not treat every mission target as chain-ready, but do test and save the good ones.</p>
+            <h3>How to use Duke missions for chaining</h3>
+            <ol class="standard">
+              <li>Accept Duke missions as normal and review the named targets before attacking.</li>
+              <li>Check level, faction, status and whether the target looks active.</li>
+              <li>Attack only when the mission instructions allow it. Some missions have weapon or condition requirements.</li>
+              <li>If the target is easy and gives useful respect, bookmark them or add them to your enemy list with a note.</li>
+              <li>After the mission, test the target again outside mission pressure if appropriate.</li>
+            </ol>
+            <div class="notice">
+              Mission rules come first. If Duke asks for a specific weapon, finishing hit, damage type or condition, follow the mission. Do not ruin the mission just to test a chain target.
+            </div>
+          </section>
+
+          <section class="panel" id="methods">
+            <h2>Reliable Ways To Find Targets</h2>
+            <div class="method-grid">
+              <div class="cardlet">
+                <i class="fa-solid fa-scroll"></i>
+                <strong>Duke mission targets</strong>
+                <span>Save beatable targets from contracts. Harder mission brackets can reveal useful higher-respect options.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <strong>Past chain logs</strong>
+                <span>Review targets you already beat during previous chains. Good historical hits are your safest starting point.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-user-group"></i>
+                <strong>Faction sharing</strong>
+                <span>Ask members near your level/stat range for proven names, but test before relying on them in a live chain.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-ranking-star"></i>
+                <strong>Hall of Fame searches</strong>
+                <span>Look for higher-level inactive players and test carefully. Respect can be good, but failure risk is higher.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-shield-halved"></i>
+                <strong>War and raid history</strong>
+                <span>Targets from past conflicts may be useful, especially if you have notes on their stats and gear.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <strong>Trusted external tools</strong>
+                <span>Only use tools approved by leadership. Never expose more API access than a tool genuinely needs.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="recording">
+            <h2>How To Record Targets</h2>
+            <p>Keep your list simple enough that you will actually maintain it. Use Torn notes, enemy list notes, a private sheet, or a leadership-approved faction tool.</p>
+            <div class="table-wrap">
+              <table class="target-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Field</th>
+                    <th scope="col">What To Record</th>
+                    <th scope="col">Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Target</th>
+                    <td>Name and profile ID so you can find them quickly.</td>
+                    <td><span class="tag">Name [123456]</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Reliability</th>
+                    <td>How safe the hit is for you: easy, normal, risky or emergency only.</td>
+                    <td>Easy, 1-2 rounds</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Respect</th>
+                    <td>Approximate respect or whether it is high enough for normal chain use.</td>
+                    <td>Good respect / low emergency hit</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Loadout</th>
+                    <td>Weapon or temporary item that worked best.</td>
+                    <td>Primary + tear gas</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Last tested</th>
+                    <td>Date of your last safe test. Old entries should be retested.</td>
+                    <td>09 May 2026</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel" id="testing">
+            <h2>Testing Targets Safely</h2>
+            <p>Testing is where good lists are built. Do it outside critical chain moments whenever possible.</p>
+            <ul class="standard">
+              <li><strong>Test with normal gear first:</strong> if you barely win with your best setup, mark the target risky.</li>
+              <li><strong>Watch damage taken:</strong> a win that hospitalizes you or drains meds is not a good chain target.</li>
+              <li><strong>Use categories:</strong> separate main-chain targets from emergency timer-save targets.</li>
+              <li><strong>Do not over-hit the same target:</strong> rotate names so they are less likely to adjust gear or become unavailable.</li>
+              <li><strong>Retest after stat jumps:</strong> a target that was risky last month may become easy after training.</li>
+            </ul>
+          </section>
+
+          <section class="panel" id="chain-day">
+            <h2>Using Targets On Chain Day</h2>
+            <ol class="standard">
+              <li>Open your target list before the chain starts.</li>
+              <li>Sort mentally into <strong>safe</strong>, <strong>good respect</strong>, and <strong>emergency</strong>.</li>
+              <li>Use good-respect targets when the timer is healthy.</li>
+              <li>Use safe emergency targets when the timer is low and the chain needs saving.</li>
+              <li>Tell chat when a target becomes unavailable, unexpectedly strong, or hospitalized for a long time.</li>
+            </ol>
+          </section>
+
+          <section class="panel" id="mistakes">
+            <h2>Common Mistakes</h2>
+            <div class="mistake-grid">
+              <div class="cardlet">
+                <i class="fa-solid fa-skull-crossbones"></i>
+                <strong>Chasing respect only</strong>
+                <span>A high-respect loss gives nothing and risks the chain. Reliability comes first.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-calendar-xmark"></i>
+                <strong>Using stale lists</strong>
+                <span>Old targets change stats, gear and activity. Retest regularly.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-key"></i>
+                <strong>Trusting random tools</strong>
+                <span>Never hand over API access to unknown tools. Ask leadership first.</span>
+              </div>
+              <div class="cardlet">
+                <i class="fa-solid fa-person-running"></i>
+                <strong>No emergency options</strong>
+                <span>Every member should keep a few low-risk targets for timer saves.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="sources">
+            <h2>Sources Checked</h2>
+            <p>This page replaces the old TornTargets guide and focuses on practical in-game methods. Public references checked:</p>
+            <ul class="standard source-list">
+              <li><a href="https://wiki.torn.com/wiki/List_of_Duke_Missions" target="_blank" rel="noopener noreferrer">Torn Wiki: List of Duke Missions</a></li>
+              <li><a href="https://www.tornstats.com/guides/show/30" target="_blank" rel="noopener noreferrer">TornStats: Chaining Guide</a></li>
+            </ul>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Privé Cartel.</p>
+  </footer>
+
+  <script src="../assets/script.js"></script>
+</body>
+</html>
