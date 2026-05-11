@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privé Cartel | Faction FAQ</title>
-    <meta name="description" content="Frequently‑asked questions about Privé Cartel’s Torn City gameplay – July 2025 Crime 2.0 edition." />
+    <meta name="description" content="Privé Cartel FAQ covering travel, training, chains, organized crimes, progression, warfare and daily routines." />
     <link rel="icon" type="image/png" href="images/Emblem.png" />
     <!-- FONTS & ICONS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,6 +17,10 @@
     <!-- PAGE‑ONLY CSS -->
     <style>
       /* hero */
+      .rules-hero {
+        padding-bottom: 2.7rem
+      }
+
       .rules-hero h1 {
         margin-bottom: .25rem
       }
@@ -27,41 +31,202 @@
         flex-wrap: wrap;
         gap: .65rem;
         justify-content: center;
+        max-width: 760px;
         margin: .9rem auto 1.6rem;
         font-size: .9rem
       }
 
       .faq-nav a {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
         padding: .42rem .85rem;
-        border: 1px solid var(--accent);
+        border: 1px solid rgba(var(--accent-rgb), .42);
         border-radius: 999px;
-        color: var(--accent);
-        transition: background .25s
+        color: var(--accent-light);
+        min-height: 2.2rem;
+        text-decoration: none;
+        font-weight: 700;
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), rgba(0,0,0,.18);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 8px 18px rgba(0,0,0,.18);
+        transition: background .25s, border-color .25s, box-shadow .25s, color .25s
+      }
+
+      .faq-nav a::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(115deg, transparent 0 34%, rgba(255,255,255,.36) 46%, transparent 58%);
+        background-size: 240% 100%;
+        background-position: 150% 0;
+        opacity: 0;
+        transition: background-position .58s cubic-bezier(.22,.61,.36,1), opacity .25s
       }
 
       .faq-nav a:hover,
-      .faq-nav a:focus {
-        background: var(--accent);
+      .faq-nav a:focus,
+      .faq-nav a.active {
+        background: linear-gradient(135deg, var(--accent-light), var(--accent) 48%, var(--accent-deep));
+        border-color: var(--accent-light);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 12px 24px rgba(0,0,0,.25), 0 0 20px rgba(var(--accent-rgb),.14);
         color: #000
+      }
+
+      .faq-nav a:hover::before,
+      .faq-nav a:focus::before {
+        background-position: -70% 0;
+        opacity: .68
       }
 
       /* FAQ shell */
       .faq-wrap {
-        max-width: 960px;
-        margin-inline: auto
+        max-width: 980px;
+        margin-inline: auto;
+        padding: clamp(1.25rem, 2.5vw, 2rem)
+      }
+
+      .faq-tools {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+        gap: 1rem;
+        align-items: end;
+        padding-bottom: 1.35rem;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid rgba(var(--accent-rgb), .22)
+      }
+
+      .faq-kicker {
+        margin: 0 0 .25rem;
+        color: rgba(214, 197, 154, .76);
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase
+      }
+
+      .faq-tools h2 {
+        margin: 0;
+        font-size: clamp(1.45rem, 3vw, 2rem)
+      }
+
+      .faq-search {
+        position: relative;
+        min-width: 0
+      }
+
+      .faq-search i {
+        position: absolute;
+        left: .9rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(var(--accent-rgb), .78);
+        pointer-events: none
+      }
+
+      .faq-search input {
+        width: 100%;
+        min-height: 2.75rem;
+        padding: .68rem .95rem .68rem 2.45rem;
+        border: 1px solid rgba(var(--accent-rgb), .36);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, .34);
+        color: var(--text-1);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+        transition: border-color .25s, box-shadow .25s, background .25s
+      }
+
+      .faq-search input:focus {
+        outline: none;
+        border-color: rgba(var(--accent-rgb), .82);
+        background: rgba(0, 0, 0, .46);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 0 0 3px rgba(var(--accent-rgb), .12)
+      }
+
+      .faq-tool-actions {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: .55rem;
+        align-items: center;
+        justify-content: space-between
+      }
+
+      .faq-action {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        min-height: 2.42rem;
+        padding: .52rem .9rem;
+        border: 1px solid rgba(var(--accent-rgb), .38);
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)), rgba(0,0,0,.22);
+        color: var(--accent-light);
+        font: inherit;
+        font-size: .84rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 8px 18px rgba(0,0,0,.18);
+        transition: background .25s, border-color .25s, box-shadow .25s, color .25s
+      }
+
+      .faq-action::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        border-radius: inherit;
+        background: linear-gradient(115deg, transparent 0 34%, rgba(255,255,255,.36) 46%, transparent 58%);
+        background-size: 240% 100%;
+        background-position: 150% 0;
+        opacity: 0;
+        transition: background-position .58s cubic-bezier(.22,.61,.36,1), opacity .25s
+      }
+
+      .faq-action:hover,
+      .faq-action:focus-visible {
+        background: linear-gradient(135deg, var(--accent-light), var(--accent) 48%, var(--accent-deep));
+        border-color: var(--accent-light);
+        color: #050505;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 12px 24px rgba(0,0,0,.25), 0 0 20px rgba(var(--accent-rgb),.14)
+      }
+
+      .faq-action:hover::before,
+      .faq-action:focus-visible::before {
+        background-position: -70% 0;
+        opacity: .68
+      }
+
+      .faq-count {
+        margin: 0 0 0 auto;
+        color: rgba(214, 197, 154, .76);
+        font-size: .84rem
+      }
+
+      .faq-empty {
+        margin: 1.2rem 0;
+        padding: .95rem 1rem;
+        border: 1px solid rgba(var(--accent-rgb), .28);
+        border-radius: .85rem;
+        background: rgba(var(--accent-rgb), .07);
+        color: var(--text-2)
       }
 
       .faq-item {
         position: relative;
         margin-bottom: 1.3rem;
-        border: 1px solid rgba(var(--accent-rgb), .4);
-        border-radius: var(--radius);
-        background: rgba(var(--bg-2-rgb), .9);
-        backdrop-filter: blur(5px);
+        border: 1px solid rgba(var(--accent-rgb), .28);
+        border-radius: .95rem;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)),
+          rgba(var(--bg-2-rgb), .86);
+        backdrop-filter: blur(8px);
         overflow: hidden;
         opacity: 0;
         transform: translateY(16px);
-        transition: border-color .25s, box-shadow .25s
+        box-shadow: 0 14px 28px rgba(0, 0, 0, .18);
+        transition: border-color .25s, box-shadow .25s, background .25s
       }
 
       .faq-item.in {
@@ -74,13 +239,16 @@
         content: '';
         display: block;
         height: 2px;
-        background: linear-gradient(90deg, var(--accent), transparent 70%)
+        background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), .78), transparent)
       }
 
       .faq-item:hover,
-      details[open] {
+      .faq-item[open] {
         border-color: var(--accent);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, .55)
+        background:
+          linear-gradient(180deg, rgba(var(--accent-rgb), .075), rgba(255,255,255,.02)),
+          rgba(var(--bg-2-rgb), .9);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, .34), 0 0 24px rgba(var(--accent-rgb), .08)
       }
 
       summary {
@@ -89,8 +257,9 @@
         align-items: center;
         gap: .8rem;
         padding: 1.15rem 1.35rem;
-        font-weight: 500;
-        cursor: pointer
+        font-weight: 700;
+        cursor: pointer;
+        color: var(--text-1)
       }
 
       summary::-webkit-details-marker {
@@ -99,35 +268,41 @@
 
       .faq-icon {
         flex: none;
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
         display: grid;
         place-items: center;
-        border: 2px solid var(--accent);
+        border: 1px solid rgba(var(--accent-rgb), .58);
         border-radius: 50%;
         font-size: 1.1rem;
         color: var(--accent);
-        background: rgba(var(--accent-rgb), .1);
-        transition: transform .35s
+        background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.16), transparent 38%), rgba(var(--accent-rgb), .12);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+        transition: background .25s, border-color .25s, color .25s
       }
 
       details[open] .faq-icon {
-        transform: rotateY(180deg)
+        background: linear-gradient(135deg, var(--accent-light), var(--accent) 48%, var(--accent-deep));
+        border-color: var(--accent-light);
+        color: #050505
       }
 
       .chev {
         margin-left: auto;
-        transition: transform .35s
+        color: rgba(214, 197, 154, .72);
+        transition: transform .35s, color .25s
       }
 
       details[open] .chev {
-        transform: rotate(180deg)
+        transform: rotate(180deg);
+        color: var(--accent)
       }
 
       .faq-body {
         padding: 0 1.45rem 1.35rem;
         border-top: 1px solid rgba(var(--accent-rgb), .25);
-        line-height: 1.65
+        color: rgba(232, 226, 206, .86);
+        line-height: 1.68
       }
 
       .faq-body h4 {
@@ -136,7 +311,8 @@
         color: var(--accent)
       }
 
-      .faq-body ul {
+      .faq-body ul,
+      .faq-body ol {
         margin: .45rem 0 .85rem 1.35rem
       }
 
@@ -144,8 +320,17 @@
         margin: .35rem 0
       }
 
+      .faq-body li::marker {
+        color: var(--accent)
+      }
+
       .faq-body p strong {
         color: var(--accent)
+      }
+
+      .faq-note {
+        color: var(--text-2);
+        font-style: italic
       }
 
       a.inline-link {
@@ -153,10 +338,26 @@
         text-decoration: underline
       }
 
+      .faq-closing {
+        margin-top: 3rem;
+        border: 1px solid rgba(var(--accent-rgb), .3);
+        border-left: 4px solid var(--accent);
+        border-radius: .85rem;
+        background: rgba(var(--accent-rgb), .07);
+        color: var(--text-2);
+        padding: 1rem 1.1rem
+      }
+
+      .faq-closing i {
+        color: var(--accent);
+        margin-right: .45rem
+      }
+
       /* category heading */
       .faq-cat {
+        scroll-margin-top: calc(var(--nav-h) + 1.1rem);
         font-family: "Cormorant Garamond", serif;
-        font-size: 1.3rem;
+        font-size: clamp(1.28rem, 2.5vw, 1.55rem);
         margin: 2.7rem 0 1.25rem;
         color: var(--accent);
         display: flex;
@@ -180,6 +381,46 @@
       .territory-list li {
         margin: .4rem 0
       }
+
+      .faq-item[hidden],
+      .faq-cat[hidden],
+      .faq-empty[hidden] {
+        display: none
+      }
+
+      @media (max-width: 760px) {
+        .faq-tools {
+          grid-template-columns: 1fr
+        }
+
+        .faq-tool-actions {
+          justify-content: flex-start
+        }
+
+        .faq-count {
+          width: 100%;
+          margin-left: 0
+        }
+
+        summary {
+          align-items: flex-start;
+          padding: 1rem
+        }
+
+        .faq-icon {
+          width: 36px;
+          height: 36px
+        }
+
+        .faq-body {
+          padding: 0 1rem 1.15rem
+        }
+
+        .faq-cat::before,
+        .faq-cat::after {
+          display: none
+        }
+      }
     </style>
   </head>
   <body>
@@ -190,9 +431,9 @@
     <section class="rules-hero">
       <img src="images/Emblem.png" alt="Cartel Emblem" />
       <h1>Faction&nbsp;FAQ</h1>
-      <p class="tagline">Everything you need to thrive in Torn – July 2025, Crime 2.0.</p>
+      <p class="tagline">Core answers for travel, training, chains, organized crimes and progression.</p>
       <!-- Quick‑nav -->
-      <nav class="faq-nav">
+      <nav class="faq-nav" aria-label="FAQ categories">
         <a href="#basics">Basics</a>
         <a href="#training">Training</a>
         <a href="#progression">Progression</a>
@@ -203,6 +444,30 @@
     <!-- FAQ -->
     <section class="rules-block">
       <div class="container glass faq-wrap">
+        <div class="faq-tools">
+          <div>
+            <p class="faq-kicker">Member Knowledge Base</p>
+            <h2>Find the answer fast</h2>
+          </div>
+          <label class="faq-search" for="faqSearch">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input type="search" id="faqSearch" placeholder="Search the FAQ..." autocomplete="off" aria-label="Search FAQ" />
+          </label>
+          <div class="faq-tool-actions" aria-label="FAQ controls">
+            <button type="button" class="faq-action" id="expandFaqs">
+              <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+              Open visible
+            </button>
+            <button type="button" class="faq-action" id="collapseFaqs">
+              <i class="fa-solid fa-compress" aria-hidden="true"></i>
+              Close all
+            </button>
+            <p class="faq-count" id="faqCount" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="faq-empty" id="faqEmpty" hidden>
+          <strong>No matching answers.</strong> Try a broader term or open a category above.
+        </div>
         <!-- BASICS -->
         <h2 id="basics" class="faq-cat">
           <i class="fa-solid fa-circle-info"></i> Basics
@@ -360,7 +625,7 @@
                 <strong>Tank / wall defender</strong> → focus Defense.
               </li>
             </ul>
-            <p class="tagline" style="color:var(--text-2);font-style:italic">Speed can be last until you’re deep into the billions.</p>
+            <p class="faq-note">Speed can be last until you’re deep into the billions.</p>
           </div>
         </details>
         <!-- Chain readiness -->
@@ -426,7 +691,7 @@
           </summary>
           <div class="faq-body">
             <h4>Priority list</h4>
-            <ol style="margin-left:1.35rem">
+            <ol>
               <li>
                 <strong>Worldwide Stock Traders</strong> – free flights.
               </li>
@@ -478,7 +743,7 @@
           </summary>
           <div class="faq-body">
             <h4>Fast‑track queue</h4>
-            <ol style="margin-left:1.35rem">
+            <ol>
               <li>Sports Science (Physical Education) – +10 % gym gains.</li>
               <li>Intravenous Therapy (Biology) – Blood Bags +15 % pot.</li>
               <li>Bachelor of Business Management – +10 % melee dmg.</li>
@@ -630,7 +895,7 @@
           </div>
         </details>
         <!-- Closing notice -->
-        <div class="notice" style="margin-top:3rem">
+        <div class="faq-closing">
           <i class="fa-solid fa-lightbulb"></i> Question not covered? Ask in <a href="https://discord.gg/DmxrRAjBdk" target="_blank">Discord</a> and we’ll add it next patch!
         </div>
       </div>
@@ -643,12 +908,90 @@
     <script src="assets/script.js"></script>
     <!-- PAGE JS -->
     <script>
-      /* one‑open accordion */
-      document.querySelectorAll('.faq-item').forEach(d => {
-        d.addEventListener('toggle', () => {
-          if (d.open) document.querySelectorAll('.faq-item').forEach(o => o !== d && o.removeAttribute('open'));
+      const faqItems = [...document.querySelectorAll('.faq-item')];
+      const faqCats = [...document.querySelectorAll('.faq-cat')];
+      const faqSearch = document.getElementById('faqSearch');
+      const faqCount = document.getElementById('faqCount');
+      const faqEmpty = document.getElementById('faqEmpty');
+      const expandFaqs = document.getElementById('expandFaqs');
+      const collapseFaqs = document.getElementById('collapseFaqs');
+      const navLinks = [...document.querySelectorAll('.faq-nav a')];
+
+      function visibleItems() {
+        return faqItems.filter(item => !item.hidden);
+      }
+
+      function updateCategoryVisibility() {
+        faqCats.forEach(cat => {
+          let node = cat.nextElementSibling;
+          let hasVisibleItem = false;
+
+          while (node && !node.classList.contains('faq-cat')) {
+            if (node.classList.contains('faq-item') && !node.hidden) {
+              hasVisibleItem = true;
+              break;
+            }
+            node = node.nextElementSibling;
+          }
+
+          cat.hidden = !hasVisibleItem;
         });
+      }
+
+      function updateCount(count, query) {
+        const label = count === 1 ? 'answer' : 'answers';
+        faqCount.textContent = query ? `${count} matching ${label}` : `${count} ${label}`;
+      }
+
+      function filterFaqs() {
+        const query = faqSearch.value.trim().toLowerCase();
+        let shown = 0;
+
+        faqItems.forEach(item => {
+          const isMatch = !query || item.textContent.toLowerCase().includes(query);
+          item.hidden = !isMatch;
+          if (isMatch) shown += 1;
+          if (query) item.open = isMatch;
+        });
+
+        updateCategoryVisibility();
+        updateCount(shown, query);
+        faqEmpty.hidden = shown > 0;
+      }
+
+      faqSearch.addEventListener('input', filterFaqs);
+      expandFaqs.addEventListener('click', () => visibleItems().forEach(item => { item.open = true; }));
+      collapseFaqs.addEventListener('click', () => faqItems.forEach(item => { item.open = false; }));
+
+      const categoryObserver = new IntersectionObserver(entries => {
+        const visible = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+
+        if (!visible) return;
+        navLinks.forEach(link => {
+          const isActive = link.getAttribute('href') === `#${visible.target.id}`;
+          link.classList.toggle('active', isActive);
+          if (isActive) {
+            link.setAttribute('aria-current', 'true');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }, {
+        rootMargin: '-35% 0px -55% 0px',
+        threshold: 0
       });
+
+      faqCats.forEach(cat => categoryObserver.observe(cat));
+
+      if (location.hash) {
+        const target = document.querySelector(location.hash);
+        const firstItem = target?.nextElementSibling;
+        if (firstItem?.classList.contains('faq-item')) firstItem.open = true;
+      }
+
+      filterFaqs();
     </script>
   </body>
 </html>
