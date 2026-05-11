@@ -81,19 +81,50 @@
     }
 
     #celebrateBtn{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
       margin-top:.7rem;
-      padding:.52rem 1rem;
-      background: linear-gradient(90deg, rgba(201,168,107,1), rgba(201,168,107,.86));
-      border:none;
-      border-radius:10px;
+      min-height:2.7rem;
+      padding:.52rem 1.08rem;
+      background: linear-gradient(135deg,var(--accent-light),var(--accent) 48%,var(--accent-deep));
+      background-size:170% 170%;
+      background-position:0% 50%;
+      border:1px solid rgba(var(--accent-rgb),.9);
+      border-radius:999px;
       color:#080808;
       font-weight:700;
       cursor:pointer;
       z-index:3;
-      transition: transform .12s ease, filter .12s ease;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.36),0 12px 28px rgba(0,0,0,.34),0 0 0 1px rgba(var(--accent-rgb),.1);
+      transition:background-position .45s cubic-bezier(.22,.61,.36,1),border-color .25s,box-shadow .25s,color .25s;
     }
-    #celebrateBtn:active{ transform: translateY(1px) scale(.997) }
-    #celebrateBtn:hover{ filter: brightness(.96) }
+    #celebrateBtn::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      border-radius:inherit;
+      background:linear-gradient(115deg,transparent 0 34%,rgba(255,255,255,.46) 46%,transparent 58%);
+      background-size:240% 100%;
+      background-position:150% 0;
+      opacity:.45;
+      transition:background-position .58s cubic-bezier(.22,.61,.36,1),opacity .25s;
+    }
+    #celebrateBtn:active{ transform:none }
+    #celebrateBtn:hover,
+    #celebrateBtn:focus-visible{
+      background-position:100% 50%;
+      border-color:var(--accent-light);
+      color:#000;
+      transform:none;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.46),0 16px 34px rgba(0,0,0,.42),0 0 26px rgba(var(--accent-rgb),.2);
+    }
+    #celebrateBtn:hover::before,
+    #celebrateBtn:focus-visible::before{
+      background-position:-70% 0;
+      opacity:.74;
+    }
 
     /* ---------- ARTICLE ---------- */
     .article{ max-width:980px; margin-inline:auto; padding-bottom:2.4rem }

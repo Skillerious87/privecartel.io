@@ -52,19 +52,49 @@
       z-index: 2;
     }
     #celebrateBtn {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
       margin-top: 1rem;
+      min-height: 2.75rem;
       padding: .6rem 1.2rem;
-      background: var(--accent);
-      border: none;
-      border-radius: var(--radius);
-      color: #000;
+      background: linear-gradient(135deg,var(--accent-light),var(--accent) 48%,var(--accent-deep));
+      background-size: 170% 170%;
+      background-position: 0% 50%;
+      border: 1px solid rgba(var(--accent-rgb),.9);
+      border-radius: 999px;
+      color: #050505;
       font-size: 1rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: background .25s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.36),0 12px 28px rgba(0,0,0,.34),0 0 0 1px rgba(var(--accent-rgb),.1);
+      transition: background-position .45s cubic-bezier(.22,.61,.36,1),border-color .25s,box-shadow .25s,color .25s;
       z-index: 2;
     }
-    #celebrateBtn:hover {
-      background: rgba(var(--accent-rgb), .8);
+    #celebrateBtn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(115deg,transparent 0 34%,rgba(255,255,255,.46) 46%,transparent 58%);
+      background-size: 240% 100%;
+      background-position: 150% 0;
+      opacity: .45;
+      transition: background-position .58s cubic-bezier(.22,.61,.36,1),opacity .25s;
+    }
+    #celebrateBtn:hover,
+    #celebrateBtn:focus-visible {
+      background-position: 100% 50%;
+      border-color: var(--accent-light);
+      color: #000;
+      transform: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.46),0 16px 34px rgba(0,0,0,.42),0 0 26px rgba(var(--accent-rgb),.2);
+    }
+    #celebrateBtn:hover::before,
+    #celebrateBtn:focus-visible::before {
+      background-position: -70% 0;
+      opacity: .74;
     }
 
     /* ─── Canvas Layer ─── */
