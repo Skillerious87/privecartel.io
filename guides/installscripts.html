@@ -101,24 +101,51 @@
 
     /* Buttons */
     .button {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
       display: inline-flex;
       align-items: center;
       gap: .4rem;
       margin: .5rem .5rem .5rem 0;
+      min-height: 2.72rem;
       padding: .65rem 1.25rem;
       font-size: .9rem;
       font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      color: #000;
-      background: transparent;
-      border: 2px solid var(--accent);
-      border-radius: 2rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      background: linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.025)),rgba(0,0,0,.28);
+      border: 1px solid rgba(var(--accent-rgb),.42);
+      border-radius: 999px;
       text-decoration: none;
-      transition: background var(--transition), color var(--transition);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08),0 10px 24px rgba(0,0,0,.24),0 0 0 1px rgba(var(--accent-rgb),.07);
+      transition: background-position .45s cubic-bezier(.22,.61,.36,1),background var(--transition),border-color var(--transition),box-shadow var(--transition),color var(--transition);
     }
-    .button:hover {
-      background: var(--accent);
-      color: #000;
+    .button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: linear-gradient(115deg,transparent 0 34%,rgba(255,255,255,.42) 46%,transparent 58%);
+      background-size: 240% 100%;
+      background-position: 150% 0;
+      opacity: 0;
+      transition: background-position .58s cubic-bezier(.22,.61,.36,1), opacity var(--transition);
+    }
+    .button:hover,
+    .button:focus-visible {
+      background: linear-gradient(135deg,var(--accent-light),var(--accent) 48%,var(--accent-deep));
+      background-position: 100% 50%;
+      border-color: var(--accent-light);
+      color: #050505;
+      transform: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.42),0 14px 30px rgba(0,0,0,.32),0 0 24px rgba(var(--accent-rgb),.18);
+    }
+    .button:hover::before,
+    .button:focus-visible::before {
+      background-position: -70% 0;
+      opacity: .68;
     }
     .btn-chrome i { color: #fff; }
     .btn-chrome { border-color: #4285F4; }
@@ -155,8 +182,20 @@
     }
     #lightbox-close {
       position: absolute; top: 1rem; right: 1rem;
-      background: none; border: none; color: #fff;
-      font-size: 2rem; cursor: pointer;
+      width: 2.8rem; height: 2.8rem; display: grid; place-items: center;
+      background: linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.035)),rgba(0,0,0,.58);
+      border: 1px solid rgba(var(--accent-rgb),.32); border-radius: 50%; color: var(--accent-light);
+      font-size: 2rem; line-height: 1; cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.09),0 10px 24px rgba(0,0,0,.34);
+      transition: background .25s,border-color .25s,box-shadow .25s,color .25s;
+    }
+    #lightbox-close:hover,
+    #lightbox-close:focus-visible {
+      background: linear-gradient(135deg,var(--accent-light),var(--accent) 48%,var(--accent-deep));
+      border-color: var(--accent-light);
+      color: #050505;
+      transform: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.42),0 14px 30px rgba(0,0,0,.42),0 0 22px rgba(var(--accent-rgb),.18);
     }
 
     /* Search input themed */
