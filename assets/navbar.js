@@ -111,7 +111,7 @@ class PCNavbar extends HTMLElement {
     const toggle = this.querySelector("#nav-toggle");
     const overlay = this.querySelector(".nav-overlay");
     const label = this.querySelector(".hamburger");
-    const mobileQuery = window.matchMedia("(max-width: 720px)");
+    const mobileQuery = window.matchMedia("(max-width: 920px)");
 
     if (!toggle) return;
     this.mobileQuery = mobileQuery;

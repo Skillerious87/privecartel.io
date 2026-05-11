@@ -117,6 +117,15 @@ document.addEventListener("DOMContentLoaded", () => {
       position:fixed;top:0;left:0;height:3px;background:var(--accent);
       width:0;z-index:999;pointer-events:none;transition:width .15s ease-out;
     }
+    :is(.card,.guide-card,.news-card,.wallpaper-card,.feat-card,.member-card,.pill):hover,
+    :is(.card,.guide-card,.news-card,.wallpaper-card,.feat-card,.member-card,.pill):focus-visible{
+      transform:none!important;
+    }
+    :is(.card,.guide-card,.news-card,.wallpaper-card,.feat-card,.member-card):hover,
+    :is(.card,.guide-card,.news-card,.wallpaper-card,.feat-card,.member-card):focus-visible{
+      border-color:rgba(var(--accent-rgb),.76)!important;
+      box-shadow:0 8px 18px rgba(0,0,0,.34)!important;
+    }
   `;
   document.head.appendChild(
     Object.assign(document.createElement("style"), { textContent: css })
@@ -289,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <a href="${siteLink("archive.html")}">Archive</a>
           </nav>
 
-          <section class="footer-council" aria-label="Leadership and contact">
+          <div class="footer-council" aria-label="Leadership and contact">
             <h2>Council Desk</h2>
             <dl>
               <div><dt>Leader</dt><dd>ForeverHydrox</dd></div>
@@ -302,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
               </a>
               <a class="footer-secondary" href="${siteLink("contact.html")}">Contact Council</a>
             </div>
-          </section>
+          </div>
         </div>
       </div>
 
