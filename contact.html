@@ -28,9 +28,9 @@
       --t: .4s cubic-bezier(.22,.61,.36,1);
     }
 
-    html,body{height:100%}
-    body{display:flex;flex-direction:column;margin:0}
-    main{flex:1}
+    html{min-height:100%}
+    body{display:flex;flex-direction:column;min-height:100%;margin:0}
+    main{flex:1 0 auto}
     .contact-section{padding:3rem 0 4.5rem}
     .contact-shell{display:grid;gap:2rem}
     .contact-intro{
@@ -226,15 +226,15 @@
       border:1px solid var(--card-gold-faint);
       border-radius:var(--card-radius);
       text-decoration:none!important;
-      transition:transform var(--t),box-shadow var(--t),border-color var(--t);
+      transition:box-shadow var(--t),border-color var(--t),background var(--t);
       height:100%;
       min-height:100%;
     }
     .profile-card:hover,
     .profile-card:focus-visible{border-color:var(--card-gold)}
     .profile-card:hover{
-      transform:translateY(-6px);
-      box-shadow:var(--lift);
+      background:linear-gradient(180deg,rgba(var(--accent-rgb),.11),rgba(255,255,255,.028));
+      box-shadow:0 14px 28px rgba(0,0,0,.24);
     }
     .profile-card:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 
@@ -311,7 +311,7 @@
     }
 
     .contact-note{text-align:center;color:var(--text-2);font-size:.9rem;margin-top:.2rem}
-    footer{background:#000;border-top:2px solid var(--accent);text-align:center;padding:1.25rem 1rem;color:var(--text-2)}
+    footer{flex-shrink:0;background:#000;border-top:2px solid var(--accent);text-align:center;padding:1.25rem 1rem;color:var(--text-2)}
 
     /* underline hover only in contact body */
     .contact-section a{
@@ -398,7 +398,12 @@
       .copy-xid{width:100%}
       .application-grid{grid-template-columns:1fr}
       .application-footer{display:grid}
-      .application-actions,
+      .application-actions{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        width:100%;
+      }
+      .application-actions .submit-application{grid-column:1 / -1}
       .application-actions button{width:100%}
     }
 
@@ -504,7 +509,7 @@
       animation:none;
     }
     .profile-card{
-      align-items:flex-start;
+      align-items:stretch;
       padding:1.15rem;
       background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
       border:1px solid rgba(var(--accent-rgb),.28);
@@ -518,20 +523,21 @@
       background:linear-gradient(180deg,rgba(var(--accent-rgb),.11),rgba(255,255,255,.028));
     }
     .profile-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 18px 34px rgba(0,0,0,.34);
+      transform:none;
+      box-shadow:0 14px 28px rgba(0,0,0,.24);
     }
     .profile-card .avatar{
       width:72px;
       height:72px;
-      margin-bottom:.9rem;
+      margin:.15rem auto .9rem;
+      display:block;
       border:2px solid rgba(var(--accent-rgb),.78);
       box-shadow:0 0 0 4px rgba(var(--accent-rgb),.08);
     }
     .profile-card h3{
       margin:.05rem 0 .12rem;
       font-size:1.22rem;
-      text-align:left;
+      text-align:center;
     }
     .profile-card .role{
       margin:0 0 .75rem;
@@ -539,11 +545,11 @@
       font-size:.84rem;
       font-weight:700;
       letter-spacing:.08em;
-      text-align:left;
+      text-align:center;
       text-transform:uppercase;
     }
     .profile-card h3::after{
-      margin:.55rem 0 .8rem;
+      margin:.55rem auto .8rem;
       width:42px;
     }
     .profile-card .bio{
@@ -555,7 +561,7 @@
       overflow-wrap:break-word;
     }
     .profile-meta{
-      justify-content:flex-start;
+      justify-content:center;
       margin:0 0 .95rem;
     }
     .profile-actions .btn,
@@ -613,7 +619,7 @@
     }
     .application-field:nth-child(3){grid-column:span 6}
     .application-field:nth-child(4),
-    .application-field:nth-child(5){grid-column:span 3}
+    .application-field:nth-child(5){grid-column:span 6}
     .application-field label{
       font-size:.74rem;
       letter-spacing:.08em;
@@ -640,6 +646,108 @@
       background:rgba(0,0,0,.55);
       box-shadow:0 0 0 3px rgba(var(--accent-rgb),.12);
     }
+    .level-control{
+      display:grid;
+      grid-template-columns:2.45rem minmax(0,1fr) 2.45rem;
+      align-items:center;
+      gap:.32rem;
+      min-width:0;
+      min-height:2.85rem;
+      padding:.22rem;
+      border:1px solid rgba(var(--accent-rgb),.28);
+      border-radius:.55rem;
+      background:rgba(0,0,0,.42);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+      transition:border-color var(--transition),box-shadow var(--transition),background var(--transition);
+    }
+    .level-control:focus-within{
+      border-color:rgba(var(--accent-rgb),.78);
+      background:rgba(0,0,0,.55);
+      box-shadow:0 0 0 3px rgba(var(--accent-rgb),.12);
+    }
+    .application-field .level-control input{
+      width:100%;
+      min-width:0;
+      min-height:2.28rem;
+      padding:.2rem .35rem;
+      border:0;
+      border-radius:.35rem;
+      background:transparent;
+      color:var(--text-1);
+      text-align:center;
+      box-shadow:none;
+    }
+    .application-field .level-control input:focus{
+      border:0;
+      background:transparent;
+      box-shadow:none;
+    }
+    .level-step,
+    .choice-option{
+      border:1px solid rgba(var(--accent-rgb),.25);
+      background:rgba(255,255,255,.035);
+      color:rgba(232,226,206,.86);
+      font:inherit;
+      font-weight:700;
+      cursor:pointer;
+      transition:background var(--transition),border-color var(--transition),color var(--transition),transform var(--transition);
+    }
+    .level-step{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:0;
+      width:100%;
+      min-height:2.28rem;
+      border-radius:.38rem;
+      color:var(--accent);
+    }
+    .level-step:hover,
+    .level-step:focus-visible,
+    .choice-option:hover,
+    .choice-option:focus-visible{
+      outline:none;
+      border-color:rgba(var(--accent-rgb),.72);
+      background:rgba(var(--accent-rgb),.12);
+      color:var(--accent);
+      transform:translateY(-1px);
+    }
+    .choice-control{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(7.4rem,1fr));
+      gap:.38rem;
+      min-width:0;
+    }
+    .choice-option{
+      display:flex;
+      align-items:center;
+      justify-content:flex-start;
+      gap:.38rem;
+      min-width:0;
+      min-height:2.32rem;
+      padding:.46rem .56rem;
+      border-radius:.55rem;
+      text-align:left;
+      line-height:1.18;
+      overflow-wrap:anywhere;
+    }
+    .choice-option i{
+      flex:0 0 auto;
+      width:1rem;
+      color:rgba(var(--accent-rgb),.82);
+      text-align:center;
+    }
+    .choice-option span{
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+    .choice-option.is-selected{
+      border-color:rgba(var(--accent-rgb),.78);
+      background:linear-gradient(180deg,rgba(var(--accent-rgb),.22),rgba(var(--accent-rgb),.11));
+      color:var(--accent);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px rgba(var(--accent-rgb),.08);
+    }
+    .choice-option-wide{grid-column:auto}
     .application-template{
       min-height:11rem;
       margin-bottom:1rem;
@@ -647,12 +755,19 @@
     }
     .application-footer{
       display:grid;
-      gap:.8rem;
+      gap:.68rem;
       align-items:start;
     }
+    .application-actions{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:.5rem;
+    }
     .application-actions button{
-      min-height:2.65rem;
-      padding:.62rem 1rem;
+      min-height:2.38rem;
+      padding:.5rem .78rem;
+      font-size:.82rem;
       transition:transform var(--transition),background var(--transition),color var(--transition),border-color var(--transition);
     }
     .application-actions button:hover,
@@ -781,7 +896,12 @@
       }
       .contact-grid{grid-template-columns:1fr}
       .application-badge{width:max-content}
-      .application-actions,
+      .application-actions{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        width:100%;
+      }
+      .application-actions .submit-application{grid-column:1 / -1}
       .application-actions button{width:100%}
     }
 
@@ -956,30 +1076,67 @@
             </div>
             <div class="application-field">
               <label for="appLevel">Level</label>
-              <input id="appLevel" type="number" min="1" inputmode="numeric" placeholder="15">
+              <div class="level-control">
+                <button type="button" class="level-step" data-level-step="-1" aria-label="Decrease level">
+                  <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                </button>
+                <input id="appLevel" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" placeholder="15">
+                <button type="button" class="level-step" data-level-step="1" aria-label="Increase level">
+                  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
             <div class="application-field">
               <label for="appContact">Reply contact</label>
               <input id="appContact" type="text" autocomplete="email" placeholder="Email, Discord, or Torn ID">
             </div>
             <div class="application-field">
-              <label for="appFocus">Primary focus</label>
-              <select id="appFocus">
-                <option>OC 2.0</option>
-                <option>Chaining</option>
-                <option>Travel income</option>
-                <option>Training</option>
-                <option>General growth</option>
-              </select>
+              <label id="appFocusLabel" for="appFocus">Primary focus</label>
+              <input id="appFocus" type="hidden" value="OC 2.0">
+              <div class="choice-control" role="radiogroup" aria-labelledby="appFocusLabel" data-choice-group data-choice-input="appFocus">
+                <button type="button" class="choice-option is-selected" role="radio" aria-checked="true" data-choice="OC 2.0">
+                  <i class="fa-solid fa-users-gear" aria-hidden="true"></i>
+                  <span>OC 2.0</span>
+                </button>
+                <button type="button" class="choice-option" role="radio" aria-checked="false" data-choice="Chaining">
+                  <i class="fa-solid fa-link" aria-hidden="true"></i>
+                  <span>Chaining</span>
+                </button>
+                <button type="button" class="choice-option" role="radio" aria-checked="false" data-choice="Travel income">
+                  <i class="fa-solid fa-plane-departure" aria-hidden="true"></i>
+                  <span>Travel income</span>
+                </button>
+                <button type="button" class="choice-option" role="radio" aria-checked="false" data-choice="Training">
+                  <i class="fa-solid fa-dumbbell" aria-hidden="true"></i>
+                  <span>Training</span>
+                </button>
+                <button type="button" class="choice-option choice-option-wide" role="radio" aria-checked="false" data-choice="General growth">
+                  <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                  <span>General growth</span>
+                </button>
+              </div>
             </div>
             <div class="application-field">
-              <label for="appActivity">Activity</label>
-              <select id="appActivity">
-                <option>Daily</option>
-                <option>Several times daily</option>
-                <option>Evenings only</option>
-                <option>Weekends mostly</option>
-              </select>
+              <label id="appActivityLabel" for="appActivity">Activity</label>
+              <input id="appActivity" type="hidden" value="Daily">
+              <div class="choice-control" role="radiogroup" aria-labelledby="appActivityLabel" data-choice-group data-choice-input="appActivity">
+                <button type="button" class="choice-option is-selected" role="radio" aria-checked="true" data-choice="Daily">
+                  <i class="fa-solid fa-sun" aria-hidden="true"></i>
+                  <span>Daily</span>
+                </button>
+                <button type="button" class="choice-option" role="radio" aria-checked="false" data-choice="Several times daily">
+                  <i class="fa-solid fa-repeat" aria-hidden="true"></i>
+                  <span>Several times daily</span>
+                </button>
+                <button type="button" class="choice-option" role="radio" aria-checked="false" data-choice="Evenings only">
+                  <i class="fa-solid fa-moon" aria-hidden="true"></i>
+                  <span>Evenings only</span>
+                </button>
+                <button type="button" class="choice-option" role="radio" aria-checked="false" data-choice="Weekends mostly">
+                  <i class="fa-solid fa-calendar-week" aria-hidden="true"></i>
+                  <span>Weekends mostly</span>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -1053,8 +1210,65 @@
 </main>
 
 <!-- FOOTER -->
-<footer>
-  <p>&copy; <span id="year"></span> Privé Cartel.</p>
+<footer class="site-footer" data-enhanced="true">
+  <div class="footer-shell">
+    <div class="footer-kicker">
+      <span>Faction HQ</span>
+      <span>OC 2.0 coordination &bull; Chain rewards &bull; Member support</span>
+    </div>
+
+    <div class="footer-main">
+      <div class="footer-brand" aria-label="Priv&eacute; Cartel">
+        <a class="footer-logo" href="index.html">
+          <img src="images/Emblem.png" alt="" loading="lazy">
+          <span><strong>PRIV&Eacute;</strong> CARTEL</span>
+        </a>
+        <p>Discreet operations hub for Torn members who value presence, discipline and mutual aid.</p>
+        <ul class="footer-values" aria-label="Faction values">
+          <li>Presence</li>
+          <li>Discretion</li>
+          <li>Mutual Aid</li>
+        </ul>
+      </div>
+
+      <nav class="footer-column" aria-label="Main pages">
+        <h2>Navigate</h2>
+        <a href="index.html">Home</a>
+        <a href="rules.html">Rules</a>
+        <a href="guides.html">Guides</a>
+        <a href="news.html">News</a>
+      </nav>
+
+      <nav class="footer-column" aria-label="Member resources">
+        <h2>Resources</h2>
+        <a href="guides/organized-crimes-2.html">OC 2.0 Guide</a>
+        <a href="members.html">Members</a>
+        <a href="faq.html">FAQ</a>
+        <a href="wallpapers.html">Wallpapers</a>
+        <a href="archive.html">Archive</a>
+      </nav>
+
+      <div class="footer-council" aria-label="Leadership and contact">
+        <h2>Council Desk</h2>
+        <dl>
+          <div><dt>Leader</dt><dd>ForeverHydrox</dd></div>
+          <div><dt>Co-Leader</dt><dd>Skillerious</dd></div>
+        </dl>
+        <div class="footer-actions">
+          <a class="footer-primary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-discord" aria-hidden="true"></i>
+            <span>Join Discord</span>
+          </a>
+          <a class="footer-secondary" href="contact.html">Contact Council</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Priv&eacute; Cartel.</p>
+    <p>What happens behind the curtain stays ours.</p>
+  </div>
 </footer>
 
 <!-- GLOBAL SCRIPT -->
@@ -1208,6 +1422,83 @@
     let cooldownMessage = 'Application sending is temporarily locked. You can send again in';
     let cooldownType = 'warn';
     const sendDefaultHtml = send?.innerHTML || '';
+    const LEVEL_MIN = 1;
+    const LEVEL_MAX = 100;
+
+    const emitValueEvents = field => {
+      field.dispatchEvent(new Event('input', {bubbles:true}));
+      field.dispatchEvent(new Event('change', {bubbles:true}));
+    };
+
+    const choiceGroups = new Map();
+
+    const setChoice = (input, group, value, emit = true) => {
+      if(!input || !group) return;
+      input.value = value;
+      group.querySelectorAll('[data-choice]').forEach(button => {
+        const selected = button.dataset.choice === value;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-checked', String(selected));
+        button.tabIndex = selected ? 0 : -1;
+      });
+      if(emit) emitValueEvents(input);
+    };
+
+    document.querySelectorAll('[data-choice-group]').forEach(group => {
+      const input = document.getElementById(group.dataset.choiceInput);
+      const buttons = Array.from(group.querySelectorAll('[data-choice]'));
+      if(!input || !buttons.length) return;
+
+      choiceGroups.set(input, group);
+      buttons.forEach((button, index) => {
+        button.addEventListener('click', () => setChoice(input, group, button.dataset.choice));
+        button.addEventListener('keydown', event => {
+          const forward = event.key === 'ArrowRight' || event.key === 'ArrowDown';
+          const backward = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
+          if(!forward && !backward && event.key !== 'Home' && event.key !== 'End') return;
+
+          event.preventDefault();
+          const nextIndex = event.key === 'Home'
+            ? 0
+            : event.key === 'End'
+              ? buttons.length - 1
+              : (index + (forward ? 1 : -1) + buttons.length) % buttons.length;
+          const nextButton = buttons[nextIndex];
+          setChoice(input, group, nextButton.dataset.choice);
+          nextButton.focus();
+        });
+      });
+      setChoice(input, group, input.value || buttons[0].dataset.choice, false);
+    });
+
+    const setLevel = (value, emit = true) => {
+      const digits = String(value || '').replace(/\D/g, '').slice(0, 3);
+      if(!digits){
+        level.value = '';
+        if(emit) emitValueEvents(level);
+        return;
+      }
+
+      const numeric = Math.min(LEVEL_MAX, Math.max(LEVEL_MIN, Number(digits)));
+      level.value = String(numeric);
+      if(emit) emitValueEvents(level);
+    };
+
+    level.addEventListener('input', () => {
+      const digits = level.value.replace(/\D/g, '').slice(0, 3);
+      if(level.value !== digits) level.value = digits;
+    });
+    level.addEventListener('blur', () => {
+      if(level.value) setLevel(level.value);
+    });
+    document.querySelectorAll('[data-level-step]').forEach(button => {
+      button.addEventListener('click', () => {
+        const step = Number(button.dataset.levelStep) || 0;
+        const current = Number(level.value) || (step > 0 ? LEVEL_MIN - 1 : LEVEL_MIN + 1);
+        setLevel(current + step);
+        level.focus();
+      });
+    });
 
     const setStatus = (message, type='') => {
       if(!status) return;
@@ -1290,8 +1581,9 @@
 
     const validate = () => {
       const data = payload();
+      const numericLevel = Number(data.level);
       if(!data.name) return 'Enter your Torn name before sending.';
-      if(!data.level || Number(data.level) < 1) return 'Enter a valid Torn level before sending.';
+      if(!data.level || !Number.isInteger(numericLevel) || numericLevel < LEVEL_MIN || numericLevel > LEVEL_MAX) return 'Enter a Torn level between 1 and 100 before sending.';
       if(!data.message) return 'Write a message before sending.';
       return '';
     };
@@ -1364,8 +1656,8 @@
       name.value = '';
       level.value = '';
       contact.value = '';
-      focus.selectedIndex = 0;
-      activity.selectedIndex = 0;
+      setChoice(focus, choiceGroups.get(focus), 'OC 2.0', false);
+      setChoice(activity, choiceGroups.get(activity), 'Daily', false);
       if(cooldownRemaining() > 0) renderCooldown();
       else setStatus('');
       build();
