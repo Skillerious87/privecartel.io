@@ -104,13 +104,14 @@ document.addEventListener("DOMContentLoaded", () => {
       position:fixed;bottom:1.75rem;right:1.5rem;z-index:950;
       width:44px;height:44px;display:grid;place-items:center;
       font-size:1.1rem;border:none;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent) 0%,rgba(255,255,255,.17) 100%);
-      color:#000;box-shadow:0 4px 12px rgba(0,0,0,.45);
-      cursor:pointer;opacity:0;transform:scale(.6);pointer-events:none;
-      transition:opacity .35s ease,transform .35s ease;
+      background:linear-gradient(135deg,var(--accent-light,#f0d79a),var(--accent) 48%,var(--accent-deep,#8c692d));
+      background-size:170% 170%;background-position:0% 50%;
+      color:#000;box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 10px 26px rgba(0,0,0,.42),0 0 0 1px rgba(var(--accent-rgb),.18);
+      cursor:pointer;opacity:0;pointer-events:none;
+      transition:opacity .35s ease,background-position .45s cubic-bezier(.22,.61,.36,1),box-shadow .25s ease;
     }
-    #backTop.show{opacity:.9;transform:scale(1);pointer-events:auto}
-    #backTop:hover{opacity:1;transform:scale(1.08)}
+    #backTop.show{opacity:.92;pointer-events:auto}
+    #backTop:hover{opacity:1;background-position:100% 50%;box-shadow:inset 0 1px 0 rgba(255,255,255,.48),0 14px 30px rgba(0,0,0,.46),0 0 24px rgba(var(--accent-rgb),.2)}
     #backTop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     /* reading progress bar */
     #readBar{
