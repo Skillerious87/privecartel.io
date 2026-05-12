@@ -130,14 +130,36 @@
       text-decoration: none;
     }
 
-    .brand img {
+    .crest-badge {
+      display: inline-grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .24);
+      background:
+        radial-gradient(circle at 50% 36%, rgba(255, 255, 255, .28), rgba(255, 255, 255, .08) 58%, rgba(0, 0, 0, .28)),
+        #eef1ed;
+      box-shadow:
+        inset 0 0 0 2px rgba(0, 0, 0, .24),
+        0 10px 24px rgba(0, 0, 0, .34);
+      flex: 0 0 auto;
+    }
+
+    .crest-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      background: transparent;
+      transform: scale(1.42);
+    }
+
+    .brand .crest-badge {
       width: 48px;
       height: 48px;
-      object-fit: contain;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, .08);
-      border: 1px solid var(--line);
-      padding: 4px;
     }
 
     .brand-text {
@@ -649,15 +671,9 @@
       gap: 14px;
     }
 
-    .footer-brand img {
+    .footer-brand .crest-badge {
       width: 54px;
       height: 54px;
-      flex: 0 0 auto;
-      object-fit: contain;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      padding: 5px;
-      background: rgba(255, 255, 255, .06);
     }
 
     .footer-brand p,
@@ -737,7 +753,7 @@
     }
 
     .about-dialog {
-      width: min(640px, calc(100% - 32px));
+      width: min(720px, calc(100% - 32px));
       padding: 0;
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -757,14 +773,28 @@
       align-items: start;
       justify-content: space-between;
       gap: 18px;
-      padding: 22px 22px 16px;
+      padding: 24px 24px 18px;
       border-bottom: 1px solid var(--line);
+    }
+
+    .dialog-kicker {
+      margin: 0 0 6px;
+      color: var(--gold);
+      font-size: .82rem;
+      font-weight: 850;
+      text-transform: uppercase;
     }
 
     .dialog-header h2 {
       margin: 0;
       color: var(--green);
-      font-size: 1.7rem;
+      font-size: 2rem;
+    }
+
+    .dialog-author {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-weight: 700;
     }
 
     .dialog-close {
@@ -781,7 +811,7 @@
     }
 
     .dialog-body {
-      padding: 20px 22px 22px;
+      padding: 22px 24px 24px;
     }
 
     .dialog-body p {
@@ -791,6 +821,43 @@
 
     .dialog-body p:last-child {
       margin-bottom: 0;
+    }
+
+    .dialog-intro {
+      color: var(--ink) !important;
+      font-size: 1.04rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .about-panel {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, .045);
+    }
+
+    .about-panel strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--green);
+    }
+
+    .about-panel p {
+      margin: 0;
+      font-size: .94rem;
+      line-height: 1.55;
+    }
+
+    .dialog-signoff {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-weight: 700;
     }
 
     .lightbox {
@@ -861,7 +928,7 @@
         gap: 10px;
       }
 
-      .brand img {
+      .brand .crest-badge {
         width: 42px;
         height: 42px;
       }
@@ -914,6 +981,10 @@
 
       .footer-inner {
         display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -1015,7 +1086,9 @@
   <header class="site-header" id="siteHeader">
     <div class="wrap topbar">
       <a class="brand" href="#top" aria-label="Doak family history home">
-        <img src="images/Doak-Family-crest.png" alt="" width="48" height="48">
+        <span class="crest-badge" aria-hidden="true">
+          <img src="images/Doak-Family-crest.png" alt="" width="48" height="48">
+        </span>
         <span class="brand-text">
           <span class="brand-title">Doak Family History</span>
           <span class="brand-subtitle">Origins, variants, records and sources</span>
@@ -1549,7 +1622,9 @@
   <footer class="site-footer" id="siteFooter">
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="images/Doak-Family-crest.png" alt="" width="54" height="54" loading="lazy" decoding="async">
+        <span class="crest-badge" aria-hidden="true">
+          <img src="images/Doak-Family-crest.png" alt="" width="54" height="54" loading="lazy" decoding="async">
+        </span>
         <div>
           <strong>Doak Family History</strong>
           <p>Evidence-led notes on the Doak, Doig, Dog and Dock surname group, with Scottish, Ulster and diaspora context.</p>
@@ -1589,22 +1664,38 @@
 
   <dialog class="about-dialog" id="aboutDialog" aria-labelledby="aboutTitle">
     <div class="dialog-header">
-      <h2 id="aboutTitle">About This Research</h2>
+      <div>
+        <p class="dialog-kicker">Doak surname research</p>
+        <h2 id="aboutTitle">About This Research</h2>
+        <p class="dialog-author">Prepared for Robin Doak</p>
+      </div>
       <button class="dialog-close" type="button" id="aboutClose" aria-label="Close about dialog">X</button>
     </div>
     <div class="dialog-body">
-      <p>
-        This page is a researched surname-history summary for the Doak name. It separates the strongest Scottish
-        Doig/Dog origin evidence from Irish County Down alternatives, clan association, heraldry rules and modern
-        family-history research steps.
+      <p class="dialog-intro">
+        This page brings together a careful, source-led account of the Doak name for Robin Doak, with the strongest
+        evidence presented first and family-history cautions kept visible.
       </p>
-      <p>
-        It is not a completed proof of any one living person's family line. To prove a specific branch, work backward
-        through civil records, parish registers, wills, land records and migration evidence using the Doak, Doig, Dog,
-        Dock and related spellings.
-      </p>
-      <p>
-        The site uses local images from this folder and the source links listed at the end of the page.
+      <div class="about-grid">
+        <div class="about-panel">
+          <strong>What it covers</strong>
+          <p>The Scottish Doig/Dog origin, Saint Cadoc, Kilmadock, Menteith, Ulster links, variants, clan context, heraldry and migration.</p>
+        </div>
+        <div class="about-panel">
+          <strong>What it avoids</strong>
+          <p>It does not pretend that every Doak line has one proven ancestor, one universal coat of arms, or a named Bannockburn participant.</p>
+        </div>
+        <div class="about-panel">
+          <strong>How to use it</strong>
+          <p>Use it as a surname-history guide, then prove a specific branch through records for named people, places and dates.</p>
+        </div>
+        <div class="about-panel">
+          <strong>Research trail</strong>
+          <p>Search Doak alongside Doig, Dog, Dock, Dook and other forms, especially in Scottish, Ulster and Scots-Irish records.</p>
+        </div>
+      </div>
+      <p class="dialog-signoff">
+        Site prepared for Robin Doak. Images are local to this folder; source links are listed at the end of the page.
       </p>
     </div>
   </dialog>
