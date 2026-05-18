@@ -17,7 +17,7 @@ const NAVBAR_TEMPLATE = `
       <li><a href="news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
       <li><a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
       <li><a href="contact.html"><i class="fa-solid fa-address-card"></i> Contact</a></li>
-      <li><a href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-discord"></i> Discord</a></li>
+      <li><a class="discord-nav-link" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer" data-discord-dialog><i class="fa-brands fa-discord"></i> Discord</a></li>
     </ul>
   </nav>
   <div class="nav-overlay" aria-hidden="true"></div>
@@ -30,6 +30,8 @@ class PCNavbar extends HTMLElement {
 
   disconnectedCallback() {
     if (this.onEscape) document.removeEventListener("keydown", this.onEscape);
+    if (this.onDiscordKeydown) document.removeEventListener("keydown", this.onDiscordKeydown);
+    if (this.discordController) this.discordController.abort();
     if (this.onScroll) window.removeEventListener("scroll", this.onScroll);
     if (this.mobileQuery && this.onMediaChange) {
       if (this.mobileQuery.removeEventListener) {
@@ -56,6 +58,7 @@ class PCNavbar extends HTMLElement {
     this.markActiveLink();
     this.hardenExternalLinks();
     this.setupDrawer();
+    this.setupDiscordDialog();
     this.setupShadow();
 
     this.dispatchEvent(new CustomEvent("pc-navbar-ready", { bubbles: true }));
@@ -177,6 +180,174 @@ class PCNavbar extends HTMLElement {
 
     this.onScroll();
     window.addEventListener("scroll", this.onScroll, { passive: true });
+  }
+
+  setupDiscordDialog() {
+    if (this.discordController) this.discordController.abort();
+    this.discordController = new AbortController();
+
+    this.querySelectorAll(".nav-links a[data-discord-dialog]").forEach((link) => {
+      link.addEventListener(
+        "click",
+        (event) => {
+          event.preventDefault();
+          this.openDiscordDialog(link.href, link);
+        },
+        { signal: this.discordController.signal }
+      );
+    });
+  }
+
+  openDiscordDialog(inviteUrl, returnTarget) {
+    const dialog = this.ensureDiscordDialog();
+    const openLink = dialog.querySelector("[data-discord-open]");
+
+    if (this.discordCloseTimer) {
+      window.clearTimeout(this.discordCloseTimer);
+      this.discordCloseTimer = null;
+    }
+
+    this.discordReturnTarget = returnTarget;
+    if (openLink) openLink.href = inviteUrl;
+
+    dialog.hidden = false;
+    document.body.classList.add("discord-dialog-open");
+    window.requestAnimationFrame(() => {
+      dialog.classList.add("is-open");
+      (openLink || dialog.querySelector(".discord-dialog-close") || dialog).focus({ preventScroll: true });
+    });
+
+    if (this.onDiscordKeydown) document.removeEventListener("keydown", this.onDiscordKeydown);
+    this.onDiscordKeydown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        this.closeDiscordDialog();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = [...dialog.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )].filter((item) => item.offsetParent !== null);
+
+      if (!focusable.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", this.onDiscordKeydown);
+  }
+
+  closeDiscordDialog({ restoreFocus = true } = {}) {
+    const dialog = this.discordDialog;
+    if (!dialog || dialog.hidden) return;
+
+    dialog.classList.remove("is-open");
+    document.body.classList.remove("discord-dialog-open");
+    if (this.onDiscordKeydown) document.removeEventListener("keydown", this.onDiscordKeydown);
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.discordCloseTimer = window.setTimeout(() => {
+      dialog.hidden = true;
+      if (restoreFocus && this.discordReturnTarget?.isConnected) {
+        this.discordReturnTarget.focus({ preventScroll: true });
+      }
+    }, prefersReducedMotion ? 0 : 420);
+  }
+
+  ensureDiscordDialog() {
+    if (this.discordDialog?.isConnected) return this.discordDialog;
+
+    let dialog = document.querySelector("[data-pc-discord-dialog]");
+    if (!dialog) {
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = `
+        <div class="discord-dialog-backdrop" data-pc-discord-dialog hidden>
+          <div class="discord-dialog" role="dialog" aria-modal="true" aria-labelledby="discord-dialog-title" aria-describedby="discord-dialog-copy" tabindex="-1">
+            <span class="discord-dialog-grip" aria-hidden="true"></span>
+            <button class="discord-dialog-close" type="button" aria-label="Close Discord dialog" data-discord-close>
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+
+            <div class="discord-dialog-head">
+              <div class="discord-dialog-icon" aria-hidden="true">
+                <span class="discord-dialog-ring ring-one"></span>
+                <span class="discord-dialog-ring ring-two"></span>
+                <span class="discord-dialog-spark spark-one"></span>
+                <span class="discord-dialog-spark spark-two"></span>
+                <span class="discord-dialog-badge">
+                  <i class="fa-brands fa-discord"></i>
+                </span>
+              </div>
+
+              <div class="discord-dialog-heading">
+                <p class="discord-dialog-kicker">Discord invite</p>
+                <h2 id="discord-dialog-title">Open Priv&eacute; Cartel Discord?</h2>
+              </div>
+            </div>
+
+            <div class="discord-dialog-content">
+              <p id="discord-dialog-copy">This invite opens Discord in your browser, or hands off to the Discord app if it is installed on your device.</p>
+
+              <div class="discord-dialog-route" aria-label="Discord opening flow">
+                <span class="discord-dialog-route-node">
+                  <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                  <span>Browser</span>
+                </span>
+                <span class="discord-dialog-route-line" aria-hidden="true"><span></span></span>
+                <span class="discord-dialog-route-node route-discord">
+                  <i class="fa-brands fa-discord" aria-hidden="true"></i>
+                  <span>Discord app</span>
+                </span>
+              </div>
+
+              <ul class="discord-dialog-points" aria-label="Discord details">
+                <li>
+                  <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                  <span>Opens outside this site in a separate Discord window or tab.</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                  <span>Use the official invite to join the faction server.</span>
+                </li>
+              </ul>
+
+              <div class="discord-dialog-actions">
+                <a class="btn discord-dialog-primary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer" data-discord-open>
+                  <i class="fa-brands fa-discord" aria-hidden="true"></i>
+                  <span>Open Discord</span>
+                </a>
+                <button class="btn secondary discord-dialog-cancel" type="button" data-discord-close>Not now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      dialog = wrapper.firstElementChild;
+      document.body.appendChild(dialog);
+    }
+
+    dialog.querySelectorAll("[data-discord-close]").forEach((button) => {
+      button.addEventListener("click", () => this.closeDiscordDialog());
+    });
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) this.closeDiscordDialog();
+    });
+    dialog.querySelector("[data-discord-open]")?.addEventListener("click", () => {
+      this.closeDiscordDialog({ restoreFocus: false });
+    });
+
+    this.discordDialog = dialog;
+    return dialog;
   }
 }
 
