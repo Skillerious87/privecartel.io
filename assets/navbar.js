@@ -279,47 +279,30 @@ class PCNavbar extends HTMLElement {
             </button>
 
             <div class="discord-dialog-head">
-              <div class="discord-dialog-icon" aria-hidden="true">
-                <span class="discord-dialog-ring ring-one"></span>
-                <span class="discord-dialog-ring ring-two"></span>
-                <span class="discord-dialog-spark spark-one"></span>
-                <span class="discord-dialog-spark spark-two"></span>
+              <div class="discord-dialog-mark" aria-hidden="true">
                 <span class="discord-dialog-badge">
                   <i class="fa-brands fa-discord"></i>
                 </span>
               </div>
 
               <div class="discord-dialog-heading">
-                <p class="discord-dialog-kicker">Discord invite</p>
-                <h2 id="discord-dialog-title">Open Priv&eacute; Cartel Discord?</h2>
+                <p class="discord-dialog-kicker">Official invite</p>
+                <h2 id="discord-dialog-title">Open Priv&eacute; Cartel Discord</h2>
+                <p id="discord-dialog-copy">Continue to the faction server with Discord. The invite may open in the app or in a new browser tab.</p>
               </div>
             </div>
 
             <div class="discord-dialog-content">
-              <p id="discord-dialog-copy">This invite opens Discord in your browser, or hands off to the Discord app if it is installed on your device.</p>
-
-              <div class="discord-dialog-route" aria-label="Discord opening flow">
-                <span class="discord-dialog-route-node">
-                  <i class="fa-solid fa-globe" aria-hidden="true"></i>
-                  <span>Browser</span>
+              <div class="discord-dialog-details" aria-label="Discord details">
+                <span>
+                  <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                  External handoff
                 </span>
-                <span class="discord-dialog-route-line" aria-hidden="true"><span></span></span>
-                <span class="discord-dialog-route-node route-discord">
-                  <i class="fa-brands fa-discord" aria-hidden="true"></i>
-                  <span>Discord app</span>
+                <span>
+                  <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                  Faction server
                 </span>
               </div>
-
-              <ul class="discord-dialog-points" aria-label="Discord details">
-                <li>
-                  <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                  <span>Opens outside this site in a separate Discord window or tab.</span>
-                </li>
-                <li>
-                  <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-                  <span>Use the official invite to join the faction server.</span>
-                </li>
-              </ul>
 
               <div class="discord-dialog-actions">
                 <a class="btn discord-dialog-primary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer" data-discord-open>
