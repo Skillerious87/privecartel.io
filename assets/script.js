@@ -15,6 +15,7 @@
 const scriptSrc = document.currentScript?.src || document.baseURI;
 const siteRoot = new URL("../", scriptSrc);
 const siteLink = (path) => new URL(path, siteRoot).href;
+const canonicalOrigin = "https://www.privecartel.com";
 
 document.addEventListener("DOMContentLoaded", () => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -222,16 +223,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const description =
       document.querySelector('meta[name="description"]')?.content ||
       "Official hub for Privé Cartel faction members.";
-    const pageUrl = location.href.split("#")[0];
-    const imageUrl = siteLink("images/Emblem.png");
-
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement("link");
       canonical.rel = "canonical";
       document.head.appendChild(canonical);
     }
-    canonical.href = pageUrl;
+
+    if (!canonical.getAttribute("href")) {
+      const canonicalPath = location.pathname.endsWith("/index.html")
+        ? "/"
+        : location.pathname;
+      canonical.href = new URL(canonicalPath, canonicalOrigin).href;
+    }
+
+    const pageUrl = canonical.href;
+    const imageUrl = new URL("images/Emblem.png", canonicalOrigin).href;
 
     setMeta("property", "og:site_name", "Privé Cartel");
     setMeta("property", "og:type", "website");
