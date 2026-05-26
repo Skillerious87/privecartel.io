@@ -186,16 +186,35 @@ class PCNavbar extends HTMLElement {
     if (this.discordController) this.discordController.abort();
     this.discordController = new AbortController();
 
-    this.querySelectorAll(".nav-links a[data-discord-dialog]").forEach((link) => {
-      link.addEventListener(
-        "click",
-        (event) => {
-          event.preventDefault();
-          this.openDiscordDialog(link.href, link);
-        },
-        { signal: this.discordController.signal }
-      );
-    });
+    document.addEventListener(
+      "click",
+      (event) => {
+        if (event.defaultPrevented || event.button !== 0) return;
+
+        const link = event.target.closest?.("a[href]");
+        if (!link || !this.isDiscordDialogTrigger(link)) return;
+
+        event.preventDefault();
+        this.openDiscordDialog(link.href, link);
+      },
+      { signal: this.discordController.signal }
+    );
+  }
+
+  isDiscordDialogTrigger(link) {
+    if (link.closest("[data-pc-discord-dialog]")) return false;
+    if (link.hasAttribute("data-discord-open")) return false;
+    if (link.hasAttribute("data-discord-dialog")) return true;
+
+    let url;
+    try {
+      url = new URL(link.href, location.href);
+    } catch {
+      return false;
+    }
+
+    const host = url.hostname.replace(/^www\./, "").toLowerCase();
+    return host === "discord.gg";
   }
 
   openDiscordDialog(inviteUrl, returnTarget) {
