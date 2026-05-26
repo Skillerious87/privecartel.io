@@ -1,312 +1,904 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- META -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Privé Cartel | Member Rules &amp; Charter</title>
-    <meta name="description" content="Binding rules and charter for all Privé Cartel faction members." />
-    <link rel="icon" type="image/png" href="images/Emblem.png" />
-    <!-- FONTS & ICONS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-    <!-- GLOBAL THEME -->
-    <link rel="stylesheet" href="assets/style.css" />
-    <!-- PAGE-SPECIFIC STYLE -->
-    <style>
-      /* term–definition lists */
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Priv&eacute; Cartel | Member Rules &amp; Charter</title>
+  <meta name="description" content="Binding rules and charter for all Priv&eacute; Cartel faction members.">
+  <link rel="icon" type="image/png" href="images/Emblem.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .rules-page {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(var(--accent-rgb), .12), transparent 28rem),
+        var(--bg-1);
+    }
+
+    .rules-hero--charter {
+      display: block;
+      text-align: left;
+      padding: calc(var(--nav-h) + 3.75rem) 0 3rem;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, .1), rgba(0, 0, 0, .34)),
+        url("images/hero-bg.jpg") repeat center / 180px;
+      overflow: hidden;
+    }
+
+    .rules-hero-shell {
+      display: grid;
+      grid-template-columns: minmax(8.5rem, .55fr) minmax(0, 1.4fr) minmax(17rem, .75fr);
+      gap: clamp(1.2rem, 3vw, 2.4rem);
+      align-items: center;
+    }
+
+    .rules-hero-mark {
+      display: grid;
+      justify-items: center;
+    }
+
+    .rules-hero--charter img {
+      width: clamp(8.5rem, 15vw, 11.25rem);
+      height: clamp(8.5rem, 15vw, 11.25rem);
+      margin: 0;
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    .rules-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: var(--accent-light);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .rules-kicker::before {
+      content: "";
+      width: .45rem;
+      height: .45rem;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb), .42);
+    }
+
+    .rules-hero--charter h1 {
+      max-width: 12ch;
+      margin: .35rem 0 .85rem;
+      font-size: clamp(2.2rem, 6vw, 4.4rem);
+      line-height: .98;
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    .rules-hero--charter .tagline {
+      max-width: 43rem;
+      margin: 0;
+      color: rgba(232, 226, 206, .86);
+      font-style: normal;
+      font-size: clamp(.98rem, 1.6vw, 1.1rem);
+    }
+
+    .rules-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.4rem;
+    }
+
+    .rules-hero-note {
+      min-width: 0;
+      border: 1px solid rgba(var(--accent-rgb), .34);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .022)),
+        rgba(0, 0, 0, .42);
+      padding: 1.05rem;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, .28);
+    }
+
+    .rules-hero-note h2 {
+      margin: 0 0 .65rem;
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .rules-hero-note ul {
+      display: grid;
+      gap: .58rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rules-hero-note li {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: .62rem;
+      align-items: center;
+      color: rgba(232, 226, 206, .84);
+      font-size: .9rem;
+      line-height: 1.35;
+    }
+
+    .rules-hero-note i {
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(var(--accent-rgb), .26);
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb), .1);
+      color: var(--accent-light);
+    }
+
+    .rules-charter {
+      padding: 3rem 0 4.5rem;
+    }
+
+    .rules-layout {
+      display: grid;
+      grid-template-columns: minmax(13.5rem, .28fr) minmax(0, 1fr);
+      gap: clamp(1rem, 2.4vw, 1.8rem);
+      align-items: start;
+    }
+
+    .rules-sidebar {
+      position: sticky;
+      top: calc(var(--nav-h) + 1rem);
+    }
+
+    .rules-sidebar-panel {
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .02)),
+        rgba(0, 0, 0, .5);
+      padding: .95rem;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .22);
+    }
+
+    .rules-sidebar-title {
+      margin: 0 0 .72rem;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .rules-nav {
+      display: grid;
+      gap: .35rem;
+    }
+
+    .rules-nav a,
+    .rules-nav a:link,
+    .rules-nav a:visited {
+      display: grid;
+      grid-template-columns: 1.75rem minmax(0, 1fr);
+      gap: .55rem;
+      align-items: center;
+      min-height: 2.45rem;
+      padding: .48rem .55rem;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: rgba(232, 226, 206, .86);
+      text-decoration: none;
+      font-size: .88rem;
+      line-height: 1.2;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .rules-nav a:hover,
+    .rules-nav a:focus-visible {
+      border-color: rgba(var(--accent-rgb), .28);
+      background: rgba(var(--accent-rgb), .08);
+      color: var(--accent-light);
+    }
+
+    .rules-nav span {
+      width: 1.75rem;
+      height: 1.75rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: .75rem;
+    }
+
+    .rules-sidebar-cta {
+      margin-top: .8rem;
+      padding-top: .8rem;
+      border-top: 1px solid rgba(var(--accent-rgb), .18);
+    }
+
+    .rules-sidebar-cta .btn {
+      width: 100%;
+      min-height: 2.45rem;
+      padding: .58rem .78rem;
+      font-size: .86rem;
+    }
+
+    .rules-content {
+      display: grid;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    .rules-card {
+      scroll-margin-top: calc(var(--nav-h) + 1.2rem);
+      border: 1px solid rgba(var(--accent-rgb), .34);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .018)),
+        rgba(0, 0, 0, .48);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .26);
+      overflow: hidden;
+    }
+
+    .rules-card-head {
+      display: grid;
+      grid-template-columns: 2.85rem minmax(0, 1fr);
+      gap: .85rem;
+      align-items: center;
+      padding: 1.15rem 1.25rem;
+      border-bottom: 1px solid rgba(var(--accent-rgb), .2);
+      background:
+        linear-gradient(90deg, rgba(var(--accent-rgb), .1), rgba(var(--accent-rgb), .02)),
+        rgba(255, 255, 255, .02);
+    }
+
+    .rule-number {
+      width: 2.85rem;
+      height: 2.85rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(var(--accent-rgb), .46);
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--accent-light);
+      font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+    }
+
+    .rule-eyebrow {
+      margin: 0 0 .18rem;
+      color: rgba(214, 197, 154, .78);
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .rules-card h2 {
+      margin: 0;
+      color: var(--accent);
+      font-size: clamp(1.35rem, 2vw, 1.75rem);
+    }
+
+    .rules-card-body {
+      padding: 1.15rem 1.25rem 1.25rem;
+    }
+
+    .rules-lede {
+      max-width: 62rem;
+      margin: 0 0 1rem;
+      color: rgba(232, 226, 206, .84);
+      line-height: 1.65;
+    }
+
+    .rule-list {
+      display: grid;
+      grid-template-columns: minmax(10.5rem, .34fr) minmax(0, 1fr);
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid rgba(var(--accent-rgb), .16);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, .18);
+    }
+
+    .rule-list dt,
+    .rule-list dd {
+      min-width: 0;
+      margin: 0;
+      padding: .88rem .95rem;
+      border-top: 1px solid rgba(var(--accent-rgb), .14);
+      overflow-wrap: anywhere;
+    }
+
+    .rule-list dt:nth-of-type(1),
+    .rule-list dd:nth-of-type(1) {
+      border-top: 0;
+    }
+
+    .rule-list dt {
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+      color: var(--accent-light);
+      font-weight: 700;
+      line-height: 1.35;
+      background: rgba(var(--accent-rgb), .065);
+      border-right: 1px solid rgba(var(--accent-rgb), .14);
+    }
+
+    .rule-list dt::before {
+      content: "";
+      flex: 0 0 .42rem;
+      width: .42rem;
+      height: .42rem;
+      margin-top: .42rem;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb), .28);
+    }
+
+    .rule-list dd {
+      color: rgba(232, 226, 206, .82);
+      line-height: 1.58;
+    }
+
+    .rule-list a,
+    .rule-list a:link,
+    .rule-list a:visited,
+    .leadership a,
+    .leadership a:link,
+    .leadership a:visited {
+      color: var(--accent-light);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: rgba(var(--accent-rgb), .45);
+    }
+
+    .rule-list a:hover,
+    .rule-list a:focus-visible,
+    .leadership a:hover,
+    .leadership a:focus-visible {
+      color: var(--text-1);
+    }
+
+    .rule-alert {
+      display: grid;
+      grid-template-columns: 2.35rem minmax(0, 1fr);
+      gap: .75rem;
+      margin-top: 1rem;
+      padding: .95rem 1rem;
+      border: 1px solid rgba(255, 91, 91, .34);
+      border-left: 4px solid #ff5b5b;
+      border-radius: 8px;
+      background: rgba(255, 68, 68, .075);
+      color: #ffd1d1;
+    }
+
+    .rule-alert i {
+      width: 2.35rem;
+      height: 2.35rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 91, 91, .12);
+      color: #ff9d9d;
+    }
+
+    .rule-alert strong {
+      display: block;
+      margin-bottom: .22rem;
+      color: #ffdada;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    .rule-alert p {
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    .council-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .7rem;
+    }
+
+    .council-member,
+    .council-member:link,
+    .council-member:visited {
+      display: grid;
+      grid-template-columns: 2.4rem minmax(0, 1fr);
+      gap: .7rem;
+      align-items: center;
+      min-width: 0;
+      padding: .78rem .85rem;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .03);
+      color: var(--text-1);
+      text-decoration: none;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .council-member:hover,
+    .council-member:focus-visible {
+      border-color: rgba(var(--accent-rgb), .45);
+      background: rgba(var(--accent-rgb), .08);
+      color: var(--text-1);
+    }
+
+    .council-member i {
+      width: 2.4rem;
+      height: 2.4rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb), .12);
+      color: var(--accent);
+    }
+
+    .council-member span {
+      display: block;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .council-member small {
+      display: block;
+      color: rgba(214, 197, 154, .78);
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .rules-card--action .rules-card-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .rules-card--action p {
+      margin: 0;
+      color: rgba(232, 226, 206, .82);
+    }
+
+    .rules-closing {
+      text-align: center;
+      color: rgba(232, 226, 206, .84);
+      font-size: 1.02rem;
+      font-style: italic;
+    }
+
+    .rules-closing p {
+      margin: 0;
+    }
+
+    @media (max-width: 980px) {
+      .rules-hero-shell,
+      .rules-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .rules-hero-shell {
+        text-align: center;
+      }
+
+      .rules-hero--charter h1,
+      .rules-hero--charter .tagline {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .rules-hero-actions {
+        justify-content: center;
+      }
+
+      .rules-hero-note {
+        width: min(100%, 34rem);
+        margin-inline: auto;
+        text-align: left;
+      }
+
+      .rules-sidebar {
+        position: static;
+      }
+
+      .rules-sidebar-panel {
+        padding: .8rem;
+      }
+
+      .rules-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .rules-hero--charter {
+        padding: calc(var(--nav-h) + 1.45rem) 0 1.45rem;
+      }
+
+      .rules-hero--charter img {
+        width: 7.8rem;
+        height: 7.8rem;
+      }
+
+      .rules-hero--charter h1 {
+        font-size: 2.05rem;
+        margin-bottom: .65rem;
+      }
+
+      .rules-hero-actions {
+        gap: .55rem;
+        margin-top: 1rem;
+      }
+
+      .rules-hero-note {
+        padding: .85rem;
+      }
+
+      .rules-hero-note ul {
+        gap: .48rem;
+      }
+
+      .rules-hero-note li {
+        grid-template-columns: 1.8rem minmax(0, 1fr);
+        gap: .52rem;
+        font-size: .86rem;
+      }
+
+      .rules-hero-note i {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+
+      .rules-charter {
+        padding: 2rem 0 3.25rem;
+      }
+
+      .rules-nav {
+        grid-template-columns: 1fr;
+      }
+
+      .rules-card-head {
+        grid-template-columns: 2.45rem minmax(0, 1fr);
+        padding: 1rem;
+      }
+
+      .rule-number {
+        width: 2.45rem;
+        height: 2.45rem;
+      }
+
+      .rules-card-body {
+        padding: 1rem;
+      }
+
       .rule-list {
-        margin: 0
+        grid-template-columns: 1fr;
+      }
+
+      .rule-list dt,
+      .rule-list dd {
+        padding: .75rem .82rem;
       }
 
       .rule-list dt {
-        color: var(--accent);
-        font-weight: 600;
-        margin-top: 1rem
-      }
-
-      .rule-list dt:first-child {
-        margin-top: 0
+        border-right: 0;
       }
 
       .rule-list dd {
-        margin: 0 0 .9rem 1.25rem;
-        line-height: 1.6
+        padding-top: .15rem;
+        border-top: 0;
       }
 
-      /* leadership links keep gold */
-      .leadership a:link,
-      .leadership a:visited {
-        color: var(--accent);
-        text-decoration: none;
-        font-weight: 500
+      .rule-alert {
+        grid-template-columns: 1fr;
       }
 
-      .leadership a:hover,
-      .leadership a:focus {
-        color: var(--text-1);
-        text-decoration: underline
+      .rule-alert i {
+        width: 2rem;
+        height: 2rem;
       }
 
-      /* red “alert card” */
-      .alert {
-        background: rgba(255, 68, 68, .08);
-        border-left: 4px solid #ff4444;
-        padding: .75rem 1rem;
-        margin: 1.25rem 0;
-        border-radius: var(--radius);
-        color: #ffbcbc;
-        font-weight: 500
+      .council-grid,
+      .rules-card--action .rules-card-body {
+        grid-template-columns: 1fr;
       }
-    </style>
-  </head>
-  <body>
-    <!-- NAVBAR -->
-    <script type="module" src="assets/navbar.js"></script>
-    <pc-navbar></pc-navbar>
-    <!-- HERO -->
-    <section class="rules-hero">
-      <img src="images/Emblem.png" alt="Cartel Emblem" />
-      <h1>Member Rules&nbsp;&amp;&nbsp;Charter</h1>
-      <p class="tagline">Privé operates in silence, precision and solidarity. Honour the following and the Cartel will always stand behind you.</p>
+
+      .rules-card--action .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#rules-main">Skip to rules</a>
+  <script type="module" src="assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+
+  <main id="rules-main" class="rules-page">
+    <section class="rules-hero rules-hero--charter">
+      <div class="container rules-hero-shell">
+        <div class="rules-hero-mark">
+          <img src="images/Emblem.png" alt="Cartel Emblem">
+        </div>
+        <div class="rules-hero-copy">
+          <span class="rules-kicker">Faction Charter</span>
+          <h1>Member Rules &amp; Charter</h1>
+          <p class="tagline">Priv&eacute; operates through presence, discretion and mutual aid. These rules keep the faction organized, protected and worth belonging to.</p>
+          <div class="rules-hero-actions" aria-label="Rules quick actions">
+            <a class="btn" href="#activity"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Review Rules</a>
+            <a class="btn secondary" href="#leadership"><i class="fa-solid fa-crown" aria-hidden="true"></i> Contact Council</a>
+          </div>
+        </div>
+        <aside class="rules-hero-note" aria-label="Rule priorities">
+          <h2>What matters most</h2>
+          <ul>
+            <li><i class="fa-solid fa-clock" aria-hidden="true"></i><span>Log in daily or leave clear notice before extended absence.</span></li>
+            <li><i class="fa-solid fa-user-ninja" aria-hidden="true"></i><span>Join and execute Organised Crimes when assigned.</span></li>
+            <li><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span>Do not start external conflicts without leadership approval.</span></li>
+          </ul>
+        </aside>
+      </div>
     </section>
-    <!-- RULE MAP -->
-    <section>
-      <div class="container">
-        <h2 class="section-title">Rule Map</h2>
-        <div class="rulemap-grid">
-          <a href="#core" class="card rulemap">
-            <h3>
-              <i class="fa-solid fa-gem rules-icon"></i> Core Tenets
-            </h3>
-            <p>The three pillars.</p>
-          </a>
-          <a href="#activity" class="card rulemap">
-            <h3>
-              <i class="fa-solid fa-bullseye rules-icon"></i> Activity
-            </h3>
-            <p>Presence &amp; notifications.</p>
-          </a>
-          <a href="#oc" class="card rulemap">
-            <h3>
-              <i class="fa-solid fa-user-ninja rules-icon"></i> OC&nbsp;2.0
-            </h3>
-            <p>Scope &amp; execution.</p>
-          </a>
-          <a href="#conduct" class="card rulemap">
-            <h3>
-              <i class="fa-solid fa-handshake rules-icon"></i> Conduct
-            </h3>
-            <p>External dealings.</p>
-          </a>
-          <a href="#culture" class="card rulemap">
-            <h3>
-              <i class="fa-solid fa-users rules-icon"></i> Culture
-            </h3>
-            <p>Mentoring &amp; sharing.</p>
-          </a>
-          <a href="#warfare" class="card rulemap">
-            <h3>
-              <i class="fa-solid fa-shield-halved rules-icon"></i> Warfare
-            </h3>
-            <p>Risks &amp; defence.</p>
-          </a>
+
+    <section class="rules-charter">
+      <div class="container rules-layout">
+        <aside class="rules-sidebar" aria-label="Rules navigation">
+          <div class="rules-sidebar-panel">
+            <p class="rules-sidebar-title">Rule Index</p>
+            <nav class="rules-nav">
+              <a href="#core"><span>0</span> Core Tenets</a>
+              <a href="#activity"><span>1</span> Activity</a>
+              <a href="#oc"><span>2</span> OC 2.0</a>
+              <a href="#conduct"><span>3</span> External Conduct</a>
+              <a href="#culture"><span>4</span> Culture</a>
+              <a href="#warfare"><span>5</span> Warfare</a>
+              <a href="#leadership"><span><i class="fa-solid fa-crown" aria-hidden="true"></i></span> Leadership</a>
+            </nav>
+            <div class="rules-sidebar-cta">
+              <a class="btn secondary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener">
+                <i class="fa-brands fa-discord" aria-hidden="true"></i> Discord
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <div class="rules-content">
+          <section id="core" class="rules-card">
+            <header class="rules-card-head">
+              <span class="rule-number">0</span>
+              <div>
+                <p class="rule-eyebrow">Charter foundation</p>
+                <h2>Core Tenets</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <p class="rules-lede">These principles sit above every operational rule. Honour them and the Cartel stands behind you unequivocally.</p>
+              <dl class="rule-list">
+                <dt>Presence</dt>
+                <dd>Be seen when it matters; an invisible member is a liability.</dd>
+                <dt>Discretion</dt>
+                <dd>Faction business remains internal. Screenshots or leaks trigger removal.</dd>
+                <dt>Mutual Aid</dt>
+                <dd>Your call is our call; assistance flows both directions without IOUs.</dd>
+              </dl>
+            </div>
+          </section>
+
+          <section id="activity" class="rules-card">
+            <header class="rules-card-head">
+              <span class="rule-number">1</span>
+              <div>
+                <p class="rule-eyebrow">Availability and response</p>
+                <h2>Activity Expectations</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <dl class="rule-list">
+                <dt>Daily Presence</dt>
+                <dd>Log in at least once every 24 hours. Last Action &gt; 24 hours flags you as inactive.</dd>
+                <dt>Event Notifications</dt>
+                <dd>Enable push alerts in the Torn mobile app, or email/SMS via Settings &rarr; Preferences, so OC and chain pings reach you quickly.</dd>
+                <dt>OC Commitment</dt>
+                <dd>If you join an OC 2.0 scenario, remain active for its full 3-6 day timer and the sub-1-minute execution phase. Missing execution voids the run and burns Scope.</dd>
+                <dt>Chain Windows</dt>
+                <dd>Only members who opt in must respond in under 5 minutes during scheduled chain windows. Keep 50+ Energy banked, fast targets bookmarked and hospital time under 10 minutes.</dd>
+                <dt>Vacation Mode</dt>
+                <dd>Away for 72+ hours? Toggle Vacation Mode in Torn and drop an ETA in faction chat. Slots are protected; no notice can mean removal after 3 idle days.</dd>
+                <dt>Quick Response</dt>
+                <dd>Leaders may send urgent in-game mail or Discord pings. Reply when possible so rosters can adjust in real time.</dd>
+              </dl>
+            </div>
+          </section>
+
+          <section id="oc" class="rules-card">
+            <header class="rules-card-head">
+              <span class="rule-number">2</span>
+              <div>
+                <p class="rule-eyebrow">Faction operations</p>
+                <h2>Organised Crimes 2.0</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <dl class="rule-list">
+                <dt>Scenario System</dt>
+                <dd>Every OC is a named scenario from level 1-9. Difficulty tiers are Lambda, Sigma, Psi and Omega, with Scope costs scaling by tier.</dd>
+                <dt>Scope Pool</dt>
+                <dd>Factions start with 25 Scope, cap at 100 and regenerate +1 Scope per day. Completing scenarios can also award bonus Scope.</dd>
+                <dt>Planning to Execution</dt>
+                <dd>After the day-countdown, a sub-1-minute execution fires. All members must be in Torn, healthy and carrying required items or the run can fail.</dd>
+                <dt>Roles and Items</dt>
+                <dd>Participants fill role slots based on suitability and success score. Materials such as C-4 and zip-ties are consumed; tools such as Jemmy and DSLR persist.</dd>
+                <dt>New Member Guide</dt>
+                <dd>Before joining your first scenario, read the <a href="guides/organized-crimes-2.html">Organized Crimes 2.0 guide</a> for slot selection, item checks, timers and payout expectations.</dd>
+                <dt>Payout Split</dt>
+                <dd>On success, leadership chooses the split between faction and members. Cash can hit wallets or the faction bank; item loot is distributed randomly or sold at market value.</dd>
+                <dt>Readiness</dt>
+                <dd>Join only if you can stay active for the full 3-6 days and keep Last Action under 24 hours. If you cannot log in, ping leadership immediately.</dd>
+              </dl>
+              <div class="rule-alert">
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                <div>
+                  <strong>Mandatory OC participation</strong>
+                  <p>Any member who does not join an OC within seven days will receive a formal warning. Failure to participate within fourteen days can result in removal. Real-life commitments are fine; notify leadership early.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="conduct" class="rules-card">
+            <header class="rules-card-head">
+              <span class="rule-number">3</span>
+              <div>
+                <p class="rule-eyebrow">Reputation and diplomacy</p>
+                <h2>External Conduct</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <p class="rules-lede">Your actions outside the faction reflect on all of us. Follow these rules when dealing with other factions, markets and public channels.</p>
+              <dl class="rule-list">
+                <dt>Faction Relations Tags</dt>
+                <dd>Leaders control our status with other factions. Do not provoke, negotiate or promise favours on your own.</dd>
+                <dt>Target Clearance</dt>
+                <dd>Obtain approval before hospital sprees, territory raids, high-value bounties or chain hits on ranked allies. One rogue attack can invite serious retaliation.</dd>
+                <dt>No Outside Help</dt>
+                <dd>Arranging mercenaries or intimidation squads without leadership consent is forbidden. Recruiting outsiders, or threatening to, counts as hostile action.</dd>
+                <dt>Trade and Marketplace</dt>
+                <dd>Use Torn's Trade window or Item Market. Screenshot deals above $50m. No real-money, cross-game or crypto trades.</dd>
+                <dt>Chat, Forums and Global</dt>
+                <dd>No slurs, doxxing or real-life threats. Keep internal strategy off public channels and mark jokes clearly to avoid misfires.</dd>
+                <dt>Harassment</dt>
+                <dd>Light banter is fine. Stalking, spam PMs and strong-arm tactics are not. Torn logs messages and reviews complaints.</dd>
+                <dt>Scamming</dt>
+                <dd>The faction permits buy-mugging as a gameplay mechanic. Any transaction or agreement, internal or external, is binding and must be honoured.</dd>
+              </dl>
+              <div class="rule-alert">
+                <i class="fa-solid fa-ban" aria-hidden="true"></i>
+                <div>
+                  <strong>Zero tolerance</strong>
+                  <p>Members who act externally without consulting leadership can be expelled swiftly.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="culture" class="rules-card">
+            <header class="rules-card-head">
+              <span class="rule-number">4</span>
+              <div>
+                <p class="rule-eyebrow">How we operate internally</p>
+                <h2>Internal Culture</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <p class="rules-lede">We build each other up through guidance, generosity and shared knowledge. Lean in, ask questions and give back.</p>
+              <dl class="rule-list">
+                <dt>Mentoring</dt>
+                <dd>New arrivals can request a mentor for builds, routes and revenue strategies.</dd>
+                <dt>Resource Pool</dt>
+                <dd>Donate spare meds, ammo or job points to the armoury. What helps one member can help the whole faction.</dd>
+                <dt>Knowledge Sharing</dt>
+                <dd>Post patch-note finds, economy tips and smart-play advice so the entire faction stays ahead.</dd>
+              </dl>
+            </div>
+          </section>
+
+          <section id="warfare" class="rules-card">
+            <header class="rules-card-head">
+              <span class="rule-number">5</span>
+              <div>
+                <p class="rule-eyebrow">Risk management</p>
+                <h2>Warfare Risks</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <dl class="rule-list">
+                <dt>Non-Warring Stance</dt>
+                <dd>We prioritise profit and preservation over conquest.</dd>
+                <dt>Energy Drain</dt>
+                <dd>Random hits waste energy better spent on OCs and gym gains.</dd>
+                <dt>Perk Protection</dt>
+                <dd>Specials such as travel slots, armoury and rehab discounts vanish if respect is wiped.</dd>
+                <dt>Defensive Hits</dt>
+                <dd>When leaders call a shield wall, one timely revive or defend can help end hostilities.</dd>
+              </dl>
+            </div>
+          </section>
+
+          <section class="rules-card rules-card--action">
+            <header class="rules-card-head">
+              <span class="rule-number"><i class="fa-brands fa-discord" aria-hidden="true"></i></span>
+              <div>
+                <p class="rule-eyebrow">Live coordination</p>
+                <h2>Private Lounge</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <p>For strategy, quick trades or casual chat, join the Discord lounge.</p>
+              <a href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener" class="btn">
+                <i class="fa-brands fa-discord" aria-hidden="true"></i> Join Now
+              </a>
+            </div>
+          </section>
+
+          <section id="leadership" class="rules-card leadership">
+            <header class="rules-card-head">
+              <span class="rule-number"><i class="fa-solid fa-crown" aria-hidden="true"></i></span>
+              <div>
+                <p class="rule-eyebrow">Escalation and approvals</p>
+                <h2>Leadership Council</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <div class="council-grid">
+                <a class="council-member" href="https://www.torn.com/profiles.php?XID=2804871" target="_blank" rel="noopener">
+                  <i class="fa-solid fa-crown" aria-hidden="true"></i>
+                  <span><small>Founder</small>XanderPTV</span>
+                </a>
+                <a class="council-member" href="https://www.torn.com/profiles.php?XID=2753560" target="_blank" rel="noopener">
+                  <i class="fa-solid fa-user-tie" aria-hidden="true"></i>
+                  <span><small>Leader</small>ForeverHydrox</span>
+                </a>
+                <a class="council-member" href="https://www.torn.com/profiles.php?XID=3212954" target="_blank" rel="noopener">
+                  <i class="fa-solid fa-star" aria-hidden="true"></i>
+                  <span><small>Co-Leader</small>Skillerious</span>
+                </a>
+                <a class="council-member" href="https://www.torn.com/profiles.php?XID=3400392" target="_blank" rel="noopener">
+                  <i class="fa-solid fa-gem" aria-hidden="true"></i>
+                  <span><small>Council Member</small>JdedPrincess</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <section class="rules-card rules-closing">
+            <div class="rules-card-body">
+              <p>Show up when it counts, play fair and support your squad. Rules are reviewed regularly by leadership.</p>
+            </div>
+          </section>
         </div>
       </div>
     </section>
-    <!-- 0. CORE TENETS -->
-    <section id="core" class="rules-block">
-      <div class="container glass">
-        <h2 class="section-title">
-          <span class="num">0</span>
-          <i class="fa-solid fa-gem rules-icon"></i> Core Tenets
-        </h2>
-        <dl class="rule-list">
-          <dt>Presence</dt>
-          <dd>Be seen when it matters; an invisible member is a liability.</dd>
-          <dt>Discretion</dt>
-          <dd>Faction business remains internal; screenshots or leaks trigger removal.</dd>
-          <dt>Mutual Aid</dt>
-          <dd>Your call is our call; assistance flows both directions without IOUs.</dd>
-        </dl>
-        <p>Honour these principles and the Cartel stands behind you unequivocally.</p>
-      </div>
-    </section>
-    <!-- 1. ACTIVITY EXPECTATIONS -->
-    <section id="activity" class="rules-block">
-      <div class="container glass">
-        <h2 class="section-title">
-          <span class="num">1</span>
-          <i class="fa-solid fa-bullseye rules-icon"></i> Activity Expectations
-        </h2>
-        <dl class="rule-list">
-          <dt>Daily Presence</dt>
-          <dd>Log in at least once every 24&nbsp;h; <em>Last&nbsp;Action&nbsp;&gt;&nbsp;24&nbsp;h</em> flags you as inactive. </dd>
-          <dt>Event Notifications</dt>
-          <dd>Enable push alerts in the Torn mobile app (or e-mail/SMS via <em>Settings&nbsp;→&nbsp;Preferences</em>) so OC and chain pings reach you within seconds. </dd>
-          <dt>OC Commitment</dt>
-          <dd>If you join an OC&nbsp;2.0 scenario, remain active for its full 3–6-day timer <em>and</em> the sub-1-minute execution phase. Missing the execution voids the run and burns Scope. </dd>
-          <dt>Chain Windows</dt>
-          <dd>Only members who opt-in must respond in &lt;5&nbsp;min during scheduled chain windows. Keep 50&nbsp;+&nbsp;Energy banked, fast targets bookmarked and hospital time &lt;10&nbsp;min.</dd>
-          <dt>Vacation Mode</dt>
-          <dd>Away for ≥ 72 h? Toggle Vacation Mode in Torn and drop an ETA in faction chat. Slots are protected; no notice → removal after 3 idle days.</dd>
-          <dt>Quick Response</dt>
-          <dd>Leaders may send urgent in-game mail or Discord @pings; reply when possible so rosters adjust in real time.</dd>
-        </dl>
-      </div>
-    </section>
-    <!-- 2. ORGANISED CRIMES -->
-    <section id="oc" class="rules-block">
-      <div class="container glass">
-        <h2 class="section-title">
-          <span class="num">2</span>
-          <i class="fa-solid fa-user-ninja rules-icon"></i> Organised Crimes&nbsp;2.0
-        </h2>
-        <dl class="rule-list">
-          <dt>Scenario System</dt>
-          <dd>Every OC is now a named scenario (Lv&nbsp;1–9). Four difficulty tiers use Greek symbols: <br> Λ&nbsp;Lambda&nbsp;(Lv&nbsp;1–2, cost 1 Scope) • Σ&nbsp;Sigma&nbsp;(3–5, cost 2) • Ψ&nbsp;Psi&nbsp;(6–8, cost 4) • Ω&nbsp;Omega&nbsp;(9+, cost 12). </dd>
-          <dt>Scope Pool</dt>
-          <dd>Factions start with 25 Scope (cap 100) and regenerate +1/day. Completing scenarios also awards bonus Scope.</dd>
-          <dt>Planning → Execution</dt>
-          <dd>After the day-countdown, a sub-1-minute execution fires. <em>All</em> members must be in Torn, healthy and carrying the required items or the run fails. </dd>
-          <dt>Roles &amp; Items</dt>
-          <dd>Participants fill role slots based on suitability and success score. Materials (C-4, zip-ties) are consumed; tools (Jemmy, DSLR) persist.</dd>
-          <dt>New Member Guide</dt>
-          <dd>Before joining your first scenario, read the <a href="guides/organized-crimes-2.html">Organized Crimes 2.0 guide</a> for slot selection, item checks, timers and payout expectations.</dd>
-          <dt>Payout Split</dt>
-          <dd>On success, leadership chooses a 0–100 % split between faction and members. Cash can hit wallets or the faction bank; item loot is distributed randomly or sold at market value.</dd>
-          <dt>Readiness &amp; Contingencies</dt>
-          <dd>Join only if you can stay active the full 3–6 days and keep <em>Last Action</em>&nbsp;&lt; 24 h. Can’t log in? Ping a leader—one no-show can void days of planning. </dd>
-        </dl>
-        <!-- NEW NOTICE CARD -->
-        <div class="alert">
-          <strong>NOTICE — MANDATORY OC PARTICIPATION:</strong>
-          <p> Participation in Organised Crimes is compulsory. Any member who does not join an OC within seven days will receive a formal warning; failure to participate within fourteen days will result in removal from the faction. </p>
-          <br>
-          <p> If you have real‑life commitments, please notify any leader in advance to avoid penalties. </p>
-        </div>
-      </div>
-    </section>
-    <!-- 3. EXTERNAL CONDUCT -->
-<section id="conduct" class="rules-block">
-  <div class="container glass">
-    <h2 class="section-title">
-      <span class="num">3</span>
-      <i class="fa-solid fa-handshake rules-icon"></i> External Conduct
-    </h2>
-    <p>Your actions outside the faction reflect on <em>all</em> of us. Follow these rules when dealing with other factions, markets and public channels.</p>
-    <dl class="rule-list">
-      <dt>Faction Relations Tags</dt>
-      <dd>Leaders control our status with other factions (Friendly / Neutral / Hostile). Do not provoke, negotiate or promise favours on your own.</dd>
-      <dt>Target Clearance</dt>
-      <dd>Obtain approval before hospital sprees, territory raids, bounties &gt; $1 000 000, or chain hits on ranked allies. One rogue attack can wipe perks and invite Ω-tier retaliation.</dd>
-      <dt>No Outside “Help”</dt>
-      <dd>Arranging mercenaries or intimidation squads without leadership consent is forbidden. Recruiting outsiders—or threatening to—counts as hostile action and triggers removal.</dd>
-      <dt>Trade &amp; Marketplace</dt>
-      <dd>Use Torn’s Trade window / Item Market; screenshot deals &gt;$50 m. No real‑money, cross‑game or crypto trades—Torn bans both parties.</dd>
-      <dt>Chat / Forums / Global</dt>
-      <dd>Follow the 2025 Community Rules: no slurs, doxxing or IRL threats. Keep internal strategy off public channels; mark jokes clearly to avoid misfires.</dd>
-      <dt>Harassment &amp; Intimidation</dt>
-      <dd>Light banter is fine; stalking, spam PMs or strong‑arm tactics are not. All messages are logged by Torn and reviewed on complaint.</dd>
-      <dt>Scamming</dt>
-      <dd>The faction permits buy‑mugging as a standard gameplay mechanic; however, any transaction or agreement—whether internal or external—constitutes a binding obligation and must be honoured with the utmost integrity.</dd>
-    </dl>
-    <!-- RED ALERT CARD -->
-    <div class="alert">
-      <strong>DISCLAIMER — ZERO TOLERANCE:</strong> Members who act externally without consulting leadership will be expelled swiftly.
-    </div>
-  </div>
-</section>
+  </main>
 
+  <footer>
+    <p>&copy; <span id="year"></span> Priv&eacute; Cartel.</p>
+  </footer>
 
-    <!-- 4. INTERNAL CULTURE -->
-    <section id="culture" class="rules-block">
-      <div class="container glass">
-        <h2 class="section-title">
-          <span class="num">4</span>
-          <i class="fa-solid fa-users rules-icon"></i> Internal Culture
-        </h2>
-        <p>We build each other up through guidance, generosity and shared knowledge. Lean in, ask questions and give back.</p>
-        <dl class="rule-list">
-          <dt>Mentoring</dt>
-          <dd>New arrivals can request a mentor for builds, routes and revenue strategies.</dd>
-          <dt>Resource Pool</dt>
-          <dd>Donate spare meds, ammo or job points to the armoury—what helps one helps all.</dd>
-          <dt>Knowledge Sharing</dt>
-          <dd>Post patch-note finds, economy tips and smart-play tricks so the entire faction stays ahead.</dd>
-        </dl>
-      </div>
-    </section>
-    <!-- 5. WARFARE RISKS -->
-    <section id="warfare" class="rules-block">
-      <div class="container glass">
-        <h2 class="section-title">
-          <span class="num">5</span>
-          <i class="fa-solid fa-shield-halved rules-icon"></i> Warfare Risks
-        </h2>
-        <dl class="rule-list">
-          <dt>Non-Warring Stance</dt>
-          <dd>We prioritise profit and preservation over conquest.</dd>
-          <dt>Energy Drain</dt>
-          <dd>Random hits waste energy better spent on OCs and gym gains.</dd>
-          <dt>Perk Protection</dt>
-          <dd>Specials (travel slots, armoury, rehab discount) vanish if respect is wiped.</dd>
-          <dt>Defensive Hits</dt>
-          <dd>When leaders call a shield wall, one timely revive or defend can end hostilities.</dd>
-        </dl>
-      </div>
-    </section>
-    <!-- DISCORD CTA -->
-    <section class="rules-block">
-      <div class="container glass cta-card">
-        <h2 class="section-title">
-          <span class="num">
-            <i class="fa-brands fa-discord"></i>
-          </span> Private Lounge
-        </h2>
-        <p>For live strategy, quick trades or casual chat, join our Discord lounge:</p>
-        <a href="https://discord.gg/DmxrRAjBdk" target="_blank" class="btn">
-          <i class="fa-brands fa-discord"></i> Join Now </a>
-      </div>
-    </section>
-    <!-- LEADERSHIP -->
-    <section class="rules-block leadership">
-      <div class="container glass">
-        <h2 class="section-title">
-          <span class="num">
-            <i class="fa-solid fa-crown"></i>
-          </span> Leadership Council
-        </h2>
-        <p>&bull; <strong>Founder:</strong>
-          <a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank">XanderPTV</a>
-        </p>
-        <p>&bull; <strong>Leader:</strong>
-          <a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank">ForeverHydrox</a>
-        </p>
-        <p>&bull; <strong>Co-Leader:</strong>
-          <a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank">Skillerious</a>
-        </p>
-        <p>&bull; <strong>Council Member:</strong>
-          <a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank">JdedPrincess</a>
-        </p>
-      </div>
-    </section>
-    <!-- CLOSING -->
-    <section class="rules-block">
-      <div class="container glass">
-        <p style="text-align:center;font-style:italic;color:var(--text-2);font-size:1.05rem"> Show up when it counts, play fair, support your squad — and we’ll crush goals together. <br> Rules are reviewed and updated regularly by leadership. </p>
-      </div>
-    </section>
-    <!-- FOOTER -->
-    <footer>
-      <p>&copy; <span id="year"></span> Privé Cartel. </p>
-    </footer>
-    <!-- SCRIPTS -->
-    <script src="assets/script.js"></script>
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-  </body>
+  <script src="assets/script.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
