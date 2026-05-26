@@ -1,7 +1,7 @@
 {
   "name": "Privé Cartel",
   "short_name": "Privé",
-  "description": "Faction Hub",
+  "description": "Official Privé Cartel faction hub for Torn rules, guides, news, member tools and contact.",
   "start_url": "./index.html?homescreen=1",
   "scope": "./",
   "display": "standalone",

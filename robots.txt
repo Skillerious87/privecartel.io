@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /apps-script/
+Disallow: /data/
+Disallow: /PC-DashboardApp/
+
+Sitemap: https://www.privecartel.com/sitemap.xml
