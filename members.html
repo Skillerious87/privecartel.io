@@ -20,18 +20,26 @@
   <!-- ────────────────────────── PAGE STYLE ──────────────────────── -->
   <style>
   /* 1. FILTER BAR ───────────────────────────────────────────────── */
-  .filter-bar{display:flex;flex-wrap:wrap;gap:.75rem;margin:2rem 0 1.6rem}
-  .filter-bar input{flex:1 1 230px;max-width:360px;padding:.7rem 1rem;
+  .members-panel{overflow:hidden}
+  .filter-bar{
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto auto;
+    align-items:stretch;gap:.75rem;margin:2rem 0 1.6rem
+  }
+  .filter-bar input{width:100%;min-width:0;max-width:none;padding:.7rem 1rem;
     border:2px solid var(--accent);border-radius:var(--radius);
     background:var(--bg-1);color:var(--text-1)}
+  .filter-bar input::placeholder{color:rgba(214,197,154,.72)}
   .filter-bar button{
     position:relative;isolation:isolate;overflow:hidden;
+    display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
     min-height:2.75rem;padding:.7rem 1.15rem;border:1px solid rgba(var(--accent-rgb),.42);
     background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.025)),rgba(0,0,0,.28);
     color:var(--accent-light);border-radius:999px;
+    white-space:nowrap;
     cursor:pointer;font-weight:700;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 24px rgba(0,0,0,.24),0 0 0 1px rgba(var(--accent-rgb),.07);
     transition:background-position .45s cubic-bezier(.22,.61,.36,1),background .25s,border-color .25s,box-shadow .25s,color .25s}
+  #clearKeyBtn{width:2.75rem;padding:.7rem}
   .filter-bar button::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
     background:linear-gradient(115deg,transparent 0 34%,rgba(255,255,255,.42) 46%,transparent 58%);
     background-size:240% 100%;background-position:150% 0;opacity:0;
@@ -43,15 +51,23 @@
   .filter-bar button:hover::before,.filter-bar button:focus-visible::before{background-position:-70% 0;opacity:.68}
 
   /* 2. DESKTOP TABLE ───────────────────────────────────────────── */
-  .table-wrap{overflow-x:auto}
+  .table-wrap{max-width:100%;overflow-x:auto}
   .member-table{width:100%;min-width:560px;border-collapse:collapse}
   .member-table th,.member-table td{padding:.65rem .8rem;
     border-bottom:1px solid rgba(var(--accent-rgb),.22);font-size:.93rem;text-align:left}
+  .member-table th,.member-table td{min-width:0}
   .member-table th{color:var(--accent);cursor:pointer;user-select:none}
   .member-table tbody tr:nth-child(odd){background:rgba(255,255,255,.03)}
   .member-table tbody tr:hover{background:rgba(255,255,255,.05)}
+  .member-table a{overflow-wrap:anywhere}
   .member-table img.avatar{width:40px;height:40px;border-radius:50%;
     object-fit:cover;border:2px solid var(--accent)}
+  .empty-state{
+    margin:.9rem 0 0;padding:.85rem 1rem;border:1px dashed rgba(var(--accent-rgb),.34);
+    border-radius:var(--radius);background:rgba(var(--accent-rgb),.05);
+    color:var(--text-2);font-size:.9rem;line-height:1.55
+  }
+  .empty-state[hidden]{display:none}
 
   /* status colours */
   .status-hospital,
@@ -62,18 +78,27 @@
 
   /* 3. MOBILE CARDS (≤550 px) ─────────────────────────────────── */
   @media(max-width:550px){
+    .filter-bar{
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:.65rem;margin:1.35rem 0 1.2rem
+    }
+    .filter-bar input{grid-column:1 / -1}
+    #saveKeyBtn{grid-column:1 / 2}
+    #clearKeyBtn{grid-column:2 / 3}
+    .table-wrap{overflow:visible}
     .member-table{min-width:0}
     .member-table thead{display:none}
     .member-table,.member-table tbody{display:block}
     .member-table tr{
-      display:grid;grid-template-columns:68px 1fr;gap:.45rem .9rem;
+      width:100%;min-width:0;
+      display:grid;grid-template-columns:56px minmax(0,1fr);gap:.42rem .8rem;
       padding:1rem .9rem;margin-bottom:1rem;background:rgba(255,255,255,.02);
       border:1px solid rgba(var(--accent-rgb),.24);border-radius:var(--radius)
     }
-    .member-table td{border:none;padding:0;font-size:.9rem;line-height:1.5}
+    .member-table td{border:none;padding:0;font-size:.9rem;line-height:1.5;overflow-wrap:anywhere}
     .member-table td:nth-child(1){display:none}
     .member-table td[data-label="Avatar"]{
-      order:-1;grid-row:span 6;display:flex;align-items:center}
+      order:-1;grid-row:span 6;display:flex;align-items:flex-start;padding-top:.15rem}
     .member-table img.avatar{width:56px;height:56px}
     .member-table td[data-label]:not([data-label="Avatar"])::before{
       content: attr(data-label) ": "; font-weight:600; color: var(--accent);
@@ -89,6 +114,7 @@
     color:var(--text-2);font-size:.88rem;line-height:1.6
   }
   .notice i{margin-right:.45rem;color:var(--accent)}
+  .notice code{overflow-wrap:anywhere}
   .notice.loading::after{
     content:'';display:inline-block;width:15px;height:15px;margin-left:.7rem;
     border:3px solid var(--accent);border-top-color:transparent;border-radius:50%;
@@ -126,19 +152,37 @@
     font-size:.78rem;display:flex;align-items:center;gap:.35rem;
     color:var(--text-2);text-transform:uppercase;letter-spacing:.02em
   }
-  .stat-value{font-size:1.55rem;font-weight:700;color:var(--accent);line-height:1.25}
+  .stat-value{
+    min-width:0;font-size:clamp(1rem,2.8vw,1.55rem);font-weight:700;
+    color:var(--accent);line-height:1.25;overflow-wrap:anywhere
+  }
+  .stat-value.is-long{font-size:1rem;line-height:1.45}
+  .status-breakdown{display:flex;flex-wrap:wrap;gap:.4rem .5rem}
+  .status-breakdown span{
+    display:inline-flex;align-items:center;gap:.32rem;padding:.26rem .48rem;
+    border:1px solid rgba(var(--accent-rgb),.24);border-radius:999px;
+    background:rgba(0,0,0,.24);color:var(--text-1);font-size:.84rem
+  }
+  .status-breakdown strong{color:var(--accent-light)}
   @media(max-width:550px){
     .stats{padding:1rem}
+    .stats-grid{gap:.7rem}
     .stat{flex:1 1 100%}
-    .stat-value{font-size:1.4rem}
+    .stat-value{font-size:1.25rem}
+    .stat-value.is-long{font-size:.92rem}
+    .status-breakdown span{flex:1 1 calc(50% - .35rem);justify-content:space-between}
+    .toast{left:1rem;right:1rem;bottom:1rem;text-align:center}
   }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to member directory</a>
 
 <!-- ─────────────────────────── NAVBAR ─────────────────────────── -->
 <script type="module" src="assets/navbar.js"></script>
 <pc-navbar></pc-navbar>
+
+<main id="main">
 
 <!-- ─────────────────────────── HERO ───────────────────────────── -->
 <section class="rules-hero">
@@ -149,14 +193,14 @@
 
 <!-- ───────────────────────── DIRECTORY ────────────────────────── -->
 <section class="rules-block">
-  <div class="container glass">
+  <div class="container glass members-panel">
 
     <!-- FILTER BAR -->
     <div class="filter-bar">
-      <input type="text"     id="memberSearch" placeholder="Search IGN, role, status…" aria-label="Search members by name, role, or status">
-      <input type="password" id="apiKeyInput"  placeholder="Paste API key…" aria-label="Torn API key">
-      <button id="saveKeyBtn"><i class="fa-solid fa-key"></i> Save</button>
-      <button id="clearKeyBtn" title="Clear key" aria-label="Clear saved API key"><i class="fa-solid fa-trash"></i></button>
+      <input type="search" id="memberSearch" placeholder="Search IGN, role, status..." aria-label="Search members by name, role, or status" autocomplete="off">
+      <input type="password" id="apiKeyInput" placeholder="Paste API key..." aria-label="Torn API key" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button type="button" id="saveKeyBtn" title="Save API key"><i class="fa-solid fa-key" aria-hidden="true"></i> Save</button>
+      <button type="button" id="clearKeyBtn" title="Clear key" aria-label="Clear saved API key"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
     </div>
 
     <!-- TABLE -->
@@ -172,6 +216,7 @@
         <tbody id="memberBody"></tbody>
       </table>
     </div>
+    <p class="empty-state" id="emptyState" hidden>No members match your search.</p>
 
     <!-- PRIVACY NOTICE -->
     <div class="notice" id="notice">
@@ -187,7 +232,7 @@
     </div>
 
     <!-- DIRECTORY STATS -->
-    <div class="stats" id="memberStats">
+    <div class="stats" id="memberStats" aria-live="polite">
       <h3><i class="fa-solid fa-chart-simple"></i> Directory stats</h3>
       <div class="stats-grid">
         <div class="stat">
@@ -204,13 +249,14 @@
         </div>
         <div class="stat">
           <span class="stat-label"><i class="fa-solid fa-heart-pulse"></i> Member Status</span>
-          <span class="stat-value" id="statsStatus">—</span>
+          <span class="stat-value is-long" id="statsStatus">—</span>
         </div>
       </div>
     </div>
 
   </div>
 </section>
+</main>
 
 <!-- ─────────────────────────── FOOTER ─────────────────────────── -->
 <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
@@ -228,7 +274,8 @@ const LS='pcApiCipher',
 
 const $=s=>document.querySelector(s),
       body=$('#memberBody'),
-      notice=$('#notice');
+      notice=$('#notice'),
+      empty=$('#emptyState');
 
 const apiInput=$('#apiKeyInput'),
       save=$('#saveKeyBtn'),
@@ -253,6 +300,21 @@ function updateStats(cnt,upd,src){
   stats.updated.textContent = upd;
   stats.source.textContent  = src;
 }
+function setEmptyState(){
+  if(empty) empty.hidden = rows.length === 0 || visibleCount() > 0;
+}
+function statusMarkup(counts){
+  const ok   = counts.okay      || 0,
+        hosp = counts.hospital  || 0,
+        jail = counts.jail      || 0,
+        trav = counts.traveling || 0,
+        abr  = counts.abroad    || 0;
+  return `<span><strong>${ok}</strong> Okay</span>
+          <span><strong>${hosp}</strong> Hospital</span>
+          <span><strong>${jail}</strong> Jail</span>
+          <span><strong>${trav}</strong> Travel</span>
+          <span><strong>${abr}</strong> Abroad</span>`;
+}
 
 /* Member-status breakdown (✅ OK, 🏥 Hospital, 🚔 Jail, ✈️ Traveling, 🌍 Abroad) */
 function renderStatusFromList(list){
@@ -265,18 +327,24 @@ function renderStatusFromList(list){
                                      'okay';
     o[k]=(o[k]||0)+1; return o;
   },{});
-  const ok   = counts.okay      || 0,
-        hosp = counts.hospital  || 0,
-        jail = counts.jail      || 0,
-        trav = counts.traveling || 0,
-        abr  = counts.abroad    || 0;
-  stats.status.textContent = `✅ ${ok}  🏥 ${hosp}  🚔 ${jail}  ✈️ ${trav}  🌍 ${abr}`;
+  stats.status.classList.add('status-breakdown');
+  stats.status.innerHTML = statusMarkup(counts);
 }
 function renderStatusFromRows(){
   const list = rows
     .filter(r => r.style.display !== 'none')
     .map(r => ({ status: r.dataset.status || 'okay' }));
   renderStatusFromList(list);
+}
+function applyFilter(){
+  const q=search.value.trim().toLowerCase();
+  rows.forEach(r=>{
+    r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
+  });
+  renum();
+  stats.count.textContent = String(visibleCount());
+  renderStatusFromRows();
+  setEmptyState();
 }
 
 /* Snapshot commit date helper (GitHub) */
@@ -348,14 +416,7 @@ search.addEventListener('input',(()=>{
   return ()=>{
     clearTimeout(t);
     t=setTimeout(()=>{
-      const q=search.value.toLowerCase();
-      rows.forEach(r=>{
-        r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
-      });
-      renum();
-      // reflect visible rows in stats and status
-      stats.count.textContent = String(visibleCount());
-      renderStatusFromRows();
+      applyFilter();
     },250);
   };
 })());
@@ -375,10 +436,7 @@ document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
         : (dir[c]?A.localeCompare(B):B.localeCompare(A)));
     });
     rows.forEach(r=>body.appendChild(r));
-    renum();
-    // keep count aligned with current filter state
-    stats.count.textContent = String(visibleCount());
-    renderStatusFromRows();
+    applyFilter();
   };
 });
 
@@ -439,12 +497,14 @@ async function snapshot(){
 
     // status for the currently rendered (unfiltered) list
     renderStatusFromList(list);
+    applyFilter();
 
   }catch{
     body.innerHTML='<tr><td colspan="7">Snapshot unavailable.</td></tr>';
     rows=[...body.querySelectorAll('tr')];
     updateStats(0,'—','Snapshot');
     stats.status.textContent='—';
+    setEmptyState();
   }
 }
 
@@ -470,7 +530,7 @@ async function live(key){
     renderStatusFromList(list);
 
     // honour active filter (if user typed before load finished)
-    search.dispatchEvent(new Event('input'));
+    applyFilter();
 
     /* avatar lazy-load */
     const io=new IntersectionObserver(entries=>{
