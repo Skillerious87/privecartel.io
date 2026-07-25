@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = year;
   enhanceFooter(year);
+  installRecruitmentBanner();
 
   document.querySelectorAll('a[target="_blank"]').forEach((link) => {
     const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
@@ -328,5 +329,39 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>What happens behind the curtain stays ours.</p>
       </div>
     `;
+  }
+
+  function installRecruitmentBanner() {
+    if (
+      document.body.dataset.hideRecruitmentBanner === "true" ||
+      document.querySelector(".recruitment-banner")
+    ) return;
+
+    const banner = document.createElement("aside");
+    banner.className = "recruitment-banner";
+    banner.setAttribute("aria-label", "Recruitment announcement");
+    banner.innerHTML = `
+      <a class="recruitment-banner-link" href="${siteLink("recruitment.html")}">
+        <span class="recruitment-banner-icon" aria-hidden="true">
+          <i class="fa-solid fa-bullhorn"></i>
+          <span class="recruitment-banner-pulse"></span>
+        </span>
+        <span class="recruitment-banner-copy">
+          <strong>Recruitment is open</strong>
+          <span>Level 14+ players wanted</span>
+        </span>
+        <span class="recruitment-banner-cta">Discover Priv&eacute; <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+      </a>
+      <button class="recruitment-banner-close" type="button" aria-label="Dismiss recruitment announcement">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    `;
+
+    banner.querySelector(".recruitment-banner-close").addEventListener("click", () => {
+      banner.classList.add("is-closing");
+      window.setTimeout(() => banner.remove(), prefersReducedMotion ? 0 : 240);
+    });
+
+    document.body.appendChild(banner);
   }
 });
