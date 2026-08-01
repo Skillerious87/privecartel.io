@@ -86,7 +86,7 @@
   }
   </script>
   <!-- /SEO -->
-  <link rel="icon" type="image/png" href="images/Emblem.png" />
+  <link rel="icon" type="image/png" href="assets/icon-192.png" />
 
   <!-- FONTS & ICONS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -169,6 +169,9 @@
     .empty-banner{background:rgba(var(--accent-rgb),.09);border-left:4px solid var(--accent);
       padding:.75rem 1rem;margin-top:1rem;border-radius:var(--radius);
       color:var(--text-2);font-style:italic}
+    .latest-banner{background:rgba(var(--accent-rgb),.08);border:1px solid rgba(var(--accent-rgb),.25);
+      border-left:4px solid var(--accent);padding:.75rem 1rem;margin-bottom:1rem;border-radius:var(--radius);
+      color:var(--text-2);font-size:.88rem}
     .notice{background:rgba(var(--accent-rgb),.06);border-left:4px solid var(--accent);
       padding:.8rem 1rem;margin-top:1.6rem;border-radius:var(--radius);
       color:var(--text-2);font-size:.88rem;line-height:1.55}
@@ -184,12 +187,13 @@
 
 <!-- HERO -->
 <section class="rules-hero">
-  <img src="images/Emblem.png" alt="Cartel Emblem" />
+  <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512" />
   <h1>Faction&nbsp;News</h1>
   <p class="tagline">Announcements, milestones &amp; OC triumphs.</p>
 </section>
 
 <!-- NEWS FEED -->
+<main id="main-content">
 <section class="rules-block">
   <div class="container glass">
     <h2 class="section-title"><i class="fa-solid fa-bullhorn"></i> Headlines</h2>
@@ -212,6 +216,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <!-- FOOTER -->
 <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
@@ -249,10 +254,14 @@ fetch('news/news.json',{cache:'no-cache'})
 
 function applyDateWindow(data){
   const NOW=Date.now(), MAX=30*24*60*60*1000;
-  buildUI(
-    data.filter(p=>NOW-Date.parse(p.date)<=MAX)
-        .sort((a,b)=>Date.parse(b.date)-Date.parse(a.date))
-  );
+  const sorted=[...data].sort((a,b)=>Date.parse(b.date)-Date.parse(a.date));
+  const recent=sorted.filter(p=>NOW-Date.parse(p.date)<=MAX);
+
+  if(!recent.length && sorted.length){
+    alertZ.innerHTML='<div class="latest-banner"><strong>No new posts in the last 30 days.</strong> Showing the latest updates from the archive.</div>';
+  }
+
+  buildUI(recent.length ? recent : sorted.slice(0,3));
 }
 
 /* ---------- UI ---------- */
@@ -291,14 +300,14 @@ function selectTag(tag){
 /* ---------- Build cards ---------- */
 function buildCards(){
   grid.innerHTML='';
-  cards=articles.map(a=>{
+  cards=articles.map((a,index)=>{
     const card=document.createElement('div');
     card.className='news-card reveal';
     card.dataset.tag=a.tag||'Other';
 
     const thumb=a.image||'announcement.png';
     card.innerHTML=`
-      <img src="${imageUrl(thumb)}" alt="${a.title} thumbnail" class="news-thumb">
+      <img src="${imageUrl(thumb)}" alt="${a.title} thumbnail" class="news-thumb" loading="${index===0?'eager':'lazy'}" decoding="async">
       <div class="icon-badge"><i class="fa-solid fa-${a.icon||'newspaper'}"></i></div>
       <div class="news-meta">
         <h3>${a.title}</h3>
@@ -375,7 +384,10 @@ function revealInView(){
 
 /* ---------- Utilities ---------- */
 const fmtDate=d=>new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
-const imageUrl=name=>new URL(name, assetBase).href;
+const imageUrl=name=>{
+  const preview=String(name).replace(/^(announcement|chain|milestone)\.png$/,'thumbs/$1.webp');
+  return new URL(preview,assetBase).href;
+};
 const sample=()=>[{title:'Chain Record Shattered!',date:'2025-06-23',summary:'The Cartel set a new high of 410.78 respect in a single 100-hit chain. Rewards paid, morale sky-high.',icon:'fire',tag:'OC',file:'#',image:'chain.png'}];
 
 /* ---------- footer year ---------- */

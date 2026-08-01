@@ -85,7 +85,7 @@
   }
   </script>
   <!-- /SEO -->
-  <link rel="icon" type="image/png" href="images/Emblem.png">
+  <link rel="icon" type="image/png" href="assets/icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
@@ -281,10 +281,15 @@
     }
 
     .rules-nav a:hover,
-    .rules-nav a:focus-visible {
+    .rules-nav a:focus-visible,
+    .rules-nav a[aria-current="true"] {
       border-color: rgba(var(--accent-rgb), .28);
       background: rgba(var(--accent-rgb), .08);
       color: var(--accent-light);
+    }
+
+    .rules-nav a[aria-current="true"] {
+      box-shadow: inset 2px 0 0 var(--accent);
     }
 
     .rules-nav span {
@@ -319,6 +324,7 @@
     }
 
     .rules-card {
+      padding: 0;
       scroll-margin-top: calc(var(--nav-h) + 1.2rem);
       border: 1px solid rgba(var(--accent-rgb), .34);
       border-radius: 8px;
@@ -327,6 +333,12 @@
         rgba(0, 0, 0, .48);
       box-shadow: 0 16px 36px rgba(0, 0, 0, .26);
       overflow: hidden;
+    }
+
+    .rules-card:nth-of-type(even) {
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .008)),
+        rgba(10, 12, 14, .96);
     }
 
     .rules-card-head {
@@ -710,12 +722,12 @@
     <section class="rules-hero rules-hero--charter">
       <div class="container rules-hero-shell">
         <div class="rules-hero-mark">
-          <img src="images/Emblem.png" alt="Cartel Emblem">
+          <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512">
         </div>
         <div class="rules-hero-copy">
           <span class="rules-kicker">Faction Charter</span>
           <h1>Member Rules &amp; Charter</h1>
-          <p class="tagline">Priv&eacute; operates through presence, discretion and mutual aid. These rules keep the faction organized, protected and worth belonging to.</p>
+          <p class="tagline">Priv&eacute; operates through presence, discretion and mutual support. These rules keep the faction organised, protected and worth belonging to.</p>
           <div class="rules-hero-actions" aria-label="Rules quick actions">
             <a class="btn" href="#activity"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Review Rules</a>
             <a class="btn secondary" href="#leadership"><i class="fa-solid fa-crown" aria-hidden="true"></i> Contact Council</a>
@@ -738,12 +750,12 @@
           <div class="rules-sidebar-panel">
             <p class="rules-sidebar-title">Rule Index</p>
             <nav class="rules-nav">
-              <a href="#core"><span>0</span> Core Tenets</a>
+              <a href="#core" aria-current="true"><span>0</span> Core Tenets</a>
               <a href="#activity"><span>1</span> Activity</a>
               <a href="#oc"><span>2</span> OC 2.0</a>
               <a href="#conduct"><span>3</span> External Conduct</a>
               <a href="#culture"><span>4</span> Culture</a>
-              <a href="#warfare"><span>5</span> Warfare</a>
+              <a href="#warfare"><span>5</span> Conflict &amp; Warfare</a>
               <a href="#leadership"><span><i class="fa-solid fa-crown" aria-hidden="true"></i></span> Leadership</a>
             </nav>
             <div class="rules-sidebar-cta">
@@ -764,14 +776,14 @@
               </div>
             </header>
             <div class="rules-card-body">
-              <p class="rules-lede">These principles sit above every operational rule. Honour them and the Cartel stands behind you unequivocally.</p>
+              <p class="rules-lede">These principles underpin every operational rule. Honour them, and the Cartel will stand firmly behind you.</p>
               <dl class="rule-list">
                 <dt>Presence</dt>
-                <dd>Be seen when it matters; an invisible member is a liability.</dd>
+                <dd>Be present when it matters. Consistent activity keeps the faction dependable.</dd>
                 <dt>Discretion</dt>
-                <dd>Faction business remains internal. Screenshots or leaks trigger removal.</dd>
+                <dd>Keep faction business private. Sharing internal messages, screenshots or strategy may result in removal.</dd>
                 <dt>Mutual Aid</dt>
-                <dd>Your call is our call; assistance flows both directions without IOUs.</dd>
+                <dd>Support fellow members when you can, and be willing to ask for help when you need it.</dd>
               </dl>
             </div>
           </section>
@@ -785,17 +797,18 @@
               </div>
             </header>
             <div class="rules-card-body">
+              <p class="rules-lede">Reliable communication keeps the faction running smoothly. Stay visible, respond when needed and give leadership notice when real life takes priority.</p>
               <dl class="rule-list">
                 <dt>Daily Presence</dt>
-                <dd>Log in at least once every 24 hours. Last Action &gt; 24 hours flags you as inactive.</dd>
+                <dd>Log in at least once every 24 hours. A Last Action time above 24 hours will flag you as inactive.</dd>
                 <dt>Event Notifications</dt>
                 <dd>Enable push alerts in the Torn mobile app, or email/SMS via Settings &rarr; Preferences, so OC and chain pings reach you quickly.</dd>
                 <dt>OC Commitment</dt>
-                <dd>If you join an OC 2.0 scenario, remain active for its full 3-6 day timer and the sub-1-minute execution phase. Missing execution voids the run and burns Scope.</dd>
+                <dd>If you join an OC 2.0 scenario, remain active throughout its three-to-six-day timer and sub-one-minute execution phase. Missing the execution can void the run and consume Scope.</dd>
                 <dt>Chain Windows</dt>
-                <dd>Only members who opt in must respond in under 5 minutes during scheduled chain windows. Keep 50+ Energy banked, fast targets bookmarked and hospital time under 10 minutes.</dd>
+                <dd>Members who opt in must respond within five minutes during scheduled chain windows. Keep at least 50 Energy banked, fast targets bookmarked and hospital time below ten minutes.</dd>
                 <dt>Vacation Mode</dt>
-                <dd>Away for 72+ hours? Toggle Vacation Mode in Torn and drop an ETA in faction chat. Slots are protected; no notice can mean removal after 3 idle days.</dd>
+                <dd>If you will be away for 72 hours or more, enable Vacation Mode in Torn and share your expected return in faction chat. Your slot will be protected; an unexplained absence may result in removal after three inactive days.</dd>
                 <dt>Quick Response</dt>
                 <dd>Leaders may send urgent in-game mail or Discord pings. Reply when possible so rosters can adjust in real time.</dd>
               </dl>
@@ -811,13 +824,14 @@
               </div>
             </header>
             <div class="rules-card-body">
+              <p class="rules-lede">Organised Crimes require preparation and dependable participation. Confirm that you can meet the full commitment before taking a role.</p>
               <dl class="rule-list">
                 <dt>Scenario System</dt>
-                <dd>Every OC is a named scenario from level 1-9. Difficulty tiers are Lambda, Sigma, Psi and Omega, with Scope costs scaling by tier.</dd>
+                <dd>Every OC is a named scenario from levels 1&ndash;9. Difficulty tiers are Lambda, Sigma, Psi and Omega, with Scope costs increasing by tier.</dd>
                 <dt>Scope Pool</dt>
-                <dd>Factions start with 25 Scope, cap at 100 and regenerate +1 Scope per day. Completing scenarios can also award bonus Scope.</dd>
+                <dd>Factions start with 25 Scope, can hold up to 100 and regenerate one Scope per day. Completing scenarios may also award bonus Scope.</dd>
                 <dt>Planning to Execution</dt>
-                <dd>After the day-countdown, a sub-1-minute execution fires. All members must be in Torn, healthy and carrying required items or the run can fail.</dd>
+                <dd>When the preparation countdown ends, the execution phase lasts less than one minute. Every participant must be online, healthy and carrying the required items, or the run may fail.</dd>
                 <dt>Roles and Items</dt>
                 <dd>Participants fill role slots based on suitability and success score. Materials such as C-4 and zip-ties are consumed; tools such as Jemmy and DSLR persist.</dd>
                 <dt>New Member Guide</dt>
@@ -825,13 +839,13 @@
                 <dt>Payout Split</dt>
                 <dd>On success, leadership chooses the split between faction and members. Cash can hit wallets or the faction bank; item loot is distributed randomly or sold at market value.</dd>
                 <dt>Readiness</dt>
-                <dd>Join only if you can stay active for the full 3-6 days and keep Last Action under 24 hours. If you cannot log in, ping leadership immediately.</dd>
+                <dd>Join only if you can remain active for the full three to six days and keep your Last Action time below 24 hours. If you cannot log in, notify leadership immediately.</dd>
               </dl>
-              <div class="rule-alert">
+              <div class="rule-alert" role="note" aria-label="Mandatory OC participation policy">
                 <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
                 <div>
                   <strong>Mandatory OC participation</strong>
-                  <p>Any member who does not join an OC within seven days will receive a formal warning. Failure to participate within fourteen days can result in removal. Real-life commitments are fine; notify leadership early.</p>
+                  <p>Members who do not join an OC within seven days will receive a formal warning. Failure to participate within fourteen days may result in removal. Real-life commitments come first; notify leadership as early as possible.</p>
                 </div>
               </div>
             </div>
@@ -846,28 +860,28 @@
               </div>
             </header>
             <div class="rules-card-body">
-              <p class="rules-lede">Your actions outside the faction reflect on all of us. Follow these rules when dealing with other factions, markets and public channels.</p>
+              <p class="rules-lede">Your conduct outside the faction reflects on every member. Follow these rules when dealing with other factions, using the market or posting in public channels.</p>
               <dl class="rule-list">
-                <dt>Faction Relations Tags</dt>
-                <dd>Leaders control our status with other factions. Do not provoke, negotiate or promise favours on your own.</dd>
+                <dt>Faction Relations</dt>
+                <dd>Leadership manages our relationships with other factions. Do not provoke disputes, negotiate agreements or promise favours on the faction's behalf without approval.</dd>
                 <dt>Target Clearance</dt>
-                <dd>Obtain approval before hospital sprees, territory raids, high-value bounties or chain hits on ranked allies. One rogue attack can invite serious retaliation.</dd>
-                <dt>No Outside Help</dt>
+                <dd>Obtain approval before hospital sprees, territory raids, high-value bounties or chain hits against ranked allies. One unauthorised attack can invite serious retaliation.</dd>
+                <dt>Outside Intervention</dt>
                 <dd>Arranging mercenaries or intimidation squads without leadership consent is forbidden. Recruiting outsiders, or threatening to, counts as hostile action.</dd>
                 <dt>Trade and Marketplace</dt>
-                <dd>Use Torn's Trade window or Item Market. Screenshot deals above $50m. No real-money, cross-game or crypto trades.</dd>
+                <dd>Use Torn's Trade window or Item Market, and keep evidence of deals worth more than $50m. Real-money, cross-game and cryptocurrency trades are prohibited.</dd>
                 <dt>Chat, Forums and Global</dt>
-                <dd>No slurs, doxxing or real-life threats. Keep internal strategy off public channels and mark jokes clearly to avoid misfires.</dd>
+                <dd>Slurs, doxxing and real-life threats are prohibited. Keep internal strategy out of public channels, and make jokes clearly recognisable to avoid unnecessary conflict.</dd>
                 <dt>Harassment</dt>
-                <dd>Light banter is fine. Stalking, spam PMs and strong-arm tactics are not. Torn logs messages and reviews complaints.</dd>
+                <dd>Light-hearted banter is welcome; stalking, repeated unwanted messages and intimidation are not. Remember that Torn records messages and may review complaints.</dd>
                 <dt>Scamming</dt>
                 <dd>The faction permits buy-mugging as a gameplay mechanic. Any transaction or agreement, internal or external, is binding and must be honoured.</dd>
               </dl>
-              <div class="rule-alert">
+              <div class="rule-alert" role="note" aria-label="External conduct enforcement policy">
                 <i class="fa-solid fa-ban" aria-hidden="true"></i>
                 <div>
-                  <strong>Zero tolerance</strong>
-                  <p>Members who act externally without consulting leadership can be expelled swiftly.</p>
+                  <strong>Protect the faction</strong>
+                  <p>Any external action that could affect the faction's reputation, diplomacy or security must be cleared with leadership first. Serious or repeated breaches may result in immediate removal.</p>
                 </div>
               </div>
             </div>
@@ -899,10 +913,11 @@
               <span class="rule-number">5</span>
               <div>
                 <p class="rule-eyebrow">Risk management</p>
-                <h2>Warfare Risks</h2>
+                <h2>Conflict &amp; Warfare</h2>
               </div>
             </header>
             <div class="rules-card-body">
+              <p class="rules-lede">Avoid unnecessary conflict and protect the faction's energy, respect and perks. Only take part in coordinated action when leadership calls for it.</p>
               <dl class="rule-list">
                 <dt>Non-Warring Stance</dt>
                 <dd>We prioritise profit and preservation over conquest.</dd>
@@ -979,6 +994,32 @@
   <script src="assets/script.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    const ruleLinks = [...document.querySelectorAll('.rules-nav a[href^="#"]')];
+    const ruleSections = ruleLinks
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    if ('IntersectionObserver' in window) {
+      const ruleObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible) return;
+
+        ruleLinks.forEach((link) => {
+          const isCurrent = link.getAttribute('href') === `#${visible.target.id}`;
+          if (isCurrent) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        });
+      }, {
+        rootMargin: '-20% 0px -65% 0px',
+        threshold: [0, .25, .5]
+      });
+
+      ruleSections.forEach((section) => ruleObserver.observe(section));
+    }
   </script>
 </body>
 </html>

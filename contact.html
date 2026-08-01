@@ -86,7 +86,7 @@
   }
   </script>
   <!-- /SEO -->
-  <link rel="icon" type="image/png" href="images/Emblem.png">
+  <link rel="icon" type="image/png" href="assets/icon-192.png">
 
   <!-- FONTS & ICONS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1077,7 +1077,7 @@
 
 <!-- HERO -->
 <section class="rules-hero">
-  <img src="images/Emblem.png" alt="Cartel Emblem">
+  <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512">
   <h1>Contact Our Leadership</h1>
   <p class="tagline" style="max-width:680px">
     Reach the Privé Cartel council for recruitment, OC coordination, chain support and faction questions.
@@ -1378,7 +1378,7 @@
     <div class="footer-main">
       <div class="footer-brand" aria-label="Priv&eacute; Cartel">
         <a class="footer-logo" href="index.html">
-          <img src="images/Emblem.png" alt="" loading="lazy">
+          <img src="images/emblem-512.webp" alt="" loading="lazy" width="512" height="512">
           <span><strong>PRIV&Eacute;</strong> CARTEL</span>
         </a>
         <p>Discreet operations hub for Torn members who value presence, discipline and mutual aid.</p>
@@ -1439,7 +1439,7 @@
   const YEAR_EL = document.getElementById('year');
   if(YEAR_EL) YEAR_EL.textContent = new Date().getFullYear();
 
-  const LS_KEY          = 'pcApiCipher';
+  const DEVICE_KEY      = 'pcApiKey';
   const CONTACT_ENDPOINT = (window.PRIVE_CONTACT_ENDPOINT || '').trim();
   const CONTACT_SOURCE   = 'prive-contact-v1';
   const SUBMIT_COOLDOWN_MS = 2 * 60_000;
@@ -1824,26 +1824,6 @@
     if(cooldownRemaining() > 0) startCooldown(cooldownRemaining());
   }
 
-  async function decryptKey(hex){
-    if(!hex || !crypto?.subtle) return '';
-    try{
-      const bytes = Uint8Array.from(hex.match(/../g).map(h=>parseInt(h,16)));
-      const iv    = bytes.slice(0,12);
-      const data  = bytes.slice(12);
-
-      const originHash = await crypto.subtle.digest('SHA-256',
-        new TextEncoder().encode(location.origin));
-      const aesKey = await crypto.subtle.importKey('raw', originHash,
-        {name:'AES-GCM'}, false, ['decrypt']);
-
-      const plain = await crypto.subtle.decrypt({name:'AES-GCM',iv}, aesKey, data);
-      return new TextDecoder().decode(plain);
-    }catch(e){
-      console.warn('Decrypt failed', e);
-      return '';
-    }
-  }
-
   async function fetchUser(id, sels, key){
     const url = `https://api.torn.com/user/${id}?selections=${sels}&key=${encodeURIComponent(key)}`;
     const res = await fetch(url);
@@ -1906,8 +1886,8 @@
     }
   });
 
-  const cipher = localStorage.getItem(LS_KEY);
-  apiKey = await decryptKey(cipher);
+  try{ apiKey = localStorage.getItem(DEVICE_KEY) || ''; }
+  catch{ apiKey = ''; }
   if(!apiKey){
     setNoKey();
     return;

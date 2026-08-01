@@ -88,7 +88,7 @@
   <!-- /SEO -->
 
   <!-- ────────────────────────── ICON & FONTS ────────────────────── -->
-  <link rel="icon" href="images/Emblem.png" type="image/png">
+  <link rel="icon" href="assets/icon-192.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
@@ -136,7 +136,12 @@
   .member-table th,.member-table td{padding:.65rem .8rem;
     border-bottom:1px solid rgba(var(--accent-rgb),.22);font-size:.93rem;text-align:left}
   .member-table th,.member-table td{min-width:0}
-  .member-table th{color:var(--accent);cursor:pointer;user-select:none}
+  .member-table th{color:var(--accent);user-select:none}
+  .sort-button{display:inline-flex;align-items:center;gap:.35rem;padding:0;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:600;cursor:pointer}
+  .sort-button::after{content:'↕';font-size:.78rem;opacity:.55}
+  th[aria-sort="ascending"] .sort-button::after{content:'↑';opacity:1}
+  th[aria-sort="descending"] .sort-button::after{content:'↓';opacity:1}
   .member-table tbody tr:nth-child(odd){background:rgba(255,255,255,.03)}
   .member-table tbody tr:hover{background:rgba(255,255,255,.05)}
   .member-table a{overflow-wrap:anywhere}
@@ -189,16 +194,28 @@
 
   /* 4. NOTICE CARD ────────────────────────────────────────────── */
   .notice{
-    background:rgba(var(--accent-rgb),.07);border-left:4px solid var(--accent);
-    padding:1rem 1.25rem;margin-top:1.4rem;border-radius:var(--radius);
-    color:var(--text-2);font-size:.88rem;line-height:1.6
+    display:grid;grid-template-columns:2.75rem minmax(0,1fr);gap:.9rem;
+    margin-top:1.4rem;padding:1.1rem 1.2rem;
+    border:1px solid rgba(var(--accent-rgb),.26);border-radius:14px;
+    background:linear-gradient(120deg,rgba(var(--accent-rgb),.09),rgba(255,255,255,.018) 55%);
+    color:var(--text-2);font-size:.86rem;line-height:1.6;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.04)
   }
-  .notice i{margin-right:.45rem;color:var(--accent)}
-  .notice code{overflow-wrap:anywhere}
-  .notice.loading::after{
-    content:'';display:inline-block;width:15px;height:15px;margin-left:.7rem;
+  .notice-icon{
+    width:2.75rem;height:2.75rem;display:grid;place-items:center;
+    border:1px solid rgba(var(--accent-rgb),.25);border-radius:11px;
+    background:rgba(0,0,0,.22);color:var(--accent);font-size:1rem
+  }
+  .notice-copy{min-width:0}
+  .notice-copy strong{display:block;margin-bottom:.18rem;color:var(--accent-light);font-size:.92rem}
+  .notice-copy p{margin:0}
+  .notice-fallback{margin-top:.6rem!important;padding-top:.6rem;border-top:1px solid rgba(var(--accent-rgb),.14);color:rgba(230,227,212,.68)}
+  .notice-fallback i{margin-right:.35rem;color:var(--accent)}
+  .notice.loading .notice-icon i{display:none}
+  .notice.loading .notice-icon::after{
+    content:'';width:15px;height:15px;
     border:3px solid var(--accent);border-top-color:transparent;border-radius:50%;
-    animation:spin .8s linear infinite;vertical-align:-2px}
+    animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   .no-enc{color:#ff8d8d;font-weight:600}
 
@@ -214,44 +231,61 @@
 
   /* 6. DIRECTORY STATS ───────────────────────────────────────── */
   .stats{
-    background:rgba(var(--accent-rgb),.05);border-left:4px solid var(--accent);
-    padding:1.25rem 1.4rem;margin-top:1.4rem;border-radius:var(--radius);color:var(--text-2)
+    margin-top:1rem;padding:1.15rem;
+    border:1px solid rgba(var(--accent-rgb),.24);border-radius:14px;
+    background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(0,0,0,.16));
+    color:var(--text-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)
   }
   .stats h3{
     margin:0 0 .9rem;font-size:1rem;font-weight:600;
-    display:flex;align-items:center;gap:.45rem;color:var(--accent)
+    display:flex;align-items:center;gap:.45rem;color:var(--accent);
+    font-family:'Poppins',sans-serif;letter-spacing:.02em
   }
-  .stats-grid{display:flex;flex-wrap:wrap;gap:1rem}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
   .stat{
-    flex:1 1 140px;min-width:120px;background:rgba(var(--accent-rgb),.08);
-    border:1px solid rgba(var(--accent-rgb),.3);border-radius:var(--radius);
-    padding:.9rem 1rem;display:flex;flex-direction:column;gap:.2rem;
-    backdrop-filter:blur(2px)
+    min-width:0;min-height:6rem;padding:.85rem .9rem;
+    display:flex;flex-direction:column;justify-content:space-between;gap:.65rem;
+    border:1px solid rgba(var(--accent-rgb),.2);border-radius:11px;
+    background:rgba(0,0,0,.2)
   }
   .stat-label{
-    font-size:.78rem;display:flex;align-items:center;gap:.35rem;
-    color:var(--text-2);text-transform:uppercase;letter-spacing:.02em
+    font-size:.69rem;display:flex;align-items:center;gap:.4rem;
+    color:rgba(230,227,212,.66);font-weight:700;text-transform:uppercase;letter-spacing:.06em
   }
+  .stat-label i{color:var(--accent);font-size:.76rem}
   .stat-value{
-    min-width:0;font-size:clamp(1rem,2.8vw,1.55rem);font-weight:700;
-    color:var(--accent);line-height:1.25;overflow-wrap:anywhere
+    min-width:0;font-size:clamp(1.35rem,2.5vw,1.8rem);font-weight:700;
+    color:var(--accent-light);line-height:1.08;overflow-wrap:anywhere
   }
-  .stat-value.is-long{font-size:1rem;line-height:1.45}
+  .stat-value.is-text{font-size:.93rem;line-height:1.35}
+  .stat-status{grid-column:1 / -1;min-height:0;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center}
+  .stat-value.is-long{font-size:.9rem;line-height:1.4}
   .status-breakdown{display:flex;flex-wrap:wrap;gap:.4rem .5rem}
   .status-breakdown span{
     display:inline-flex;align-items:center;gap:.32rem;padding:.26rem .48rem;
     border:1px solid rgba(var(--accent-rgb),.24);border-radius:999px;
-    background:rgba(0,0,0,.24);color:var(--text-1);font-size:.84rem
+    background:rgba(0,0,0,.22);color:var(--text-1);font-size:.78rem
   }
   .status-breakdown strong{color:var(--accent-light)}
+  @media(max-width:760px){
+    .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
   @media(max-width:550px){
-    .stats{padding:1rem}
+    .notice{grid-template-columns:2.35rem minmax(0,1fr);padding:1rem;gap:.75rem}
+    .notice-icon{width:2.35rem;height:2.35rem}
+    .stats{padding:.85rem}
     .stats-grid{gap:.7rem}
-    .stat{flex:1 1 100%}
-    .stat-value{font-size:1.25rem}
+    .stat{min-height:5.5rem;padding:.75rem}
+    .stat-value{font-size:1.3rem}
+    .stat-value.is-text{font-size:.82rem}
     .stat-value.is-long{font-size:.92rem}
+    .stat-status{grid-template-columns:1fr;gap:.65rem}
     .status-breakdown span{flex:1 1 calc(50% - .35rem);justify-content:space-between}
     .toast{left:1rem;right:1rem;bottom:1rem;text-align:center}
+  }
+  @media(max-width:380px){
+    .stats-grid{grid-template-columns:1fr}
+    .stat-status{grid-column:auto}
   }
   </style>
 </head>
@@ -266,21 +300,22 @@
 
 <!-- ─────────────────────────── HERO ───────────────────────────── -->
 <section class="rules-hero">
-  <img src="images/Emblem.png" alt="Cartel Emblem">
+  <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512">
   <h1>Faction&nbsp;Members</h1>
-  <p class="tagline">Paste your Torn API key for real-time stats, or view the static roster snapshot.</p>
+  <p class="tagline">Browse up to 100 members from the official snapshot, or use a Torn API key for live stats.</p>
 </section>
 
 <!-- ───────────────────────── DIRECTORY ────────────────────────── -->
 <section class="rules-block">
   <div class="container glass members-panel">
+    <h2 class="sr-only">Member directory</h2>
 
     <!-- FILTER BAR -->
     <div class="filter-bar">
       <input type="search" id="memberSearch" placeholder="Search IGN, role, status..." aria-label="Search members by name, role, or status" autocomplete="off">
       <input type="password" id="apiKeyInput" placeholder="Paste API key..." aria-label="Torn API key" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <button type="button" id="saveKeyBtn" title="Save API key"><i class="fa-solid fa-key" aria-hidden="true"></i> Save</button>
-      <button type="button" id="clearKeyBtn" title="Clear key" aria-label="Clear saved API key"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+      <button type="button" id="saveKeyBtn" title="Save API key on this device"><i class="fa-solid fa-key" aria-hidden="true"></i> Save key</button>
+      <button type="button" id="clearKeyBtn" title="Delete API key from this device" aria-label="Delete saved API key from this device"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
     </div>
 
     <!-- TABLE -->
@@ -288,9 +323,9 @@
       <table class="member-table" id="memberTable">
         <thead>
           <tr>
-            <th>#</th><th data-col="ign">IGN</th><th></th>
-            <th data-col="level">Lv</th><th data-col="role">Role</th>
-            <th data-col="days">Days&nbsp;in</th><th data-col="status">Status</th>
+            <th scope="col">#</th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="ign">IGN</button></th><th scope="col"><span class="sr-only">Avatar</span></th>
+            <th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="level">Level</button></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="role">Role</button></th>
+            <th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="days">Days in faction</button></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="status">Status</button></th>
           </tr>
         </thead>
         <tbody id="memberBody"></tbody>
@@ -299,17 +334,14 @@
     <p class="empty-state" id="emptyState" hidden>No members match your search.</p>
 
     <!-- PRIVACY NOTICE -->
-    <div class="notice" id="notice">
-      <i class="fa-solid fa-lock"></i>
-      <strong>Privacy &amp; security:</strong> Your key is AES-GCM encrypted with a secret bound to this site’s origin
-      and stored only in <code>localStorage</code>.
-      All API calls happen client-side over HTTPS.
-      Clear it any time with the&nbsp;<i class="fa-solid fa-trash"></i> icon.
-      <span class="no-enc" hidden>(Web Crypto unavailable — key stored in plain text on this device.)</span>
-      <br><br>
-      <em>If you prefer not to provide your API key, a monthly snapshot of our roster will automatically update
-      on the first of each month — no key required.</em>
-    </div>
+    <aside class="notice" id="notice" aria-label="API key storage information">
+      <span class="notice-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
+      <div class="notice-copy">
+        <strong>Your key stays on this device</strong>
+        <p>The key is stored in this browser until you use the delete button. It is sent directly to Torn over HTTPS for live data and is never sent to Privé Cartel. Only save it on a device you trust.</p>
+        <p class="notice-fallback"><i class="fa-solid fa-cloud-arrow-down" aria-hidden="true"></i>No key? The complete published GitHub roster loads automatically, with a local fallback if GitHub is unavailable.</p>
+      </div>
+    </aside>
 
     <!-- DIRECTORY STATS -->
     <div class="stats" id="memberStats" aria-live="polite">
@@ -320,14 +352,18 @@
           <span class="stat-value" id="statsCount">0</span>
         </div>
         <div class="stat">
+          <span class="stat-label"><i class="fa-solid fa-chair"></i> Roster slots</span>
+          <span class="stat-value" id="statsCapacity">0 / 65</span>
+        </div>
+        <div class="stat">
           <span class="stat-label"><i class="fa-solid fa-clock-rotate-left"></i> Last update</span>
-          <span class="stat-value" id="statsUpdated">—</span>
+          <span class="stat-value is-text" id="statsUpdated">—</span>
         </div>
         <div class="stat">
           <span class="stat-label"><i class="fa-solid fa-database"></i> Source</span>
-          <span class="stat-value" id="statsSource">Snapshot</span>
+          <span class="stat-value is-text" id="statsSource">Snapshot</span>
         </div>
-        <div class="stat">
+        <div class="stat stat-status">
           <span class="stat-label"><i class="fa-solid fa-heart-pulse"></i> Member Status</span>
           <span class="stat-value is-long" id="statsStatus">—</span>
         </div>
@@ -348,7 +384,9 @@
 <script>
 (()=>{
 /*━━━━━━━━━━ CONFIG & SHORTCUTS ━━━━━━━━━━*/
-const LS='pcApiCipher',
+const LS='pcApiKey',
+      SNAPSHOT_URL='https://raw.githubusercontent.com/Skillerious87/privecartel.io/main/data/member-snapshot.json',
+      FACTION_CAPACITY=65,
       crownRX=/^(leader|co[- ]?leader|pbe founder)$/i,
       blank='images/blankprofile.jpg';
 
@@ -363,20 +401,28 @@ const apiInput=$('#apiKeyInput'),
       search=$('#memberSearch');
 
 const stats={count:$('#statsCount'),
+             capacity:$('#statsCapacity'),
              updated:$('#statsUpdated'),
              source:$('#statsSource'),
              status:$('#statsStatus')};
 
-let rows=[],
-    cryptoOK=!!(crypto?.subtle);
+let rows=[];
 
 /*━━━━━━━━━━ HELPERS ━━━━━━━━━━━━━━━━━━━━━*/
 function visibleCount(){
   // count rows that are visible (not filtered out)
   return rows.filter(r => r.style.display !== 'none').length;
 }
+function formatDateTime(value){
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime())) return 'Unavailable';
+  return new Intl.DateTimeFormat('en-GB',{
+    day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'
+  }).format(date);
+}
 function updateStats(cnt,upd,src){
   stats.count.textContent   = String(cnt);
+  stats.capacity.textContent = `${cnt} / ${FACTION_CAPACITY}`;
   stats.updated.textContent = upd;
   stats.source.textContent  = src;
 }
@@ -394,6 +440,44 @@ function statusMarkup(counts){
           <span><strong>${jail}</strong> Jail</span>
           <span><strong>${trav}</strong> Travel</span>
           <span><strong>${abr}</strong> Abroad</span>`;
+}
+
+function escapeHTML(value){
+  return String(value ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function getStoredKey(){
+  try{
+    const saved=localStorage.getItem(LS)||'';
+    if(saved) return saved;
+  }catch{}
+
+  // Migrate a key retained by the previous session-only implementation.
+  try{
+    const previous=sessionStorage.getItem(LS)||'';
+    if(previous && setStoredKey(previous)) return previous;
+  }catch{}
+  return '';
+}
+
+function setStoredKey(value){
+  try{localStorage.setItem(LS,value);}catch{return false;}
+  try{sessionStorage.removeItem(LS);}catch{}
+  return true;
+}
+
+function clearStoredKey(){
+  try{localStorage.removeItem(LS);}catch{}
+  try{sessionStorage.removeItem(LS);}catch{}
+}
+
+function clearLegacyKey(){
+  try{localStorage.removeItem('pcApiCipher');}catch{}
 }
 
 /* Member-status breakdown (✅ OK, 🏥 Hospital, 🚔 Jail, ✈️ Traveling, 🌍 Abroad) */
@@ -439,33 +523,8 @@ async function getSnapshotCommitDate(){
   }catch{return null;}
 }
 
-/* Crypto helpers */
-async function getKey(){
-  const hash=await crypto.subtle.digest('SHA-256',
-        new TextEncoder().encode(location.origin));
-  return crypto.subtle.importKey('raw',hash,{name:'AES-GCM'},false,['encrypt','decrypt']);
-}
-async function enc(txt){
-  if(!cryptoOK) return txt;
-  const iv=crypto.getRandomValues(new Uint8Array(12));
-  const cipher=await crypto.subtle.encrypt(
-        {name:'AES-GCM',iv},await getKey(),new TextEncoder().encode(txt));
-  return [...iv,...new Uint8Array(cipher)]
-         .map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-async function dec(hex){
-  if(!cryptoOK) return hex;
-  const buf=new Uint8Array(hex.match(/../g).map(h=>parseInt(h,16)));
-  const iv=buf.slice(0,12), data=buf.slice(12);
-  try{
-    const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv},
-                  await getKey(),data);
-    return new TextDecoder().decode(plain);
-  }catch{return '';}
-}
-
 /* UI helpers */
-const crown=r=>crownRX.test(r)?' <i class="fa-solid fa-crown crown"></i>':'';
+const crown=r=>crownRX.test(r)?' <i class="fa-solid fa-crown crown" aria-hidden="true"></i>':'';
 const tidy=s=>(s||'').replace(/_/g,' ');
 const ico=s=>/jail/i.test(s)?'🚔':
              /hospital/i.test(s)?'🏥':
@@ -503,10 +562,9 @@ search.addEventListener('input',(()=>{
 
 /*━━━━━━━━━━ SORTING ━━━━━━━━━━━━━━━━━━━━━*/
 const dir={};
-document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
-  th.title='Sort';
-  th.onclick=()=>{
-    const c=th.dataset.col;
+document.querySelectorAll('.member-table .sort-button').forEach(button=>{
+  button.addEventListener('click',()=>{
+    const c=button.dataset.col;
     dir[c]=!dir[c];
     rows.sort((a,b)=>{
       const A=a.dataset[c]||'',
@@ -516,46 +574,71 @@ document.querySelectorAll('.member-table th[data-col]').forEach(th=>{
         : (dir[c]?A.localeCompare(B):B.localeCompare(A)));
     });
     rows.forEach(r=>body.appendChild(r));
+    document.querySelectorAll('.member-table th[aria-sort]').forEach(th=>th.setAttribute('aria-sort','none'));
+    button.closest('th').setAttribute('aria-sort',dir[c]?'ascending':'descending');
     applyFilter();
-  };
+  });
 });
 
 /*━━━━━━━━━━ RENDER ROW ━━━━━━━━━━━━━━━━━*/
 function row(m){
-  const raw=m.status?.state||m.status||'Okay',
+  const raw=String(m.status?.state||m.status||'Okay'),
         pretty=raw.charAt(0).toUpperCase()+raw.slice(1).toLowerCase(),
-        role=tidy(m.position||m.role||'Member');
+        role=tidy(m.position||m.role||'Member'),
+        memberId=/^\d+$/.test(String(m.id||''))?String(m.id):'',
+        name=escapeHTML(m.name||'Unknown'),
+        safeRole=escapeHTML(role),
+        safeStatus=escapeHTML(pretty),
+        level=Number(m.level)||0,
+        days=Number(m.days_in_faction||m.days)||0;
   const tr=document.createElement('tr');
-  tr.dataset.level  = m.level||0;
+  tr.dataset.level  = level;
   tr.dataset.role   = role.toLowerCase();
-  tr.dataset.days   = m.days_in_faction||m.days||0;
+  tr.dataset.days   = days;
   tr.dataset.status = pretty.toLowerCase();
-  tr.dataset.ign    = (m.name||'').toLowerCase();   // enable IGN sorting
+  tr.dataset.ign    = String(m.name||'').toLowerCase();   // enable IGN sorting
   tr.innerHTML=`
     <td>0</td>
     <td data-label="IGN">
-      ${m.id
-        ? `<a href="https://www.torn.com/profiles.php?XID=${m.id}" target="_blank" rel="noopener">${m.name}</a>`
-        : m.name}
+      ${memberId
+        ? `<a href="https://www.torn.com/profiles.php?XID=${memberId}" target="_blank" rel="noopener noreferrer">${name}</a>`
+        : name}
     </td>
     <td data-label="Avatar">
-      <img class="avatar" src="${blank}" data-id="${m.id||''}" alt="">
+      <img class="avatar" src="${blank}" data-id="${memberId}" alt="" loading="lazy" decoding="async">
     </td>
-    <td data-label="Lv">${m.level||0}</td>
-    <td data-label="Role">${role}${crown(role)}</td>
-    <td data-label="Days">${m.days_in_faction||m.days||0}</td>
+    <td data-label="Lv">${level}</td>
+    <td data-label="Role">${safeRole}${crown(role)}</td>
+    <td data-label="Days">${days}</td>
     <td data-label="Status" class="${cls(pretty)}">
-      ${ico(pretty)} ${pretty}
+      ${ico(pretty)} ${safeStatus}
     </td>`;
   body.appendChild(tr);
 }
 
 /*━━━━━━━━━━ SNAPSHOT (offline fallback) ━━━━━━━━━━━━━━━━━━━━━*/
+async function fetchSnapshot(){
+  const sources=[
+    {url:SNAPSHOT_URL,label:'GitHub snapshot'},
+    {url:'data/member-snapshot.json',label:'Local snapshot'}
+  ];
+
+  for(const source of sources){
+    try{
+      const response=await fetch(source.url,{cache:'no-cache'});
+      if(!response.ok) continue;
+      const list=await response.json();
+      if(!Array.isArray(list)) continue;
+      return {response,list:list.slice(0,100),label:source.label};
+    }catch{}
+  }
+
+  throw new Error('Snapshot unavailable');
+}
+
 async function snapshot(){
   try{
-    const res=await fetch('data/member-snapshot.json');
-    if(!res.ok) throw 0;
-    let list=await res.json();
+    const {response:res,list,label}=await fetchSnapshot();
 
     // stable sort to match live view
     list.sort((a,b)=> (b.level - a.level) || a.name.localeCompare(b.name));
@@ -572,8 +655,8 @@ async function snapshot(){
 
     // reflect what is actually rendered (not a stale hard-coded number)
     updateStats(rows.length,
-      last ? new Date(last).toLocaleString() : new Date().toLocaleString(),
-      'Snapshot');
+      formatDateTime(last || Date.now()),
+      label);
 
     // status for the currently rendered (unfiltered) list
     renderStatusFromList(list);
@@ -597,7 +680,7 @@ async function live(key){
     const d=await r.json();
     if(d.error) throw new Error(d.error.error);
 
-    const list=Object.entries(d.members).map(([id,m])=>({...m,id}));
+    const list=Object.entries(d.members).slice(0,100).map(([id,m])=>({...m,id}));
     list.sort((a,b)=> (b.level - a.level) || a.name.localeCompare(b.name));
 
     body.innerHTML='';
@@ -606,7 +689,7 @@ async function live(key){
     rows=[...body.querySelectorAll('tr')];
     renum();
 
-    updateStats(rows.length,new Date().toLocaleString(),'Live API');
+    updateStats(rows.length,formatDateTime(Date.now()),'Live API');
     renderStatusFromList(list);
 
     // honour active filter (if user typed before load finished)
@@ -637,26 +720,24 @@ async function live(key){
 save.onclick=async()=>{
   const k=apiInput.value.trim();
   if(k.length<10){ showToast('Invalid API key'); return; }
-  await enc(k).then(cipher=>localStorage.setItem(LS,cipher));
+  if(!setStoredKey(k)){ showToast('This browser blocked device storage'); return; }
   live(k);
-  showToast('API saved');
+  apiInput.value='';
+  apiInput.placeholder='API key saved on this device';
+  showToast('API key saved on this device');
 };
-clr.onclick=()=>{ localStorage.removeItem(LS); location.reload(); };
+clr.onclick=()=>{ clearStoredKey(); location.reload(); };
 
 /*━━━━━━━━━━ INIT ━━━━━━━━━━━━━━━━━━━━━━━━*/
 (async()=>{
-  if(localStorage.getItem(LS)){
-    const key=await dec(localStorage.getItem(LS));
-    if(key){
-      apiInput.value='••••••••';
-      live(key);
-    }else{
-      snapshot();
-    }
+  clearLegacyKey();
+  const key=getStoredKey();
+  if(key){
+    apiInput.placeholder='API key saved on this device';
+    live(key);
   }else{
     snapshot();
   }
-  if(!cryptoOK) notice.querySelector('.no-enc').hidden=false;
   $('#year').textContent=new Date().getFullYear();
 })();
 })();

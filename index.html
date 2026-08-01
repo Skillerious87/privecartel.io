@@ -148,6 +148,201 @@
       background:linear-gradient(to right, var(--accent) 0%, rgba(214,184,109,0) 100%);
     }
 
+    /* ============ 2a. MANIFESTO & LEGACY ============ */
+    .home-panel{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+      padding:clamp(1.4rem,4vw,2.7rem);
+      border:1px solid rgba(var(--accent-rgb),.3);
+      border-radius:18px;
+      background:
+        radial-gradient(circle at 100% 0,rgba(var(--accent-rgb),.11),transparent 24rem),
+        linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+      box-shadow:0 24px 65px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.045);
+    }
+    .home-panel::before{
+      content:"";
+      position:absolute;
+      top:0;left:clamp(1.4rem,4vw,2.7rem);right:clamp(1.4rem,4vw,2.7rem);
+      height:1px;
+      background:linear-gradient(90deg,transparent,var(--accent),transparent);
+      opacity:.75;
+    }
+    .home-panel-head{
+      display:grid;
+      grid-template-columns:minmax(220px,.75fr) minmax(0,1.25fr);
+      gap:clamp(1.2rem,4vw,3.5rem);
+      align-items:end;
+      padding-bottom:clamp(1.3rem,3vw,2rem);
+      border-bottom:1px solid rgba(var(--accent-rgb),.18);
+    }
+    .home-kicker{
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      margin:0 0 .55rem;
+      color:var(--accent);
+      font-size:.7rem;
+      font-weight:700;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+    }
+    .home-kicker::before{
+      content:"";
+      width:1.5rem;
+      height:1px;
+      background:var(--accent);
+    }
+    .home-panel h2{
+      margin:0;
+      color:var(--text-1);
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.25rem,5vw,3.65rem);
+      font-weight:600;
+      line-height:.98;
+    }
+    .home-panel-lede{
+      max-width:42rem;
+      margin:0;
+      color:var(--text-2);
+      font-size:clamp(.95rem,1.7vw,1.08rem);
+      line-height:1.7;
+    }
+    .tenet-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:.8rem;
+      margin:1.35rem 0 0;
+      padding:0;
+      list-style:none;
+      counter-reset:tenets;
+    }
+    .tenet-grid li{
+      counter-increment:tenets;
+      min-width:0;
+      padding:1.15rem;
+      border:1px solid rgba(var(--accent-rgb),.2);
+      border-radius:12px;
+      background:rgba(0,0,0,.2);
+    }
+    .tenet-grid li::before{
+      content:"0" counter(tenets);
+      display:block;
+      margin-bottom:1.2rem;
+      color:rgba(var(--accent-rgb),.68);
+      font:700 .68rem/1 'Poppins',sans-serif;
+      letter-spacing:.16em;
+    }
+    .tenet-grid strong{
+      display:block;
+      margin-bottom:.3rem;
+      color:var(--accent-light);
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.45rem;
+      font-weight:600;
+    }
+    .tenet-grid p{
+      margin:0;
+      color:rgba(230,227,212,.72);
+      font-size:.84rem;
+      line-height:1.58;
+    }
+    .home-callout{
+      display:grid;
+      grid-template-columns:2.7rem minmax(0,1fr) auto;
+      gap:.9rem;
+      align-items:center;
+      margin-top:1rem;
+      padding:.9rem 1rem;
+      border:1px solid rgba(var(--accent-rgb),.22);
+      border-radius:12px;
+      background:
+        linear-gradient(110deg,rgba(var(--accent-rgb),.09),transparent 55%),
+        rgba(0,0,0,.18);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+    }
+    .home-callout-icon{
+      width:2.7rem;height:2.7rem;
+      display:grid;place-items:center;
+      border:1px solid rgba(var(--accent-rgb),.22);
+      border-radius:50%;
+      background:rgba(var(--accent-rgb),.09);
+      color:var(--accent);
+    }
+    .home-callout-copy{min-width:0}
+    .home-callout-copy strong{display:block;color:var(--text-1);font-size:.9rem;line-height:1.4}
+    .home-callout-copy span{display:block;margin-top:.14rem;color:var(--text-2);font-size:.78rem;line-height:1.5}
+    .home-callout .btn{min-height:2.5rem;padding:.52rem .9rem;white-space:nowrap;font-size:.8rem}
+    .legacy-timeline{
+      position:relative;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:.7rem;
+      margin:1.45rem 0 0;
+      padding:1.25rem 0 0;
+      list-style:none;
+    }
+    .legacy-timeline::before{
+      content:"";
+      position:absolute;
+      top:.36rem;left:2%;right:2%;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(var(--accent-rgb),.7),transparent);
+    }
+    .legacy-timeline li{
+      position:relative;
+      min-width:0;
+      padding:1.05rem;
+      border:1px solid rgba(var(--accent-rgb),.18);
+      border-radius:12px;
+      background:rgba(0,0,0,.18);
+    }
+    .legacy-timeline li::before{
+      content:"";
+      position:absolute;
+      top:-1.28rem;left:1rem;
+      width:.62rem;height:.62rem;
+      border:2px solid #111;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 3px rgba(var(--accent-rgb),.18),0 0 18px rgba(var(--accent-rgb),.3);
+    }
+    .legacy-timeline time{
+      display:block;
+      margin-bottom:.35rem;
+      color:rgba(var(--accent-rgb),.72);
+      font-size:.65rem;
+      font-weight:700;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+    .legacy-timeline h3{
+      margin:0 0 .42rem;
+      color:var(--accent-light);
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.2rem;
+      line-height:1.08;
+    }
+    .legacy-timeline p{
+      margin:0;
+      color:rgba(230,227,212,.7);
+      font-size:.77rem;
+      line-height:1.58;
+    }
+    @media(max-width:760px){
+      .home-panel-head{grid-template-columns:1fr;align-items:start}
+      .tenet-grid{grid-template-columns:1fr}
+      .tenet-grid li{display:grid;grid-template-columns:2.4rem minmax(0,1fr);column-gap:.7rem}
+      .tenet-grid li::before{grid-row:1 / 3;margin:.35rem 0 0}
+      .legacy-timeline{grid-template-columns:1fr;padding:0 0 0 1.15rem}
+      .legacy-timeline::before{top:.5rem;bottom:.5rem;left:.3rem;right:auto;width:1px;height:auto;background:linear-gradient(180deg,transparent,rgba(var(--accent-rgb),.7),transparent)}
+      .legacy-timeline li::before{top:1.15rem;left:-1.18rem}
+      .home-callout{grid-template-columns:2.5rem minmax(0,1fr);padding:.85rem}
+      .home-callout-icon{width:2.5rem;height:2.5rem}
+      .home-callout .btn{grid-column:1 / -1;width:100%}
+    }
+
     /* ============ 3. HERO ============ */
     .hero{
       display:flex;
@@ -250,128 +445,192 @@
       color:#070707;
     }
 
-    /* ============ 4. CARD GRID (Services) ============ */
-    .card-grid{
+    /* ============ 4. SERVICES, BENEFITS & REWARDS ============ */
+    .section-panel .home-panel-head{align-items:center}
+
+    .service-grid{
       display:grid;
-      gap:1.4rem;
-      grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
-      margin-top:1.4rem;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:.75rem;
+      margin-top:1.25rem;
     }
-    .card{
+    .service-card{
       position:relative;
-      background:rgba(255,255,255,.045);
-      border:1px solid rgba(var(--accent-rgb),.24);
-      padding:1.4rem 1.35rem 1.6rem;
-      border-radius:12px;
-      box-shadow:0 0 0 rgba(0,0,0,0);
-      transition:transform .28s ease, box-shadow .28s ease;
-      will-change:transform, box-shadow;
-    }
-    .card:hover{
-      transform:translateY(-6px) scale(1.03);
-      box-shadow:0 8px 20px rgba(0,0,0,.6);
-    }
-    .card h3{
-      margin:0 0 .6rem;
-      font-size:1.1rem;
-      font-weight:600;
-      color:var(--accent);
-      display:flex;
-      align-items:center;
-      gap:.45rem;
-    }
-    .card p{
-      margin:0;
-      font-size:.92rem;
-      color:var(--text-2);
-      line-height:1.6;
-    }
-    .card i{
-      color:#c4a46a;
-      font-size:1.1rem;
-    }
-
-    /* ============ 5. PERK GRID ============ */
-    .perk-grid{
-      list-style:none;
-      padding:0;
-      margin:1.35rem 0;
+      min-width:0;
       display:grid;
-      gap:1rem;
-      grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns:2.65rem minmax(0,1fr);
+      gap:.85rem;
+      padding:1.05rem;
+      border:1px solid rgba(var(--accent-rgb),.18);
+      border-radius:12px;
+      background:rgba(0,0,0,.19);
+      transition:border-color .24s ease,background .24s ease,box-shadow .24s ease;
     }
-    .perk-grid li{
-      background:rgba(255,255,255,.055);
-      border:1px solid rgba(var(--accent-rgb),.2);
-      border-radius:9px;
-      min-height:125px;
-      padding:1rem .6rem;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      transition:transform .28s ease, box-shadow .28s ease;
+    .service-card:hover,
+    .service-card:focus-within{
+      border-color:rgba(var(--accent-rgb),.36);
+      background:rgba(var(--accent-rgb),.045);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
     }
-    .perk-grid li:hover{
-      transform:translateY(-6px) scale(1.03);
-      box-shadow:0 8px 20px rgba(0,0,0,.6);
+    .service-icon,
+    .benefit-icon{
+      width:2.65rem;height:2.65rem;
+      display:grid;place-items:center;
+      border:1px solid rgba(var(--accent-rgb),.22);
+      border-radius:10px;
+      background:rgba(var(--accent-rgb),.075);
+      color:var(--accent);
+      font-size:1rem;
     }
-    .perk-grid li i{
-      color:#c4a46a;
-      font-size:1.55rem;
-      margin-bottom:.55rem;
+    .service-card h3{
+      margin:0 0 .3rem;
+      color:var(--accent-light);
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.32rem;
+      font-weight:600;
+      line-height:1.15;
+    }
+    .service-card p{
+      margin:0;
+      color:rgba(230,227,212,.7);
+      font-size:.8rem;
+      line-height:1.58;
     }
 
-    /* ============ 6. TABLE (Chain Rewards) ============ */
-    .table-wrapper{overflow-x:auto;margin:1.25rem 0;}
+    .benefit-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:.7rem;
+      margin:1.25rem 0 0;
+      padding:0;
+      list-style:none;
+    }
+    .benefit-grid li{
+      min-width:0;
+      display:grid;
+      grid-template-columns:2.45rem minmax(0,1fr);
+      gap:.72rem;
+      align-items:center;
+      padding:.85rem;
+      border:1px solid rgba(var(--accent-rgb),.17);
+      border-radius:11px;
+      background:rgba(0,0,0,.18);
+    }
+    .benefit-icon{width:2.45rem;height:2.45rem;border-radius:50%;font-size:.88rem}
+    .benefit-grid strong{
+      display:block;
+      color:var(--text-1);
+      font-size:.78rem;
+      line-height:1.3;
+    }
+    .benefit-grid small{
+      display:block;
+      margin-top:.15rem;
+      color:rgba(230,227,212,.58);
+      font-size:.68rem;
+      line-height:1.4;
+    }
+
+    .reward-summary{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      margin-top:1.15rem;
+      padding:.75rem .85rem;
+      border:1px solid rgba(var(--accent-rgb),.2);
+      border-radius:11px;
+      background:rgba(var(--accent-rgb),.055);
+    }
+    .reward-summary strong{
+      flex:0 0 auto;
+      display:grid;place-items:center;
+      min-width:3rem;height:2.15rem;
+      border-radius:999px;
+      background:var(--accent);
+      color:#090909;
+      font-size:.78rem;
+    }
+    .reward-summary span{color:rgba(230,227,212,.72);font-size:.78rem;line-height:1.5}
+    .table-wrapper{overflow-x:auto;margin:1rem 0 .75rem}
     .reward-table{
       width:100%;
-      border-collapse:collapse;
-      font-size:.93rem;
-      min-width:300px;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border:1px solid rgba(var(--accent-rgb),.18);
+      border-radius:12px;
+      background:rgba(0,0,0,.16);
+      font-size:.82rem;
     }
-    .reward-table thead{background:rgba(255,255,255,.06);}
+    .reward-table thead{background:rgba(var(--accent-rgb),.07)}
     .reward-table th,
     .reward-table td{
-      padding:.7rem .65rem;
-      border:1px solid rgba(var(--accent-rgb),.22);
+      padding:.7rem .8rem;
+      border:0;
+      border-bottom:1px solid rgba(var(--accent-rgb),.12);
       text-align:left;
     }
-    .reward-table th{
-      color:var(--accent);
-      font-weight:600;
+    .reward-table thead th{
+      color:rgba(230,227,212,.62);
+      font-size:.64rem;
+      font-weight:700;
+      letter-spacing:.09em;
+      text-transform:uppercase;
     }
-    .reward-table tbody th{
-      color:var(--text-1);
-      font-weight:500;
+    .reward-table tbody th{color:var(--text-1);font-size:.85rem;font-weight:600}
+    .reward-table tbody tr:last-child > *{border-bottom:0}
+    .reward-table tbody tr{transition:background .2s ease}
+    .reward-table tbody tr:hover{background:rgba(var(--accent-rgb),.04)}
+    .reward-payout{
+      display:inline-flex;align-items:center;gap:.42rem;
+      color:var(--accent-light);font-weight:700;white-space:nowrap;
     }
-    .reward-table tbody tr:nth-child(even){
-      background:rgba(255,255,255,.03);
+    .reward-payout i{color:var(--accent);font-size:.76rem}
+    .reward-tier{color:rgba(230,227,212,.64)}
+    .reward-table .reward-top{background:linear-gradient(90deg,rgba(var(--accent-rgb),.085),transparent)}
+    .reward-policy{
+      display:grid;
+      grid-template-columns:2.4rem minmax(0,1fr);
+      gap:.75rem;
+      align-items:center;
+      padding:.8rem .9rem;
+      border:1px solid rgba(var(--accent-rgb),.17);
+      border-radius:11px;
+      background:rgba(0,0,0,.17);
     }
-    .reward-table tbody tr:hover{
-      background:rgba(255,255,255,.06);
+    .reward-policy i{
+      width:2.4rem;height:2.4rem;display:grid;place-items:center;
+      border-radius:50%;background:rgba(var(--accent-rgb),.08);color:var(--accent);
     }
-    .reward-table td i{
-      margin-right:.45rem;
-      color:var(--accent);
-    }
-    .table-note{
-      font-size:.88rem;
-      font-style:italic;
-      color:rgba(230,230,230,.8);
-    }
+    .reward-policy p{margin:0;color:rgba(230,227,212,.68);font-size:.76rem;line-height:1.5}
+    .reward-policy strong{color:var(--text-1)}
+    .table-note{margin:.7rem 0 0;color:rgba(230,227,212,.48);font-size:.68rem;text-align:right}
 
-    /* ============ 6a. ALERT CARD ============ */
-    .alert-card{
-      background:rgba(var(--accent-rgb),0.1);
-      border:1px solid var(--accent);
-      border-radius:9px;
-      padding:1rem;
-      margin:1rem 0;
+    @media(max-width:760px){
+      .section-panel .home-panel-head{align-items:start}
+      .service-grid{grid-template-columns:1fr}
+      .benefit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
-    .alert-card p{margin:0;font-size:.92rem;color:var(--text-2);}
-    .alert-card p strong{color:var(--accent);}
+    @media(max-width:540px){
+      .benefit-grid{grid-template-columns:1fr}
+      .reward-summary{align-items:flex-start}
+      .reward-table thead{display:none}
+      .reward-table,
+      .reward-table tbody{display:block}
+      .reward-table tr{
+        display:grid;
+        grid-template-columns:minmax(0,1fr) auto;
+        gap:.3rem .75rem;
+        padding:.75rem .8rem;
+        border-bottom:1px solid rgba(var(--accent-rgb),.13);
+      }
+      .reward-table tbody tr:last-child{border-bottom:0}
+      .reward-table th,
+      .reward-table td{display:block;padding:0;border:0}
+      .reward-table td:last-child{grid-column:1 / -1}
+      .reward-tier{font-size:.72rem}
+      .table-note{text-align:left}
+    }
 
     /* ============ 7. STANDARD LISTS ============ */
     ol.standard,
@@ -443,10 +702,6 @@
       .section-title{font-size:2.15rem;}
       .hero{padding:5.5rem 1rem 4rem;}
       .hero .emblem{width:135px;}
-      .card-grid{gap:1.6rem;}
-      .card{padding:1.6rem 1.45rem 1.8rem;}
-      .perk-grid li{min-height:138px;}
-      .reward-table{font-size:1rem;}
       ol.standard,ul.standard{padding-left:2rem;}
     }
   </style>
@@ -460,7 +715,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <img src="images/Emblem.png" alt="Cartel Emblem" class="emblem" />
+    <img src="images/emblem-512.webp" alt="Privé Cartel emblem" class="emblem" width="512" height="512" />
     <h1>“What happens behind the curtain…<br>stays ours.”</h1>
     <p class="tagline">A quiet Torn faction hub for organised crime planning, member guidance, chain rewards and council updates.</p>
     <div class="hero-actions" aria-label="Primary actions">
@@ -474,81 +729,103 @@
 
     <!-- MANIFESTO -->
     <section id="manifesto">
-      <div class="container glass">
-        <h2 class="section-title">Cartel Manifesto</h2>
-        <p>Privé Cartel is a discreet refuge amid Torn’s chaos—business is conducted quietly, respect is mandatory, and every member lives by three tenets:</p>
-        <ol class="standard">
-          <li><strong>Presence</strong> — confirm activity daily.</li>
-          <li><strong>Discretion</strong> — internal matters never leave the hall.</li>
-          <li><strong>Mutual Aid</strong> — when one member calls, another answers.</li>
+      <div class="container home-panel manifesto-panel">
+        <header class="home-panel-head">
+          <div>
+            <p class="home-kicker">The Cartel code</p>
+            <h2>Cartel Manifesto</h2>
+          </div>
+          <p class="home-panel-lede">Privé Cartel is a quiet refuge in Torn’s chaos: a place where business is handled with intent, respect is non-negotiable, and every member strengthens the room.</p>
+        </header>
+
+        <ol class="tenet-grid" aria-label="The three Cartel principles">
+          <li>
+            <div><strong>Presence</strong><p>Stay connected, confirm activity and be ready when the faction moves.</p></div>
+          </li>
+          <li>
+            <div><strong>Discretion</strong><p>Internal business stays behind the curtain. Trust is earned and protected.</p></div>
+          </li>
+          <li>
+            <div><strong>Mutual Aid</strong><p>Knowledge, resources and support move freely when another member calls.</p></div>
+          </li>
         </ol>
-        <p>Honour these rules and the Cartel stands behind you.</p>
+
+        <div class="home-callout">
+          <span class="home-callout-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
+          <div class="home-callout-copy"><strong>Live by the standard. The Cartel stands behind you.</strong><span>Respect the room, protect its trust and support the people beside you.</span></div>
+          <a class="btn secondary" href="rules.html">Read faction rules</a>
+        </div>
       </div>
     </section>
 
     <!-- ABOUT -->
     <section id="about">
-      <div class="container glass">
-        <h2 class="section-title">About Privé Cartel</h2>
+      <div class="container home-panel about-panel">
+        <header class="home-panel-head">
+          <div>
+            <p class="home-kicker">Built through every era · Est. 2024</p>
+            <h2>About Privé Cartel.</h2>
+          </div>
+          <p class="home-panel-lede">Privé Cartel is the fourth and final incarnation of a crew shaped by ranked wars, disciplined chains and organised crime. The name changed as the faction matured; the loyalty underneath it did not.</p>
+        </header>
 
-        <p><strong>Privé Cartel is the fourth—and final—incarnation of a faction whose roots stretch back to 27&nbsp;Feb&nbsp;2024.</strong>
-           What began as a scrappy brawl-school has evolved into a discreet-luxury syndicate famed for triple-digit chains and surgical OC&nbsp;2.0 runs.</p>
-
-        <!-- TIMELINE -->
-        <ol class="standard">
+        <ol class="legacy-timeline" aria-label="Privé Cartel faction history">
           <li>
-            <strong>War fanatics &nbsp;(Feb – Apr 2024)</strong><br>
-            Founded by <em>Flaccid_peanut</em>, the crew cut its teeth in back-to-back 10–25 hit chains before upsetting <em>The Olympians</em>
-            in its first ranked war on&nbsp;21&nbsp;Mar, vaulting straight to <em>Bronze&nbsp;I</em>.
+            <time datetime="2024-02">Feb–Apr 2024</time>
+            <h3>War Fanatics</h3>
+            <p>A scrappy brawl school learned through short chains and an upset first ranked war that carried the crew into Bronze I.</p>
           </li>
-
           <li>
-            <strong>WF Academy &nbsp;(Apr – Oct 2024)</strong><br>
-            Re-branded by new leader <em>ForeverHydrox</em>, the faction became a training ground: war-mode weekends, disciplined 50-hit chains
-            and a leadership trio completed by <em>Skillerious</em>. By autumn the Academy was consistently posting 150–200&nbsp;respect runs.
+            <time datetime="2024-04">Apr–Oct 2024</time>
+            <h3>WF Academy</h3>
+            <p>ForeverHydrox reshaped the faction into a training ground, with disciplined chain work and a stronger leadership core.</p>
           </li>
-
           <li>
-            <strong>PB Enterprises / Associates &nbsp;(Oct 2024 – May 2025)</strong><br>
-            A corporate makeover unlocked bigger bankrolls and, on 31&nbsp;Dec, the <strong>first 100-hit chain</strong> (379&nbsp;respect).
-            The switch to <strong>Organised Crimes 2.0</strong> on&nbsp;16&nbsp;Feb 2025 gave the team a fresh revenue stream, while spring saw
-            successful 100-chains week after week — despite fending off simultaneous raids from the
-            <em>Mickey Mouse&nbsp;Clubhouse/Playhouse</em>.
+            <time datetime="2024-10">Oct 2024–May 2025</time>
+            <h3>PB Enterprises</h3>
+            <p>Bigger ambitions brought the first 100-hit chain, deeper resources and an early move into Organised Crimes 2.0.</p>
           </li>
-
           <li>
-            <strong>Privé Cartel &nbsp;(May 2025 – present)</strong><br>
-            Renamed by <em>Skillerious</em> on 23&nbsp;May, the Cartel pairs opulence with quiet efficiency.
-            Recent highlights include a <strong>record 100-chain for 420.53 respect</strong> and a rapid-fire 60-chain the same day (2&nbsp;Jul&nbsp;2025).
-            Today the faction runs near-continuous 100-chains, dispenses arsenal and advice on demand, and lives by its motto:
-            <em>“What happens behind the curtain… stays ours.”</em>
+            <time datetime="2025-05">May 2025–Present</time>
+            <h3>Privé Cartel</h3>
+            <p>A quieter, sharper identity: sustained triple-digit chains, deliberate operations and a culture built to last.</p>
           </li>
         </ol>
 
-        <p>From brawlers to patrons of discreet power, Privé Cartel remains united by presence, discretion and mutual aid—ready for whatever Torn throws next.</p>
+        <div class="home-callout">
+          <span class="home-callout-icon" aria-hidden="true"><i class="fa-solid fa-gem"></i></span>
+          <div class="home-callout-copy"><strong>One crew. Four eras. One shared standard.</strong><span>Presence, discretion and mutual aid remain the foundation beneath every operation.</span></div>
+          <a class="btn secondary" href="recruitment.html">Discover membership</a>
+        </div>
       </div>
     </section>
 
     <!-- SERVICES -->
     <section id="services">
-      <div class="container">
-        <h2 class="section-title">Cartel Services</h2>
-        <div class="card-grid">
-          <article class="card">
-            <h3><i class="fa-solid fa-user-ninja"></i> Organised Crimes&nbsp;2.0</h3>
-            <p>Operations prepared with precision and profit in mind, leveraging Scope wisely.</p>
+      <div class="container home-panel section-panel">
+        <header class="home-panel-head">
+          <div>
+            <p class="home-kicker">What members can rely on</p>
+            <h2>Cartel Services</h2>
+          </div>
+          <p class="home-panel-lede">Practical faction support for day-to-day progression, organised operations and the moments when members need the room behind them.</p>
+        </header>
+        <div class="service-grid">
+          <article class="service-card">
+            <span class="service-icon" aria-hidden="true"><i class="fa-solid fa-user-ninja"></i></span>
+            <div><h3>Organised Crimes 2.0</h3><p>Slots, readiness and Scope decisions coordinated carefully for reliable returns.</p></div>
           </article>
-          <article class="card">
-            <h3><i class="fa-solid fa-house-user"></i> Flexible Residency</h3>
-            <p>Stay active every 24&nbsp;h; no forced wars or mandatory fees. Vacation Mode respected.</p>
+          <article class="service-card">
+            <span class="service-icon" aria-hidden="true"><i class="fa-solid fa-house-user"></i></span>
+            <div><h3>Flexible Residency</h3><p>Stay active every 24 hours without forced wars or mandatory fees. Vacation Mode is respected.</p></div>
           </article>
-          <article class="card">
-            <h3><i class="fa-solid fa-shield-heart"></i> Armoury Access</h3>
-            <p>Weapons, meds and travel kits issued on request — plus unlocked <strong>Consumables</strong> and <strong>Drugs</strong> for members who need them.</p>
+          <article class="service-card">
+            <span class="service-icon" aria-hidden="true"><i class="fa-solid fa-shield-heart"></i></span>
+            <div><h3>Armoury Access</h3><p>Weapons, medical supplies, travel kits, consumables and drugs available to active members.</p></div>
           </article>
-          <article class="card">
-            <h3><i class="fa-solid fa-hands-helping"></i> Member Guidance</h3>
-            <p>Seasoned players ready with builds, routes and revenue streams for every stage.</p>
+          <article class="service-card">
+            <span class="service-icon" aria-hidden="true"><i class="fa-solid fa-hands-helping"></i></span>
+            <div><h3>Member Guidance</h3><p>Experienced players available with build advice, travel routes and income strategies.</p></div>
           </article>
         </div>
       </div>
@@ -556,15 +833,21 @@
 
     <!-- PERKS -->
     <section id="perks">
-      <div class="container">
-        <h2 class="section-title">Standing Benefits</h2>
-        <ul class="perk-grid">
-          <li><i class="fa-solid fa-plane-departure"></i>+9 Travel Capacity</li>
-          <li><i class="fa-solid fa-shield-halved"></i>Secure Armoury</li>
-          <li><i class="fa-solid fa-suitcase-medical"></i>Medical Armoury</li>
-          <li><i class="fa-solid fa-capsules"></i>Consumables &amp; Drugs</li>
-          <li><i class="fa-solid fa-link"></i>250-Chain Capability</li>
-          <li><i class="fa-solid fa-star"></i>Priority in OC 2.0</li>
+      <div class="container home-panel section-panel">
+        <header class="home-panel-head">
+          <div>
+            <p class="home-kicker">Built into membership</p>
+            <h2>Standing Benefits</h2>
+          </div>
+          <p class="home-panel-lede">Permanent faction upgrades and shared resources designed to make every active member more capable.</p>
+        </header>
+        <ul class="benefit-grid">
+          <li><span class="benefit-icon" aria-hidden="true"><i class="fa-solid fa-plane-departure"></i></span><div><strong>+9 Travel Capacity</strong><small>Carry more on every overseas run.</small></div></li>
+          <li><span class="benefit-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span><div><strong>Secure Armoury</strong><small>Faction equipment when operations demand it.</small></div></li>
+          <li><span class="benefit-icon" aria-hidden="true"><i class="fa-solid fa-suitcase-medical"></i></span><div><strong>Medical Armoury</strong><small>Medical supplies for recovery and readiness.</small></div></li>
+          <li><span class="benefit-icon" aria-hidden="true"><i class="fa-solid fa-capsules"></i></span><div><strong>Consumables &amp; Drugs</strong><small>Unlocked stock for active faction members.</small></div></li>
+          <li><span class="benefit-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span><div><strong>250-Chain Capability</strong><small>Infrastructure ready for sustained pushes.</small></div></li>
+          <li><span class="benefit-icon" aria-hidden="true"><i class="fa-solid fa-star"></i></span><div><strong>Priority in OC 2.0</strong><small>Coordinated placement across organised crimes.</small></div></li>
         </ul>
       </div>
     </section>
@@ -601,9 +884,19 @@
 
     <!-- CHAIN REWARDS -->
     <section id="rewards">
-      <div class="container">
-        <h2 class="section-title">Chain Rewards</h2>
-        <p>Record <strong>6+ hits</strong> in any chain and claim your reward:</p>
+      <div class="container home-panel section-panel rewards-panel">
+        <header class="home-panel-head">
+          <div>
+            <p class="home-kicker">Contribution recognised</p>
+            <h2>Chain Rewards</h2>
+          </div>
+          <p class="home-panel-lede">Every confirmed hit strengthens the faction. Members who record six or more hits receive a payout after the chain report is reviewed.</p>
+        </header>
+
+        <div class="reward-summary">
+          <strong>6+ hits</strong>
+          <span>The qualifying threshold for a chain payout. Higher contributions move through the reward tiers below.</span>
+        </div>
 
         <div class="table-wrapper">
           <table class="reward-table" aria-describedby="reward-note">
@@ -616,22 +909,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr><th scope="row">0 – 5</th><td><i class="fa-solid fa-capsules"></i>0 × Xanax</td><td>Below payout threshold</td></tr>
-              <tr><th scope="row">6 – 15</th><td><i class="fa-solid fa-capsules"></i>1 × Xanax</td><td>Entry-level contribution</td></tr>
-              <tr><th scope="row">16 – 25</th><td><i class="fa-solid fa-capsules"></i>2 × Xanax</td><td>Steady performers</td></tr>
-              <tr><th scope="row">26 – 35</th><td><i class="fa-solid fa-capsules"></i>3 × Xanax</td><td>Solid chain runners</td></tr>
-              <tr><th scope="row">36 – 45</th><td><i class="fa-solid fa-capsules"></i>4 × Xanax</td><td>High achievers</td></tr>
-              <tr><th scope="row">46+</th><td><i class="fa-solid fa-capsules"></i>5 × Xanax</td><td>Top-tier reward</td></tr>
+              <tr><th scope="row">0 – 5 hits</th><td><span class="reward-payout"><i class="fa-solid fa-capsules" aria-hidden="true"></i>0 Xanax</span></td><td class="reward-tier">Below payout threshold</td></tr>
+              <tr><th scope="row">6 – 15 hits</th><td><span class="reward-payout"><i class="fa-solid fa-capsules" aria-hidden="true"></i>1 Xanax</span></td><td class="reward-tier">Entry contribution</td></tr>
+              <tr><th scope="row">16 – 25 hits</th><td><span class="reward-payout"><i class="fa-solid fa-capsules" aria-hidden="true"></i>2 Xanax</span></td><td class="reward-tier">Steady performer</td></tr>
+              <tr><th scope="row">26 – 35 hits</th><td><span class="reward-payout"><i class="fa-solid fa-capsules" aria-hidden="true"></i>3 Xanax</span></td><td class="reward-tier">Committed runner</td></tr>
+              <tr><th scope="row">36 – 45 hits</th><td><span class="reward-payout"><i class="fa-solid fa-capsules" aria-hidden="true"></i>4 Xanax</span></td><td class="reward-tier">High contributor</td></tr>
+              <tr class="reward-top"><th scope="row">46+ hits</th><td><span class="reward-payout"><i class="fa-solid fa-capsules" aria-hidden="true"></i>5 Xanax</span></td><td class="reward-tier">Top reward tier</td></tr>
             </tbody>
           </table>
         </div>
 
-        <p class="table-note" id="reward-note">*Subject to change upon Council leadership review.</p>
-
-        <div class="alert-card">
-          <p><strong>Note:</strong> Rewards are sent after chain completion and council review of the chain report.</p>
+        <div class="reward-policy">
+          <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+          <p><strong>How payouts work:</strong> rewards are issued after chain completion and council verification of the final report.</p>
         </div>
-
+        <p class="table-note" id="reward-note">Reward tiers remain subject to council review.</p>
       </div>
     </section>
 
