@@ -5,8 +5,7 @@ const NAVBAR_TEMPLATE = `
 <header class="navbar">
   <a href="index.html" class="logo"><span>PRIVÉ</span>&nbsp;CARTEL</a>
 
-  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation" />
-  <label for="nav-toggle" class="hamburger" role="button" tabindex="0" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></label>
+  <button class="hamburger" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button>
 
   <nav id="primary-navigation" aria-label="Primary">
     <ul class="nav-links">
@@ -42,17 +41,9 @@ class PCNavbar extends HTMLElement {
     }
   }
 
-  async render() {
+  render() {
     const rootUrl = new URL("../", import.meta.url);
-
-    try {
-      const response = await fetch(new URL("navbar.html", rootUrl), { cache: "no-cache" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      this.innerHTML = await response.text();
-    } catch (error) {
-      console.warn("[PCNavbar] Falling back to inline navbar:", error);
-      this.innerHTML = NAVBAR_TEMPLATE;
-    }
+    this.innerHTML = NAVBAR_TEMPLATE;
 
     this.rewriteInternalLinks(rootUrl);
     this.markActiveLink();
@@ -111,55 +102,74 @@ class PCNavbar extends HTMLElement {
   }
 
   setupDrawer() {
-    const toggle = this.querySelector("#nav-toggle");
+    const toggle = this.querySelector(".hamburger");
     const overlay = this.querySelector(".nav-overlay");
-    const label = this.querySelector(".hamburger");
+    const navigation = this.querySelector("#primary-navigation");
+    const links = [...this.querySelectorAll(".nav-links a")];
     const mobileQuery = window.matchMedia("(max-width: 920px)");
+    let open = false;
 
     if (!toggle) return;
     this.mobileQuery = mobileQuery;
 
-    const sync = () => {
-      const open = toggle.checked;
+    const sync = ({ moveFocus = false } = {}) => {
+      const isMobile = mobileQuery.matches;
       document.body.classList.toggle("menu-open", open);
       overlay?.classList.toggle("is-open", open);
+      this.querySelector(".nav-links")?.classList.toggle("is-open", open);
       toggle.setAttribute("aria-expanded", String(open));
-      label?.setAttribute("aria-expanded", String(open));
-      label?.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      navigation?.toggleAttribute("inert", isMobile && !open);
+      if (navigation) navigation.setAttribute("aria-hidden", String(isMobile && !open));
+
+      if (!moveFocus) return;
+      window.requestAnimationFrame(() => {
+        if (open) links[0]?.focus({ preventScroll: true });
+        else toggle.focus({ preventScroll: true });
+      });
     };
 
-    const setOpen = (open) => {
-      toggle.checked = open;
-      sync();
+    const setOpen = (nextOpen, options) => {
+      open = Boolean(nextOpen && mobileQuery.matches);
+      sync(options);
     };
 
-    const close = () => {
-      if (!toggle.checked) return;
-      setOpen(false);
+    const close = (options) => {
+      if (!open) return;
+      setOpen(false, options);
     };
 
-    toggle.addEventListener("change", sync);
-    label?.addEventListener("click", (event) => {
-      event.preventDefault();
-      setOpen(!toggle.checked);
+    toggle.addEventListener("click", () => {
+      setOpen(!open, { moveFocus: true });
     });
-    label?.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      event.preventDefault();
-      setOpen(!toggle.checked);
-    });
-    overlay?.addEventListener("click", close);
-    this.querySelectorAll(".nav-links a").forEach((link) => {
-      link.addEventListener("click", close);
+    overlay?.addEventListener("click", () => close({ moveFocus: true }));
+    links.forEach((link) => {
+      link.addEventListener("click", () => close());
     });
 
     this.onEscape = (event) => {
-      if (event.key === "Escape") close();
+      if (event.key === "Escape") {
+        close({ moveFocus: true });
+        return;
+      }
+
+      if (!open || event.key !== "Tab") return;
+      const focusable = [toggle, ...links].filter((item) => item.offsetParent !== null);
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
     };
     document.addEventListener("keydown", this.onEscape);
 
     this.onMediaChange = (event) => {
-      if (!event.matches) close();
+      if (!event.matches) open = false;
+      sync();
     };
     if (mobileQuery.addEventListener) {
       mobileQuery.addEventListener("change", this.onMediaChange);
@@ -305,31 +315,25 @@ class PCNavbar extends HTMLElement {
               </div>
 
               <div class="discord-dialog-heading">
-                <p class="discord-dialog-kicker">Official invite</p>
-                <h2 id="discord-dialog-title">Open Priv&eacute; Cartel Discord</h2>
-                <p id="discord-dialog-copy">Continue to the faction server with Discord. The invite may open in the app or in a new browser tab.</p>
+                <p class="discord-dialog-kicker">Priv&eacute; Cartel &middot; Official invite</p>
+                <h2 id="discord-dialog-title">Continue on Discord</h2>
+                <p id="discord-dialog-copy">Open the official faction server for coordination, council contact and member support.</p>
               </div>
             </div>
 
             <div class="discord-dialog-content">
-              <div class="discord-dialog-details" aria-label="Discord details">
-                <span>
-                  <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                  External handoff
-                </span>
-                <span>
-                  <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-                  Faction server
-                </span>
-              </div>
-
               <div class="discord-dialog-actions">
                 <a class="btn discord-dialog-primary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer" data-discord-open>
                   <i class="fa-brands fa-discord" aria-hidden="true"></i>
                   <span>Open Discord</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square discord-dialog-arrow" aria-hidden="true"></i>
                 </a>
-                <button class="btn secondary discord-dialog-cancel" type="button" data-discord-close>Not now</button>
+                <button class="discord-dialog-cancel" type="button" data-discord-close>Cancel</button>
               </div>
+
+              <p class="discord-dialog-note">
+                discord.gg/DmxrRAjBdk &middot; opens in a new tab
+              </p>
             </div>
           </div>
         </div>

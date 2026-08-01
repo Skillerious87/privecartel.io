@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   installSkipLink();
   enhanceMetadata();
   optimizeImages();
+  hideDecorativeIcons();
 
   /* ───── 1. © year ───── */
   const yearEl = document.getElementById("year");
@@ -55,31 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const y =
         target.getBoundingClientRect().top + window.pageYOffset - navH - 20;
       window.scrollTo({ top: y, behavior: scrollBehavior });
-      closeDrawer();
+      if (location.hash !== `#${id}`) history.pushState(null, "", `#${id}`);
     });
   });
 
-  /* ───── 3. Mobile drawer & overlay ───── */
-  const navToggle = document.getElementById("nav-toggle");
-  const overlay = document.querySelector("pc-navbar .nav-overlay");
-  const body = document.body;
-
-  function toggleBodyScroll() {
-    body.classList.toggle("menu-open", navToggle.checked);
-  }
-  function closeDrawer() {
-    if (navToggle && navToggle.checked) {
-      navToggle.checked = false;
-      toggleBodyScroll();
-    }
-  }
-  if (navToggle) navToggle.addEventListener("change", toggleBodyScroll);
-  if (overlay) overlay.addEventListener("click", closeDrawer);
-  document.querySelectorAll(".nav-links a").forEach((a) =>
-    a.addEventListener("click", closeDrawer)
-  );
-
-  /* ───── 4. Navbar shadow ───── */
+  /* ───── 3. Navbar shadow fallback ───── */
   const nav = document.querySelector(".navbar");
   const shadowCls = "nav-shadow";
   const addShadow = () =>
@@ -160,6 +141,9 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ───── 7. Reveal-on-scroll (class="reveal") ───── */
   const revealEls = document.querySelectorAll(".reveal");
   if (revealEls.length) {
+    if (prefersReducedMotion) {
+      revealEls.forEach((el) => el.classList.add("in"));
+    } else {
     const io = new IntersectionObserver(
       (entries, obs) => {
         entries.forEach((entry) => {
@@ -172,12 +156,13 @@ document.addEventListener("DOMContentLoaded", () => {
       { threshold: 0.15 }
     );
     revealEls.forEach((el) => io.observe(el));
+    }
   }
 
   /* ───── 8. Prefetch internal pages ───── */
   document.querySelectorAll('a[href$=".html"]:not([target])').forEach((a) => {
     const prefetch = () => {
-      if (a.dataset.prefetched) return;
+      if (a.dataset.prefetched || navigator.connection?.saveData) return;
       const link = document.createElement("link");
       link.rel = "prefetch";
       link.href = a.href;
@@ -191,17 +176,23 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ───── 9. Service worker intentionally omitted until sw.js exists. ───── */
 
   function installSkipLink() {
-    if (document.querySelector(".skip-link")) return;
-    const skip = document.createElement("a");
-    skip.className = "skip-link";
-    skip.href = "#main-content";
-    skip.textContent = "Skip to content";
-
     const main = document.querySelector("main") || document.querySelector(".rules-block");
     if (main && !main.id) main.id = "main-content";
     if (!main) return;
+    if (!main.hasAttribute("tabindex")) main.tabIndex = -1;
 
-    document.body.insertBefore(skip, document.body.firstChild);
+    let skip = document.querySelector(".skip-link");
+    if (!skip) {
+      skip = document.createElement("a");
+      skip.className = "skip-link";
+      skip.href = `#${main.id}`;
+      skip.textContent = "Skip to content";
+      document.body.insertBefore(skip, document.body.firstChild);
+    }
+
+    skip.addEventListener("click", () => {
+      window.setTimeout(() => main.focus({ preventScroll: true }), 0);
+    });
   }
 
   function optimizeImages() {
@@ -216,6 +207,12 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (!img.hasAttribute("loading")) {
         img.loading = "lazy";
       }
+    });
+  }
+
+  function hideDecorativeIcons() {
+    document.querySelectorAll('i[class*="fa-"]').forEach((icon) => {
+      if (!icon.hasAttribute("aria-hidden")) icon.setAttribute("aria-hidden", "true");
     });
   }
 
@@ -260,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
       meta.setAttribute(attr, key);
       document.head.appendChild(meta);
     }
-    meta.content = content;
+    if (!meta.content) meta.content = content;
   }
 
   function enhanceFooter(currentYear) {
@@ -279,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="footer-main">
           <section class="footer-brand" aria-label="Privé Cartel">
             <a class="footer-logo" href="${siteLink("index.html")}">
-              <img src="${siteLink("images/Emblem.png")}" alt="" loading="lazy">
+              <img src="${siteLink("images/emblem-512.webp")}" alt="" loading="lazy" width="512" height="512">
               <span><strong>PRIVÉ</strong> CARTEL</span>
             </a>
             <p>Discreet operations hub for Torn members who value presence, discipline and mutual aid.</p>
@@ -332,8 +329,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function installRecruitmentBanner() {
+    const dismissalKey = "pcRecruitmentDismissedAt";
+    const dismissalWindow = 7 * 24 * 60 * 60 * 1000;
+    let dismissedAt = 0;
+    try {
+      dismissedAt = Number(localStorage.getItem(dismissalKey) || 0);
+    } catch {
+      dismissedAt = 0;
+    }
+
     if (
       document.body.dataset.hideRecruitmentBanner === "true" ||
+      Date.now() - dismissedAt < dismissalWindow ||
       document.querySelector(".recruitment-banner")
     ) return;
 
@@ -358,10 +365,17 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     banner.querySelector(".recruitment-banner-close").addEventListener("click", () => {
+      try {
+        localStorage.setItem(dismissalKey, String(Date.now()));
+      } catch {
+        // Storage can be unavailable in privacy-focused browser modes.
+      }
       banner.classList.add("is-closing");
+      document.body.classList.remove("has-recruitment-banner");
       window.setTimeout(() => banner.remove(), prefersReducedMotion ? 0 : 240);
     });
 
+    document.body.classList.add("has-recruitment-banner");
     document.body.appendChild(banner);
   }
 });
