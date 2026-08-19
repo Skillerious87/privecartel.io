@@ -3,235 +3,335 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join Privé Cartel | Recruitment</title>
-  <meta name="description" content="Join Privé Cartel: a relaxed, dependable Torn faction for active Level 14+ players, with +9 travel capacity, armoury support, OC 2.0 and chain rewards.">
+  <title>Join Priv&eacute; Cartel | Torn Faction Recruitment</title>
+  <meta name="description" content="Apply to join Priv&eacute; Cartel, a relaxed and dependable Torn faction for active Level 14+ players. Explore faction perks, expectations and the application process.">
   <link rel="canonical" href="https://www.privecartel.com/recruitment.html">
   <meta name="robots" content="index,follow">
-  <meta property="og:title" content="Join Privé Cartel">
-  <meta property="og:description" content="Solid perks. Good people. Steady progress. Recruitment is open to active Level 14+ Torn players.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Priv&eacute; Cartel">
+  <meta property="og:title" content="Join Priv&eacute; Cartel | Torn Faction Recruitment">
+  <meta property="og:description" content="Measured growth, practical support and a faction that respects real life. Recruitment is open to active Level 14+ Torn players.">
+  <meta property="og:url" content="https://www.privecartel.com/recruitment.html">
   <meta property="og:image" content="https://www.privecartel.com/images/Emblem.png">
-  <meta name="theme-color" content="#0b0d10">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#090b0e">
   <link rel="icon" href="assets/icon-192.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
-  <style>
-    body { background: #090b0e; }
-    .recruit-hero {
-      position: relative; min-height: min(760px, 88vh); display: grid; place-items: center;
-      padding: 8rem 1rem 6rem; overflow: hidden;
-      background:
-        radial-gradient(circle at 72% 38%, rgba(196,164,106,.13), transparent 26%),
-        linear-gradient(115deg, rgba(196,164,106,.035), transparent 38%),
-        linear-gradient(180deg, #0b0d10 0%, #090b0e 96%);
+  <link rel="stylesheet" href="assets/recruitment.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Join Priv\u00e9 Cartel",
+    "url": "https://www.privecartel.com/recruitment.html",
+    "description": "Recruitment information for active Level 14+ Torn players interested in joining Priv\u00e9 Cartel.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Priv\u00e9 Cartel",
+      "url": "https://www.privecartel.com/"
     }
-    .recruit-hero::before {
-      content:""; position:absolute; inset:0; opacity:.055;
-      background:url("images/hero-bg.jpg") repeat center/180px; pointer-events:none;
-    }
-    .recruit-hero::after {
-      content:""; position:absolute; inset:auto 10% 0; height:1px;
-      background:linear-gradient(90deg,transparent,var(--accent),transparent);
-    }
-    .hero-inner {
-      position:relative; z-index:1; width:min(1120px,100%); display:grid;
-      grid-template-columns:minmax(0,1.15fr) minmax(310px,.85fr); gap:clamp(2rem,6vw,5.5rem); align-items:center;
-    }
-    .hero-content { max-width:690px; }
-    .hero-emblem { width:148px; filter:drop-shadow(0 0 28px rgba(var(--accent-rgb),.34)); }
-    .eyebrow { color:var(--accent); font-size:.74rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; }
-    .recruit-hero h1 { margin:.8rem 0 1.15rem; color:var(--text-1); font-size:clamp(3rem,6vw,5.45rem); line-height:.94; letter-spacing:-.025em; }
-    .recruit-hero h1 span { color:var(--accent); }
-    .hero-copy { max-width:610px; margin:0 0 1.65rem; color:var(--text-2); font-size:clamp(.98rem,2vw,1.12rem); }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:.75rem; }
-    .recruit-btn {
-      position:relative; isolation:isolate;
-      display:inline-flex; align-items:center; justify-content:center; gap:.5rem; min-height:48px;
-      padding:.7rem 1.2rem; border:1px solid var(--accent); border-radius:999px;
-      background:linear-gradient(135deg,#f2dda6 0%,#cfae69 54%,#a8803f 100%);
-      color:#090806 !important; font-weight:700; text-decoration:none !important;
-      box-shadow:inset 0 1px rgba(255,255,255,.45),0 12px 30px rgba(0,0,0,.42);
-      transition:filter .2s ease,border-color .2s ease,box-shadow .2s ease;
-    }
-    .recruit-btn:link,.recruit-btn:visited { color:#090806 !important; }
-    .recruit-btn:hover,.recruit-btn:focus-visible {
-      color:#000 !important; filter:brightness(1.08); border-color:var(--accent-light);
-      box-shadow:inset 0 1px rgba(255,255,255,.55),0 15px 34px rgba(0,0,0,.5),0 0 22px rgba(var(--accent-rgb),.14);
-    }
-    .recruit-btn.secondary {
-      background:rgba(8,9,11,.72); color:var(--accent-light) !important;
-      border-color:rgba(var(--accent-rgb),.52); box-shadow:inset 0 1px rgba(255,255,255,.05),0 12px 30px rgba(0,0,0,.32);
-    }
-    .recruit-btn.secondary:link,.recruit-btn.secondary:visited { color:var(--accent-light) !important; }
-    .recruit-btn.secondary:hover,.recruit-btn.secondary:focus-visible {
-      background:rgba(var(--accent-rgb),.1); color:#fff1c9 !important; filter:none;
-    }
-    .hero-dossier {
-      position:relative; padding:2rem; border:1px solid rgba(var(--accent-rgb),.42); border-radius:18px;
-      background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012));
-      box-shadow:0 28px 70px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.05);
-    }
-    .hero-dossier::before {
-      content:""; position:absolute; inset:10px; border:1px solid rgba(var(--accent-rgb),.12);
-      border-radius:12px; pointer-events:none;
-    }
-    .dossier-seal { position:relative; display:flex; align-items:center; gap:1.15rem; padding-bottom:1.35rem; border-bottom:1px solid rgba(var(--accent-rgb),.2); }
-    .dossier-seal div { display:grid; gap:.2rem; }
-    .dossier-seal strong { color:var(--text-1); font-family:"Cormorant Garamond",serif; font-size:1.55rem; font-weight:600; }
-    .dossier-seal span { color:var(--accent); font-size:.68rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
-    .dossier-list { position:relative; list-style:none; display:grid; gap:.9rem; padding-top:1.35rem; }
-    .dossier-list li { display:flex; justify-content:space-between; gap:1rem; color:var(--text-2); font-size:.82rem; }
-    .dossier-list strong { color:var(--text-1); font-weight:600; text-align:right; }
-    .hero-note { display:flex; align-items:center; gap:.65rem; margin-top:1.4rem; color:rgba(232,226,206,.7); font-size:.76rem; }
-    .hero-note i { color:#6fd699; font-size:.62rem; }
-    .recruit-main { max-width:1100px; margin:auto; padding:4.5rem 1rem 5rem; }
-    .intro { max-width:760px; margin:0 auto 4rem; text-align:center; }
-    .intro h2,.section-heading h2 { font-size:clamp(2rem,5vw,3.2rem); margin:.45rem 0 .8rem; }
-    .intro p,.section-heading p { color:var(--text-2); }
-    .offer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:4.5rem; }
-    .offer-card {
-      min-height:210px; padding:1.6rem; border:1px solid rgba(var(--accent-rgb),.23); border-radius:14px;
-      background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
-    }
-    .offer-icon { width:42px; height:42px; display:grid; place-items:center; margin-bottom:1.15rem; border-radius:50%; background:rgba(var(--accent-rgb),.12); color:var(--accent); }
-    .offer-card h3 { margin:0 0 .45rem; color:var(--text-1); font-family:Poppins,sans-serif; font-size:1rem; }
-    .offer-card p { color:var(--text-2); font-size:.88rem; line-height:1.65; }
-    .feature {
-      display:grid; grid-template-columns:.85fr 1.15fr; gap:3rem; align-items:center; margin-bottom:4.5rem;
-      padding:clamp(1.5rem,4vw,3rem); border:1px solid rgba(var(--accent-rgb),.28); border-radius:18px;
-      background:radial-gradient(circle at 0 0,rgba(var(--accent-rgb),.1),transparent 45%),rgba(255,255,255,.02);
-    }
-    .feature-number { color:var(--accent); font:600 clamp(4rem,12vw,8rem)/.8 "Cormorant Garamond",serif; }
-    .feature-number small { font:700 .72rem/1 Poppins,sans-serif; letter-spacing:.18em; text-transform:uppercase; display:block; margin-top:1.2rem; }
-    .feature h2 { font-size:clamp(2rem,4vw,3rem); margin:0 0 .8rem; }
-    .feature p { color:var(--text-2); margin-bottom:.8rem; }
-    .feature ul,.standards-list { list-style:none; display:grid; gap:.65rem; }
-    .feature li::before,.standards-list li::before { content:"✓"; margin-right:.65rem; color:var(--accent); font-weight:700; }
-    .standards { display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:start; margin-bottom:4.5rem; }
-    .standards-list { padding:1.5rem; border-left:1px solid var(--accent); background:linear-gradient(90deg,rgba(var(--accent-rgb),.08),transparent); }
-    .standards-list li { color:var(--text-2); }
-    .standards-list strong { color:var(--text-1); }
-    .final-cta {
-      position:relative; overflow:hidden; padding:clamp(2.2rem,6vw,4rem); text-align:center; border:1px solid var(--accent);
-      border-radius:18px; background:linear-gradient(145deg,rgba(var(--accent-rgb),.13),rgba(255,255,255,.025));
-    }
-    .final-cta h2 { font-size:clamp(2.2rem,5vw,3.8rem); margin:.45rem 0 .65rem; }
-    .final-cta p { max-width:610px; margin:0 auto 1.4rem; color:var(--text-2); }
-    @media(max-width:800px) {
-      .offer-grid { grid-template-columns:1fr 1fr; }
-      .feature,.standards { grid-template-columns:1fr; gap:1.5rem; }
-      .hero-inner { grid-template-columns:1fr; text-align:center; }
-      .hero-content,.hero-copy { margin-inline:auto; }
-      .hero-actions { justify-content:center; }
-      .hero-dossier { width:min(480px,100%); margin-inline:auto; text-align:left; }
-    }
-    @media(max-width:540px) {
-      .recruit-hero { min-height:auto; padding:6rem 1rem 4rem; }
-      .offer-grid { grid-template-columns:1fr; }
-      .offer-card { min-height:0; }
-      .hero-actions,.recruit-btn { width:100%; }
-      .hero-dossier { padding:1.35rem; }
-      .hero-emblem { width:106px; }
-    }
-  </style>
+  }
+  </script>
 </head>
-<body data-hide-recruitment-banner="true">
+<body class="recruitment-page" data-hide-recruitment-banner="true">
   <script type="module" src="assets/navbar.js"></script>
   <pc-navbar></pc-navbar>
 
-  <header class="recruit-hero">
-    <div class="hero-inner">
-      <div class="hero-content">
-        <p class="eyebrow">Private recruitment · Level 14+</p>
-        <h1>Progress quietly.<br><span>Build something lasting.</span></h1>
-        <p class="hero-copy">Privé Cartel is a dependable Torn faction for active players who value loyalty, measured growth and the strength of a crew that supports its own.</p>
-        <div class="hero-actions">
-          <a class="btn recruit-btn" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i> Start a conversation</a>
-          <a class="btn recruit-btn secondary" href="#benefits">View membership benefits <i class="fa-solid fa-arrow-down"></i></a>
+  <header class="recruit-hero" aria-labelledby="recruit-title">
+    <div class="recruit-hero__glow" aria-hidden="true"></div>
+    <div class="recruit-shell recruit-hero__layout">
+      <div class="recruit-hero__content">
+        <p class="recruit-kicker"><span>Private recruitment</span><span aria-hidden="true">&middot;</span><span>Level 14+</span></p>
+        <h1 id="recruit-title">Built for the<br><em>long game.</em></h1>
+        <p class="recruit-hero__copy">Priv&eacute; Cartel gives active Torn players the structure, resources and people to keep moving forward&mdash;without turning the game into a second job.</p>
+
+        <div class="recruit-actions" aria-label="Recruitment actions">
+          <a class="btn recruit-button" href="contact.html#application-heading">
+            Begin your application
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a class="btn recruit-button recruit-button--secondary" href="#membership">
+            Explore membership
+            <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+          </a>
         </div>
-        <p class="hero-note"><i class="fa-solid fa-circle"></i> Recruitment is currently open to active applicants.</p>
-      </div>
-      <aside class="hero-dossier" aria-label="Membership overview">
-        <div class="dossier-seal">
-          <img class="hero-emblem" src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512">
-          <div><span>Membership brief</span><strong>Privé Cartel</strong></div>
-        </div>
-        <ul class="dossier-list">
-          <li><span>Entry level</span><strong>Level 14+</strong></li>
-          <li><span>Travel capacity</span><strong>+9 items</strong></li>
-          <li><span>Operations</span><strong>OC 2.0 priority</strong></li>
-          <li><span>Residency</span><strong>Relaxed &amp; dependable</strong></li>
+
+        <ul class="recruit-hero__signals" aria-label="Recruitment highlights">
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i>No mandatory wars</li>
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i>Real life respected</li>
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i>Clear expectations</li>
         </ul>
+      </div>
+
+      <aside class="recruit-brief" aria-label="Recruitment brief">
+        <div class="recruit-brief__header">
+          <img src="images/emblem-512.webp" alt="Priv&eacute; Cartel emblem" width="512" height="512" loading="eager" fetchpriority="high">
+          <div>
+            <span class="recruit-brief__label">Membership brief</span>
+            <strong>Priv&eacute; Cartel</strong>
+          </div>
+          <span class="recruit-status"><span aria-hidden="true"></span>Applications open</span>
+        </div>
+
+        <dl class="recruit-brief__facts">
+          <div><dt>Entry point</dt><dd>Level 14+</dd></div>
+          <div><dt>Core perk</dt><dd>+9 travel items</dd></div>
+          <div><dt>Faction model</dt><dd>Relaxed &amp; reliable</dd></div>
+          <div><dt>Operations</dt><dd>OC 2.0 focused</dd></div>
+        </dl>
+
+        <p class="recruit-brief__note">A steady faction for people who communicate, contribute and want to progress with a capable crew behind them.</p>
+        <a class="recruit-brief__link" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">
+          Speak with council
+          <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
       </aside>
     </div>
   </header>
 
   <main id="main-content" class="recruit-main">
-    <section class="intro">
-      <p class="eyebrow">Privé Cartel membership</p>
-      <h2>Solid perks. Good people.<br>Steady progress.</h2>
-      <p>We are looking for active Level 14+ players who want the support of an established faction without unnecessary pressure or noise. Real life comes first; communication and contribution keep the Cartel moving.</p>
+    <section class="recruit-facts recruit-shell" aria-label="Membership at a glance">
+      <div class="recruit-fact"><strong>+9</strong><span>Travel capacity</span></div>
+      <div class="recruit-fact"><strong>02</strong><span>Private Islands in rotation</span></div>
+      <div class="recruit-fact"><strong>05</strong><span>Xanax maximum chain reward</span></div>
+      <div class="recruit-fact"><strong>24h</strong><span>Expected login rhythm</span></div>
     </section>
 
-    <section id="benefits" aria-labelledby="benefits-title">
-      <div class="section-heading">
-        <p class="eyebrow">Standing benefits</p>
-        <h2 id="benefits-title">Everything you need to move forward.</h2>
-      </div>
-      <div class="offer-grid">
-        <article class="offer-card"><span class="offer-icon"><i class="fa-solid fa-plane-departure"></i></span><h3>+9 Travel Capacity</h3><p>Bring more home from every overseas run and make your travel time work harder.</p></article>
-        <article class="offer-card"><span class="offer-icon"><i class="fa-solid fa-shield-halved"></i></span><h3>Equipped Armoury</h3><p>Access weapons, armour, medical supplies, travel kits, consumables and drugs when available.</p></article>
-        <article class="offer-card"><span class="offer-icon"><i class="fa-solid fa-people-group"></i></span><h3>OC 2.0 Priority</h3><p>Planned organised crimes, carefully assigned roles and a faction focused on shared profit.</p></article>
-        <article class="offer-card"><span class="offer-icon"><i class="fa-solid fa-link"></i></span><h3>Chain Rewards</h3><p>Earn up to five Xanax for your contribution, with 250-chain capability and no forced wars.</p></article>
-        <article class="offer-card"><span class="offer-icon"><i class="fa-solid fa-compass"></i></span><h3>Practical Guidance</h3><p>Get informed support with builds, travel, income, happy jumps and general progression.</p></article>
-        <article class="offer-card"><span class="offer-icon"><i class="fa-brands fa-discord"></i></span><h3>Private Community</h3><p>A dedicated lounge for live discussion, strategy, trades, updates and faction coordination.</p></article>
-      </div>
-    </section>
-
-    <section class="feature" aria-labelledby="islands-title">
-      <div class="feature-number">02<small>Private Islands in rotation</small></div>
+    <section class="recruit-intro recruit-shell reveal" aria-labelledby="recruit-intro-title">
       <div>
-        <p class="eyebrow">A stronger start</p>
-        <h2 id="islands-title">Room to grow, from day one.</h2>
-        <p>Eligible newer members can use one of our two Private Islands free for up to two weeks when available—giving you a meaningful boost when it matters most.</p>
-        <ul>
-          <li>Accelerate happy jumps and early stat growth</li>
-          <li>Travel overseas with stronger capacity</li>
-          <li>Build momentum during chains and daily play</li>
+        <p class="recruit-kicker">The right kind of faction</p>
+        <h2 id="recruit-intro-title">Ambitious enough to progress.<br>Grounded enough to last.</h2>
+      </div>
+      <div class="recruit-intro__copy">
+        <p>We are building a dependable roster of players who value consistency over noise. You will find practical support, organised faction activity and leadership that understands the difference between commitment and constant pressure.</p>
+        <blockquote>
+          <span>Our operating principle</span>
+          <p>Show up. Communicate clearly. Help the people beside you move forward.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="membership" class="recruit-benefits recruit-shell reveal" aria-labelledby="benefits-title">
+      <div class="recruit-section-heading">
+        <div>
+          <p class="recruit-kicker">Membership, considered</p>
+          <h2 id="benefits-title">Useful benefits. No filler.</h2>
+        </div>
+        <p>Everything we offer is designed to remove friction from your daily play, strengthen your progression and make faction life worth being part of.</p>
+      </div>
+
+      <div class="recruit-benefit-grid">
+        <article class="recruit-benefit-card">
+          <div class="recruit-benefit-card__top"><span>01</span><i class="fa-solid fa-plane-departure" aria-hidden="true"></i></div>
+          <h3>+9 Travel Capacity</h3>
+          <p>Bring more home from every overseas run and make better use of the time you spend travelling.</p>
+        </article>
+        <article class="recruit-benefit-card">
+          <div class="recruit-benefit-card__top"><span>02</span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+          <h3>Equipped Armoury</h3>
+          <p>Access faction weapons, armour, medical supplies, travel items, consumables and drugs when available.</p>
+        </article>
+        <article class="recruit-benefit-card">
+          <div class="recruit-benefit-card__top"><span>03</span><i class="fa-solid fa-people-group" aria-hidden="true"></i></div>
+          <h3>OC 2.0 Priority</h3>
+          <p>Join planned organised crimes with carefully assigned roles and a shared focus on reliable outcomes.</p>
+        </article>
+        <article class="recruit-benefit-card">
+          <div class="recruit-benefit-card__top"><span>04</span><i class="fa-solid fa-link" aria-hidden="true"></i></div>
+          <h3>Chain Rewards</h3>
+          <p>Earn up to five Xanax for your contribution, backed by 250-chain capability and no mandatory wars.</p>
+        </article>
+        <article class="recruit-benefit-card">
+          <div class="recruit-benefit-card__top"><span>05</span><i class="fa-solid fa-compass" aria-hidden="true"></i></div>
+          <h3>Practical Guidance</h3>
+          <p>Get informed support with training, travel, income, happy jumps and the decisions that shape long-term growth.</p>
+        </article>
+        <article class="recruit-benefit-card">
+          <div class="recruit-benefit-card__top"><span>06</span><i class="fa-brands fa-discord" aria-hidden="true"></i></div>
+          <h3>Private Community</h3>
+          <p>Use a dedicated space for strategy, trades, announcements, live discussion and day-to-day coordination.</p>
+        </article>
+      </div>
+
+      <p class="recruit-disclosure"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>Armoury stock, property access and chain rewards are subject to availability, eligibility and the relevant faction criteria.</p>
+    </section>
+
+    <section class="recruit-islands recruit-shell reveal" aria-labelledby="islands-title">
+      <div class="recruit-islands__mark" aria-hidden="true">
+        <span>02</span>
+        <small>Properties</small>
+      </div>
+      <div class="recruit-islands__content">
+        <p class="recruit-kicker">A stronger start</p>
+        <h2 id="islands-title">Room to establish your momentum.</h2>
+        <p>Eligible newer members can use one of our two Private Islands free for up to two weeks when available. It is a practical head start while you settle into your training, travel and faction routine.</p>
+        <ul class="recruit-tags" aria-label="Private Island terms">
+          <li>Eligible newer members</li>
+          <li>Up to two weeks</li>
+          <li>Subject to availability</li>
         </ul>
+        <a class="recruit-text-link" href="guides/happyjump.html">Read the happy jump guide <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
       </div>
     </section>
 
-    <section class="standards" aria-labelledby="standards-title">
-      <div class="section-heading">
-        <p class="eyebrow">What we ask</p>
+    <section class="recruit-standards recruit-shell reveal" aria-labelledby="standards-title">
+      <div class="recruit-standards__intro">
+        <p class="recruit-kicker">The standard</p>
         <h2 id="standards-title">Relaxed does not mean absent.</h2>
-        <p>We do not manufacture pressure, but we value people who stay connected and pull in the same direction.</p>
+        <p>We do not manufacture pressure. We do value people who stay connected, protect the faction&rsquo;s momentum and communicate when real life takes priority.</p>
+        <div class="recruit-fit-note">
+          <i class="fa-solid fa-fingerprint" aria-hidden="true"></i>
+          <p><strong>You will fit well here if</strong> you are self-directed, considerate and comfortable contributing without needing to be chased.</p>
+        </div>
       </div>
-      <ul class="standards-list">
-        <li><strong>Level 14 or above</strong> and ready to keep progressing.</li>
-        <li><strong>Log in at least once every 24 hours</strong> whenever real life allows.</li>
-        <li><strong>Take part in chains and faction activity</strong> when you are able.</li>
-        <li><strong>Join suitable OC 2.0 roles</strong> and keep your crime readiness in shape.</li>
-        <li><strong>Communicate with leadership</strong> if you are going to be away.</li>
-        <li><strong>Respect our three principles:</strong> presence, discretion and mutual aid.</li>
-      </ul>
+
+      <ol class="recruit-standard-list">
+        <li><span>01</span><p><strong>Be Level 14 or above</strong> and ready to keep progressing.</p></li>
+        <li><span>02</span><p><strong>Log in at least once every 24 hours</strong> whenever real life allows.</p></li>
+        <li><span>03</span><p><strong>Take part in chains and faction activity</strong> when you are able.</p></li>
+        <li><span>04</span><p><strong>Join suitable OC 2.0 roles</strong> and maintain your crime readiness.</p></li>
+        <li><span>05</span><p><strong>Tell leadership when you will be away</strong> so the team can plan around you.</p></li>
+        <li><span>06</span><p><strong>Live our three principles:</strong> presence, discretion and mutual aid.</p></li>
+      </ol>
     </section>
 
-    <section class="final-cta">
-      <p class="eyebrow">Step behind the curtain</p>
-      <h2>Ready to join the Cartel?</h2>
-      <p>Introduce yourself, tell us where you are in your Torn journey, and speak directly with the team about your place in Privé Cartel.</p>
-      <div class="hero-actions">
-        <a class="btn recruit-btn" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i> Join our Discord</a>
-        <a class="btn recruit-btn secondary" href="contact.html"><i class="fa-solid fa-address-card"></i> Contact Council</a>
+    <section class="recruit-process recruit-shell reveal" aria-labelledby="process-title">
+      <div class="recruit-section-heading">
+        <div>
+          <p class="recruit-kicker">The application</p>
+          <h2 id="process-title">Straightforward from the start.</h2>
+        </div>
+        <p>No elaborate pitch is needed. Give us enough context to understand how you play and what you want from your next faction.</p>
+      </div>
+
+      <ol class="recruit-process__steps">
+        <li>
+          <span class="recruit-process__number">01</span>
+          <div><h3>Introduce yourself</h3><p>Share your Torn name, level, normal activity and current priorities.</p></div>
+        </li>
+        <li>
+          <span class="recruit-process__number">02</span>
+          <div><h3>Speak with council</h3><p>We will discuss expectations, OC readiness and what you want to build next.</p></div>
+        </li>
+        <li>
+          <span class="recruit-process__number">03</span>
+          <div><h3>Find the right fit</h3><p>If the match works both ways, we will guide you through the next step.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="recruit-faq recruit-shell reveal" aria-labelledby="faq-title">
+      <div class="recruit-faq__intro">
+        <p class="recruit-kicker">Before you apply</p>
+        <h2 id="faq-title">The useful details, upfront.</h2>
+        <p>Good recruitment starts with clarity. These are the questions applicants usually need answered first.</p>
+      </div>
+      <div class="recruit-faq__list">
+        <details>
+          <summary>Are wars mandatory?<i class="fa-solid fa-plus" aria-hidden="true"></i></summary>
+          <p>No. Priv&eacute; Cartel does not force members into wars. We ask for sensible participation in chains and faction activity when you are available.</p>
+        </details>
+        <details>
+          <summary>How active do I need to be?<i class="fa-solid fa-plus" aria-hidden="true"></i></summary>
+          <p>Our standard rhythm is at least one login every 24 hours when real life allows. If you need time away, communicate with leadership so we can plan.</p>
+        </details>
+        <details>
+          <summary>What should I include in my application?<i class="fa-solid fa-plus" aria-hidden="true"></i></summary>
+          <p>Your Torn name, level, activity pattern, current goals and availability for OC 2.0 or chains are enough to start a useful conversation.</p>
+        </details>
+        <details>
+          <summary>Is Private Island access guaranteed?<i class="fa-solid fa-plus" aria-hidden="true"></i></summary>
+          <p>No. The two-week arrangement is for eligible newer members and depends on the current property rotation and availability.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="recruit-cta recruit-shell reveal" aria-labelledby="cta-title">
+      <img src="images/emblem-512.webp" alt="" width="512" height="512" loading="lazy" aria-hidden="true">
+      <div class="recruit-cta__content">
+        <p class="recruit-kicker">Your next move</p>
+        <h2 id="cta-title">Start with a clear introduction.</h2>
+        <p>Tell us where you are in your Torn journey and what you want from your next faction. We will take it from there.</p>
+        <div class="recruit-actions">
+          <a class="btn recruit-button" href="contact.html#application-heading">
+            Build your application
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a class="btn recruit-button recruit-button--secondary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-discord" aria-hidden="true"></i>
+            Open Discord
+          </a>
+        </div>
+        <p class="recruit-cta__hint">Useful details: Torn name, level, activity pattern, goals and OC availability.</p>
       </div>
     </section>
   </main>
 
-  <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
+  <footer class="site-footer" data-enhanced="true">
+    <div class="footer-shell">
+      <div class="footer-kicker">
+        <span>Faction HQ</span>
+        <span>OC 2.0 coordination &bull; Chain rewards &bull; Member support</span>
+      </div>
+
+      <div class="footer-main">
+        <div class="footer-brand" aria-label="Priv&eacute; Cartel">
+          <a class="footer-logo" href="index.html">
+            <img src="images/emblem-512.webp" alt="" loading="lazy" width="512" height="512">
+            <span><strong>PRIV&Eacute;</strong> CARTEL</span>
+          </a>
+          <p>Discreet operations hub for Torn members who value presence, discipline and mutual aid.</p>
+          <ul class="footer-values" aria-label="Faction values">
+            <li>Presence</li>
+            <li>Discretion</li>
+            <li>Mutual Aid</li>
+          </ul>
+        </div>
+
+        <nav class="footer-column" aria-label="Main pages">
+          <h2>Navigate</h2>
+          <a href="index.html">Home</a>
+          <a href="rules.html">Rules</a>
+          <a href="guides.html">Guides</a>
+          <a href="news.html">News</a>
+        </nav>
+
+        <nav class="footer-column" aria-label="Member resources">
+          <h2>Resources</h2>
+          <a href="guides/organized-crimes-2.html">OC 2.0 Guide</a>
+          <a href="members.html">Members</a>
+          <a href="faq.html">FAQ</a>
+          <a href="wallpapers.html">Wallpapers</a>
+          <a href="archive.html">Archive</a>
+        </nav>
+
+        <div class="footer-council" aria-label="Leadership and contact">
+          <h2>Council Desk</h2>
+          <dl>
+            <div><dt>Leader</dt><dd>ForeverHydrox</dd></div>
+            <div><dt>Co-Leader</dt><dd>Skillerious</dd></div>
+          </dl>
+          <div class="footer-actions">
+            <a class="footer-primary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-discord" aria-hidden="true"></i>
+              <span>Join Discord</span>
+            </a>
+            <a class="footer-secondary" href="contact.html">Contact Council</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Priv&eacute; Cartel.</p>
+      <p>What happens behind the curtain stays ours.</p>
+    </div>
+  </footer>
+
   <script src="assets/script.js"></script>
 </body>
 </html>

@@ -174,6 +174,28 @@
       margin-top: 1.4rem;
     }
 
+    .rules-revision {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem 1rem;
+      margin: 1rem 0 0;
+      color: rgba(232, 226, 206, .66);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .rules-revision span {
+      display: inline-flex;
+      align-items: center;
+      gap: .42rem;
+    }
+
+    .rules-revision i {
+      color: var(--accent);
+    }
+
     .rules-hero-note {
       min-width: 0;
       border: 1px solid rgba(var(--accent-rgb), .34);
@@ -498,6 +520,80 @@
       line-height: 1.55;
     }
 
+    .rules-card--chat {
+      border-color: rgba(var(--accent-rgb), .55);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(var(--accent-rgb), .13), transparent 24rem),
+        linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .018)),
+        rgba(0, 0, 0, .52);
+    }
+
+    .chat-policy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .75rem;
+    }
+
+    .chat-policy {
+      min-width: 0;
+      padding: 1rem;
+      border: 1px solid rgba(var(--accent-rgb), .18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .027);
+    }
+
+    .chat-policy-head {
+      display: flex;
+      gap: .72rem;
+      align-items: center;
+      margin-bottom: .55rem;
+    }
+
+    .chat-policy i {
+      flex: 0 0 2.15rem;
+      width: 2.15rem;
+      height: 2.15rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb), .1);
+      color: var(--accent-light);
+    }
+
+    .chat-policy h3 {
+      margin: 0;
+      color: var(--accent-light);
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+      font-size: .96rem;
+    }
+
+    .chat-policy p {
+      margin: 0;
+      color: rgba(232, 226, 206, .78);
+      font-size: .9rem;
+      line-height: 1.58;
+    }
+
+    .chat-priority-note {
+      display: flex;
+      gap: .68rem;
+      align-items: flex-start;
+      margin: .85rem 0 0;
+      padding: .78rem .9rem;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      background: rgba(var(--accent-rgb), .075);
+      color: rgba(232, 226, 206, .82);
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+
+    .chat-priority-note i {
+      margin-top: .16rem;
+      color: var(--accent);
+    }
+
     .council-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -703,6 +799,7 @@
       }
 
       .council-grid,
+      .chat-policy-grid,
       .rules-card--action .rules-card-body {
         grid-template-columns: 1fr;
       }
@@ -732,13 +829,17 @@
             <a class="btn" href="#activity"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Review Rules</a>
             <a class="btn secondary" href="#leadership"><i class="fa-solid fa-crown" aria-hidden="true"></i> Contact Council</a>
           </div>
+          <p class="rules-revision">
+            <span><i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Seven clear standards</span>
+            <span><i class="fa-regular fa-calendar-check" aria-hidden="true"></i> Reviewed August 2026</span>
+          </p>
         </div>
         <aside class="rules-hero-note" aria-label="Rule priorities">
           <h2>What matters most</h2>
           <ul>
             <li><i class="fa-solid fa-clock" aria-hidden="true"></i><span>Log in daily or leave clear notice before extended absence.</span></li>
             <li><i class="fa-solid fa-user-ninja" aria-hidden="true"></i><span>Join and execute Organised Crimes when assigned.</span></li>
-            <li><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span>Do not start external conflicts without leadership approval.</span></li>
+            <li><i class="fa-solid fa-comments" aria-hidden="true"></i><span>Keep faction chat useful, civil and appropriate for everyone.</span></li>
           </ul>
         </aside>
       </div>
@@ -753,9 +854,10 @@
               <a href="#core" aria-current="true"><span>0</span> Core Tenets</a>
               <a href="#activity"><span>1</span> Activity</a>
               <a href="#oc"><span>2</span> OC 2.0</a>
-              <a href="#conduct"><span>3</span> External Conduct</a>
-              <a href="#culture"><span>4</span> Culture</a>
-              <a href="#warfare"><span>5</span> Conflict &amp; Warfare</a>
+              <a href="#chat"><span>3</span> Faction Chat</a>
+              <a href="#conduct"><span>4</span> External Conduct</a>
+              <a href="#culture"><span>5</span> Culture</a>
+              <a href="#warfare"><span>6</span> Conflict &amp; Warfare</a>
               <a href="#leadership"><span><i class="fa-solid fa-crown" aria-hidden="true"></i></span> Leadership</a>
             </nav>
             <div class="rules-sidebar-cta">
@@ -802,9 +904,9 @@
                 <dt>Daily Presence</dt>
                 <dd>Log in at least once every 24 hours. A Last Action time above 24 hours will flag you as inactive.</dd>
                 <dt>Event Notifications</dt>
-                <dd>Enable push alerts in the Torn mobile app, or email/SMS via Settings &rarr; Preferences, so OC and chain pings reach you quickly.</dd>
+                <dd>Enable the Torn and Discord notification channels you rely on so OC, chain and leadership pings reach you promptly.</dd>
                 <dt>OC Commitment</dt>
-                <dd>If you join an OC 2.0 scenario, remain active throughout its three-to-six-day timer and sub-one-minute execution phase. Missing the execution can void the run and consume Scope.</dd>
+                <dd>If you join an OC 2.0 scenario, remain available throughout its displayed planning window. Be healthy, in Torn and ready with every required item before initiation.</dd>
                 <dt>Chain Windows</dt>
                 <dd>Members who opt in must respond within five minutes during scheduled chain windows. Keep at least 50 Energy banked, fast targets bookmarked and hospital time below ten minutes.</dd>
                 <dt>Vacation Mode</dt>
@@ -827,19 +929,19 @@
               <p class="rules-lede">Organised Crimes require preparation and dependable participation. Confirm that you can meet the full commitment before taking a role.</p>
               <dl class="rule-list">
                 <dt>Scenario System</dt>
-                <dd>Every OC is a named scenario from levels 1&ndash;9. Difficulty tiers are Lambda, Sigma, Psi and Omega, with Scope costs increasing by tier.</dd>
+                <dd>Every OC is a named scenario from levels 1&ndash;10. Difficulty tiers are Lambda, Sigma, Phi, Psi and Omega, with Scope costs increasing by tier.</dd>
                 <dt>Scope Pool</dt>
                 <dd>Factions start with 25 Scope, can hold up to 100 and regenerate one Scope per day. Completing scenarios may also award bonus Scope.</dd>
                 <dt>Planning to Execution</dt>
-                <dd>When the preparation countdown ends, the execution phase lasts less than one minute. Every participant must be online, healthy and carrying the required items, or the run may fail.</dd>
+                <dd>When planning completes, initiation lasts less than one minute. During that phase every participant must remain healthy and in Torn, with all required tools and materials available, or the run may fail.</dd>
                 <dt>Roles and Items</dt>
                 <dd>Participants fill role slots based on suitability and success score. Materials such as C-4 and zip-ties are consumed; tools such as Jemmy and DSLR persist.</dd>
                 <dt>New Member Guide</dt>
                 <dd>Before joining your first scenario, read the <a href="guides/organized-crimes-2.html">Organized Crimes 2.0 guide</a> for slot selection, item checks, timers and payout expectations.</dd>
                 <dt>Payout Split</dt>
-                <dd>On success, leadership chooses the split between faction and members. Cash can hit wallets or the faction bank; item loot is distributed randomly or sold at market value.</dd>
+                <dd>On success, leadership chooses the split between the faction and participants. Cash can go to wallets or faction balances; item rewards may be allocated randomly or paid out at market value from faction funds.</dd>
                 <dt>Readiness</dt>
-                <dd>Join only if you can remain active for the full three to six days and keep your Last Action time below 24 hours. If you cannot log in, notify leadership immediately.</dd>
+                <dd>Join only if you can remain active for the scenario's displayed planning time and keep your Last Action time below 24 hours. If your availability changes, notify leadership immediately.</dd>
               </dl>
               <div class="rule-alert" role="note" aria-label="Mandatory OC participation policy">
                 <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
@@ -851,16 +953,60 @@
             </div>
           </section>
 
-          <section id="conduct" class="rules-card">
+          <section id="chat" class="rules-card rules-card--chat">
             <header class="rules-card-head">
               <span class="rule-number">3</span>
+              <div>
+                <p class="rule-eyebrow">Useful, welcoming communication</p>
+                <h2>Faction Chat Standard</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <p class="rules-lede">Faction chat is our shared operations room. Faction business takes priority, with room for friendly off-topic conversation when it does not crowd out coordination or make others uncomfortable.</p>
+              <div class="chat-policy-grid">
+                <article class="chat-policy">
+                  <div class="chat-policy-head">
+                    <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+                    <h3>Business Comes First</h3>
+                  </div>
+                  <p>Keep OC coordination, chain calls, faction alerts, member help and leadership messages visible. Pause or move casual conversation when operational messages need attention.</p>
+                </article>
+                <article class="chat-policy">
+                  <div class="chat-policy-head">
+                    <i class="fa-solid fa-handshake-angle" aria-hidden="true"></i>
+                    <h3>Keep It Civil</h3>
+                  </div>
+                  <p>Disagree without insults, baiting, harassment, slurs or dogpiling. Banter is welcome only while everyone involved is comfortable; stop when asked.</p>
+                </article>
+                <article class="chat-policy">
+                  <div class="chat-policy-head">
+                    <i class="fa-solid fa-rectangle-ad" aria-hidden="true"></i>
+                    <h3>No Promotion or Soliciting</h3>
+                  </div>
+                  <p>Do not advertise other factions, servers, services, referral links, streams or personal projects, and do not recruit members, unless leadership has approved it first.</p>
+                </article>
+                <article class="chat-policy">
+                  <div class="chat-policy-head">
+                    <i class="fa-solid fa-shield" aria-hidden="true"></i>
+                    <h3>Keep It Appropriate</h3>
+                  </div>
+                  <p>Sexual or explicitly suggestive conversation, sexual harassment, and NSFW images or links are not permitted. Keep the chat comfortable for a broad member audience.</p>
+                </article>
+              </div>
+              <p class="chat-priority-note"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span>Light off-topic chat is fine. Move long conversations, screenshots, voice chat and anything that starts dominating the channel to Discord.</span></p>
+            </div>
+          </section>
+
+          <section id="conduct" class="rules-card">
+            <header class="rules-card-head">
+              <span class="rule-number">4</span>
               <div>
                 <p class="rule-eyebrow">Reputation and diplomacy</p>
                 <h2>External Conduct</h2>
               </div>
             </header>
             <div class="rules-card-body">
-              <p class="rules-lede">Your conduct outside the faction reflects on every member. Follow these rules when dealing with other factions, using the market or posting in public channels.</p>
+              <p class="rules-lede">Your conduct outside the faction reflects on every member. Follow these standards when dealing with other factions, using the market or posting in public channels.</p>
               <dl class="rule-list">
                 <dt>Faction Relations</dt>
                 <dd>Leadership manages our relationships with other factions. Do not provoke disputes, negotiate agreements or promise favours on the faction's behalf without approval.</dd>
@@ -870,10 +1016,10 @@
                 <dd>Arranging mercenaries or intimidation squads without leadership consent is forbidden. Recruiting outsiders, or threatening to, counts as hostile action.</dd>
                 <dt>Trade and Marketplace</dt>
                 <dd>Use Torn's Trade window or Item Market, and keep evidence of deals worth more than $50m. Real-money, cross-game and cryptocurrency trades are prohibited.</dd>
-                <dt>Chat, Forums and Global</dt>
-                <dd>Slurs, doxxing and real-life threats are prohibited. Keep internal strategy out of public channels, and make jokes clearly recognisable to avoid unnecessary conflict.</dd>
+                <dt>Public Channels</dt>
+                <dd>Slurs, doxxing and real-life threats are prohibited. Keep internal messages, screenshots and strategy out of forums, global chat and other public channels.</dd>
                 <dt>Harassment</dt>
-                <dd>Light-hearted banter is welcome; stalking, repeated unwanted messages and intimidation are not. Remember that Torn records messages and may review complaints.</dd>
+                <dd>Light-hearted banter is welcome; stalking, repeated unwanted messages and intimidation are not. Save relevant evidence and report concerns privately to leadership.</dd>
                 <dt>Scamming</dt>
                 <dd>The faction permits buy-mugging as a gameplay mechanic. Any transaction or agreement, internal or external, is binding and must be honoured.</dd>
               </dl>
@@ -889,7 +1035,7 @@
 
           <section id="culture" class="rules-card">
             <header class="rules-card-head">
-              <span class="rule-number">4</span>
+              <span class="rule-number">5</span>
               <div>
                 <p class="rule-eyebrow">How we operate internally</p>
                 <h2>Internal Culture</h2>
@@ -901,7 +1047,7 @@
                 <dt>Mentoring</dt>
                 <dd>New arrivals can request a mentor for builds, routes and revenue strategies.</dd>
                 <dt>Resource Pool</dt>
-                <dd>Donate spare meds, ammo or job points to the armoury. What helps one member can help the whole faction.</dd>
+                <dd>Donate spare medical items, weapons, armour or other useful supplies when leadership requests them. What helps one member can help the whole faction.</dd>
                 <dt>Knowledge Sharing</dt>
                 <dd>Post patch-note finds, economy tips and smart-play advice so the entire faction stays ahead.</dd>
               </dl>
@@ -910,7 +1056,7 @@
 
           <section id="warfare" class="rules-card">
             <header class="rules-card-head">
-              <span class="rule-number">5</span>
+              <span class="rule-number">6</span>
               <div>
                 <p class="rule-eyebrow">Risk management</p>
                 <h2>Conflict &amp; Warfare</h2>
@@ -922,9 +1068,9 @@
                 <dt>Non-Warring Stance</dt>
                 <dd>We prioritise profit and preservation over conquest.</dd>
                 <dt>Energy Drain</dt>
-                <dd>Random hits waste energy better spent on OCs and gym gains.</dd>
+                <dd>Random hits waste energy better spent on training, chains and coordinated faction events.</dd>
                 <dt>Perk Protection</dt>
-                <dd>Specials such as travel slots, armoury and rehab discounts vanish if respect is wiped.</dd>
+                <dd>Sustained losses can threaten respect-funded upgrades, member capacity and faction benefits.</dd>
                 <dt>Defensive Hits</dt>
                 <dd>When leaders call a shield wall, one timely revive or defend can help end hostilities.</dd>
               </dl>
@@ -940,7 +1086,7 @@
               </div>
             </header>
             <div class="rules-card-body">
-              <p>For strategy, quick trades or casual chat, join the Discord lounge.</p>
+              <p>Use faction chat for live business and light conversation. For longer strategy discussions, screenshots, voice chat or extended off-topic conversation, use the Discord lounge.</p>
               <a href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener" class="btn">
                 <i class="fa-brands fa-discord" aria-hidden="true"></i> Join Now
               </a>
