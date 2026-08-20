@@ -6,7 +6,94 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Privé Cartel | Ultimate Happy-Jump Encyclopedia (Torn.com)</title>
   <meta name="description" content="The definitive, always-green guide to Torn’s Happy-Jump system — property caps, boosters, timing maths, energy stacking, advanced tricks, FAQs and reference tables." />
-  <link rel="icon" type="image/png" href="../images/Emblem.png" />
+  <!-- SEO -->
+  <link rel="canonical" href="https://www.privecartel.com/guides/happyjump.html">
+  <meta name="robots" content="index,follow">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:site_name" content="Privé Cartel">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Privé Cartel | Ultimate Happy-Jump Encyclopedia (Torn.com)">
+  <meta property="og:description" content="The definitive, always-green guide to Torn’s Happy-Jump system — property caps, boosters, timing maths, energy stacking, advanced tricks, FAQs and reference tables.">
+  <meta property="og:url" content="https://www.privecartel.com/guides/happyjump.html">
+  <meta property="og:image" content="https://www.privecartel.com/images/Emblem.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Privé Cartel emblem">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privé Cartel | Ultimate Happy-Jump Encyclopedia (Torn.com)">
+  <meta name="twitter:description" content="The definitive, always-green guide to Torn’s Happy-Jump system — property caps, boosters, timing maths, energy stacking, advanced tricks, FAQs and reference tables.">
+  <meta name="twitter:image" content="https://www.privecartel.com/images/Emblem.png">
+  <meta name="theme-color" content="#0b0d10">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.privecartel.com/#organization",
+        "name": "Privé Cartel",
+        "url": "https://www.privecartel.com/",
+        "logo": "https://www.privecartel.com/images/Emblem.png",
+        "sameAs": [
+          "https://discord.gg/DmxrRAjBdk"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.privecartel.com/#website",
+        "name": "Privé Cartel",
+        "url": "https://www.privecartel.com/",
+        "description": "Official Privé Cartel faction hub for Torn rules, guides, news, member resources and contact.",
+        "publisher": {
+          "@id": "https://www.privecartel.com/#organization"
+        },
+        "inLanguage": "en-GB"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.privecartel.com/guides/happyjump.html#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.privecartel.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Guides",
+            "item": "https://www.privecartel.com/guides.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Privé Cartel | Ultimate Happy-Jump Encyclopedia (Torn.com)",
+            "item": "https://www.privecartel.com/guides/happyjump.html"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://www.privecartel.com/guides/happyjump.html#article",
+        "headline": "Privé Cartel | Ultimate Happy-Jump Encyclopedia (Torn.com)",
+        "description": "The definitive, always-green guide to Torn’s Happy-Jump system — property caps, boosters, timing maths, energy stacking, advanced tricks, FAQs and reference tables.",
+        "url": "https://www.privecartel.com/guides/happyjump.html",
+        "mainEntityOfPage": "https://www.privecartel.com/guides/happyjump.html",
+        "image": "https://www.privecartel.com/images/Emblem.png",
+        "author": {
+          "@id": "https://www.privecartel.com/#organization"
+        },
+        "publisher": {
+          "@id": "https://www.privecartel.com/#organization"
+        },
+        "inLanguage": "en-GB"
+      }
+    ]
+  }
+  </script>
+  <!-- /SEO -->
+  <link rel="icon" type="image/png" href="../assets/icon-192.png" />
 
   <!-- FONTS & ICONS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -35,11 +122,10 @@
     /* headings */
     .guide-content h2{margin-top:1.8rem;color:var(--accent);font-family:'Cormorant Garamond',serif;position:relative;padding-bottom:.4rem}
     .guide-content h2::after{content:"";position:absolute;left:0;bottom:0;width:34px;height:2px;background:linear-gradient(to right,var(--accent) 0%,rgba(214,184,109,0) 100%)}
-    .guide-content h3{margin-top:1.4rem;font-family:'Cormorant Garamond',serif;color:#d6b86d}
-    .guide-content h4{margin-top:1.1rem;color:var(--text-1)}
+    .guide-content h3{margin-top:1.3rem;font-family:'Cormorant Garamond',serif;color:#d6b86d}
 
     /* spacing */
-    .guide-content h2 + *, .guide-content h3 + *, .guide-content h4 + *{margin-top:.75rem}
+    .guide-content h2 + *, .guide-content h3 + *{margin-top:.75rem}
 
     /* lists */
     ul.standard,ol.standard{list-style:outside;padding-left:1.6rem;margin:1rem 0}
@@ -63,6 +149,7 @@
     /* callout */
     .callout{background:rgba(214,184,109,.1);border:1px solid var(--accent);border-radius:6px;padding:1rem;margin:1.6rem 0;font-style:italic}
   </style>
+  <link rel="stylesheet" href="../assets/editorial.css">
 </head>
 <body>
 
@@ -72,15 +159,16 @@
 
 <!-- HERO -->
 <section class="rules-hero">
-  <img src="../images/Emblem.png" alt="Cartel Emblem" class="emblem" />
+  <img src="../images/emblem-512.webp" alt="Privé Cartel emblem" class="emblem" width="512" height="512" loading="eager" fetchpriority="high" decoding="async" />
   <h1>Ultimate Happy-Jump Encyclopedia</h1>
   <p class="tagline" style="max-width:720px;margin:.9rem auto">
-    A **property-to-exponential-gain** guide for every Torn player.  
+    A property-to-exponential-gain guide for every Torn player.
     Understand the math, master the timing, and squeeze every stat point out of your energy.
   </p>
 </section>
 
 <!-- GUIDE BODY -->
+<main id="main-content">
 <section class="rules-block">
   <div class="container glass guide-content">
 
@@ -109,7 +197,7 @@
     <ul class="standard">
       <li><strong>Exponential scaling</strong>: Gains ∝ <code>currentHappy<sup>0.4</sup></code>. Doubling happy ≈ 2.3× gains.</li>
       <li>Training drains happy by 40-60 % of E spent (or 20-30 % with faction <strong>Goal Oriented</strong>).</li>
-      <li>Any happy above your property cap **evaporates** on the next quarter-hour tick (<em>00/15/30/45</em>).</li>
+      <li>Any happy above your property cap <strong>evaporates</strong> on the next quarter-hour tick (<em>00/15/30/45</em>).</li>
     </ul>
 
     <!-- SECTION 2 -->
@@ -130,7 +218,7 @@
       </tbody>
     </table>
 
-    <h4>2.2 Booster Cool-down Limits</h4>
+    <h3>2.2 Booster Cool-down Limits</h3>
     <ul class="standard">
       <li>Base booster bar = <strong>24 h</strong>.</li>
       <li>Faction <strong>Voracity</strong>: +1 h per upgrade (max 48 h).</li>
@@ -167,11 +255,11 @@
       <li><strong>Over-Cap Happy :</strong> Spam boosters (e.g. 5 EDVDs). Keep an eye on booster bar quota.</li>
       <li><strong>[Optional] Nandrolone :</strong> Gives +50 % gains for the next hour.</li>
       <li><strong>Pop Ecstasy :</strong> Doubles whatever happy you see <span class="t-purple">now</span>.</li>
-      <li><strong>Train Hard & Single-Stat :</strong> Use up your entire energy stack in the ****best gym**** you’ve unlocked.</li>
+      <li><strong>Train Hard & Single-Stat:</strong> Use your entire energy stack in the <strong>best gym</strong> you’ve unlocked.</li>
       <li><strong>Reset & Log :</strong> Any leftover over-cap happy evaporates at next quarter-hour. Record before/after stats to measure ROI.</li>
     </ol>
 
-    <h4>4.1 Example Numbers (Private Island, 5 EDVDs, Deep Burn Gym)</h4>
+    <h3>4.1 Example Numbers (Private Island, 5 EDVDs, Deep Burn Gym)</h3>
     <table class="data-table">
       <thead><tr><th>Step</th><th>Happy</th><th>Comment</th></tr></thead>
       <tbody>
@@ -211,10 +299,10 @@
 
     <!-- SECTION 7 -->
     <h2>7 · Advanced Extras</h2>
-    <h4>7.1 Booster Cool-down Chain (BCC)</h4>
+    <h3>7.1 Booster Cool-down Chain (BCC)</h3>
     <p>Consume 5 different boosters (e.g. Yayo, Vicodin, Box of Grenades, Small Red, Steroids) → booster cooldown shrinks from 6 h to 1 h for the next booster, letting you take a <em>second</em> Nandrolone inside the same 15-minute jump.</p>
 
-    <h4>7.2 Event Multipliers</h4>
+    <h3>7.2 Event Multipliers</h3>
     <ul class="standard">
       <li><strong>World Diabetes Day</strong> (13-15 Nov): Candy gains ×3 (×9 with <em>Yes Please, Diabetes!</em> book + Voracity synergy).</li>
       <li><strong>Halloween</strong>: Pumpkins boost gym %; layer with jumps for extreme returns.</li>
@@ -234,6 +322,7 @@
     </div>
   </div>
 </section>
+</main>
 
 <!-- FOOTER -->
 <footer><p>&copy; <span id="year"></span> Privé Cartel</p></footer>

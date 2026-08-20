@@ -1068,6 +1068,7 @@
       .profile-card:hover{transform:none}
     }
   </style>
+  <link rel="stylesheet" href="assets/editorial.css">
 </head>
 <body>
 
@@ -1077,7 +1078,7 @@
 
 <!-- HERO -->
 <section class="rules-hero">
-  <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512">
+  <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512" loading="eager" fetchpriority="high" decoding="async">
   <h1>Contact Our Leadership</h1>
   <p class="tagline" style="max-width:680px">
     Reach the Privé Cartel council for recruitment, OC coordination, chain support and faction questions.
@@ -1095,7 +1096,7 @@
             <h2 id="leadership-heading">Leadership Council</h2>
             <p>Reach the right council member quickly. Live status appears when you have saved a Torn API key on the members page; otherwise the cards still work as direct profile links.</p>
           </div>
-          <div class="section-stat" aria-label="Leadership count">
+          <div class="section-stat" role="group" aria-label="Leadership count">
             <strong>04</strong>
             Council contacts
           </div>
@@ -1106,10 +1107,10 @@
         <!-- ForeverHydrox -->
         <article class="profile-card">
           <span class="status-pill" data-id="2753560" role="status" aria-live="polite">Status</span>
-          <img class="avatar" src="images/blankprofile.jpg" data-id="2753560" alt="ForeverHydrox avatar">
+          <img class="avatar" src="images/blankprofile.jpg" data-id="2753560" alt="ForeverHydrox avatar" width="642" height="638" loading="lazy" decoding="async">
           <h3>ForeverHydrox</h3>
           <p class="role">Leader</p>
-          <div class="profile-meta" aria-label="Focus areas">
+          <div class="profile-meta" role="group" aria-label="Focus areas">
             <span>Diplomacy</span>
             <span>Operations</span>
             <span>Strategy</span>
@@ -1134,10 +1135,10 @@
         <!-- Skillerious -->
         <article class="profile-card">
           <span class="status-pill" data-id="3212954" role="status" aria-live="polite">Status</span>
-          <img class="avatar" src="images/blankprofile.jpg" data-id="3212954" alt="Skillerious avatar">
+          <img class="avatar" src="images/blankprofile.jpg" data-id="3212954" alt="Skillerious avatar" width="642" height="638" loading="lazy" decoding="async">
           <h3>Skillerious</h3>
           <p class="role">Co-Leader</p>
-          <div class="profile-meta" aria-label="Focus areas">
+          <div class="profile-meta" role="group" aria-label="Focus areas">
             <span>Tools</span>
             <span>Data</span>
             <span>Combat</span>
@@ -1161,10 +1162,10 @@
         <!-- JdedPrincess -->
         <article class="profile-card">
           <span class="status-pill" data-id="3400392" role="status" aria-live="polite">Status</span>
-          <img class="avatar" src="images/blankprofile.jpg" data-id="3400392" alt="JdedPrincess avatar">
+          <img class="avatar" src="images/blankprofile.jpg" data-id="3400392" alt="JdedPrincess avatar" width="642" height="638" loading="lazy" decoding="async">
           <h3>JdedPrincess</h3>
           <p class="role">Council Member</p>
-          <div class="profile-meta" aria-label="Focus areas">
+          <div class="profile-meta" role="group" aria-label="Focus areas">
             <span>Morale</span>
             <span>Support</span>
             <span>Culture</span>
@@ -1186,10 +1187,10 @@
         <!-- Igniatus -->
         <article class="profile-card">
           <span class="status-pill" data-id="2541592" role="status" aria-live="polite">Status</span>
-          <img class="avatar" src="images/blankprofile.jpg" data-id="2541592" alt="Igniatus avatar">
+          <img class="avatar" src="images/blankprofile.jpg" data-id="2541592" alt="Igniatus avatar" width="642" height="638" loading="lazy" decoding="async">
           <h3>Igniatus</h3>
           <p class="role">Treasurer</p>
-          <div class="profile-meta" aria-label="Focus areas">
+          <div class="profile-meta" role="group" aria-label="Focus areas">
             <span>Banking</span>
             <span>Payouts</span>
             <span>Records</span>
@@ -1376,7 +1377,7 @@
     </div>
 
     <div class="footer-main">
-      <div class="footer-brand" aria-label="Priv&eacute; Cartel">
+      <div class="footer-brand" role="group" aria-label="Priv&eacute; Cartel">
         <a class="footer-logo" href="index.html">
           <img src="images/emblem-512.webp" alt="" loading="lazy" width="512" height="512">
           <span><strong>PRIV&Eacute;</strong> CARTEL</span>
@@ -1406,7 +1407,7 @@
         <a href="archive.html">Archive</a>
       </nav>
 
-      <div class="footer-council" aria-label="Leadership and contact">
+      <div class="footer-council" role="group" aria-label="Leadership and contact">
         <h2>Council Desk</h2>
         <dl>
           <div><dt>Leader</dt><dd>ForeverHydrox</dd></div>

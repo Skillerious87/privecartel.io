@@ -46,32 +46,21 @@ document.addEventListener("DOMContentLoaded", () => {
       10
     ) || 72;
 
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const id = link.getAttribute("href").slice(1);
-      const target = document.getElementById(id);
-      if (!target) return;
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest?.('a[href^="#"]');
+    if (!link) return;
+    const id = link.getAttribute("href").slice(1);
+    const target = document.getElementById(id);
+    if (!target) return;
 
-      e.preventDefault();
-      const y =
-        target.getBoundingClientRect().top + window.pageYOffset - navH - 20;
-      window.scrollTo({ top: y, behavior: scrollBehavior });
-      if (location.hash !== `#${id}`) history.pushState(null, "", `#${id}`);
-    });
+    event.preventDefault();
+    const y = target.getBoundingClientRect().top + window.scrollY - navH - 20;
+    window.scrollTo({ top: y, behavior: scrollBehavior });
+    if (location.hash !== `#${id}`) history.pushState(null, "", `#${id}`);
   });
 
-  /* ───── 3. Navbar shadow fallback ───── */
+  /* ───── 3. Scroll UI (one animation-frame update for all effects) ───── */
   const nav = document.querySelector(".navbar");
-  const shadowCls = "nav-shadow";
-  const addShadow = () =>
-    nav &&
-    (window.scrollY > 60
-      ? nav.classList.add(shadowCls)
-      : nav.classList.remove(shadowCls));
-  addShadow();
-  window.addEventListener("scroll", addShadow, { passive: true });
-
-  /* ───── 5. Back-to-top button ───── */
   const backBtn = document.getElementById("backTop") || document.createElement("button");
   backBtn.id = "backTop";
   backBtn.type = "button";
@@ -81,97 +70,104 @@ document.addEventListener("DOMContentLoaded", () => {
     backBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
   }
   if (!backBtn.isConnected) document.body.appendChild(backBtn);
-
-  const css = `
-    #backTop{
-      position:fixed;bottom:1.75rem;right:1.5rem;z-index:950;
-      width:44px;height:44px;display:grid;place-items:center;
-      font-size:1.1rem;border:none;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent-light,#f0d79a),var(--accent) 48%,var(--accent-deep,#8c692d));
-      background-size:170% 170%;background-position:0% 50%;
-      color:#000;box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 10px 26px rgba(0,0,0,.42),0 0 0 1px rgba(var(--accent-rgb),.18);
-      cursor:pointer;opacity:0;pointer-events:none;
-      transition:opacity .35s ease,background-position .45s cubic-bezier(.22,.61,.36,1),box-shadow .25s ease;
-    }
-    #backTop.show{opacity:.92;pointer-events:auto}
-    #backTop:hover{opacity:1;background-position:100% 50%;box-shadow:inset 0 1px 0 rgba(255,255,255,.48),0 14px 30px rgba(0,0,0,.46),0 0 24px rgba(var(--accent-rgb),.2)}
-    #backTop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-    /* reading progress bar */
-    #readBar{
-      position:fixed;top:0;left:0;height:3px;background:var(--accent);
-      width:0;z-index:999;pointer-events:none;transition:width .15s ease-out;
-    }
-    :is(.card,.guide-card,.news-card,.wallpaper-card,.feat-card,.member-card,.pill):hover,
-    :is(.card,.guide-card,.news-card,.wallpaper-card,.feat-card,.member-card,.pill):focus-visible{
-      transform:none!important;
-    }
-    :is(.card,.guide-card,.news-card,.wallpaper-card,.feat-card,.member-card):hover,
-    :is(.card,.guide-card,.news-card,.wallpaper-card,.feat-card,.member-card):focus-visible{
-      border-color:rgba(var(--accent-rgb),.76)!important;
-      box-shadow:0 8px 18px rgba(0,0,0,.34)!important;
-    }
-  `;
-  document.head.appendChild(
-    Object.assign(document.createElement("style"), { textContent: css })
-  );
-
-  const toggleTopBtn = () =>
-    backBtn.classList.toggle("show", window.scrollY > 400);
-  toggleTopBtn();
-  window.addEventListener("scroll", toggleTopBtn, { passive: true });
   backBtn.addEventListener("click", () =>
     window.scrollTo({ top: 0, behavior: scrollBehavior })
   );
 
-  /* ───── 6. Reading-progress bar ───── */
   const bar = document.getElementById("readBar") || document.createElement("div");
   bar.id = "readBar";
   if (!bar.isConnected) document.body.appendChild(bar);
 
-  function updateBar() {
-    const max =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
-    const percent = max > 0 ? (window.scrollY / max) * 100 : 0;
-    bar.style.width = percent + "%";
+  let scrollFrame = 0;
+  function updateScrollUI() {
+    const scrollY = window.scrollY;
+    nav?.classList.toggle("nav-shadow", scrollY > 60);
+    backBtn.classList.toggle("show", scrollY > 400);
+    const max = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    bar.style.transform = `scaleX(${progress})`;
+    scrollFrame = 0;
   }
-  updateBar();
-  window.addEventListener("scroll", updateBar, { passive: true });
+
+  const requestScrollUIUpdate = () => {
+    if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateScrollUI);
+  };
+  updateScrollUI();
+  window.addEventListener("scroll", requestScrollUIUpdate, { passive: true });
+  window.addEventListener("resize", requestScrollUIUpdate, { passive: true });
 
   /* ───── 7. Reveal-on-scroll (class="reveal") ───── */
+  if (!document.body.classList.contains("recruitment-page")) {
+    document.querySelectorAll([
+      ".card",
+      ".guide-card",
+      ".service-card",
+      ".snapshot-card",
+      ".profile-card",
+      ".wallpaper-card",
+      ".rules-card",
+      ".stat",
+      ".feature-card",
+      ".feat-card",
+      ".mini-card",
+      ".cardlet",
+      ".metric",
+      ".chat-policy",
+      ".council-member",
+      ".member-card",
+      ".accordion",
+      ".council-list > li",
+      ".home-finale-shell",
+      ".tenet-grid > li",
+      ".benefit-grid > li",
+      ".legacy-timeline > li",
+      ".application-panel",
+      ".contact-panel",
+      ".readiness-panel",
+      ".guide-panel",
+      ".guide-article > .panel",
+      ".guide > .panel"
+    ].join(",")).forEach((el) => el.classList.add("reveal"));
+  }
+
   const revealEls = document.querySelectorAll(".reveal");
   if (revealEls.length) {
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
       revealEls.forEach((el) => el.classList.add("in"));
     } else {
-    const io = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    revealEls.forEach((el) => io.observe(el));
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -4%" }
+      );
+      revealEls.forEach((el) => io.observe(el));
     }
   }
 
   /* ───── 8. Prefetch internal pages ───── */
-  document.querySelectorAll('a[href$=".html"]:not([target])').forEach((a) => {
-    const prefetch = () => {
-      if (a.dataset.prefetched || navigator.connection?.saveData) return;
-      const link = document.createElement("link");
-      link.rel = "prefetch";
-      link.href = a.href;
-      document.head.appendChild(link);
-      a.dataset.prefetched = "1";
-    };
-    a.addEventListener("pointerenter", prefetch);
-    a.addEventListener("focus", prefetch);
-  });
+  const prefetchedPages = new Set();
+  const prefetchPage = (event) => {
+    const anchor = event.target.closest?.('a[href]:not([target])');
+    if (!anchor || navigator.connection?.saveData) return;
+    const url = new URL(anchor.href, location.href);
+    if (url.origin !== location.origin || !url.pathname.endsWith(".html")) return;
+    url.hash = "";
+    const href = url.href;
+    if (prefetchedPages.has(href)) return;
+    const link = document.createElement("link");
+    link.rel = "prefetch";
+    link.href = href;
+    document.head.appendChild(link);
+    prefetchedPages.add(href);
+  };
+  document.addEventListener("pointerover", prefetchPage, { passive: true });
+  document.addEventListener("focusin", prefetchPage);
 
   /* ───── 9. Service worker intentionally omitted until sw.js exists. ───── */
 
@@ -237,6 +233,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const pageUrl = canonical.href;
     const imageUrl = new URL("images/Emblem.png", canonicalOrigin).href;
+
+    if (!document.querySelector('link[rel="manifest"]')) {
+      const manifest = document.createElement("link");
+      manifest.rel = "manifest";
+      manifest.href = siteLink("manifest.json");
+      document.head.appendChild(manifest);
+    }
+    if (!document.querySelector('link[rel="apple-touch-icon"]')) {
+      const touchIcon = document.createElement("link");
+      touchIcon.rel = "apple-touch-icon";
+      touchIcon.href = siteLink("assets/icon-192.png");
+      document.head.appendChild(touchIcon);
+    }
 
     setMeta("property", "og:site_name", "Privé Cartel");
     setMeta("property", "og:type", "website");
