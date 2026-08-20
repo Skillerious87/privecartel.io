@@ -501,14 +501,15 @@
         }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="assets/editorial.css">
+</head>
   <body>
     <!-- NAVBAR -->
     <script type="module" src="assets/navbar.js"></script>
     <pc-navbar></pc-navbar>
     <!-- HERO -->
     <section class="rules-hero">
-      <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512" />
+      <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512" loading="eager" fetchpriority="high" decoding="async" />
       <h1>Faction&nbsp;FAQ</h1>
       <p class="tagline">Core answers for travel, training, chains, organized crimes and progression.</p>
       <!-- Quick‑nav -->
@@ -533,7 +534,7 @@
             <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
             <input type="search" id="faqSearch" placeholder="Search the FAQ..." autocomplete="off" aria-label="Search FAQ" />
           </label>
-          <div class="faq-tool-actions" aria-label="FAQ controls">
+          <div class="faq-tool-actions" role="group" aria-label="FAQ controls">
             <button type="button" class="faq-action" id="expandFaqs">
               <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
               Open visible

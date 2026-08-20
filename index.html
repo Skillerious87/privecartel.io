@@ -705,24 +705,67 @@
       ol.standard,ul.standard{padding-left:2rem;}
     }
   </style>
+  <link rel="stylesheet" href="assets/editorial.css">
+  <link rel="stylesheet" href="assets/home.css">
 </head>
 
-<body>
+<body class="home-page">
 
   <!-- NAVBAR (Web Component) -->
   <script type="module" src="assets/navbar.js"></script>
   <pc-navbar></pc-navbar>
 
   <!-- HERO -->
-  <section class="hero">
-    <img src="images/emblem-512.webp" alt="Privé Cartel emblem" class="emblem" width="512" height="512" />
-    <h1>“What happens behind the curtain…<br>stays ours.”</h1>
-    <p class="tagline">A quiet Torn faction hub for organised crime planning, member guidance, chain rewards and council updates.</p>
-    <div class="hero-actions" aria-label="Primary actions">
-      <a class="btn" href="contact.html"><i class="fa-solid fa-address-card"></i> Contact Council</a>
-      <a class="btn secondary" href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Read Rules</a>
+  <section class="hero home-hero" aria-labelledby="home-title">
+    <div class="home-hero-orbit" aria-hidden="true"></div>
+    <div class="home-hero-shell">
+      <div class="home-hero-copy">
+        <p class="home-hero-kicker">Private faction <span aria-hidden="true">&middot;</span> Torn City</p>
+        <h1 id="home-title">Quiet power.<br><em>Shared purpose.</em></h1>
+        <p class="home-hero-quote">“What happens behind the curtain stays ours.”</p>
+        <p class="tagline">Privé Cartel is a considered home for active players who value organised progress, practical support and a faction that respects real life.</p>
+        <div class="hero-actions" role="group" aria-label="Primary actions">
+          <a class="btn" href="recruitment.html">Explore membership <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          <a class="btn secondary" href="#manifesto">Enter the Cartel <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+        </div>
+        <ul class="home-hero-signals" aria-label="Faction commitments">
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> No mandatory wars</li>
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> Real life respected</li>
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> Clear expectations</li>
+        </ul>
+      </div>
+
+      <div class="home-hero-visual" role="group" aria-label="Privé Cartel membership brief">
+        <div class="home-seal">
+          <span class="home-seal-ring home-seal-ring--outer" aria-hidden="true"></span>
+          <span class="home-seal-ring home-seal-ring--inner" aria-hidden="true"></span>
+          <img src="images/emblem-512.webp" alt="Privé Cartel emblem" class="emblem" width="512" height="512" loading="eager" fetchpriority="high" decoding="async" />
+        </div>
+
+        <aside class="home-dossier">
+          <div class="home-dossier-head">
+            <span>Membership brief</span>
+            <strong>Privé Cartel</strong>
+          </div>
+          <span class="home-status"><i aria-hidden="true"></i> Applications open</span>
+          <dl>
+            <div><dt>Entry point</dt><dd>Level 14+</dd></div>
+            <div><dt>Faction model</dt><dd>Relaxed &amp; reliable</dd></div>
+            <div><dt>Operations</dt><dd>OC 2.0 focused</dd></div>
+          </dl>
+          <a href="contact.html">Speak with council <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        </aside>
+      </div>
     </div>
+    <a class="home-scroll-cue" href="#manifesto"><span>Discover</span><i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
   </section>
+
+  <div class="home-fact-rail" role="list" aria-label="Faction highlights">
+    <div role="listitem"><strong>+9</strong><span>Travel capacity</span></div>
+    <div role="listitem"><strong>OC 2.0</strong><span>Organised operations</span></div>
+    <div role="listitem"><strong>250</strong><span>Chain capability</span></div>
+    <div role="listitem"><strong>24h</strong><span>Expected login rhythm</span></div>
+  </div>
 
   <!-- MAIN -->
   <main>
@@ -733,9 +776,9 @@
         <header class="home-panel-head">
           <div>
             <p class="home-kicker">The Cartel code</p>
-            <h2>Cartel Manifesto</h2>
+            <h2>A quieter kind<br>of power.</h2>
           </div>
-          <p class="home-panel-lede">Privé Cartel is a quiet refuge in Torn’s chaos: a place where business is handled with intent, respect is non-negotiable, and every member strengthens the room.</p>
+          <p class="home-panel-lede">In Torn’s chaos, Privé Cartel is the room behind the room—where business is handled with intent, respect is non-negotiable and every member strengthens the whole.</p>
         </header>
 
         <ol class="tenet-grid" aria-label="The three Cartel principles">
@@ -764,7 +807,7 @@
         <header class="home-panel-head">
           <div>
             <p class="home-kicker">Built through every era · Est. 2024</p>
-            <h2>About Privé Cartel.</h2>
+            <h2>Four names.<br>One loyalty.</h2>
           </div>
           <p class="home-panel-lede">Privé Cartel is the fourth and final incarnation of a crew shaped by ranked wars, disciplined chains and organised crime. The name changed as the faction matured; the loyalty underneath it did not.</p>
         </header>
@@ -806,7 +849,7 @@
         <header class="home-panel-head">
           <div>
             <p class="home-kicker">What members can rely on</p>
-            <h2>Cartel Services</h2>
+            <h2>Everything useful.<br>Nothing loud.</h2>
           </div>
           <p class="home-panel-lede">Practical faction support for day-to-day progression, organised operations and the moments when members need the room behind them.</p>
         </header>
@@ -837,7 +880,7 @@
         <header class="home-panel-head">
           <div>
             <p class="home-kicker">Built into membership</p>
-            <h2>Standing Benefits</h2>
+            <h2>Built into<br>belonging.</h2>
           </div>
           <p class="home-panel-lede">Permanent faction upgrades and shared resources designed to make every active member more capable.</p>
         </header>
@@ -854,8 +897,14 @@
 
     <!-- OPERATIONS SNAPSHOT -->
     <section id="operations">
-      <div class="container glass">
-        <h2 class="section-title">Operations Snapshot</h2>
+      <div class="container glass home-operations">
+        <header class="home-panel-head">
+          <div>
+            <p class="home-kicker">Prepared for the work</p>
+            <h2>Operations,<br>considered.</h2>
+          </div>
+          <p class="home-panel-lede">Planning stays deliberate, contributions stay visible and shared resources remain ready for the moments that matter.</p>
+        </header>
         <div class="snapshot-grid">
           <article class="snapshot-card">
             <i class="fa-solid fa-user-ninja"></i>
@@ -888,7 +937,7 @@
         <header class="home-panel-head">
           <div>
             <p class="home-kicker">Contribution recognised</p>
-            <h2>Chain Rewards</h2>
+            <h2>Effort should<br>be remembered.</h2>
           </div>
           <p class="home-panel-lede">Every confirmed hit strengthens the faction. Members who record six or more hits receive a payout after the chain report is reviewed.</p>
         </header>
@@ -929,15 +978,37 @@
 
     <!-- LEADERSHIP -->
     <section id="leadership">
-      <div class="container glass">
-        <h2 class="section-title">Leadership Council</h2>
-        <ul class="standard">
-          <li><strong>Founder:</strong> <a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank" rel="noopener">XanderPTV</a></li>
-          <li><strong>Leader:</strong> <a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank" rel="noopener">ForeverHydrox</a></li>
-          <li><strong>Co-Leader:</strong> <a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank" rel="noopener">Skillerious</a></li>
-          <li><strong>Treasurer:</strong> <a href="https://www.torn.com/profiles.php?XID=2541592" target="_blank" rel="noopener">Igniatus</a></li>
-          <li><strong>Council Member:</strong> <a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank" rel="noopener">JdedPrincess</a></li>
+      <div class="container glass home-council">
+        <header class="home-panel-head">
+          <div>
+            <p class="home-kicker">Leadership council</p>
+            <h2>The room is<br>accountable.</h2>
+          </div>
+          <p class="home-panel-lede">A visible council keeps decisions clear, faction resources protected and every member connected to the people responsible.</p>
+        </header>
+        <ul class="standard council-list">
+          <li><span>01</span><div><small>Founder</small><a href="https://www.torn.com/profiles.php?XID=2804871" target="_blank" rel="noopener">XanderPTV</a></div></li>
+          <li><span>02</span><div><small>Leader</small><a href="https://www.torn.com/profiles.php?XID=2753560" target="_blank" rel="noopener">ForeverHydrox</a></div></li>
+          <li><span>03</span><div><small>Co-Leader</small><a href="https://www.torn.com/profiles.php?XID=3212954" target="_blank" rel="noopener">Skillerious</a></div></li>
+          <li><span>04</span><div><small>Treasurer</small><a href="https://www.torn.com/profiles.php?XID=2541592" target="_blank" rel="noopener">Igniatus</a></div></li>
+          <li><span>05</span><div><small>Council Member</small><a href="https://www.torn.com/profiles.php?XID=3400392" target="_blank" rel="noopener">JdedPrincess</a></div></li>
         </ul>
+        <a class="home-council-link" href="contact.html">Meet the council <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
+
+    <section class="home-finale" aria-labelledby="home-finale-title">
+      <div class="container home-finale-shell">
+        <img src="images/emblem-512.webp" alt="" width="512" height="512" loading="lazy" decoding="async" aria-hidden="true">
+        <div>
+          <p class="home-kicker">Your next move</p>
+          <h2 id="home-finale-title">Take your place<br>behind the curtain.</h2>
+          <p>Read the membership brief, understand the standard and speak with council when you are ready.</p>
+          <div class="hero-actions" role="group" aria-label="Membership actions">
+            <a class="btn" href="recruitment.html">View recruitment <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="btn secondary" href="rules.html">Read the charter</a>
+          </div>
+        </div>
       </div>
     </section>
 

@@ -288,6 +288,7 @@
     .stat-status{grid-column:auto}
   }
   </style>
+  <link rel="stylesheet" href="assets/editorial.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to member directory</a>
@@ -300,7 +301,7 @@
 
 <!-- ─────────────────────────── HERO ───────────────────────────── -->
 <section class="rules-hero">
-  <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512">
+  <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512" loading="eager" fetchpriority="high" decoding="async">
   <h1>Faction&nbsp;Members</h1>
   <p class="tagline">Browse up to 100 members from the official snapshot, or use a Torn API key for live stats.</p>
 </section>
@@ -605,7 +606,7 @@ function row(m){
         : name}
     </td>
     <td data-label="Avatar">
-      <img class="avatar" src="${blank}" data-id="${memberId}" alt="" loading="lazy" decoding="async">
+      <img class="avatar" src="${blank}" data-id="${memberId}" alt="" width="642" height="638" loading="lazy" decoding="async">
     </td>
     <td data-label="Lv">${level}</td>
     <td data-label="Role">${safeRole}${crown(role)}</td>

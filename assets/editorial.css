@@ -1,0 +1,914 @@
+/* ============================================================
+   Prive Cartel editorial layer
+   Extends the recruitment page's visual language site-wide while
+   leaving page-specific layout and the recruitment page untouched.
+   ============================================================ */
+
+:root {
+  --editorial-ink: #090b0e;
+  --editorial-panel: rgba(15, 17, 20, 0.9);
+  --editorial-panel-soft: rgba(18, 20, 23, 0.7);
+  --editorial-copy: rgba(232, 226, 206, 0.72);
+  --editorial-muted: rgba(232, 226, 206, 0.56);
+  --editorial-line: rgba(var(--accent-rgb), 0.22);
+  --editorial-line-strong: rgba(var(--accent-rgb), 0.42);
+  --editorial-shadow: 0 28px 70px rgba(0, 0, 0, 0.3);
+  --editorial-radius: 4px;
+}
+
+body:not(.recruitment-page) {
+  background:
+    radial-gradient(circle at 8% 4%, rgba(var(--accent-rgb), 0.07), transparent 30rem),
+    radial-gradient(circle at 94% 28%, rgba(var(--accent-rgb), 0.035), transparent 25rem),
+    var(--editorial-ink);
+}
+
+body:not(.recruitment-page) main {
+  position: relative;
+  isolation: isolate;
+}
+
+body:not(.recruitment-page) main::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(rgba(var(--accent-rgb), 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.018) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 88%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 88%, transparent);
+  pointer-events: none;
+}
+
+body:not(.recruitment-page) :is(h1, h2) {
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+body:not(.recruitment-page) :is(h3, h4) {
+  letter-spacing: -0.01em;
+}
+
+body:not(.recruitment-page) :is(p, li, dd) {
+  text-wrap: pretty;
+}
+
+/* Editorial heroes ------------------------------------------------ */
+body:not(.recruitment-page) .rules-hero {
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(390px, 55vh, 570px);
+  padding: calc(var(--nav-h) + clamp(3.5rem, 7vw, 6rem)) 1rem clamp(3.2rem, 7vw, 5.5rem);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.34);
+  background:
+    radial-gradient(circle at 50% 28%, rgba(var(--accent-rgb), 0.14), transparent 29rem),
+    linear-gradient(rgba(var(--accent-rgb), 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.032) 1px, transparent 1px),
+    linear-gradient(180deg, #090b0e, rgba(9, 11, 14, 0.96));
+  background-size: auto, 64px 64px, 64px 64px, auto;
+}
+
+body:not(.recruitment-page) .rules-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 50%;
+  bottom: -27rem;
+  width: min(72rem, 108vw);
+  aspect-ratio: 1;
+  border: 1px solid rgba(var(--accent-rgb), 0.09);
+  border-radius: 50%;
+  transform: translateX(50%);
+  pointer-events: none;
+}
+
+body:not(.recruitment-page) .rules-hero img {
+  width: clamp(118px, 15vw, 168px);
+  height: clamp(118px, 15vw, 168px);
+  margin-bottom: clamp(1.35rem, 3vw, 2rem);
+  border-width: 1px;
+  box-shadow:
+    0 0 0 8px rgba(var(--accent-rgb), 0.035),
+    0 24px 55px rgba(0, 0, 0, 0.42),
+    0 0 36px rgba(var(--accent-rgb), 0.16);
+}
+
+body:not(.recruitment-page) .rules-hero h1 {
+  max-width: 900px;
+  color: var(--text-1);
+  font-size: clamp(3rem, 7vw, 5.4rem);
+  line-height: 0.94;
+}
+
+body:not(.recruitment-page) .rules-hero .tagline {
+  max-width: 720px;
+  margin-top: 1rem;
+  color: var(--editorial-copy);
+  font-size: clamp(0.92rem, 1.7vw, 1.08rem);
+  font-style: normal;
+  line-height: 1.75;
+}
+
+body:not(.recruitment-page) :is(.article-hero, .hero) h1 {
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+/* Section rhythm and labels -------------------------------------- */
+body:not(.recruitment-page) main > section:not(.rules-hero) {
+  background: transparent;
+}
+
+body:not(.recruitment-page) :is(.home-kicker, .section-kicker, .faq-kicker, .rule-eyebrow) {
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+body:not(.recruitment-page) :is(.home-kicker, .section-kicker, .faq-kicker)::before {
+  content: "";
+  display: inline-block;
+  width: 1.8rem;
+  height: 1px;
+  margin-right: 0.62rem;
+  vertical-align: middle;
+  background: var(--accent);
+}
+
+body:not(.recruitment-page) .section-title {
+  color: var(--text-1);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+body:not(.recruitment-page) .section-title > i {
+  margin-right: 0.45rem;
+  color: var(--accent);
+  font-size: 0.5em;
+  vertical-align: 0.18em;
+}
+
+body:not(.recruitment-page) :is(.home-panel-lede, .rules-lede) {
+  color: var(--editorial-copy);
+  line-height: 1.8;
+}
+
+/* Premium surfaces ------------------------------------------------ */
+body:not(.recruitment-page) .glass {
+  border-color: var(--editorial-line-strong);
+  border-radius: var(--editorial-radius);
+  background:
+    linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 2.2rem 1px no-repeat,
+    linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1px 2.2rem no-repeat,
+    linear-gradient(var(--accent-light), var(--accent-light)) 100% 100% / 2.2rem 1px no-repeat,
+    linear-gradient(var(--accent-light), var(--accent-light)) 100% 100% / 1px 2.2rem no-repeat,
+    linear-gradient(145deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.008)),
+    rgba(10, 12, 15, 0.9);
+  box-shadow: var(--editorial-shadow), inset 0 1px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+}
+
+body:not(.recruitment-page) :is(
+  .card,
+  .guide-card,
+  .service-card,
+  .snapshot-card,
+  .profile-card,
+  .news-card,
+  .wallpaper-card,
+  .feature-card,
+  .feat-card,
+  .mini-card,
+  .cardlet,
+  .metric,
+  .chat-policy,
+  .stat
+) {
+  border-color: var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background:
+    linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1.65rem 1px no-repeat,
+    linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1px 1.65rem no-repeat,
+    linear-gradient(145deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.007)),
+    rgba(13, 15, 18, 0.82);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.03);
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    box-shadow 0.28s ease,
+    opacity 0.5s ease,
+    transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+body:not(.recruitment-page) :is(
+  .card,
+  .guide-card,
+  .service-card,
+  .snapshot-card,
+  .profile-card,
+  .news-card,
+  .wallpaper-card,
+  .feature-card,
+  .feat-card,
+  .mini-card,
+  .cardlet,
+  .metric,
+  .chat-policy,
+  .stat
+):is(:hover, :focus-within) {
+  border-color: rgba(var(--accent-rgb), 0.58) !important;
+  background:
+    linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 2.2rem 1px no-repeat,
+    linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1px 2.2rem no-repeat,
+    linear-gradient(145deg, rgba(var(--accent-rgb), 0.105), rgba(255, 255, 255, 0.01)),
+    rgba(13, 15, 18, 0.94);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(var(--accent-rgb), 0.08) !important;
+}
+
+body:not(.recruitment-page) :is(.card, .guide-card, .profile-card, .news-card, .wallpaper-card):focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 4px;
+}
+
+body:not(.recruitment-page) :is(
+  .guide-card,
+  .service-card,
+  .snapshot-card,
+  .profile-card,
+  .feature-card,
+  .feat-card,
+  .mini-card,
+  .cardlet,
+  .metric,
+  .chat-policy,
+  .stat
+) > i:first-child,
+body:not(.recruitment-page) :is(.guide-card, .service-card) :is(.service-icon, .guide-icon) {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.16);
+  color: var(--accent-light);
+  font-size: 0.95rem;
+}
+
+body:not(.recruitment-page) :is(.guide-card, .service-card, .feature-card, .feat-card, .mini-card, .cardlet) h3 {
+  color: var(--text-1);
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+body:not(.recruitment-page) :is(.guide-card, .service-card, .feature-card, .feat-card, .mini-card, .cardlet) p {
+  color: var(--editorial-muted);
+  font-size: 0.8rem;
+  line-height: 1.72;
+}
+
+body:not(.recruitment-page) .guide-grid {
+  gap: 1rem;
+  margin-block: clamp(1.5rem, 4vw, 2.75rem);
+}
+
+body:not(.recruitment-page) .guide-card {
+  min-height: 150px;
+  align-items: flex-start;
+  padding: 1.35rem;
+}
+
+body:not(.recruitment-page) .guide-card > i:first-child {
+  margin-top: 0.05rem;
+}
+
+body:not(.recruitment-page) :is(.council-member, .member-card, .accordion, .notice) {
+  border-color: var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.038), rgba(255, 255, 255, 0.006)),
+    rgba(11, 13, 16, 0.8);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+body:not(.recruitment-page) :is(.council-member, .member-card, .accordion):is(:hover, :focus-visible) {
+  border-color: rgba(var(--accent-rgb), 0.58);
+  background:
+    linear-gradient(145deg, rgba(var(--accent-rgb), 0.1), rgba(255, 255, 255, 0.008)),
+    rgba(13, 15, 18, 0.92);
+  box-shadow: 0 15px 36px rgba(0, 0, 0, 0.24);
+}
+
+body:not(.recruitment-page) .accordion {
+  min-height: 3.25rem;
+  color: var(--text-1);
+}
+
+body:not(.recruitment-page) .accordion + .acc-content {
+  border-color: var(--editorial-line);
+  background: rgba(8, 10, 12, 0.62);
+}
+
+body:not(.recruitment-page) .notice {
+  border-left-color: var(--accent);
+  color: var(--editorial-copy);
+}
+
+/* Homepage -------------------------------------------------------- */
+body:not(.recruitment-page) .home-panel {
+  border-color: var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.025), transparent 42%),
+    rgba(11, 13, 16, 0.66);
+  box-shadow: 0 24px 62px rgba(0, 0, 0, 0.18);
+}
+
+body:not(.recruitment-page) .home-panel::before {
+  background: linear-gradient(90deg, var(--accent), transparent 72%);
+}
+
+body:not(.recruitment-page) .home-panel h2 {
+  color: var(--text-1);
+  font-size: clamp(2.25rem, 4.8vw, 3.65rem);
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+body:not(.recruitment-page) :is(.service-grid, .snapshot-grid, .tenet-grid, .benefit-grid) {
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background: var(--editorial-line);
+}
+
+body:not(.recruitment-page) :is(.service-card, .snapshot-card, .tenet-grid > *, .benefit-grid > *) {
+  border: 0;
+  border-radius: 0;
+  background-color: #0d0f12;
+}
+
+/* Rules charter --------------------------------------------------- */
+body:not(.recruitment-page) .rules-card {
+  overflow: hidden;
+  border-color: var(--editorial-line-strong);
+  border-radius: var(--editorial-radius);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.04), transparent 44%),
+    rgba(12, 14, 17, 0.9);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.2);
+}
+
+body:not(.recruitment-page) .rules-card-head {
+  border-bottom-color: var(--editorial-line);
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.09), transparent 70%);
+}
+
+body:not(.recruitment-page) .rule-number {
+  color: var(--accent-light);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+body:not(.recruitment-page) .rule-list > div,
+body:not(.recruitment-page) .chat-policy-grid {
+  border-color: var(--editorial-line);
+}
+
+body:not(.recruitment-page) :is(.rule-alert, .callout, .example-box, .impact-panel) {
+  border-color: var(--editorial-line-strong);
+  border-radius: var(--editorial-radius);
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.02));
+}
+
+/* Members and data ------------------------------------------------ */
+body:not(.recruitment-page) :is(input, select, textarea) {
+  min-height: 2.85rem;
+  border: 1px solid var(--editorial-line-strong);
+  border-radius: var(--editorial-radius);
+  background: rgba(5, 7, 9, 0.82);
+  color: var(--text-1);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+body:not(.recruitment-page) :is(input, select, textarea)::placeholder {
+  color: rgba(232, 226, 206, 0.42);
+}
+
+body:not(.recruitment-page) :is(input, select, textarea):focus {
+  border-color: var(--accent);
+  outline: 0;
+  background: rgba(8, 10, 12, 0.96);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.11);
+}
+
+body:not(.recruitment-page) :is(.filter-bar, .news-filters, .faq-tools) {
+  border-color: var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background: rgba(9, 11, 14, 0.72);
+}
+
+body:not(.recruitment-page) :is(.pill, .sort-button, .faq-action) {
+  border-color: rgba(var(--accent-rgb), 0.28);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--editorial-copy);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+body:not(.recruitment-page) :is(.pill, .sort-button, .faq-action):is(:hover, :focus-visible),
+body:not(.recruitment-page) .pill.active {
+  border-color: rgba(var(--accent-rgb), 0.7);
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--accent-light);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.08);
+}
+
+body:not(.recruitment-page) .table-wrap {
+  overflow: auto;
+  border: 1px solid var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background: rgba(7, 9, 11, 0.72);
+  scrollbar-color: var(--accent) #050607;
+}
+
+body:not(.recruitment-page) .member-table {
+  border-collapse: collapse;
+}
+
+body:not(.recruitment-page) .member-table thead {
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.13), rgba(var(--accent-rgb), 0.035));
+}
+
+body:not(.recruitment-page) .member-table :is(th, td) {
+  border-bottom-color: rgba(var(--accent-rgb), 0.12);
+}
+
+body:not(.recruitment-page) .member-table tbody tr:hover {
+  background: rgba(var(--accent-rgb), 0.065);
+}
+
+body:not(.recruitment-page) :is(
+  .reward-table,
+  .participant-table,
+  .part-table,
+  .data-table,
+  .responsive-table,
+  .guide-table,
+  .target-table
+) {
+  width: 100%;
+  border-color: var(--editorial-line);
+  border-collapse: collapse;
+  background: rgba(7, 9, 11, 0.68);
+}
+
+body:not(.recruitment-page) :is(
+  .reward-table,
+  .participant-table,
+  .part-table,
+  .data-table,
+  .responsive-table,
+  .guide-table,
+  .target-table
+) thead {
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.14), rgba(var(--accent-rgb), 0.035));
+}
+
+body:not(.recruitment-page) :is(
+  .reward-table,
+  .participant-table,
+  .part-table,
+  .data-table,
+  .responsive-table,
+  .guide-table,
+  .target-table
+) :is(th, td) {
+  border-color: rgba(var(--accent-rgb), 0.14);
+}
+
+body:not(.recruitment-page) :is(
+  .reward-table,
+  .participant-table,
+  .part-table,
+  .data-table,
+  .responsive-table,
+  .guide-table,
+  .target-table
+) tbody tr:hover {
+  background: rgba(var(--accent-rgb), 0.055);
+}
+
+body:not(.recruitment-page) .stats {
+  border-color: var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background: rgba(8, 10, 12, 0.65);
+}
+
+body:not(.recruitment-page) .stat-value {
+  color: var(--accent-light);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+/* News and articles ---------------------------------------------- */
+body:not(.recruitment-page) .news-list {
+  gap: 1rem;
+}
+
+body:not(.recruitment-page) .news-card {
+  overflow: hidden;
+}
+
+body:not(.recruitment-page) .news-thumb {
+  border-bottom: 1px solid var(--editorial-line);
+  filter: saturate(0.82) contrast(1.04);
+  transition: filter 0.35s ease, scale 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+body:not(.recruitment-page) .news-card:hover .news-thumb {
+  filter: saturate(1) contrast(1.04);
+  scale: 1.025;
+}
+
+body:not(.recruitment-page) .icon-badge {
+  border: 1px solid rgba(var(--accent-rgb), 0.33);
+  background: rgba(10, 12, 14, 0.94);
+  color: var(--accent-light);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.32);
+}
+
+body:not(.recruitment-page) .article {
+  max-width: 940px;
+}
+
+body:not(.recruitment-page) .article :is(h2, h3) {
+  color: var(--text-1);
+}
+
+body:not(.recruitment-page) .article h2 {
+  margin-top: 2.35rem;
+  padding-top: 1.45rem;
+  border-top: 1px solid var(--editorial-line);
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+}
+
+body:not(.recruitment-page) :is(.guide-toc, .toc) {
+  border-color: var(--editorial-line-strong);
+  border-radius: var(--editorial-radius);
+  background: rgba(11, 13, 16, 0.9);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+body:not(.recruitment-page) :is(.guide-panel, .panel) {
+  border-color: var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.033), transparent 48%),
+    rgba(12, 14, 17, 0.8);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.17);
+}
+
+body:not(.recruitment-page) :is(.guide-panel, .panel) > h2:first-child {
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+/* FAQ ------------------------------------------------------------- */
+body:not(.recruitment-page) .faq-cat {
+  color: var(--text-1);
+  font-size: clamp(1.65rem, 3.5vw, 2.4rem);
+  font-weight: 500;
+}
+
+body:not(.recruitment-page) .faq-cat::before,
+body:not(.recruitment-page) .faq-cat::after {
+  background: var(--editorial-line-strong);
+}
+
+body:not(.recruitment-page) .faq-item {
+  overflow: hidden;
+  border-color: var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background:
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.045), transparent 38%),
+    rgba(11, 13, 16, 0.78);
+  box-shadow: none;
+}
+
+body:not(.recruitment-page) .faq-item::before {
+  background: var(--accent);
+}
+
+body:not(.recruitment-page) .faq-item:is(:hover, [open]) {
+  border-color: rgba(var(--accent-rgb), 0.55);
+  background:
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.1), transparent 50%),
+    rgba(13, 15, 18, 0.92);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.22);
+}
+
+body:not(.recruitment-page) .faq-icon {
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--accent-light);
+}
+
+/* Contact and application ---------------------------------------- */
+body:not(.recruitment-page) :is(.application-panel, .contact-panel, .readiness-panel) {
+  border-color: var(--editorial-line-strong);
+  border-radius: var(--editorial-radius);
+  background:
+    linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 2rem 1px no-repeat,
+    linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1px 2rem no-repeat,
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.008)),
+    rgba(11, 13, 16, 0.86);
+  box-shadow: 0 26px 65px rgba(0, 0, 0, 0.24);
+}
+
+body:not(.recruitment-page) :is(.application-panel, .contact-panel, .readiness-panel) :is(h2, h3) {
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+body:not(.recruitment-page) :is(.choice-option, .level-step, .copy-xid, .contact-method) {
+  border-color: var(--editorial-line);
+  border-radius: var(--editorial-radius);
+  background: rgba(6, 8, 10, 0.48);
+}
+
+body:not(.recruitment-page) :is(.choice-option, .level-step, .copy-xid, .contact-method):is(:hover, :focus-visible, .is-selected) {
+  border-color: rgba(var(--accent-rgb), 0.64);
+  background: rgba(var(--accent-rgb), 0.09);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.07);
+}
+
+body:not(.recruitment-page) .profile-card {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.2);
+}
+
+body:not(.recruitment-page) .profile-card .avatar {
+  border-width: 1px;
+  box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0.035), 0 12px 28px rgba(0, 0, 0, 0.32);
+}
+
+/* Gallery --------------------------------------------------------- */
+body:not(.recruitment-page) .carousel-container {
+  border-color: var(--editorial-line-strong);
+  border-radius: var(--editorial-radius);
+  background: rgba(10, 12, 15, 0.8);
+  box-shadow: var(--editorial-shadow);
+}
+
+body:not(.recruitment-page) .wallpaper-grid {
+  gap: 1rem;
+}
+
+body:not(.recruitment-page) .wallpaper-card {
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+}
+
+body:not(.recruitment-page) .wallpaper-caption {
+  background: linear-gradient(180deg, transparent, rgba(3, 4, 5, 0.94));
+}
+
+/* Reveal choreography -------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  body:not(.recruitment-page) .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  body:not(.recruitment-page) .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.58s ease,
+      transform 0.58s cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 0.28s ease,
+      background-color 0.28s ease,
+      box-shadow 0.28s ease;
+    transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0ms, 0ms, 0ms;
+  }
+
+  body:not(.recruitment-page) :is(
+    .guide-grid,
+    .service-grid,
+    .snapshot-grid,
+    .wallpaper-grid,
+    .tenet-grid,
+    .benefit-grid,
+    .legacy-timeline,
+    .contact-grid,
+    .stats-grid,
+    .chat-policy-grid
+  ) > :nth-child(3n + 2) {
+    --reveal-delay: 55ms;
+  }
+
+  body:not(.recruitment-page) :is(
+    .guide-grid,
+    .service-grid,
+    .snapshot-grid,
+    .wallpaper-grid,
+    .tenet-grid,
+    .benefit-grid,
+    .legacy-timeline,
+    .contact-grid,
+    .stats-grid,
+    .chat-policy-grid
+  ) > :nth-child(3n) {
+    --reveal-delay: 110ms;
+  }
+}
+
+/* Responsive safeguards ------------------------------------------ */
+@media (max-width: 920px) {
+  body:not(.recruitment-page) .rules-hero {
+    min-height: 390px;
+  }
+
+  body:not(.recruitment-page) .glass {
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.24), inset 0 1px rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(7px);
+  }
+
+  body:not(.recruitment-page) :is(.application-layout, .contact-grid, .leadership-grid) {
+    gap: 1rem;
+  }
+
+  body:not(.recruitment-page) :is(.guide-toc, .toc) {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 720px) {
+  body:not(.recruitment-page) main::before {
+    background-size: 48px 48px;
+    opacity: 0.68;
+  }
+
+  body:not(.recruitment-page) .rules-hero {
+    min-height: 350px;
+    padding-top: calc(var(--nav-h) + 2.9rem);
+    padding-bottom: 3rem;
+    background-size: auto, 48px 48px, 48px 48px, auto;
+  }
+
+  body:not(.recruitment-page) .rules-hero h1 {
+    font-size: clamp(2.75rem, 13vw, 4.25rem);
+  }
+
+  body:not(.recruitment-page) .rules-hero .tagline {
+    max-width: 36rem;
+    font-size: 0.9rem;
+  }
+
+  body:not(.recruitment-page) .glass {
+    background:
+      linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1.4rem 1px no-repeat,
+      linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1px 1.4rem no-repeat,
+      linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.006)),
+      rgba(10, 12, 15, 0.92);
+  }
+
+  body:not(.recruitment-page) :is(.guide-card, .service-card, .snapshot-card, .profile-card, .news-card, .feature-card, .feat-card) {
+    box-shadow: none;
+  }
+
+  body:not(.recruitment-page) :is(.home-panel, .application-panel, .contact-panel, .readiness-panel, .rules-card) {
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.19);
+  }
+
+  body:not(.recruitment-page) .guide-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  }
+
+  body:not(.recruitment-page) .guide-card {
+    min-height: 0;
+  }
+
+  body:not(.recruitment-page) :is(.news-filters, .filter-bar) {
+    gap: 0.55rem;
+  }
+
+  body:not(.recruitment-page) .article h2 {
+    margin-top: 1.8rem;
+  }
+
+  body:not(.recruitment-page) .news-thumb {
+    transition: none;
+  }
+
+  body:not(.recruitment-page) .news-card:hover .news-thumb {
+    scale: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  body:not(.recruitment-page) .container {
+    width: min(calc(100% - 1.25rem), 1100px);
+  }
+
+  body:not(.recruitment-page) section {
+    padding-block: clamp(2.6rem, 11vw, 3.5rem);
+  }
+
+  body:not(.recruitment-page) .rules-hero {
+    min-height: 320px;
+    padding-inline: 0.625rem;
+  }
+
+  body:not(.recruitment-page) .rules-hero img {
+    width: 108px;
+    height: 108px;
+  }
+
+  body:not(.recruitment-page) :is(.home-kicker, .section-kicker, .faq-kicker, .rule-eyebrow) {
+    font-size: 0.62rem;
+    letter-spacing: 0.145em;
+  }
+
+  body:not(.recruitment-page) :is(.home-kicker, .section-kicker, .faq-kicker)::before {
+    width: 1.2rem;
+    margin-right: 0.45rem;
+  }
+
+  body:not(.recruitment-page) :is(.guide-card, .service-card, .snapshot-card, .news-card, .feature-card, .feat-card) {
+    padding: 1.1rem;
+  }
+
+  body:not(.recruitment-page) :is(.application-panel, .contact-panel, .readiness-panel, .rules-card-body) {
+    padding-inline: 1rem;
+  }
+
+  body:not(.recruitment-page) :is(.filter-bar, .news-filters) > * {
+    min-width: 0;
+  }
+
+  body:not(.recruitment-page) .filter-bar input {
+    width: 100%;
+  }
+
+  body:not(.recruitment-page) .faq-item summary {
+    gap: 0.7rem;
+  }
+
+  body:not(.recruitment-page) .faq-icon {
+    flex-basis: 2.25rem;
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  body:not(.recruitment-page) .wallpaper-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (hover: none) {
+  body:not(.recruitment-page) :is(
+    .card,
+    .guide-card,
+    .service-card,
+    .snapshot-card,
+    .profile-card,
+    .news-card,
+    .wallpaper-card,
+    .feature-card,
+    .feat-card,
+    .mini-card,
+    .cardlet,
+    .metric,
+    .chat-policy,
+    .stat
+  ):hover {
+    border-color: var(--editorial-line) !important;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.03) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:not(.recruitment-page) .reveal,
+  body:not(.recruitment-page) .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  body:not(.recruitment-page) .news-thumb {
+    transition: none;
+  }
+}
