@@ -6,13 +6,13 @@
 
 :root {
   --editorial-ink: #090b0e;
-  --editorial-panel: rgba(15, 17, 20, 0.9);
-  --editorial-panel-soft: rgba(18, 20, 23, 0.7);
-  --editorial-copy: rgba(232, 226, 206, 0.72);
-  --editorial-muted: rgba(232, 226, 206, 0.56);
-  --editorial-line: rgba(var(--accent-rgb), 0.22);
-  --editorial-line-strong: rgba(var(--accent-rgb), 0.42);
-  --editorial-shadow: 0 28px 70px rgba(0, 0, 0, 0.3);
+  --editorial-panel: rgba(15, 17, 20, 0.96);
+  --editorial-panel-soft: rgba(18, 20, 23, 0.82);
+  --editorial-copy: rgba(240, 236, 223, 0.86);
+  --editorial-muted: rgba(240, 236, 223, 0.7);
+  --editorial-line: rgba(var(--accent-rgb), 0.25);
+  --editorial-line-strong: rgba(var(--accent-rgb), 0.46);
+  --editorial-shadow: 0 30px 76px rgba(0, 0, 0, 0.34);
   --editorial-radius: 4px;
 }
 
@@ -20,7 +20,7 @@ body:not(.recruitment-page) {
   background:
     radial-gradient(circle at 8% 4%, rgba(var(--accent-rgb), 0.07), transparent 30rem),
     radial-gradient(circle at 94% 28%, rgba(var(--accent-rgb), 0.035), transparent 25rem),
-    var(--editorial-ink);
+    linear-gradient(180deg, #090b0e 0%, #07090b 68%, #050607 100%);
 }
 
 body:not(.recruitment-page) main {
@@ -45,6 +45,7 @@ body:not(.recruitment-page) main::before {
 body:not(.recruitment-page) :is(h1, h2) {
   font-weight: 500;
   letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 body:not(.recruitment-page) :is(h3, h4) {
@@ -55,12 +56,16 @@ body:not(.recruitment-page) :is(p, li, dd) {
   text-wrap: pretty;
 }
 
+body:not(.recruitment-page) main :is(p, li, dd, td) {
+  font-weight: 400;
+}
+
 /* Editorial heroes ------------------------------------------------ */
 body:not(.recruitment-page) .rules-hero {
   isolation: isolate;
   overflow: hidden;
-  min-height: clamp(390px, 55vh, 570px);
-  padding: calc(var(--nav-h) + clamp(3.5rem, 7vw, 6rem)) 1rem clamp(3.2rem, 7vw, 5.5rem);
+  min-height: clamp(360px, 49vh, 510px);
+  padding: calc(var(--nav-h) + clamp(2.75rem, 5.5vw, 4.75rem)) 1rem clamp(2.75rem, 5.5vw, 4.5rem);
   border-bottom: 1px solid rgba(var(--accent-rgb), 0.34);
   background:
     radial-gradient(circle at 50% 28%, rgba(var(--accent-rgb), 0.14), transparent 29rem),
@@ -105,7 +110,7 @@ body:not(.recruitment-page) .rules-hero h1 {
 body:not(.recruitment-page) .rules-hero .tagline {
   max-width: 720px;
   margin-top: 1rem;
-  color: var(--editorial-copy);
+  color: rgba(240, 236, 223, 0.75);
   font-size: clamp(0.92rem, 1.7vw, 1.08rem);
   font-style: normal;
   line-height: 1.75;
@@ -170,7 +175,7 @@ body:not(.recruitment-page) .glass {
     linear-gradient(var(--accent-light), var(--accent-light)) 100% 100% / 2.2rem 1px no-repeat,
     linear-gradient(var(--accent-light), var(--accent-light)) 100% 100% / 1px 2.2rem no-repeat,
     linear-gradient(145deg, rgba(255, 255, 255, 0.052), rgba(255, 255, 255, 0.008)),
-    rgba(10, 12, 15, 0.9);
+    rgba(10, 12, 15, 0.96);
   box-shadow: var(--editorial-shadow), inset 0 1px rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(10px);
 }
@@ -197,7 +202,7 @@ body:not(.recruitment-page) :is(
     linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1.65rem 1px no-repeat,
     linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1px 1.65rem no-repeat,
     linear-gradient(145deg, rgba(255, 255, 255, 0.042), rgba(255, 255, 255, 0.007)),
-    rgba(13, 15, 18, 0.82);
+    rgba(13, 15, 18, 0.92);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.03);
   transition:
     background-color 0.28s ease,
@@ -272,8 +277,8 @@ body:not(.recruitment-page) :is(.guide-card, .service-card, .feature-card, .feat
 
 body:not(.recruitment-page) :is(.guide-card, .service-card, .feature-card, .feat-card, .mini-card, .cardlet) p {
   color: var(--editorial-muted);
-  font-size: 0.8rem;
-  line-height: 1.72;
+  font-size: 0.86rem;
+  line-height: 1.76;
 }
 
 body:not(.recruitment-page) .guide-grid {
@@ -282,9 +287,9 @@ body:not(.recruitment-page) .guide-grid {
 }
 
 body:not(.recruitment-page) .guide-card {
-  min-height: 150px;
+  min-height: 164px;
   align-items: flex-start;
-  padding: 1.35rem;
+  padding: 1.5rem;
 }
 
 body:not(.recruitment-page) .guide-card > i:first-child {
@@ -296,7 +301,7 @@ body:not(.recruitment-page) :is(.council-member, .member-card, .accordion, .noti
   border-radius: var(--editorial-radius);
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.038), rgba(255, 255, 255, 0.006)),
-    rgba(11, 13, 16, 0.8);
+    rgba(11, 13, 16, 0.9);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
   transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
@@ -360,19 +365,56 @@ body:not(.recruitment-page) :is(.service-card, .snapshot-card, .tenet-grid > *, 
 }
 
 /* Rules charter --------------------------------------------------- */
+body:not(.recruitment-page) :is(
+  .rules-page,
+  .rules-charter,
+  .rules-layout,
+  .rules-content,
+  .rules-card,
+  .rules-card-head,
+  .rules-card-body,
+  .rule-list,
+  .chat-policy-grid,
+  .council-grid
+) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+body:not(.recruitment-page) .rules-charter {
+  overflow-x: clip;
+}
+
+body:not(.recruitment-page) .rules-content,
+body:not(.recruitment-page) .rules-card {
+  width: 100%;
+}
+
+body:not(.recruitment-page) .rules-card :is(p, li, dt, dd, h2, h3, a) {
+  overflow-wrap: anywhere;
+}
+
+body:not(.recruitment-page) .rules-card-body > * {
+  max-width: 100%;
+}
+
 body:not(.recruitment-page) .rules-card {
   overflow: hidden;
   border-color: var(--editorial-line-strong);
   border-radius: var(--editorial-radius);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.04), transparent 44%),
-    rgba(12, 14, 17, 0.9);
-  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.2);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.052), transparent 44%),
+    rgba(17, 19, 21, 0.98);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.035),
+    0 20px 48px rgba(0, 0, 0, 0.2);
 }
 
 body:not(.recruitment-page) .rules-card-head {
   border-bottom-color: var(--editorial-line);
-  background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.09), transparent 70%);
+  background:
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.13), transparent 72%),
+    rgba(27, 26, 22, 0.68);
 }
 
 body:not(.recruitment-page) .rule-number {
@@ -387,6 +429,13 @@ body:not(.recruitment-page) .chat-policy-grid {
   border-color: var(--editorial-line);
 }
 
+body:not(.recruitment-page) .rule-list {
+  border-color: var(--editorial-line);
+  background:
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.035), transparent),
+    rgba(21, 22, 21, 0.9);
+}
+
 body:not(.recruitment-page) :is(.rule-alert, .callout, .example-box, .impact-panel) {
   border-color: var(--editorial-line-strong);
   border-radius: var(--editorial-radius);
@@ -395,36 +444,75 @@ body:not(.recruitment-page) :is(.rule-alert, .callout, .example-box, .impact-pan
 
 /* Members and data ------------------------------------------------ */
 body:not(.recruitment-page) :is(input, select, textarea) {
-  min-height: 2.85rem;
+  min-height: 3rem;
   border: 1px solid var(--editorial-line-strong);
-  border-radius: var(--editorial-radius);
-  background: rgba(5, 7, 9, 0.82);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(var(--accent-rgb), 0.018)),
+    rgba(27, 29, 30, 0.98);
   color: var(--text-1);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.045),
+    0 6px 18px rgba(0, 0, 0, 0.13);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 body:not(.recruitment-page) :is(input, select, textarea)::placeholder {
-  color: rgba(232, 226, 206, 0.42);
+  color: rgba(240, 236, 223, 0.57);
 }
 
 body:not(.recruitment-page) :is(input, select, textarea):focus {
   border-color: var(--accent);
   outline: 0;
-  background: rgba(8, 10, 12, 0.96);
-  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.11);
+  background:
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.075), rgba(255, 255, 255, 0.018)),
+    rgba(31, 31, 29, 0.99);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.055),
+    0 0 0 3px rgba(var(--accent-rgb), 0.12),
+    0 8px 22px rgba(0, 0, 0, 0.18);
+}
+
+/* The search shell owns its border and focus treatment; the field stays seamless. */
+body:not(.recruitment-page) .site-search-field input,
+body:not(.recruitment-page) .site-search-field input:focus {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 body:not(.recruitment-page) :is(.filter-bar, .news-filters, .faq-tools) {
   border-color: var(--editorial-line);
-  border-radius: var(--editorial-radius);
-  background: rgba(9, 11, 14, 0.72);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 0 0, rgba(var(--accent-rgb), 0.09), transparent 18rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(var(--accent-rgb), 0.018)),
+    rgba(20, 22, 23, 0.9);
+}
+
+body:not(.recruitment-page) .filter-bar {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body:not(.recruitment-page) .members-panel {
+  background:
+    radial-gradient(circle at 0 0, rgba(var(--accent-rgb), 0.085), transparent 24rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(var(--accent-rgb), 0.012)),
+    rgba(19, 22, 24, 0.96);
 }
 
 body:not(.recruitment-page) :is(.pill, .sort-button, .faq-action) {
   border-color: rgba(var(--accent-rgb), 0.28);
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(var(--accent-rgb), 0.025)),
+    rgba(24, 25, 23, 0.9);
   color: var(--editorial-copy);
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
@@ -435,6 +523,59 @@ body:not(.recruitment-page) .pill.active {
   background: rgba(var(--accent-rgb), 0.12);
   color: var(--accent-light);
   box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.08);
+}
+
+body:not(.recruitment-page) .filter-bar input {
+  min-height: 3.2rem;
+  border-width: 1px;
+  border-color: rgba(var(--accent-rgb), 0.42);
+  border-radius: 11px;
+}
+
+body:not(.recruitment-page) .filter-bar button {
+  min-height: 3.2rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.46);
+  border-radius: 11px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(var(--accent-rgb), 0.035)),
+    rgba(26, 26, 22, 0.96);
+  color: var(--accent-light);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.075),
+    inset 0 -1px rgba(0, 0, 0, 0.3),
+    0 7px 18px rgba(0, 0, 0, 0.2);
+}
+
+body:not(.recruitment-page) .filter-bar button:is(:hover, :focus-visible) {
+  border-color: var(--accent-light);
+  background:
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0.055)),
+    rgba(31, 29, 23, 0.98);
+  color: #fff2cb;
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.1),
+    0 9px 22px rgba(0, 0, 0, 0.26),
+    0 0 18px rgba(var(--accent-rgb), 0.1);
+}
+
+body:not(.recruitment-page) #saveKeyBtn {
+  padding-inline: 1.15rem;
+}
+
+body:not(.recruitment-page) #clearKeyBtn {
+  width: 3.2rem;
+  padding: 0;
+  border-color: rgba(208, 137, 115, 0.34);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(183, 92, 67, 0.035)),
+    rgba(30, 25, 23, 0.96);
+  color: #e9c8bc;
+}
+
+body:not(.recruitment-page) #clearKeyBtn:is(:hover, :focus-visible) {
+  border-color: rgba(232, 160, 137, 0.72);
+  background: rgba(74, 36, 29, 0.92);
+  color: #ffe0d6;
 }
 
 body:not(.recruitment-page) .table-wrap {
@@ -579,7 +720,7 @@ body:not(.recruitment-page) :is(.guide-panel, .panel) {
   border-radius: var(--editorial-radius);
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.033), transparent 48%),
-    rgba(12, 14, 17, 0.8);
+    rgba(12, 14, 17, 0.9);
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.17);
 }
 
@@ -593,6 +734,7 @@ body:not(.recruitment-page) .faq-cat {
   color: var(--text-1);
   font-size: clamp(1.65rem, 3.5vw, 2.4rem);
   font-weight: 500;
+  margin-block: 2.6rem 1rem;
 }
 
 body:not(.recruitment-page) .faq-cat::before,
@@ -606,8 +748,9 @@ body:not(.recruitment-page) .faq-item {
   border-radius: var(--editorial-radius);
   background:
     linear-gradient(90deg, rgba(var(--accent-rgb), 0.045), transparent 38%),
-    rgba(11, 13, 16, 0.78);
+    rgba(11, 13, 16, 0.9);
   box-shadow: none;
+  margin-bottom: 0.8rem;
 }
 
 body:not(.recruitment-page) .faq-item::before {
@@ -628,6 +771,36 @@ body:not(.recruitment-page) .faq-icon {
   color: var(--accent-light);
 }
 
+body:not(.recruitment-page) .faq-wrap {
+  max-width: 1120px;
+  padding: clamp(1.4rem, 3vw, 2.4rem);
+}
+
+body:not(.recruitment-page) .faq-tools {
+  gap: 1.25rem 2rem;
+  padding: 1.1rem;
+  border: 1px solid var(--editorial-line);
+  background: rgba(7, 9, 11, 0.9);
+}
+
+body:not(.recruitment-page) .faq-item summary {
+  min-height: 4.35rem;
+  font-size: 0.95rem;
+}
+
+body:not(.recruitment-page) .faq-body {
+  color: var(--editorial-copy);
+  font-size: 0.92rem;
+  line-height: 1.78;
+}
+
+body:not(.recruitment-page) .faq-note {
+  max-width: 900px;
+  color: var(--editorial-muted);
+  font-size: 0.9rem;
+  line-height: 1.72;
+}
+
 /* Contact and application ---------------------------------------- */
 body:not(.recruitment-page) :is(.application-panel, .contact-panel, .readiness-panel) {
   border-color: var(--editorial-line-strong);
@@ -636,7 +809,7 @@ body:not(.recruitment-page) :is(.application-panel, .contact-panel, .readiness-p
     linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 2rem 1px no-repeat,
     linear-gradient(var(--accent-light), var(--accent-light)) 0 0 / 1px 2rem no-repeat,
     linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.008)),
-    rgba(11, 13, 16, 0.86);
+    rgba(11, 13, 16, 0.93);
   box-shadow: 0 26px 65px rgba(0, 0, 0, 0.24);
 }
 
@@ -647,14 +820,66 @@ body:not(.recruitment-page) :is(.application-panel, .contact-panel, .readiness-p
 
 body:not(.recruitment-page) :is(.choice-option, .level-step, .copy-xid, .contact-method) {
   border-color: var(--editorial-line);
-  border-radius: var(--editorial-radius);
-  background: rgba(6, 8, 10, 0.48);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(var(--accent-rgb), 0.02)),
+    rgba(24, 25, 23, 0.91);
 }
 
 body:not(.recruitment-page) :is(.choice-option, .level-step, .copy-xid, .contact-method):is(:hover, :focus-visible, .is-selected) {
   border-color: rgba(var(--accent-rgb), 0.64);
   background: rgba(var(--accent-rgb), 0.09);
   box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.07);
+}
+
+body:not(.recruitment-page) .btn {
+  border-radius: 11px;
+}
+
+body:not(.recruitment-page) .button {
+  min-height: 3rem;
+  border-color: rgba(var(--accent-rgb), 0.44);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(var(--accent-rgb), 0.025)),
+    rgba(24, 24, 21, 0.94);
+  color: var(--accent-light);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.075),
+    0 8px 20px rgba(0, 0, 0, 0.22);
+}
+
+body:not(.recruitment-page) .button:is(:hover, :focus-visible) {
+  border-color: var(--accent-light);
+  background:
+    linear-gradient(180deg, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-rgb), 0.055)),
+    rgba(29, 28, 23, 0.98);
+  color: #fff1c7;
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.1),
+    0 10px 24px rgba(0, 0, 0, 0.28),
+    0 0 18px rgba(var(--accent-rgb), 0.1);
+}
+
+body:not(.recruitment-page) .application-actions button {
+  min-height: 3rem;
+  border-color: rgba(var(--accent-rgb), 0.44);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(var(--accent-rgb), 0.025)),
+    rgba(24, 24, 21, 0.94);
+}
+
+body:not(.recruitment-page) .application-actions .submit-application {
+  border-color: rgba(var(--accent-rgb), 0.82);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 48%),
+    linear-gradient(135deg, #efd58d, var(--accent) 52%, #a47c38);
+  color: #070707;
+}
+
+body:not(.recruitment-page) .btn-download-all {
+  border-radius: 10px !important;
 }
 
 body:not(.recruitment-page) .profile-card {
@@ -670,7 +895,7 @@ body:not(.recruitment-page) .profile-card .avatar {
 body:not(.recruitment-page) .carousel-container {
   border-color: var(--editorial-line-strong);
   border-radius: var(--editorial-radius);
-  background: rgba(10, 12, 15, 0.8);
+  background: rgba(10, 12, 15, 0.92);
   box-shadow: var(--editorial-shadow);
 }
 
@@ -824,7 +1049,7 @@ body:not(.recruitment-page) .wallpaper-caption {
     width: min(calc(100% - 1.25rem), 1100px);
   }
 
-  body:not(.recruitment-page) section {
+  body:not(.recruitment-page) main > section:not(.rules-hero) {
     padding-block: clamp(2.6rem, 11vw, 3.5rem);
   }
 
@@ -910,5 +1135,402 @@ body:not(.recruitment-page) .wallpaper-caption {
 
   body:not(.recruitment-page) .news-thumb {
     transition: none;
+  }
+}
+
+/* Mobile editorial experience ------------------------------------ */
+@media (max-width: 720px) {
+  body:not(.recruitment-page) main {
+    overflow: clip;
+  }
+
+  body:not(.recruitment-page) main > section:not(.rules-hero) {
+    padding-block: clamp(2.6rem, 10vw, 3.75rem);
+  }
+
+  body:not(.recruitment-page) .hero:not(.home-hero) {
+    min-height: min(76svh, 680px);
+    padding: calc(var(--nav-h) + 2.75rem) 1rem 3rem;
+  }
+
+  body:not(.recruitment-page) > .breadcrumb {
+    margin-top: calc(var(--nav-h) + 1rem);
+  }
+
+  body:not(.recruitment-page) :is(input, select, textarea) {
+    font-size: 16px;
+  }
+
+  body:not(.recruitment-page) :is(h1, h2, h3, h4) {
+    overflow-wrap: anywhere;
+  }
+
+  body:not(.recruitment-page) :is(.btn, .button, .pill, .sort-button, .faq-action, .copy-xid) {
+    min-height: 44px;
+  }
+
+  body:not(.recruitment-page) :is(.table-wrap, .table-wrapper) {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body:not(.recruitment-page) :is(
+    .reward-table,
+    .participant-table,
+    .part-table,
+    .data-table,
+    .responsive-table,
+    .guide-table,
+    .target-table
+  ) {
+    font-size: 0.82rem;
+  }
+
+  body:not(.recruitment-page) :is(
+    .reward-table,
+    .participant-table,
+    .part-table,
+    .data-table,
+    .responsive-table,
+    .guide-table,
+    .target-table
+  ) :is(th, td) {
+    padding: 0.72rem 0.78rem;
+  }
+
+  body:not(.recruitment-page) :is(.guide-toc, .toc) {
+    position: static !important;
+    z-index: 8;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    overflow-x: auto;
+    margin: 0 0 0.75rem;
+    padding: 0.58rem;
+    border-radius: 12px;
+    background: rgba(8, 10, 12, 0.96);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.26);
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+  }
+
+  body:not(.recruitment-page) :is(.guide-toc, .toc)::-webkit-scrollbar {
+    display: none;
+  }
+
+  body:not(.recruitment-page) :is(.guide-toc, .toc) h2 {
+    flex: 0 0 auto;
+    margin: 0 0.3rem 0 0;
+    color: var(--accent);
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  body:not(.recruitment-page) :is(.guide-toc, .toc) a {
+    min-height: 44px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.48rem 0.72rem;
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.025);
+    font-size: 0.78rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  body:not(.recruitment-page) .rules-sidebar-panel {
+    max-width: 100%;
+    padding: 0.65rem;
+    border: 1px solid rgba(var(--accent-rgb), 0.28);
+    border-radius: 11px;
+    background:
+      radial-gradient(circle at 0 0, rgba(var(--accent-rgb), 0.12), transparent 14rem),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(var(--accent-rgb), 0.02)),
+      rgba(22, 23, 21, 0.94);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, 0.05),
+      0 10px 26px rgba(0, 0, 0, 0.2);
+  }
+
+  body:not(.recruitment-page) .rules-sidebar-cta {
+    display: none;
+  }
+
+  body:not(.recruitment-page) .rules-sidebar-title {
+    display: block;
+    margin: 0.1rem 0.25rem 0.6rem;
+    color: rgba(var(--accent-rgb), 0.86);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+  }
+
+  body:not(.recruitment-page) .rules-nav {
+    max-width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: 0.5rem;
+    overflow: visible;
+    padding: 0;
+  }
+
+  body:not(.recruitment-page) .rules-nav a {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    padding: 0.58rem 0.68rem;
+    border: 1px solid rgba(var(--accent-rgb), 0.24);
+    border-radius: 9px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(var(--accent-rgb), 0.018)),
+      rgba(27, 27, 24, 0.94);
+    white-space: normal;
+  }
+
+  body:not(.recruitment-page) .rules-nav a[aria-current="true"] {
+    border-color: rgba(var(--accent-rgb), 0.64);
+    background:
+      linear-gradient(90deg, rgba(var(--accent-rgb), 0.17), rgba(var(--accent-rgb), 0.055)),
+      rgba(31, 29, 23, 0.98);
+    box-shadow: inset 3px 0 var(--accent);
+  }
+
+  body:not(.recruitment-page) .rules-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  body:not(.recruitment-page) .rules-card-head,
+  body:not(.recruitment-page) .rules-card-body,
+  body:not(.recruitment-page) .rule-list :is(dt, dd) {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body:not(.recruitment-page) .rule-list,
+  body:not(.recruitment-page) .chat-policy-grid,
+  body:not(.recruitment-page) .council-grid {
+    width: 100%;
+  }
+
+  body:not(.recruitment-page) .faq-nav {
+    width: calc(100% + 2rem);
+    max-width: none;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    overflow-x: auto;
+    margin: 1.1rem -1rem 0;
+    padding: 0 1rem 0.4rem;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline proximity;
+  }
+
+  body:not(.recruitment-page) .faq-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  body:not(.recruitment-page) .faq-nav a {
+    min-height: 44px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    scroll-snap-align: start;
+  }
+
+  body:not(.recruitment-page) .faq-tool-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  body:not(.recruitment-page) .faq-action {
+    width: 100%;
+    justify-content: center;
+  }
+
+  body:not(.recruitment-page) .faq-count {
+    grid-column: 1 / -1;
+    margin: 0.15rem 0 0;
+  }
+
+  body:not(.recruitment-page) .faq-item summary {
+    min-height: 64px;
+    gap: 0.72rem;
+    padding: 0.82rem 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  body:not(.recruitment-page) .faq-body {
+    padding: 0 1rem 1.1rem;
+    font-size: 0.9rem;
+    line-height: 1.72;
+  }
+
+  body:not(.recruitment-page) .carousel-dots .dot {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    background: transparent;
+  }
+
+  body:not(.recruitment-page) .carousel-dots .dot::before {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(var(--accent-rgb), 0.46);
+    transform: translate(-50%, -50%);
+  }
+
+  body:not(.recruitment-page) .carousel-dots .dot.active::before {
+    width: 18px;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  body:not(.recruitment-page) .lightbox-close {
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: max(0.75rem, env(safe-area-inset-right));
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(var(--accent-rgb), 0.32);
+    border-radius: 50%;
+    background: rgba(3, 4, 5, 0.7);
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 520px) {
+  body:not(.recruitment-page) .rules-hero {
+    min-height: 330px;
+    padding: calc(var(--nav-h) + 2.3rem) 0.75rem 2.35rem;
+  }
+
+  body:not(.recruitment-page) .rules-hero h1 {
+    font-size: clamp(2.55rem, 12vw, 3.45rem);
+    line-height: 0.98;
+  }
+
+  body:not(.recruitment-page) .rules-hero--charter h1 {
+    font-size: clamp(2.35rem, 11vw, 2.9rem);
+  }
+
+  body:not(.recruitment-page) .rules-hero .tagline {
+    margin-top: 0.8rem;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  body:not(.recruitment-page) .glass {
+    padding: 1rem;
+    border-radius: 6px;
+  }
+
+  body:not(.recruitment-page) :is(.guide-panel, .panel, .rules-card) {
+    border-radius: 6px;
+  }
+
+  body:not(.recruitment-page) :is(.guide-panel, .panel) {
+    padding: 1rem;
+  }
+
+  body:not(.recruitment-page) :is(.application-panel, .contact-panel, .readiness-panel) {
+    padding-inline: 1rem;
+  }
+
+  body:not(.recruitment-page) :is(.hero-actions, .rules-hero-actions) {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  body:not(.recruitment-page) :is(.hero-actions, .rules-hero-actions) .btn {
+    width: 100%;
+  }
+
+  body:not(.recruitment-page) .faq-wrap {
+    padding: 0.85rem;
+  }
+
+  body:not(.recruitment-page) .faq-tools {
+    padding: 0.85rem;
+  }
+
+  body:not(.recruitment-page) .faq-cat {
+    margin-block: 2.1rem 0.8rem;
+    font-size: 1.75rem;
+  }
+
+  body:not(.recruitment-page) .faq-icon {
+    flex-basis: 2.35rem;
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  body:not(.recruitment-page) .gallery {
+    padding-inline: 0.625rem;
+  }
+
+  body:not(.recruitment-page) :is(.actions-bar, .carousel-container) {
+    width: calc(100% - 1.25rem);
+  }
+}
+
+@media (hover: none) {
+  body:not(.recruitment-page) .wallpaper-overlay {
+    opacity: 1;
+    background: linear-gradient(180deg, transparent 45%, rgba(2, 3, 4, 0.84));
+  }
+
+  body:not(.recruitment-page) .overlay-buttons {
+    top: auto;
+    right: 0.72rem;
+    bottom: 3.4rem;
+    left: auto;
+    gap: 0.55rem;
+    opacity: 1;
+    transform: none;
+  }
+
+  body:not(.recruitment-page) .overlay-buttons a {
+    width: 44px;
+    height: 44px;
+  }
+
+  body:not(.recruitment-page) .wallpaper-caption {
+    padding-right: 6.7rem;
+    text-align: left;
+    transform: none;
+  }
+}
+
+@media (max-width: 920px) and (max-height: 540px) and (orientation: landscape) {
+  body:not(.recruitment-page) .rules-hero,
+  body:not(.recruitment-page) .hero:not(.home-hero) {
+    min-height: auto;
+    padding-top: calc(var(--nav-h) + 1.5rem);
+    padding-bottom: 2rem;
+  }
+
+  body:not(.recruitment-page) .rules-hero img {
+    width: 88px;
+    height: 88px;
+    margin-bottom: 0.8rem;
   }
 }

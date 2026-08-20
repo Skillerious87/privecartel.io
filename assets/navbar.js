@@ -143,7 +143,7 @@ class PCNavbar extends HTMLElement {
     const overlay = this.querySelector(".nav-overlay");
     const navigation = this.querySelector("#primary-navigation");
     const links = [...this.querySelectorAll(".nav-links a, .nav-links button")];
-    const mobileQuery = window.matchMedia("(max-width: 920px)");
+    const mobileQuery = window.matchMedia("(max-width: 1080px)");
     let open = false;
 
     if (!toggle) return;
@@ -240,7 +240,7 @@ class PCNavbar extends HTMLElement {
 
       count.textContent = terms.length
         ? `${matches.length} result${matches.length === 1 ? "" : "s"}`
-        : "Popular destinations";
+        : "Featured destinations";
       results.innerHTML = matches.length
         ? matches.map((item) => `
             <li>
@@ -307,16 +307,16 @@ class PCNavbar extends HTMLElement {
     dialog.innerHTML = `
       <div class="site-search-panel">
         <div class="site-search-heading">
-          <div><p>Quick navigation</p><h2 id="site-search-title">Search Priv&eacute; Cartel</h2></div>
+          <div><p>Priv&eacute; Cartel directory</p><h2 id="site-search-title">Find your destination</h2></div>
           <form method="dialog"><button type="submit" aria-label="Close search"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></form>
         </div>
         <label class="site-search-field">
           <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
           <span class="sr-only">Search pages</span>
-          <input type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Search rules, guides, OC 2.0…" data-site-search-input>
+          <input type="search" inputmode="search" autocomplete="off" spellcheck="false" placeholder="Search rules, guides, members…" data-site-search-input>
           <kbd aria-hidden="true">Esc</kbd>
         </label>
-        <div class="site-search-meta"><span data-site-search-count aria-live="polite">Popular destinations</span><span><kbd>↑</kbd><kbd>↓</kbd> to move</span></div>
+        <div class="site-search-meta"><span data-site-search-count aria-live="polite">Featured destinations</span><span>Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate</span></div>
         <ul class="site-search-results" data-site-search-results></ul>
       </div>`;
     document.body.appendChild(dialog);
