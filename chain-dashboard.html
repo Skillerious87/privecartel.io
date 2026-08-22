@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Chain Operations Dashboard | Priv&eacute; Cartel</title>
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#090b0e">
+  <link rel="icon" href="assets/icon-192.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/chain-dashboard.css?v=20260822-1">
+</head>
+<body class="chain-dashboard-page">
+  <a class="dashboard-skip-link" href="#dashboard-content">Skip to dashboard content</a>
+  <div class="dashboard-mobile-overlay" data-sidebar-close hidden></div>
+
+  <aside class="dashboard-sidebar" data-sidebar aria-label="Chain dashboard navigation">
+    <a class="dashboard-brand" href="chain-dashboard.html" aria-label="Chain operations dashboard home">
+      <span class="dashboard-brand-mark"><img src="images/emblem-512.webp" alt="" width="512" height="512"></span>
+      <span><strong>Priv&eacute; Cartel</strong><small>Chain operations</small></span>
+    </a>
+
+    <div class="dashboard-workspace-label">
+      <span>Workspace</span>
+      <strong><i class="fa-solid fa-circle" aria-hidden="true"></i> Local council draft</strong>
+    </div>
+
+    <nav class="dashboard-nav" aria-label="Dashboard sections">
+      <p>Manage</p>
+      <button type="button" class="is-active" data-dashboard-view="overview">
+        <i class="fa-solid fa-table-cells-large" aria-hidden="true"></i><span>Overview</span>
+      </button>
+      <button type="button" data-dashboard-view="schedule">
+        <i class="fa-regular fa-calendar-days" aria-hidden="true"></i><span>Schedule</span><b data-sidebar-event-count>0</b>
+      </button>
+      <button type="button" data-dashboard-view="editor">
+        <i class="fa-solid fa-pen-ruler" aria-hidden="true"></i><span>Chain editor</span>
+      </button>
+      <button type="button" data-dashboard-view="publish">
+        <i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i><span>Publish</span>
+      </button>
+    </nav>
+
+    <button class="dashboard-new-chain" type="button" data-new-event>
+      <i class="fa-solid fa-plus" aria-hidden="true"></i><span>Schedule a chain</span>
+    </button>
+
+    <div class="dashboard-sidebar-footer">
+      <div class="dashboard-local-note">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+        <div><strong>Private editing</strong><span>Drafts stay in this browser.</span></div>
+      </div>
+      <a href="chainschedule.html" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> View live calendar</a>
+      <a href="index.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Return to website</a>
+    </div>
+  </aside>
+
+  <main class="dashboard-main" id="dashboard-content" tabindex="-1">
+    <header class="dashboard-topbar">
+      <div class="dashboard-topbar-start">
+        <button class="dashboard-menu-button" type="button" aria-label="Open dashboard navigation" aria-expanded="false" data-sidebar-open>
+          <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+        <div>
+          <p><span>Chain operations</span><i class="fa-solid fa-chevron-right" aria-hidden="true"></i><strong data-view-label>Overview</strong></p>
+          <h1 data-view-title>Command overview</h1>
+        </div>
+      </div>
+      <div class="dashboard-topbar-end">
+        <div class="dashboard-save-state" data-save-state>
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          <span><strong>Workspace ready</strong><small data-save-copy>Loading schedule&hellip;</small></span>
+        </div>
+        <a class="dashboard-live-link" href="chainschedule.html" target="_blank" rel="noopener noreferrer">Live calendar <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <section class="dashboard-view is-active" data-view-panel="overview" aria-labelledby="overview-heading">
+        <header class="dashboard-page-head">
+          <div>
+            <p class="dashboard-eyebrow">Operational picture</p>
+            <h2 id="overview-heading">Your chain calendar, under control.</h2>
+            <p>Review upcoming windows, spot provisional events and move directly into editing.</p>
+          </div>
+          <button class="dashboard-primary-button" type="button" data-new-event><i class="fa-solid fa-plus" aria-hidden="true"></i> New chain</button>
+        </header>
+
+        <section class="dashboard-metrics" aria-label="Schedule summary">
+          <article>
+            <span class="dashboard-metric-icon is-gold"><i class="fa-regular fa-calendar-check" aria-hidden="true"></i></span>
+            <div><small>Upcoming chains</small><strong data-metric-upcoming>0</strong><p data-metric-upcoming-copy>No windows published</p></div>
+          </article>
+          <article>
+            <span class="dashboard-metric-icon is-green"><i class="fa-solid fa-circle-check" aria-hidden="true"></i></span>
+            <div><small>Confirmed</small><strong data-metric-confirmed>0</strong><p>Ready for members</p></div>
+          </article>
+          <article>
+            <span class="dashboard-metric-icon is-blue"><i class="fa-solid fa-compass-drafting" aria-hidden="true"></i></span>
+            <div><small>In planning</small><strong data-metric-planning>0</strong><p>Needs council review</p></div>
+          </article>
+          <article>
+            <span class="dashboard-metric-icon is-muted"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+            <div><small>Next window</small><strong class="dashboard-metric-time" data-metric-next>&mdash;</strong><p data-metric-next-copy>Awaiting schedule</p></div>
+          </article>
+        </section>
+
+        <div class="dashboard-overview-grid">
+          <article class="dashboard-panel dashboard-next-panel">
+            <header class="dashboard-panel-head"><div><p>Priority</p><h3>Next scheduled chain</h3></div><span data-next-status></span></header>
+            <div data-overview-next></div>
+          </article>
+          <article class="dashboard-panel dashboard-queue-panel">
+            <header class="dashboard-panel-head"><div><p>Forward queue</p><h3>Upcoming windows</h3></div><button type="button" data-dashboard-view="schedule">View all</button></header>
+            <div class="dashboard-queue" data-overview-queue></div>
+          </article>
+        </div>
+
+        <article class="dashboard-panel dashboard-month-panel">
+          <header class="dashboard-panel-head dashboard-calendar-head">
+            <div><p>Calendar preview</p><h3 data-overview-month>Month</h3></div>
+            <div class="dashboard-calendar-controls" role="group" aria-label="Overview calendar navigation">
+              <button type="button" data-overview-previous aria-label="Previous month"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+              <button type="button" data-overview-today>Today</button>
+              <button type="button" data-overview-calendar-next aria-label="Next month"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+          </header>
+          <div class="dashboard-calendar" data-overview-calendar></div>
+        </article>
+      </section>
+
+      <section class="dashboard-view" data-view-panel="schedule" aria-labelledby="schedule-heading" hidden>
+        <header class="dashboard-page-head">
+          <div>
+            <p class="dashboard-eyebrow">Schedule manager</p>
+            <h2 id="schedule-heading">Review every published window.</h2>
+            <p>Select a date to narrow the queue, or open any chain in the editor.</p>
+          </div>
+          <button class="dashboard-primary-button" type="button" data-new-event><i class="fa-solid fa-plus" aria-hidden="true"></i> New chain</button>
+        </header>
+
+        <div class="dashboard-schedule-layout">
+          <article class="dashboard-panel dashboard-schedule-calendar-panel">
+            <header class="dashboard-panel-head dashboard-calendar-head">
+              <div><p>Schedule</p><h3 data-schedule-month>Month</h3></div>
+              <div class="dashboard-calendar-controls" role="group" aria-label="Schedule calendar navigation">
+                <button type="button" data-schedule-previous aria-label="Previous month"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                <button type="button" data-schedule-today>Today</button>
+                <button type="button" data-schedule-next aria-label="Next month"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+              </div>
+            </header>
+            <div class="dashboard-calendar dashboard-calendar--large" data-schedule-calendar></div>
+            <div class="dashboard-calendar-legend"><span><i class="is-confirmed"></i> Confirmed</span><span><i class="is-planning"></i> Planning</span><span><i class="is-completed"></i> Completed</span><span><i class="is-cancelled"></i> Cancelled</span></div>
+          </article>
+
+          <article class="dashboard-panel dashboard-events-panel">
+            <header class="dashboard-events-toolbar">
+              <div><p>Event register</p><h3 data-event-list-title>All chains</h3></div>
+              <button type="button" data-clear-date-filter hidden>Clear date</button>
+            </header>
+            <div class="dashboard-event-filters">
+              <label><span class="sr-only">Search chains</span><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input type="search" placeholder="Search chains&hellip;" data-event-search></label>
+              <label><span class="sr-only">Filter by status</span><select data-event-status-filter><option value="all">All statuses</option><option value="confirmed">Confirmed</option><option value="planning">Planning</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></label>
+            </div>
+            <div class="dashboard-event-list" data-event-list></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard-view" data-view-panel="editor" aria-labelledby="editor-heading" hidden>
+        <header class="dashboard-page-head">
+          <div>
+            <p class="dashboard-eyebrow">Chain editor</p>
+            <h2 id="editor-heading" data-editor-heading>Create a chain window.</h2>
+            <p>All dates and times are entered in Torn City Time (UTC).</p>
+          </div>
+          <button class="dashboard-secondary-button" type="button" data-clear-editor><i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Clear form</button>
+        </header>
+
+        <div class="dashboard-editor-layout">
+          <form class="dashboard-editor-form" data-chain-form novalidate>
+            <input type="hidden" name="eventId" data-event-id>
+            <section class="dashboard-form-section">
+              <header><span>01</span><div><h3>Essential details</h3><p>Define what members will see first.</p></div></header>
+              <div class="dashboard-form-grid">
+                <label class="dashboard-field dashboard-field--wide"><span>Chain title <b>*</b></span><input type="text" name="title" maxlength="80" placeholder="e.g. Weekend 1,000 chain" required></label>
+                <label class="dashboard-field"><span>Status <b>*</b></span><select name="status" required><option value="planning">Planning</option><option value="confirmed">Confirmed</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></label>
+                <div class="dashboard-field dashboard-duration-field"><span>Duration</span><strong data-duration-preview>&mdash;</strong><small>Calculated automatically</small></div>
+                <label class="dashboard-field"><span>Start date <b>*</b></span><input type="date" name="startDate" required></label>
+                <label class="dashboard-field"><span>Start time (TCT) <b>*</b></span><input type="time" name="startTime" required></label>
+                <label class="dashboard-field"><span>End date <b>*</b></span><input type="date" name="endDate" required></label>
+                <label class="dashboard-field"><span>End time (TCT) <b>*</b></span><input type="time" name="endTime" required></label>
+              </div>
+            </section>
+
+            <section class="dashboard-form-section">
+              <header><span>02</span><div><h3>Operational details</h3><p>Give members the practical briefing.</p></div></header>
+              <div class="dashboard-form-grid">
+                <label class="dashboard-field"><span>Target</span><input type="text" name="target" maxlength="100" placeholder="e.g. 1,000 hits"></label>
+                <label class="dashboard-field"><span>Chain lead</span><input type="text" name="lead" maxlength="80" placeholder="Council or member name"></label>
+                <label class="dashboard-field dashboard-field--wide"><span>Live channel</span><input type="text" name="rallyPoint" maxlength="120" placeholder="Faction chat and Discord"></label>
+                <label class="dashboard-field dashboard-field--wide"><span>Briefing link</span><input type="url" name="briefingUrl" placeholder="https://&hellip;"><small>Optional Torn forum, Discord or document link.</small></label>
+              </div>
+            </section>
+
+            <section class="dashboard-form-section">
+              <header><span>03</span><div><h3>Member briefing</h3><p>Add context and a preparation checklist.</p></div></header>
+              <div class="dashboard-form-grid">
+                <label class="dashboard-field dashboard-field--wide"><span>Operational note</span><textarea name="notes" rows="4" maxlength="500" placeholder="Explain the aim, energy expectations or any important context."></textarea><small><span data-notes-count>0</span>/500 characters</small></label>
+                <label class="dashboard-field dashboard-field--wide"><span>Preparation checklist</span><textarea name="expectations" rows="5" placeholder="One item per line&#10;Stack energy before the start&#10;Prepare a target list&#10;Watch Discord for live calls"></textarea><small>Up to eight checklist items, one per line.</small></label>
+              </div>
+            </section>
+
+            <div class="dashboard-form-message" data-form-message role="status" aria-live="polite"></div>
+            <div class="dashboard-form-actions">
+              <button class="dashboard-primary-button" type="submit"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i><span data-save-event-label>Save chain</span></button>
+              <button class="dashboard-secondary-button" type="button" data-save-and-new><i class="fa-solid fa-plus" aria-hidden="true"></i> Save and add another</button>
+            </div>
+          </form>
+
+          <aside class="dashboard-editor-aside" aria-label="Editor preview and guidance">
+            <article class="dashboard-panel dashboard-live-preview">
+              <header class="dashboard-panel-head"><div><p>Member view</p><h3>Live preview</h3></div><span>Auto-updating</span></header>
+              <div data-event-preview></div>
+            </article>
+            <article class="dashboard-editor-tip">
+              <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+              <div><strong>Drafts are local</strong><p>Saving here updates this browser workspace. Use Publish when the schedule is ready for members.</p></div>
+            </article>
+          </aside>
+        </div>
+      </section>
+
+      <section class="dashboard-view" data-view-panel="publish" aria-labelledby="publish-heading" hidden>
+        <header class="dashboard-page-head">
+          <div>
+            <p class="dashboard-eyebrow">Publish centre</p>
+            <h2 id="publish-heading">Move a validated draft live.</h2>
+            <p>Review readiness, export the schedule and update the repository without exposing credentials.</p>
+          </div>
+        </header>
+
+        <div class="dashboard-publish-grid">
+          <div class="dashboard-publish-main">
+            <article class="dashboard-panel dashboard-readiness-panel">
+              <header class="dashboard-panel-head"><div><p>Pre-flight</p><h3>Schedule readiness</h3></div><span data-readiness-badge>Checking</span></header>
+              <div class="dashboard-readiness-list" data-readiness-list></div>
+            </article>
+
+            <article class="dashboard-panel dashboard-json-panel">
+              <header class="dashboard-panel-head"><div><p>Output</p><h3>chain-schedule.json</h3></div><button type="button" data-copy-json><i class="fa-regular fa-copy" aria-hidden="true"></i> Copy JSON</button></header>
+              <pre><code data-json-preview></code></pre>
+            </article>
+          </div>
+
+          <aside class="dashboard-publish-aside" aria-label="Publishing actions">
+            <article class="dashboard-panel dashboard-publish-card">
+              <span class="dashboard-publish-icon"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i></span>
+              <p>Ready to publish</p>
+              <h3>Update the member calendar.</h3>
+              <p>Copy the validated JSON, open the repository file, replace its contents and commit the change.</p>
+              <button class="dashboard-primary-button" type="button" data-copy-and-open><i class="fa-brands fa-github" aria-hidden="true"></i> Copy &amp; open GitHub</button>
+              <button class="dashboard-secondary-button" type="button" data-download-json><i class="fa-solid fa-download" aria-hidden="true"></i> Download JSON</button>
+              <small><i class="fa-solid fa-lock" aria-hidden="true"></i> No GitHub credentials are stored here.</small>
+            </article>
+
+            <article class="dashboard-panel dashboard-data-tools">
+              <header><p>Data tools</p><h3>Import or restore</h3></header>
+              <button type="button" data-import-json><i class="fa-solid fa-file-import" aria-hidden="true"></i><span><strong>Import JSON</strong><small>Load an existing schedule file</small></span></button>
+              <input type="file" accept="application/json,.json" data-import-input hidden>
+              <button type="button" data-refresh-published><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i><span><strong>Reload published</strong><small>Fetch the live repository data</small></span></button>
+              <button type="button" class="is-danger" data-reset-draft><i class="fa-solid fa-trash-arrow-up" aria-hidden="true"></i><span><strong>Discard local draft</strong><small>Restore the last published version</small></span></button>
+            </article>
+          </aside>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <dialog class="dashboard-confirm-dialog" data-delete-dialog aria-labelledby="delete-dialog-title">
+    <form method="dialog">
+      <span><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></span>
+      <p>Remove scheduled chain</p>
+      <h2 id="delete-dialog-title">Delete this draft event?</h2>
+      <p data-delete-copy>This removes it from the local workspace. The published calendar is not changed until you publish.</p>
+      <div><button type="submit" value="cancel">Keep event</button><button type="submit" value="confirm" class="is-danger">Delete event</button></div>
+    </form>
+  </dialog>
+
+  <div class="dashboard-toast" data-dashboard-toast role="status" aria-live="polite" hidden>
+    <i class="fa-solid fa-circle-check" aria-hidden="true"></i><span><strong>Saved</strong><small>Draft updated.</small></span>
+  </div>
+
+  <script src="assets/chain-dashboard.js?v=20260822-1" defer></script>
+</body>
+</html>
