@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Chain Schedule | Priv&eacute; Cartel</title>
+  <meta name="description" content="View the Priv&eacute; Cartel chain calendar, published start times, targets, preparation notes and event details.">
+  <link rel="canonical" href="https://www.privecartel.com/chainschedule.html">
+  <meta name="robots" content="index,follow">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:site_name" content="Priv&eacute; Cartel">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Chain Schedule | Priv&eacute; Cartel">
+  <meta property="og:description" content="The official Priv&eacute; Cartel calendar for scheduled faction chains.">
+  <meta property="og:url" content="https://www.privecartel.com/chainschedule.html">
+  <meta property="og:image" content="https://www.privecartel.com/images/Emblem.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Priv&eacute; Cartel emblem">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#090b0e">
+  <link rel="icon" href="assets/icon-192.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/editorial.css">
+  <link rel="stylesheet" href="assets/mobile.css">
+  <link rel="stylesheet" href="assets/chain-schedule.css?v=20260822-1">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Priv\u00e9 Cartel Chain Schedule",
+    "url": "https://www.privecartel.com/chainschedule.html",
+    "description": "The official Priv\u00e9 Cartel calendar for scheduled faction chains.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Priv\u00e9 Cartel",
+      "url": "https://www.privecartel.com/"
+    },
+    "inLanguage": "en-GB"
+  }
+  </script>
+</head>
+<body class="chain-schedule-page" data-hide-recruitment-banner="true">
+  <script type="module" src="assets/navbar.js"></script>
+  <pc-navbar></pc-navbar>
+
+  <header class="chain-hero" aria-labelledby="chain-page-title">
+    <div class="chain-hero-orbit" aria-hidden="true"></div>
+    <div class="chain-shell chain-hero-layout">
+      <div class="chain-hero-copy">
+        <p class="chain-kicker"><span>Faction operations</span><span aria-hidden="true">&middot;</span><span>Member calendar</span></p>
+        <h1 id="chain-page-title">Chain<br><em>schedule.</em></h1>
+        <p class="chain-hero-lede">Know the window. Prepare your targets. Be ready when the faction moves.</p>
+        <ul class="chain-hero-badges" aria-label="Schedule information">
+          <li><i class="fa-regular fa-clock" aria-hidden="true"></i> Primary times in TCT</li>
+          <li><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> Council maintained</li>
+          <li><i class="fa-regular fa-calendar-check" aria-hidden="true"></i> Calendar downloads</li>
+        </ul>
+      </div>
+
+      <aside class="chain-next-brief" aria-labelledby="next-chain-heading">
+        <div class="chain-next-brief-top">
+          <span class="chain-next-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span>
+          <div>
+            <p>Next operation</p>
+            <h2 id="next-chain-heading" data-next-title>Loading schedule&hellip;</h2>
+          </div>
+        </div>
+        <p class="chain-next-time" data-next-time>Checking the council calendar.</p>
+        <dl>
+          <div><dt>Status</dt><dd data-next-status>Loading</dd></div>
+          <div><dt>Target</dt><dd data-next-target>&mdash;</dd></div>
+          <div><dt>Countdown</dt><dd data-next-countdown>&mdash;</dd></div>
+        </dl>
+        <a href="#calendar" class="chain-jump-link">Open calendar <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+      </aside>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="chain-calendar-section" id="calendar" aria-labelledby="calendar-section-title">
+      <div class="chain-shell">
+        <header class="chain-section-head">
+          <div>
+            <p class="chain-kicker">Published schedule</p>
+            <h2 id="calendar-section-title">The month at a glance.</h2>
+          </div>
+          <div class="chain-time-standard">
+            <i class="fa-solid fa-earth-europe" aria-hidden="true"></i>
+            <div><strong>Torn City Time</strong><span>Calendar dates and primary times use UTC.</span></div>
+          </div>
+        </header>
+
+        <div class="chain-schedule-layout">
+          <section class="chain-calendar-card" aria-label="Chain calendar">
+            <header class="chain-calendar-toolbar">
+              <div>
+                <p>Operations calendar</p>
+                <h3 id="calendarMonth" aria-live="polite">Loading&hellip;</h3>
+              </div>
+              <div class="chain-calendar-actions" role="group" aria-label="Calendar navigation">
+                <button type="button" data-calendar-previous aria-label="Previous month"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                <button type="button" class="chain-today-button" data-calendar-today>Today</button>
+                <button type="button" data-calendar-next aria-label="Next month"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+              </div>
+            </header>
+
+            <div class="chain-calendar-frame">
+              <table class="chain-calendar-table" role="grid" aria-labelledby="calendarMonth" aria-describedby="calendarHelp">
+                <caption class="sr-only" id="calendarCaption">Chain schedule calendar</caption>
+                <thead>
+                  <tr>
+                    <th scope="col"><abbr title="Monday">Mon</abbr></th>
+                    <th scope="col"><abbr title="Tuesday">Tue</abbr></th>
+                    <th scope="col"><abbr title="Wednesday">Wed</abbr></th>
+                    <th scope="col"><abbr title="Thursday">Thu</abbr></th>
+                    <th scope="col"><abbr title="Friday">Fri</abbr></th>
+                    <th scope="col"><abbr title="Saturday">Sat</abbr></th>
+                    <th scope="col"><abbr title="Sunday">Sun</abbr></th>
+                  </tr>
+                </thead>
+                <tbody data-calendar-body></tbody>
+              </table>
+            </div>
+
+            <div class="chain-calendar-footer">
+              <ul class="chain-legend" aria-label="Calendar legend">
+                <li><i class="is-confirmed" aria-hidden="true"></i> Confirmed</li>
+                <li><i class="is-planning" aria-hidden="true"></i> Planning</li>
+                <li><i class="is-completed" aria-hidden="true"></i> Completed</li>
+                <li><i class="is-cancelled" aria-hidden="true"></i> Cancelled</li>
+              </ul>
+              <p id="calendarHelp"><i class="fa-regular fa-keyboard" aria-hidden="true"></i> Use arrow keys to move by day, Page Up or Page Down to change month.</p>
+            </div>
+          </section>
+
+          <aside class="chain-date-detail" data-date-detail tabindex="-1" aria-live="polite" aria-labelledby="selectedDateTitle">
+            <div class="chain-detail-loading">
+              <span aria-hidden="true"><i class="fa-solid fa-spinner fa-spin"></i></span>
+              <p>Loading selected date&hellip;</p>
+            </div>
+          </aside>
+        </div>
+
+        <p class="chain-load-status" data-schedule-status role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="chain-upcoming-section" aria-labelledby="upcoming-chain-title">
+      <div class="chain-shell">
+        <header class="chain-section-head chain-section-head--compact">
+          <div>
+            <p class="chain-kicker">Forward view</p>
+            <h2 id="upcoming-chain-title">Upcoming operations.</h2>
+          </div>
+          <p>Only dates published by council appear here. Provisional windows are clearly marked until confirmed.</p>
+        </header>
+        <div class="chain-upcoming-list" data-upcoming-list></div>
+      </div>
+    </section>
+
+    <section class="chain-readiness-section" aria-labelledby="readiness-title">
+      <div class="chain-shell">
+        <header class="chain-section-head chain-section-head--compact">
+          <div>
+            <p class="chain-kicker">Chain-day discipline</p>
+            <h2 id="readiness-title">Arrive ready to contribute.</h2>
+          </div>
+          <p>The calendar gives the window. Discord and faction chat remain the live source for target calls and operational changes.</p>
+        </header>
+
+        <ol class="chain-readiness-grid">
+          <li>
+            <span>01</span>
+            <i class="fa-solid fa-crosshairs" aria-hidden="true"></i>
+            <h3>Prepare targets</h3>
+            <p>Build a safe target list before the announced start so your first hits are ready without delay.</p>
+          </li>
+          <li>
+            <span>02</span>
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+            <h3>Protect your energy</h3>
+            <p>Follow the published preparation note and avoid spending resources reserved for the chain window.</p>
+          </li>
+          <li>
+            <span>03</span>
+            <i class="fa-solid fa-comments" aria-hidden="true"></i>
+            <h3>Watch live calls</h3>
+            <p>Stay present in faction channels, watch the timer and tell the chain lead if your availability changes.</p>
+          </li>
+        </ol>
+
+        <div class="chain-council-note">
+          <span aria-hidden="true"><i class="fa-brands fa-discord"></i></span>
+          <div><strong>Schedule changed?</strong><p>Operational updates can move quickly. Council announcements in Discord take precedence over this calendar.</p></div>
+          <a class="btn secondary" href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer" data-discord-dialog>Open Discord</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Priv&eacute; Cartel.</p>
+  </footer>
+
+  <script src="assets/script.js?v=20260822-4"></script>
+  <script src="assets/chain-schedule.js?v=20260822-1" defer></script>
+</body>
+</html>

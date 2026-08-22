@@ -13,6 +13,7 @@ const NAVBAR_TEMPLATE = `
       <li><a href="rules.html"><i class="fa-solid fa-scale-balanced"></i> Rules</a></li>
       <li><a href="guides.html"><i class="fa-solid fa-book"></i> Guides</a></li>
       <li><a href="members.html"><i class="fa-solid fa-users"></i> Members</a></li>
+      <li><a href="chainschedule.html"><i class="fa-regular fa-calendar-check"></i> Chains</a></li>
       <li><a href="news.html"><i class="fa-solid fa-bullhorn"></i> News</a></li>
       <li><a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
       <li><a href="contact.html"><i class="fa-solid fa-address-card"></i> Contact</a></li>
@@ -33,6 +34,7 @@ const SEARCH_ITEMS = [
   { path: "guides/torntargets.html", title: "Torn Targets Guide", description: "Find and assess efficient targets for missions and chains.", keywords: "targets attacks missions chains" },
   { path: "guides/installscripts.html", title: "Install User Scripts", description: "Set up Tampermonkey and useful Torn scripts safely.", keywords: "scripts tampermonkey greasyfork install" },
   { path: "members.html", title: "Members Directory", description: "Browse the current Privé Cartel roster.", keywords: "members roster leadership players" },
+  { path: "chainschedule.html", title: "Chain Schedule", description: "View scheduled faction chains, preparation notes and calendar details.", keywords: "chain schedule calendar events targets tct" },
   { path: "news.html", title: "News & Milestones", description: "Faction announcements, chain results and updates.", keywords: "news updates announcements chains" },
   { path: "faq.html", title: "Frequently Asked Questions", description: "Quick answers about membership and faction operations.", keywords: "faq questions answers help" },
   { path: "contact.html", title: "Contact Council", description: "Apply, ask a question or contact faction leadership.", keywords: "contact council application discord" },

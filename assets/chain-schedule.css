@@ -1,0 +1,1427 @@
+/* ============================================================
+   Chain schedule
+   Member-facing operations calendar and event detail system.
+   ============================================================ */
+
+.chain-schedule-page {
+  --chain-shell: min(calc(100% - 2.5rem), 1240px);
+  --chain-panel: rgba(13, 16, 19, 0.96);
+  --chain-panel-soft: rgba(17, 20, 24, 0.82);
+  --chain-line: rgba(var(--accent-rgb), 0.22);
+  --chain-line-strong: rgba(var(--accent-rgb), 0.42);
+  --chain-muted: rgba(240, 236, 223, 0.64);
+  background: #080a0c;
+}
+
+.chain-schedule-page main {
+  overflow: hidden;
+}
+
+.chain-shell {
+  width: var(--chain-shell);
+  margin-inline: auto;
+}
+
+.chain-kicker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.chain-kicker::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  flex: 0 0 auto;
+  background: currentColor;
+}
+
+/* Hero --------------------------------------------------------- */
+.chain-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: min(760px, 86svh);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  padding: calc(var(--nav-h, 72px) + clamp(4rem, 7vw, 6rem)) 0 clamp(4.5rem, 8vw, 6.5rem);
+  background:
+    linear-gradient(90deg, rgba(7, 9, 11, 0.985), rgba(7, 9, 11, 0.9) 54%, rgba(7, 9, 11, 0.76)),
+    url("../images/hero-bg.jpg") repeat center / 180px;
+}
+
+.chain-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background:
+    linear-gradient(rgba(var(--accent-rgb), 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+  opacity: 0.6;
+}
+
+.chain-hero::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 6%, rgba(var(--accent-rgb), 0.85), transparent 94%);
+}
+
+.chain-hero-orbit {
+  position: absolute;
+  z-index: -1;
+  top: 2%;
+  right: -13rem;
+  width: min(58rem, 78vw);
+  aspect-ratio: 1;
+  border: 1px solid rgba(var(--accent-rgb), 0.1);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.11), transparent 64%);
+  box-shadow: inset 0 0 0 6rem rgba(0, 0, 0, 0.045);
+  pointer-events: none;
+}
+
+.chain-hero-orbit::before,
+.chain-hero-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 13%;
+  border: 1px solid rgba(var(--accent-rgb), 0.065);
+  border-radius: inherit;
+}
+
+.chain-hero-orbit::after {
+  inset: 31%;
+}
+
+.chain-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.62fr);
+  gap: clamp(3rem, 8vw, 7rem);
+  align-items: center;
+}
+
+.chain-hero-copy {
+  max-width: 740px;
+}
+
+.chain-hero h1 {
+  margin: 1rem 0 1.2rem;
+  color: var(--text-1);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(4.4rem, 8vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.8;
+}
+
+.chain-hero h1 em {
+  color: var(--accent-light);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.chain-hero-lede {
+  max-width: 610px;
+  margin: 0;
+  color: rgba(240, 236, 223, 0.72);
+  font-size: clamp(1rem, 1.7vw, 1.1rem);
+  line-height: 1.82;
+}
+
+.chain-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.6rem;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chain-hero-badges > li {
+  min-height: 2.35rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  padding: 0.48rem 0.68rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+  color: rgba(240, 236, 223, 0.6);
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+
+.chain-hero-badges i {
+  color: var(--accent);
+}
+
+.chain-next-brief {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--chain-line-strong);
+  border-radius: 7px;
+  background:
+    radial-gradient(circle at 100% 0, rgba(var(--accent-rgb), 0.13), transparent 19rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012)),
+    rgba(8, 10, 12, 0.92);
+  box-shadow: 0 32px 78px rgba(0, 0, 0, 0.46), inset 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.chain-next-brief::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 4rem;
+  height: 4rem;
+  border-top: 1px solid var(--accent-light);
+  border-right: 1px solid var(--accent-light);
+  pointer-events: none;
+}
+
+.chain-next-brief-top {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: center;
+  padding-bottom: 1.15rem;
+  border-bottom: 1px solid var(--chain-line);
+}
+
+.chain-next-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--accent-light);
+}
+
+.chain-next-brief-top p {
+  margin: 0;
+  color: rgba(var(--accent-rgb), 0.7);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.chain-next-brief h2 {
+  margin: 0.2rem 0 0;
+  color: var(--text-1);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.65rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.08;
+}
+
+.chain-next-time {
+  margin: 1rem 0;
+  color: var(--chain-muted);
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.chain-next-brief dl {
+  margin: 0;
+}
+
+.chain-next-brief dl > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.72rem 0;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.13);
+}
+
+.chain-next-brief dt {
+  color: rgba(240, 236, 223, 0.46);
+  font-size: 0.68rem;
+}
+
+.chain-next-brief dd {
+  margin: 0;
+  color: rgba(240, 236, 223, 0.88);
+  font-size: 0.7rem;
+  font-weight: 650;
+  text-align: right;
+}
+
+.chain-jump-link,
+.chain-jump-link:link,
+.chain-jump-link:visited {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.6rem;
+  color: var(--accent-light);
+  font-size: 0.72rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+/* Shared sections --------------------------------------------- */
+.chain-calendar-section,
+.chain-upcoming-section,
+.chain-readiness-section {
+  padding: clamp(4.5rem, 8vw, 7rem) 0;
+  background: none;
+}
+
+.chain-upcoming-section {
+  padding-top: 0;
+}
+
+.chain-readiness-section {
+  padding-top: 0;
+  padding-bottom: clamp(5rem, 9vw, 8rem);
+}
+
+.chain-section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(290px, 0.55fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(1.7rem, 4vw, 2.6rem);
+}
+
+.chain-section-head h2 {
+  margin: 0.55rem 0 0;
+  color: var(--text-1);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.6rem, 5vw, 4.15rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.03;
+}
+
+.chain-section-head--compact > p {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--chain-muted);
+  font-size: 0.86rem;
+  line-height: 1.75;
+}
+
+.chain-time-standard {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  gap: 0.72rem;
+  align-items: center;
+  padding: 0.85rem;
+  border: 1px solid var(--chain-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.022);
+}
+
+.chain-time-standard > i {
+  width: 2.6rem;
+  height: 2.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: rgba(var(--accent-rgb), 0.08);
+  color: var(--accent-light);
+}
+
+.chain-time-standard strong,
+.chain-time-standard span {
+  display: block;
+}
+
+.chain-time-standard strong {
+  color: rgba(240, 236, 223, 0.88);
+  font-size: 0.73rem;
+}
+
+.chain-time-standard span {
+  margin-top: 0.12rem;
+  color: rgba(240, 236, 223, 0.48);
+  font-size: 0.63rem;
+  line-height: 1.5;
+}
+
+/* Calendar ----------------------------------------------------- */
+.chain-schedule-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.46fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.chain-calendar-card,
+.chain-date-detail {
+  border: 1px solid var(--chain-line-strong);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 0 0, rgba(var(--accent-rgb), 0.09), transparent 22rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.036), rgba(255, 255, 255, 0.008)),
+    var(--chain-panel);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.chain-calendar-card {
+  min-width: 0;
+  padding: clamp(1rem, 2.5vw, 1.45rem);
+}
+
+.chain-calendar-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--chain-line);
+}
+
+.chain-calendar-toolbar p {
+  margin: 0;
+  color: rgba(var(--accent-rgb), 0.66);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.chain-calendar-toolbar h3 {
+  margin: 0.2rem 0 0;
+  color: var(--text-1);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.75rem, 3.2vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.chain-calendar-actions {
+  display: flex;
+  gap: 0.42rem;
+}
+
+.chain-calendar-actions button {
+  min-width: 2.85rem;
+  min-height: 2.85rem;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(240, 236, 223, 0.68);
+  font: inherit;
+  cursor: pointer;
+}
+
+.chain-calendar-actions .chain-today-button {
+  width: auto;
+  padding-inline: 0.85rem;
+  color: var(--accent-light);
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+.chain-calendar-actions button:is(:hover, :focus-visible) {
+  border-color: rgba(var(--accent-rgb), 0.64);
+  background: rgba(var(--accent-rgb), 0.09);
+  color: #fff;
+  outline: 2px solid rgba(var(--accent-rgb), 0.28);
+  outline-offset: 2px;
+}
+
+.chain-calendar-frame {
+  min-width: 0;
+  margin-top: 0.85rem;
+}
+
+.chain-calendar-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0.28rem;
+  table-layout: fixed;
+}
+
+.chain-calendar-table th {
+  height: 2rem;
+  padding: 0;
+  color: rgba(240, 236, 223, 0.42);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.chain-calendar-table abbr {
+  text-decoration: none;
+}
+
+.chain-calendar-table td {
+  min-width: 0;
+  padding: 0;
+}
+
+.chain-day {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(4.7rem, 7vw, 5.9rem);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-content: start;
+  gap: 0.38rem;
+  padding: 0.55rem;
+  overflow: hidden;
+  border: 1px solid rgba(var(--accent-rgb), 0.12);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.018);
+  color: rgba(240, 236, 223, 0.72);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.chain-day:hover,
+.chain-day:focus-visible {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  background: rgba(var(--accent-rgb), 0.065);
+  color: var(--text-1);
+  outline: 2px solid rgba(var(--accent-rgb), 0.26);
+  outline-offset: 1px;
+}
+
+.chain-day.is-selected {
+  border-color: var(--accent-light);
+  background:
+    linear-gradient(145deg, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-rgb), 0.045)),
+    rgba(255, 255, 255, 0.018);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.12);
+}
+
+.chain-day.is-today .chain-day-number {
+  background: var(--accent-light);
+  color: #080704;
+}
+
+.chain-day.is-outside {
+  opacity: 0.36;
+}
+
+.chain-day.has-event {
+  border-color: rgba(var(--accent-rgb), 0.32);
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
+.chain-day-number {
+  width: 1.65rem;
+  height: 1.65rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.chain-day-event-name {
+  min-width: 0;
+  align-self: end;
+  overflow: hidden;
+  color: rgba(240, 236, 223, 0.7);
+  font-size: 0.55rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chain-day-markers {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.chain-day-marker,
+.chain-legend i {
+  width: 0.42rem;
+  height: 0.42rem;
+  display: inline-block;
+  border-radius: 50%;
+  background: var(--accent-light);
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.34);
+}
+
+.chain-day-marker.is-planning,
+.chain-legend i.is-planning {
+  background: #8fb8df;
+  box-shadow: 0 0 8px rgba(143, 184, 223, 0.3);
+}
+
+.chain-day-marker.is-completed,
+.chain-legend i.is-completed {
+  background: #78d59c;
+  box-shadow: 0 0 8px rgba(120, 213, 156, 0.28);
+}
+
+.chain-day-marker.is-cancelled,
+.chain-legend i.is-cancelled {
+  background: #dc8f84;
+  box-shadow: none;
+}
+
+.chain-calendar-footer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--chain-line);
+}
+
+.chain-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chain-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: rgba(240, 236, 223, 0.54);
+  font-size: 0.58rem;
+}
+
+.chain-calendar-footer > p {
+  margin: 0;
+  color: rgba(240, 236, 223, 0.42);
+  font-size: 0.57rem;
+  line-height: 1.55;
+  text-align: right;
+}
+
+.chain-calendar-footer > p i {
+  margin-right: 0.25rem;
+  color: rgba(var(--accent-rgb), 0.7);
+}
+
+/* Selected date ------------------------------------------------ */
+.chain-date-detail {
+  position: sticky;
+  top: calc(var(--nav-h, 72px) + 1rem);
+  min-height: 34rem;
+  overflow: hidden;
+}
+
+.chain-detail-loading,
+.chain-detail-empty {
+  min-height: 34rem;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.chain-detail-head + .chain-detail-empty {
+  min-height: 27rem;
+}
+
+.chain-detail-loading > span,
+.chain-detail-empty > span {
+  width: 3.2rem;
+  height: 3.2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.26);
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.06);
+  color: var(--accent-light);
+}
+
+.chain-detail-loading p,
+.chain-detail-empty p {
+  max-width: 24rem;
+  margin: 0;
+  color: var(--chain-muted);
+  font-size: 0.74rem;
+  line-height: 1.65;
+}
+
+.chain-detail-empty strong {
+  color: var(--text-1);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 600;
+}
+
+.chain-detail-head {
+  display: grid;
+  grid-template-columns: 3.8rem minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: center;
+  padding: 1.15rem;
+  border-bottom: 1px solid var(--chain-line);
+  background: rgba(var(--accent-rgb), 0.035);
+}
+
+.chain-detail-date-number {
+  width: 3.8rem;
+  height: 3.8rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.34);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--accent-light);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.chain-detail-head p {
+  margin: 0;
+  color: rgba(var(--accent-rgb), 0.68);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.chain-detail-head h3 {
+  margin: 0.2rem 0 0;
+  color: var(--text-1);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.08;
+}
+
+.chain-detail-body {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.05rem;
+}
+
+.chain-event-card {
+  padding: 0.9rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.18);
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.chain-event-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.chain-status-pill {
+  min-height: 1.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), 0.07);
+  color: var(--accent-light);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chain-status-pill::before {
+  content: "";
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.chain-status-pill.is-planning {
+  border-color: rgba(143, 184, 223, 0.3);
+  background: rgba(143, 184, 223, 0.07);
+  color: #a9cceb;
+}
+
+.chain-status-pill.is-completed {
+  border-color: rgba(120, 213, 156, 0.3);
+  background: rgba(120, 213, 156, 0.07);
+  color: #94e1b1;
+}
+
+.chain-status-pill.is-cancelled {
+  border-color: rgba(220, 143, 132, 0.3);
+  background: rgba(220, 143, 132, 0.07);
+  color: #eeaba1;
+}
+
+.chain-event-duration {
+  color: rgba(240, 236, 223, 0.4);
+  font-size: 0.57rem;
+  font-weight: 600;
+}
+
+.chain-event-card h4 {
+  margin: 0.7rem 0 0;
+  color: var(--text-1);
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.chain-event-primary-time {
+  margin: 0.3rem 0 0;
+  color: var(--accent-light);
+  font-size: 0.74rem;
+  font-weight: 650;
+}
+
+.chain-event-local-time {
+  margin: 0.15rem 0 0;
+  color: rgba(240, 236, 223, 0.46);
+  font-size: 0.59rem;
+  line-height: 1.5;
+}
+
+.chain-event-meta {
+  margin: 0.75rem 0 0;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.13);
+}
+
+.chain-event-meta > div {
+  display: grid;
+  grid-template-columns: minmax(5rem, 0.72fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.11);
+}
+
+.chain-event-meta dt {
+  color: rgba(240, 236, 223, 0.4);
+  font-size: 0.58rem;
+}
+
+.chain-event-meta dd {
+  margin: 0;
+  color: rgba(240, 236, 223, 0.78);
+  font-size: 0.62rem;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.chain-event-note {
+  margin: 0.72rem 0 0;
+  color: var(--chain-muted);
+  font-size: 0.65rem;
+  line-height: 1.62;
+}
+
+.chain-event-checklist {
+  display: grid;
+  gap: 0.42rem;
+  margin: 0.72rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chain-event-checklist li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  gap: 0.42rem;
+  color: rgba(240, 236, 223, 0.6);
+  font-size: 0.61rem;
+  line-height: 1.5;
+}
+
+.chain-event-checklist i {
+  margin-top: 0.2rem;
+  color: rgba(var(--accent-rgb), 0.72);
+  font-size: 0.55rem;
+}
+
+.chain-event-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+}
+
+.chain-event-actions button,
+.chain-event-actions a {
+  min-height: 2.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.28);
+  border-radius: 7px;
+  background: rgba(var(--accent-rgb), 0.065);
+  color: var(--accent-light) !important;
+  font: inherit;
+  font-size: 0.62rem;
+  font-weight: 650;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.chain-event-actions :is(button, a):is(:hover, :focus-visible) {
+  border-color: rgba(var(--accent-rgb), 0.65);
+  background: rgba(var(--accent-rgb), 0.12);
+  outline: 2px solid rgba(var(--accent-rgb), 0.24);
+  outline-offset: 2px;
+}
+
+.chain-detail-updated {
+  margin: 0;
+  color: rgba(240, 236, 223, 0.38);
+  font-size: 0.55rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.chain-load-status {
+  min-height: 1.2rem;
+  margin: 0.8rem 0 0;
+  color: rgba(240, 236, 223, 0.42);
+  font-size: 0.62rem;
+  text-align: right;
+}
+
+.chain-load-status.is-error {
+  color: #e7a49a;
+}
+
+/* Upcoming ----------------------------------------------------- */
+.chain-upcoming-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.chain-upcoming-card {
+  min-width: 0;
+  min-height: 10.5rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.75rem;
+  padding: 1.1rem;
+  border: 1px solid var(--chain-line);
+  border-radius: 7px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.008)),
+    var(--chain-panel-soft);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.chain-upcoming-card:is(:hover, :focus-visible) {
+  border-color: rgba(var(--accent-rgb), 0.58);
+  background: rgba(var(--accent-rgb), 0.06);
+  outline: 2px solid rgba(var(--accent-rgb), 0.2);
+  outline-offset: 2px;
+}
+
+.chain-upcoming-date {
+  color: rgba(var(--accent-rgb), 0.68);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.chain-upcoming-card strong {
+  color: var(--text-1);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.chain-upcoming-card > span:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: var(--chain-muted);
+  font-size: 0.63rem;
+}
+
+.chain-upcoming-card > span:last-child i {
+  color: var(--accent);
+}
+
+.chain-upcoming-empty {
+  grid-column: 1 / -1;
+  min-height: 12rem;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  padding: clamp(1.25rem, 3vw, 1.8rem);
+  border: 1px solid var(--chain-line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.chain-upcoming-empty > span {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.06);
+  color: var(--accent-light);
+}
+
+.chain-upcoming-empty strong,
+.chain-upcoming-empty p {
+  display: block;
+}
+
+.chain-upcoming-empty strong {
+  color: var(--text-1);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.chain-upcoming-empty p {
+  max-width: 42rem;
+  margin: 0.25rem 0 0;
+  color: var(--chain-muted);
+  font-size: 0.72rem;
+  line-height: 1.65;
+}
+
+/* Readiness ---------------------------------------------------- */
+.chain-readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--chain-line);
+  border-left: 1px solid var(--chain-line);
+  list-style: none;
+}
+
+.chain-readiness-grid li {
+  position: relative;
+  min-width: 0;
+  min-height: 15rem;
+  padding: 1.35rem;
+  border-right: 1px solid var(--chain-line);
+  border-bottom: 1px solid var(--chain-line);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.006));
+}
+
+.chain-readiness-grid li > span {
+  color: rgba(var(--accent-rgb), 0.48);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.chain-readiness-grid li > i {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 2.7rem;
+  height: 2.7rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  border-radius: 50%;
+  color: var(--accent-light);
+}
+
+.chain-readiness-grid h3 {
+  margin: 3.2rem 0 0.65rem;
+  color: var(--text-1);
+  font-size: 0.92rem;
+  font-weight: 650;
+}
+
+.chain-readiness-grid p {
+  margin: 0;
+  color: var(--chain-muted);
+  font-size: 0.78rem;
+  line-height: 1.72;
+}
+
+.chain-council-note {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: 0.9rem;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 7px;
+  background: rgba(var(--accent-rgb), 0.045);
+}
+
+.chain-council-note > span {
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: rgba(88, 101, 242, 0.13);
+  color: #aeb5ff;
+}
+
+.chain-council-note strong,
+.chain-council-note p {
+  display: block;
+}
+
+.chain-council-note strong {
+  color: var(--text-1);
+  font-size: 0.75rem;
+}
+
+.chain-council-note p {
+  margin: 0.14rem 0 0;
+  color: var(--chain-muted);
+  font-size: 0.68rem;
+  line-height: 1.55;
+}
+
+.chain-council-note .btn {
+  min-width: 9rem;
+  min-height: 2.8rem;
+}
+
+/* Responsive --------------------------------------------------- */
+@media (max-width: 1020px) {
+  .chain-hero {
+    min-height: auto;
+  }
+
+  .chain-hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .chain-next-brief {
+    width: min(100%, 640px);
+  }
+
+  .chain-schedule-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chain-date-detail {
+    position: static;
+    min-height: 0;
+  }
+
+  .chain-detail-loading,
+  .chain-detail-empty,
+  .chain-detail-head + .chain-detail-empty {
+    min-height: 18rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .chain-schedule-page {
+    --chain-shell: min(calc(100% - 1.5rem), 1240px);
+  }
+
+  .chain-hero {
+    padding: calc(var(--nav-h, 72px) + 2.8rem) 0 3.8rem;
+  }
+
+  .chain-hero h1 {
+    font-size: clamp(3.75rem, 16vw, 5.2rem);
+    line-height: 0.9;
+  }
+
+  .chain-hero-badges {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chain-hero-badges > li:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .chain-next-brief {
+    padding: 1.2rem;
+  }
+
+  .chain-calendar-section,
+  .chain-upcoming-section,
+  .chain-readiness-section {
+    padding-block: 4.25rem;
+  }
+
+  .chain-upcoming-section,
+  .chain-readiness-section {
+    padding-top: 0;
+  }
+
+  .chain-section-head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.1rem;
+  }
+
+  .chain-section-head h2 {
+    font-size: clamp(2.45rem, 11vw, 3.2rem);
+    line-height: 1.08;
+  }
+
+  .chain-time-standard {
+    width: min(100%, 30rem);
+  }
+
+  .chain-calendar-card {
+    padding: 0.85rem;
+  }
+
+  .chain-calendar-toolbar {
+    align-items: end;
+  }
+
+  .chain-calendar-toolbar h3 {
+    font-size: 1.65rem;
+  }
+
+  .chain-calendar-actions button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+
+  .chain-calendar-actions .chain-today-button {
+    padding-inline: 0.7rem;
+  }
+
+  .chain-calendar-table {
+    border-spacing: 0.16rem;
+  }
+
+  .chain-calendar-table th {
+    font-size: 0.52rem;
+  }
+
+  .chain-day {
+    min-height: 3.9rem;
+    gap: 0.25rem;
+    padding: 0.35rem;
+    border-radius: 6px;
+  }
+
+  .chain-day-number {
+    width: 1.55rem;
+    height: 1.55rem;
+    font-size: 0.64rem;
+  }
+
+  .chain-day-event-name {
+    display: none;
+  }
+
+  .chain-calendar-footer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .chain-calendar-footer > p {
+    text-align: left;
+  }
+
+  .chain-date-detail {
+    scroll-margin-top: calc(var(--nav-h, 72px) + 0.75rem);
+  }
+
+  .chain-upcoming-list,
+  .chain-readiness-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chain-readiness-grid li {
+    min-height: 0;
+  }
+
+  .chain-readiness-grid h3 {
+    margin-top: 2.6rem;
+  }
+
+  .chain-council-note {
+    grid-template-columns: 3rem minmax(0, 1fr);
+  }
+
+  .chain-council-note .btn {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .chain-schedule-page {
+    --chain-shell: min(calc(100% - 1rem), 1240px);
+  }
+
+  .chain-kicker {
+    font-size: 0.61rem;
+    letter-spacing: 0.14em;
+  }
+
+  .chain-kicker::before {
+    width: 1.25rem;
+  }
+
+  .chain-hero-badges {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chain-hero-badges > li:last-child {
+    grid-column: auto;
+  }
+
+  .chain-next-brief-top {
+    grid-template-columns: 2.8rem minmax(0, 1fr);
+  }
+
+  .chain-next-icon {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .chain-calendar-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chain-calendar-actions {
+    justify-content: space-between;
+  }
+
+  .chain-calendar-actions .chain-today-button {
+    flex: 1;
+  }
+
+  .chain-calendar-table {
+    border-spacing: 0.1rem;
+  }
+
+  .chain-calendar-table th {
+    height: 1.75rem;
+    font-size: 0.47rem;
+  }
+
+  .chain-day {
+    min-height: 3.45rem;
+    padding: 0.28rem;
+  }
+
+  .chain-day-number {
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 0.59rem;
+  }
+
+  .chain-day-markers {
+    gap: 0.18rem;
+  }
+
+  .chain-day-marker {
+    width: 0.34rem;
+    height: 0.34rem;
+  }
+
+  .chain-calendar-footer > p {
+    display: none;
+  }
+
+  .chain-detail-head {
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    padding: 0.9rem;
+  }
+
+  .chain-detail-date-number {
+    width: 3.25rem;
+    height: 3.25rem;
+    font-size: 1.75rem;
+  }
+
+  .chain-detail-body {
+    padding: 0.85rem;
+  }
+
+  .chain-event-meta > div {
+    grid-template-columns: minmax(4.5rem, 0.62fr) minmax(0, 1fr);
+  }
+
+  .chain-upcoming-empty {
+    grid-template-columns: minmax(0, 1fr);
+    text-align: center;
+  }
+
+  .chain-upcoming-empty > span {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 350px) {
+  .chain-day {
+    min-height: 3.1rem;
+  }
+
+  .chain-day-number {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .chain-legend {
+    gap: 0.45rem 0.65rem;
+  }
+
+  .chain-legend li {
+    font-size: 0.53rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chain-day,
+  .chain-upcoming-card {
+    transition: none;
+  }
+}
