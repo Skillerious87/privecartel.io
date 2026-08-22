@@ -3,11 +3,15 @@ const SOURCE_TOKEN = 'prive-contact-v1';
 const DEFAULT_TO_EMAIL = 'skillerious@gmail.com';
 const SITE_URL = 'https://www.privecartel.com';
 const EMBLEM_URL = `${SITE_URL}/images/Emblem.png`;
+const EMAIL_TEMPLATE_VERSION = 'prive-theme-v3';
+const GLOBAL_COOLDOWN_SECONDS = 10;
+const APPLICANT_COOLDOWN_SECONDS = 5 * 60;
 
 function doPost(event) {
   try {
     const payload = parsePayload_(event);
     validatePayload_(payload);
+    enforceSubmissionCooldown_(payload);
 
     const toEmail = getToEmail_();
     const subject = `[${SITE_NAME}] Application from ${clean_(payload.name)}`;
@@ -26,6 +30,7 @@ function doPost(event) {
 
     return json_({
       ok: true,
+      templateVersion: EMAIL_TEMPLATE_VERSION,
       remainingDailyQuota: MailApp.getRemainingDailyQuota(),
     });
   } catch (error) {
@@ -36,10 +41,38 @@ function doPost(event) {
   }
 }
 
+function enforceSubmissionCooldown_(payload) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(5000);
+
+  try {
+    const cache = CacheService.getScriptCache();
+    const globalKey = 'contact_global_cooldown';
+    const applicantKey = `contact_applicant_${digestKey_([
+      clean_(payload.name).toLowerCase(),
+      clean_(payload.contact).toLowerCase(),
+    ].join('|'))}`;
+
+    if (cache.get(globalKey)) {
+      throw new Error('Submissions are arriving too quickly. Please wait a few seconds and try again.');
+    }
+
+    if (cache.get(applicantKey)) {
+      throw new Error('This applicant was submitted recently. Please wait a few minutes before trying again.');
+    }
+
+    cache.put(globalKey, '1', GLOBAL_COOLDOWN_SECONDS);
+    cache.put(applicantKey, '1', APPLICANT_COOLDOWN_SECONDS);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 function doGet() {
   return json_({
     ok: true,
     service: `${SITE_NAME} Gmail contact mailer`,
+    templateVersion: EMAIL_TEMPLATE_VERSION,
   });
 }
 
@@ -149,18 +182,21 @@ function buildHtmlBody_(payload) {
     '<!doctype html>',
     '<html>',
     '<body style="margin:0;padding:0;background:#050505;color:#e8e2ce;font-family:Arial,Helvetica,sans-serif;">',
-    `  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">New ${escapeHtml_(SITE_NAME)} application from ${escapeHtml_(name)}.</div>`,
+    `  <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${escapeHtml_(SITE_NAME)} application dossier from ${escapeHtml_(name)}.</div>`,
     '  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#050505" style="width:100%;background:#050505;margin:0;padding:0;">',
     '    <tr>',
     '      <td align="center" style="padding:28px 12px;">',
-    '        <table role="presentation" width="640" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:640px;border-collapse:separate;border-spacing:0;background:#100f0b;border:1px solid #3a3322;border-radius:12px;overflow:hidden;">',
+    '        <table role="presentation" width="640" cellspacing="0" cellpadding="0" border="0" bgcolor="#100f0b" style="width:100%;max-width:640px;border-collapse:separate;border-spacing:0;background:#100f0b;border:1px solid #3a3322;border-radius:12px;overflow:hidden;">',
     '          <tr>',
-    '            <td style="padding:24px 26px;background:#080807;border-bottom:1px solid #3a3322;">',
+    '            <td height="4" bgcolor="#d6c579" style="height:4px;line-height:4px;background:#d6c579;font-size:0;">&nbsp;</td>',
+    '          </tr>',
+    '          <tr>',
+    '            <td bgcolor="#080807" style="padding:24px 26px;background:#080807;border-bottom:1px solid #3a3322;">',
     '              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">',
     '                <tr>',
     `                  <td width="76" valign="middle" style="width:76px;padding-right:16px;"><img src="${escapeAttr_(EMBLEM_URL)}" alt="${escapeAttr_(SITE_NAME)}" width="64" height="64" style="display:block;width:64px;height:64px;border-radius:50%;border:1px solid #d6c579;background:#050505;"></td>`,
     '                  <td valign="middle">',
-    '                    <div style="color:#d6c579;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;">New Contact Submission</div>',
+    '                    <div style="color:#d6c579;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;">Prive Cartel Application Dossier</div>',
     `                    <h1 style="margin:7px 0 6px;color:#f5edcf;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;font-weight:600;">Application from ${escapeHtml_(name)}</h1>`,
     `                    <div style="color:#aaa080;font-size:14px;line-height:1.5;">Level ${escapeHtml_(level)} | ${escapeHtml_(focus)} | ${escapeHtml_(activity)}</div>`,
     '                  </td>',
@@ -169,7 +205,7 @@ function buildHtmlBody_(payload) {
     '            </td>',
     '          </tr>',
     '          <tr>',
-    '            <td style="padding:22px 26px 8px;background:#100f0b;">',
+    '            <td bgcolor="#100f0b" style="padding:22px 26px 8px;background:#100f0b;">',
     '              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">',
     '                <tr>',
     `                  ${metricCard_('Applicant', name)}`,
@@ -180,8 +216,8 @@ function buildHtmlBody_(payload) {
     '            </td>',
     '          </tr>',
     '          <tr>',
-    '            <td style="padding:10px 26px 0;background:#100f0b;">',
-    '              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0;background:#17140f;border:1px solid #3a3322;border-radius:10px;">',
+    '            <td bgcolor="#100f0b" style="padding:10px 26px 0;background:#100f0b;">',
+    '              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#17140f" style="border-collapse:separate;border-spacing:0;background:#17140f;border:1px solid #3a3322;border-radius:10px;">',
     '                <tr>',
     '                  <td style="padding:16px 18px;">',
     '                    <div style="color:#d6c579;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:10px;">Applicant Message</div>',
@@ -192,15 +228,16 @@ function buildHtmlBody_(payload) {
     '            </td>',
     '          </tr>',
     '          <tr>',
-    '            <td style="padding:18px 26px 24px;background:#100f0b;">',
+    '            <td bgcolor="#100f0b" style="padding:18px 26px 24px;background:#100f0b;">',
     '              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">',
     `                ${rowHtml}`,
     '              </table>',
     '            </td>',
     '          </tr>',
     '          <tr>',
-    '            <td style="padding:16px 26px;background:#080807;border-top:1px solid #3a3322;color:#807861;font-size:12px;line-height:1.5;">',
-    `              Sent from <a href="${escapeAttr_(SITE_URL)}" style="color:#d6c579;text-decoration:none;">${escapeHtml_(SITE_URL)}</a>. If the reply contact is an email address, reply directly to this message.`,
+    '            <td bgcolor="#080807" style="padding:16px 26px;background:#080807;border-top:1px solid #3a3322;color:#807861;font-size:12px;line-height:1.5;">',
+    `              Sent from <a href="${escapeAttr_(SITE_URL)}" style="color:#d6c579;text-decoration:none;">${escapeHtml_(SITE_URL)}</a>. If the reply contact is an email address, reply directly to this message.<br>`,
+    `              <span style="color:#5f5847;">Template ${escapeHtml_(EMAIL_TEMPLATE_VERSION)}</span>`,
     '            </td>',
     '          </tr>',
     '        </table>',
@@ -215,7 +252,7 @@ function buildHtmlBody_(payload) {
 function metricCard_(label, value) {
   return [
     '<td width="33.333%" valign="top" style="padding:0 6px 12px 0;">',
-    '  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#17140f;border:1px solid #3a3322;border-radius:9px;">',
+    '  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#17140f" style="background:#17140f;border:1px solid #3a3322;border-radius:9px;">',
     '    <tr>',
     '      <td style="padding:12px 14px;">',
     `        <div style="color:#8f8464;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;">${escapeHtml_(label)}</div>`,
@@ -244,6 +281,19 @@ function json_(data) {
 
 function clean_(value) {
   return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
+function digestKey_(value) {
+  const bytes = Utilities.computeDigest(
+    Utilities.DigestAlgorithm.SHA_256,
+    String(value || ''),
+    Utilities.Charset.UTF_8
+  );
+
+  return bytes
+    .map((byte) => (`0${(byte & 0xff).toString(16)}`).slice(-2))
+    .join('')
+    .slice(0, 32);
 }
 
 function isValidEmail_(value) {

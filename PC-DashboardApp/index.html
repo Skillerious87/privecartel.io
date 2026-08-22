@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Priv&eacute; Cartel Operations Dashboard</title>
+  <meta name="description" content="Priv&eacute; Cartel dark operations dashboard for maintenance publishing.">
+  <link rel="icon" href="assets/media/emblem.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to dashboard</a>
+
+  <div class="app-shell">
+    <aside class="side-panel" aria-label="Workspace settings">
+      <a class="brand" href="#main" aria-label="Priv&eacute; Cartel Dashboard">
+        <img src="assets/media/emblem.png" alt="">
+        <span>
+          <strong>Priv&eacute; Cartel</strong>
+          <small>Operations Console</small>
+        </span>
+      </a>
+
+      <nav class="side-nav" aria-label="Dashboard sections">
+        <a href="#repo-heading">
+          <i class="fa-solid fa-database" aria-hidden="true"></i>
+          <span>Repository</span>
+        </a>
+        <a href="#status-heading">
+          <i class="fa-solid fa-signal" aria-hidden="true"></i>
+          <span>Status</span>
+        </a>
+        <a href="#command-heading">
+          <i class="fa-solid fa-rocket" aria-hidden="true"></i>
+          <span>Deploy</span>
+        </a>
+        <a href="#preview-heading">
+          <i class="fa-solid fa-display" aria-hidden="true"></i>
+          <span>Preview</span>
+        </a>
+      </nav>
+
+      <section class="panel compact-panel" aria-labelledby="repo-heading">
+        <div class="panel-heading">
+          <span class="panel-kicker">GitHub</span>
+          <h2 id="repo-heading">Repository Access</h2>
+        </div>
+
+        <div class="field-grid two-col">
+          <label class="field">
+            <span>Owner</span>
+            <input id="repoOwner" autocomplete="organization" spellcheck="false" placeholder="github-owner">
+          </label>
+          <label class="field">
+            <span>Repo</span>
+            <input id="repoName" autocomplete="off" spellcheck="false" placeholder="PriveCartelWebsite">
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Branch</span>
+          <input id="branchName" autocomplete="off" spellcheck="false" value="main">
+        </label>
+
+        <label class="field">
+          <span>Access token</span>
+          <div class="secret-row">
+            <input id="githubToken" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_...">
+            <button id="toggleToken" class="icon-button" type="button" aria-label="Show token">
+              <i class="fa-regular fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+        </label>
+
+        <label class="check-row">
+          <input id="rememberToken" type="checkbox">
+          <span>Keep token for this browser session</span>
+        </label>
+
+        <button id="testConnection" class="btn secondary wide" type="button">
+          <i class="fa-solid fa-plug-circle-check" aria-hidden="true"></i>
+          <span>Verify Access</span>
+        </button>
+      </section>
+
+      <section class="panel compact-panel status-panel" aria-labelledby="status-heading">
+        <div class="panel-heading">
+          <span class="panel-kicker">Environment</span>
+          <h2 id="status-heading">Current Status</h2>
+        </div>
+        <dl class="state-list">
+          <div>
+            <dt>Access</dt>
+            <dd id="accessState">Not checked</dd>
+          </div>
+          <div>
+            <dt>Mode</dt>
+            <dd id="modeState">Unknown</dd>
+          </div>
+          <div>
+            <dt>Branch SHA</dt>
+            <dd id="shaState">-</dd>
+          </div>
+        </dl>
+      </section>
+    </aside>
+
+    <main id="main" class="main-panel">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Dashboard</p>
+          <h1>Maintenance Operations</h1>
+        </div>
+        <div class="topbar-actions">
+          <a id="liveSiteLink" class="ghost-link" href="#" target="_blank" rel="noopener noreferrer" hidden>
+            <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+            <span>Live site</span>
+          </a>
+          <span id="connectionPill" class="status-pill">Offline</span>
+        </div>
+      </header>
+
+      <div class="dashboard-grid">
+        <section class="panel command-panel" aria-labelledby="command-heading">
+          <div class="panel-heading split-heading">
+            <div>
+              <span class="panel-kicker">Deployment</span>
+              <h2 id="command-heading">Publish Controls</h2>
+            </div>
+            <span id="activeBadge" class="mode-badge neutral">Unknown</span>
+          </div>
+
+          <div class="action-strip" aria-label="Maintenance actions">
+            <button id="publishMaintenance" class="command-button publish" type="button">
+              <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+              <span>
+                <strong>Enable Maintenance</strong>
+                <small>Create backup and publish notice</small>
+              </span>
+            </button>
+            <button id="restoreSite" class="command-button restore" type="button">
+              <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+              <span>
+                <strong>Restore Website</strong>
+                <small>Recover the saved production page</small>
+              </span>
+            </button>
+          </div>
+
+          <div class="commit-result" id="commitResult" hidden></div>
+        </section>
+
+        <section class="panel builder-panel" aria-labelledby="builder-heading">
+          <div class="panel-heading split-heading">
+            <div>
+              <span class="panel-kicker">Content</span>
+              <h2 id="builder-heading">Maintenance Notice</h2>
+            </div>
+            <button id="refreshPreview" class="icon-button" type="button" aria-label="Refresh preview">
+              <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <label class="field">
+            <span>Headline</span>
+            <input id="maintenanceTitle" value="System Maintenance">
+          </label>
+
+          <label class="field">
+            <span>Public message</span>
+            <textarea id="maintenanceMessage" rows="4">Priv&eacute; Cartel is temporarily offline while we complete scheduled maintenance. Please check back shortly.</textarea>
+          </label>
+
+          <div class="field-grid two-col">
+            <label class="field">
+              <span>ETA</span>
+              <input id="maintenanceEta" placeholder="Back soon">
+            </label>
+            <label class="field">
+              <span>Brand asset path</span>
+              <input id="brandAssetPath" value="images/Emblem.png" spellcheck="false">
+            </label>
+          </div>
+
+          <div class="field-grid two-col">
+            <label class="field">
+              <span>Contact label</span>
+              <input id="contactLabel" value="Join Discord">
+            </label>
+            <label class="field">
+              <span>Contact URL</span>
+              <input id="contactUrl" value="https://discord.gg/DmxrRAjBdk" spellcheck="false">
+            </label>
+          </div>
+
+          <label class="field">
+            <span>Live site URL</span>
+            <input id="liveSiteUrl" placeholder="https://your-site.github.io/PriveCartelWebsite/" spellcheck="false">
+          </label>
+        </section>
+
+        <section class="panel preview-panel" aria-labelledby="preview-heading">
+          <div class="panel-heading split-heading">
+            <div>
+              <span class="panel-kicker">Preview</span>
+              <h2 id="preview-heading">Maintenance Page</h2>
+            </div>
+            <span class="preview-size">GitHub Pages</span>
+          </div>
+          <iframe id="previewFrame" title="Maintenance page preview"></iframe>
+        </section>
+
+        <section class="panel commit-panel" aria-labelledby="commit-heading">
+          <div class="panel-heading">
+            <span class="panel-kicker">Repository</span>
+            <h2 id="commit-heading">Change Set</h2>
+          </div>
+
+          <label class="field">
+            <span>Enable commit message</span>
+            <input id="enableCommitMessage" value="chore(site): enable maintenance mode">
+          </label>
+
+          <label class="field">
+            <span>Restore commit message</span>
+            <input id="restoreCommitMessage" value="chore(site): restore live site">
+          </label>
+
+          <ul id="changeList" class="change-list" aria-label="Changed files"></ul>
+
+          <div class="log-shell">
+            <div class="log-heading">
+              <span>Activity</span>
+              <button id="clearLog" class="text-button" type="button">Clear</button>
+            </div>
+            <ol id="activityLog" class="activity-log"></ol>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="assets/js/maintenance-template.js" defer></script>
+  <script src="assets/js/github-api.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>

@@ -59,6 +59,21 @@
       min-height: 44px;
     }
 
+    .recruit-hero h1 {
+      letter-spacing: -0.02em;
+      line-height: 1.04;
+    }
+
+    .recruit-main h2 {
+      letter-spacing: -0.012em;
+      line-height: 1.14;
+      text-wrap: balance;
+    }
+
+    .recruit-main h3 {
+      line-height: 1.32;
+    }
+
     /* Touch-first recruitment layout */
     @media (max-width: 720px) {
       .recruitment-page {
@@ -83,7 +98,7 @@
       .recruit-hero h1 {
         margin-block: 0.9rem 1.15rem;
         font-size: clamp(3.25rem, 15vw, 4.65rem);
-        line-height: 0.9;
+        line-height: 1.08;
       }
 
       .recruit-hero__copy {
@@ -163,7 +178,7 @@
 
       .recruit-main h2 {
         font-size: clamp(2.4rem, 11.5vw, 3.25rem);
-        line-height: 1;
+        line-height: 1.16;
       }
 
       .recruit-intro,
@@ -324,6 +339,7 @@
     }
   }
   </script>
+  <link rel="stylesheet" href="assets/mobile.css">
 </head>
 <body class="recruitment-page" data-hide-recruitment-banner="true">
   <script type="module" src="assets/navbar.js"></script>

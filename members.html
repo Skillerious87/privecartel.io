@@ -119,7 +119,6 @@
     cursor:pointer;font-weight:700;
     box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 24px rgba(0,0,0,.24),0 0 0 1px rgba(var(--accent-rgb),.07);
     transition:background-position .45s cubic-bezier(.22,.61,.36,1),background .25s,border-color .25s,box-shadow .25s,color .25s}
-  #clearKeyBtn{width:2.75rem;padding:.7rem}
   .filter-bar button::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
     background:linear-gradient(115deg,transparent 0 34%,rgba(255,255,255,.42) 46%,transparent 58%);
     background-size:240% 100%;background-position:150% 0;opacity:0;
@@ -168,8 +167,6 @@
       gap:.65rem;margin:1.35rem 0 1.2rem
     }
     .filter-bar input{grid-column:1 / -1}
-    #saveKeyBtn{grid-column:1 / 2}
-    #clearKeyBtn{grid-column:2 / 3}
     .table-wrap{overflow:visible}
     .member-table{min-width:0}
     .member-table thead{display:none}
@@ -289,8 +286,10 @@
   }
   </style>
   <link rel="stylesheet" href="assets/editorial.css">
+  <link rel="stylesheet" href="assets/members.css">
+  <link rel="stylesheet" href="assets/mobile.css">
 </head>
-<body>
+<body class="members-page">
 <a class="skip-link" href="#main">Skip to member directory</a>
 
 <!-- ─────────────────────────── NAVBAR ─────────────────────────── -->
@@ -302,47 +301,79 @@
 <!-- ─────────────────────────── HERO ───────────────────────────── -->
 <section class="rules-hero">
   <img src="images/emblem-512.webp" alt="Privé Cartel emblem" width="512" height="512" loading="eager" fetchpriority="high" decoding="async">
-  <h1>Faction&nbsp;Members</h1>
-  <p class="tagline">Browse up to 100 members from the official snapshot, or use a Torn API key for live stats.</p>
+  <p class="hero-eyebrow">Official faction roster</p>
+  <h1>Faction Members</h1>
+  <p class="tagline">Search the published roster, or securely load the latest faction stats with your own Torn API key.</p>
 </section>
 
 <!-- ───────────────────────── DIRECTORY ────────────────────────── -->
 <section class="rules-block">
   <div class="container glass members-panel">
-    <h2 class="sr-only">Member directory</h2>
-
-    <!-- FILTER BAR -->
-    <div class="filter-bar">
-      <input type="search" id="memberSearch" placeholder="Search IGN, role, status..." aria-label="Search members by name, role, or status" autocomplete="off">
-      <input type="password" id="apiKeyInput" placeholder="Paste API key..." aria-label="Torn API key" autocomplete="off" autocapitalize="off" spellcheck="false">
-      <button type="button" id="saveKeyBtn" title="Save API key on this device"><i class="fa-solid fa-key" aria-hidden="true"></i> Save key</button>
-      <button type="button" id="clearKeyBtn" title="Delete API key from this device" aria-label="Delete saved API key from this device"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
-    </div>
-
-    <!-- TABLE -->
-    <div class="table-wrap">
-      <table class="member-table" id="memberTable">
-        <thead>
-          <tr>
-            <th scope="col">#</th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="ign">IGN</button></th><th scope="col"><span class="sr-only">Avatar</span></th>
-            <th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="level">Level</button></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="role">Role</button></th>
-            <th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="days">Days in faction</button></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="status">Status</button></th>
-          </tr>
-        </thead>
-        <tbody id="memberBody"></tbody>
-      </table>
-    </div>
-    <p class="empty-state" id="emptyState" hidden>No members match your search.</p>
-
-    <!-- PRIVACY NOTICE -->
-    <aside class="notice" id="notice" aria-label="API key storage information">
-      <span class="notice-icon" aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
-      <div class="notice-copy">
-        <strong>Your key stays on this device</strong>
-        <p>The key is stored in this browser until you use the delete button. It is sent directly to Torn over HTTPS for live data and is never sent to Privé Cartel. Only save it on a device you trust.</p>
-        <p class="notice-fallback"><i class="fa-solid fa-cloud-arrow-down" aria-hidden="true"></i>No key? The complete published GitHub roster loads automatically, with a local fallback if GitHub is unavailable.</p>
+    <header class="directory-heading">
+      <div class="directory-heading-copy">
+        <p class="section-kicker">Members directory</p>
+        <h2 id="directoryTitle">Find a faction member</h2>
+        <p>Search by in-game name, faction role or current status. Results update as you type.</p>
       </div>
-    </aside>
+      <span class="directory-mode" id="directoryMode">
+        <span class="directory-mode-dot" aria-hidden="true"></span>
+        <span id="directoryModeLabel">Published snapshot</span>
+      </span>
+    </header>
+
+    <!-- SEARCH -->
+    <div class="member-search">
+      <label class="field-label" for="memberSearch">Search the roster</label>
+      <div class="field-shell search-field-shell">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="search" id="memberSearch" placeholder="Name, role or status" autocomplete="off" aria-describedby="memberSearchHelp">
+        <button type="button" class="field-action clear-search" id="clearSearchBtn" aria-label="Clear member search" title="Clear search" hidden>
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <span class="field-help" id="memberSearchHelp">Try a member name, “Leader”, “Hospital” or “Traveling”.</span>
+    </div>
+
+    <!-- OPTIONAL LIVE API ACCESS -->
+    <section class="api-access" id="notice" aria-labelledby="apiAccessTitle">
+      <div class="api-access-heading">
+        <span class="api-access-icon" aria-hidden="true"><i class="fa-solid fa-bolt"></i></span>
+        <div>
+          <p class="api-kicker">Optional live connection</p>
+          <h3 id="apiAccessTitle">Load live Torn stats</h3>
+          <p>Use your own Torn API key to replace the published snapshot with the latest member data.</p>
+        </div>
+        <span class="api-state" id="apiState" aria-live="polite"><i class="fa-solid fa-database" aria-hidden="true"></i> Snapshot active</span>
+      </div>
+
+      <div class="api-controls">
+        <div class="api-key-field">
+          <label class="field-label" for="apiKeyInput">Torn API key</label>
+          <div class="field-shell">
+            <i class="fa-solid fa-key" aria-hidden="true"></i>
+            <input type="password" id="apiKeyInput" placeholder="Paste your API key" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="apiKeyHelp">
+            <button type="button" class="field-action" id="toggleKeyBtn" aria-label="Show API key" title="Show API key">
+              <i class="fa-solid fa-eye" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="api-actions">
+          <button type="button" class="api-primary" id="saveKeyBtn" title="Save API key on this device">
+            <i class="fa-solid fa-cloud-arrow-down" aria-hidden="true"></i>
+            <span>Save &amp; load live data</span>
+          </button>
+          <button type="button" class="api-secondary" id="clearKeyBtn" title="Delete API key from this device" aria-label="Delete saved API key from this device">
+            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+            <span>Delete saved key</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="api-privacy" id="apiKeyHelp">
+        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+        <p><strong>Your key stays on this device.</strong> It is stored in this browser and sent directly to Torn over HTTPS. Privé Cartel never receives it. Only save a key on a device you trust.</p>
+      </div>
+    </section>
 
     <!-- DIRECTORY STATS -->
     <div class="stats" id="memberStats" aria-live="polite">
@@ -370,6 +401,29 @@
         </div>
       </div>
     </div>
+
+    <header class="results-heading">
+      <div>
+        <p class="section-kicker">Roster results</p>
+        <h3>Faction members</h3>
+      </div>
+      <p id="resultsSummary" aria-live="polite">Loading members…</p>
+    </header>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <table class="member-table" id="memberTable" aria-describedby="resultsSummary">
+        <thead>
+          <tr>
+            <th scope="col">#</th><th scope="col"><span class="sr-only">Avatar</span></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="ign">IGN</button></th>
+            <th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="level">Level</button></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="role">Role</button></th>
+            <th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="days">Days in faction</button></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="status">Status</button></th>
+          </tr>
+        </thead>
+        <tbody id="memberBody"></tbody>
+      </table>
+    </div>
+    <p class="empty-state" id="emptyState" hidden>No members match your search. Try a shorter name, another role or a different status.</p>
 
   </div>
 </section>
@@ -399,7 +453,13 @@ const $=s=>document.querySelector(s),
 const apiInput=$('#apiKeyInput'),
       save=$('#saveKeyBtn'),
       clr=$('#clearKeyBtn'),
-      search=$('#memberSearch');
+      search=$('#memberSearch'),
+      toggleKey=$('#toggleKeyBtn'),
+      clearSearch=$('#clearSearchBtn'),
+      directoryMode=$('#directoryMode'),
+      directoryModeLabel=$('#directoryModeLabel'),
+      apiState=$('#apiState'),
+      resultsSummary=$('#resultsSummary');
 
 const stats={count:$('#statsCount'),
              capacity:$('#statsCapacity'),
@@ -407,7 +467,7 @@ const stats={count:$('#statsCount'),
              source:$('#statsSource'),
              status:$('#statsStatus')};
 
-let rows=[];
+let rows=[],loadVersion=0;
 
 /*━━━━━━━━━━ HELPERS ━━━━━━━━━━━━━━━━━━━━━*/
 function visibleCount(){
@@ -429,6 +489,31 @@ function updateStats(cnt,upd,src){
 }
 function setEmptyState(){
   if(empty) empty.hidden = rows.length === 0 || visibleCount() > 0;
+}
+function setDataMode(isLive, pending=false){
+  if(directoryMode){
+    directoryMode.classList.toggle('is-live',isLive);
+    directoryModeLabel.textContent=pending?'Refreshing roster':isLive?'Live Torn data':'Published snapshot';
+  }
+  if(apiState){
+    apiState.classList.toggle('is-live',isLive);
+    apiState.innerHTML=pending
+      ? '<i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i> Connecting'
+      : isLive
+        ? '<i class="fa-solid fa-signal" aria-hidden="true"></i> Live data active'
+        : '<i class="fa-solid fa-database" aria-hidden="true"></i> Snapshot active';
+  }
+}
+function updateKeyControls(hasKey){
+  clr.disabled=!hasKey;
+  clr.title=hasKey?'Delete API key from this device':'No saved API key to remove';
+}
+function updateResultsSummary(){
+  if(!resultsSummary) return;
+  const visible=visibleCount();
+  resultsSummary.textContent=rows.length
+    ? `Showing ${visible} of ${rows.length} member${rows.length===1?'':'s'}`
+    : 'No members available';
 }
 function statusMarkup(counts){
   const ok   = counts.okay      || 0,
@@ -510,6 +595,7 @@ function applyFilter(){
   stats.count.textContent = String(visibleCount());
   renderStatusFromRows();
   setEmptyState();
+  updateResultsSummary();
 }
 
 /* Snapshot commit date helper (GitHub) */
@@ -554,12 +640,33 @@ function showToast(msg){
 search.addEventListener('input',(()=>{
   let t;
   return ()=>{
+    clearSearch.hidden=!search.value;
     clearTimeout(t);
     t=setTimeout(()=>{
       applyFilter();
     },250);
   };
 })());
+clearSearch.addEventListener('click',()=>{
+  search.value='';
+  clearSearch.hidden=true;
+  applyFilter();
+  search.focus();
+});
+
+toggleKey.addEventListener('click',()=>{
+  const reveal=apiInput.type==='password';
+  apiInput.type=reveal?'text':'password';
+  toggleKey.setAttribute('aria-label',reveal?'Hide API key':'Show API key');
+  toggleKey.title=reveal?'Hide API key':'Show API key';
+  toggleKey.innerHTML=`<i class="fa-solid ${reveal?'fa-eye-slash':'fa-eye'}" aria-hidden="true"></i>`;
+  apiInput.focus();
+});
+apiInput.addEventListener('keydown',event=>{
+  if(event.key!=='Enter') return;
+  event.preventDefault();
+  save.click();
+});
 
 /*━━━━━━━━━━ SORTING ━━━━━━━━━━━━━━━━━━━━━*/
 const dir={};
@@ -600,13 +707,13 @@ function row(m){
   tr.dataset.ign    = String(m.name||'').toLowerCase();   // enable IGN sorting
   tr.innerHTML=`
     <td>0</td>
+    <td data-label="Avatar">
+      <img class="avatar" src="${blank}" data-id="${memberId}" alt="" width="642" height="638" loading="lazy" decoding="async">
+    </td>
     <td data-label="IGN">
       ${memberId
         ? `<a href="https://www.torn.com/profiles.php?XID=${memberId}" target="_blank" rel="noopener noreferrer">${name}</a>`
         : name}
-    </td>
-    <td data-label="Avatar">
-      <img class="avatar" src="${blank}" data-id="${memberId}" alt="" width="642" height="638" loading="lazy" decoding="async">
     </td>
     <td data-label="Lv">${level}</td>
     <td data-label="Role">${safeRole}${crown(role)}</td>
@@ -638,8 +745,12 @@ async function fetchSnapshot(){
 }
 
 async function snapshot(){
+  const version=++loadVersion;
+  notice.classList.remove('loading');
+  setDataMode(false);
   try{
     const {response:res,list,label}=await fetchSnapshot();
+    if(version!==loadVersion) return;
 
     // stable sort to match live view
     list.sort((a,b)=> (b.level - a.level) || a.name.localeCompare(b.name));
@@ -652,6 +763,7 @@ async function snapshot(){
     renum();
 
     let last=await getSnapshotCommitDate();
+    if(version!==loadVersion) return;
     if(!last) last=res.headers.get('Last-Modified');
 
     // reflect what is actually rendered (not a stale hard-coded number)
@@ -664,21 +776,26 @@ async function snapshot(){
     applyFilter();
 
   }catch{
+    if(version!==loadVersion) return;
     body.innerHTML='<tr><td colspan="7">Snapshot unavailable.</td></tr>';
-    rows=[...body.querySelectorAll('tr')];
+    rows=[];
     updateStats(0,'—','Snapshot');
     stats.status.textContent='—';
     setEmptyState();
+    if(resultsSummary) resultsSummary.textContent='Roster unavailable';
   }
 }
 
 /*━━━━━━━━━━ LIVE FETCH & AVATARS ━━━━━━━━━━━━━━━━━━━━━*/
 async function live(key){
+  const version=++loadVersion;
   notice.classList.add('loading');
+  setDataMode(false,true);
   try{
     const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${encodeURIComponent(key)}`);
     if(!r.ok) throw new Error('Torn API error');
     const d=await r.json();
+    if(version!==loadVersion) return;
     if(d.error) throw new Error(d.error.error);
 
     const list=Object.entries(d.members).slice(0,100).map(([id,m])=>({...m,id}));
@@ -692,6 +809,7 @@ async function live(key){
 
     updateStats(rows.length,formatDateTime(Date.now()),'Live API');
     renderStatusFromList(list);
+    setDataMode(true);
 
     // honour active filter (if user typed before load finished)
     applyFilter();
@@ -711,10 +829,14 @@ async function live(key){
     body.querySelectorAll('img.avatar').forEach(i=>i.dataset.id && io.observe(i));
 
   }catch(err){
+    if(version!==loadVersion) return;
+    setDataMode(false);
     showToast(err.message || 'Live API unavailable; showing snapshot');
+    notice.classList.remove('loading');
     snapshot(); // fallback
+    return;
   }
-  notice.classList.remove('loading');
+  if(version===loadVersion) notice.classList.remove('loading');
 }
 
 /*━━━━━━━━━━ CONTROLS ━━━━━━━━━━━━━━━━━━━━━*/
@@ -722,17 +844,35 @@ save.onclick=async()=>{
   const k=apiInput.value.trim();
   if(k.length<10){ showToast('Invalid API key'); return; }
   if(!setStoredKey(k)){ showToast('This browser blocked device storage'); return; }
+  updateKeyControls(true);
   live(k);
   apiInput.value='';
+  apiInput.type='password';
   apiInput.placeholder='API key saved on this device';
+  toggleKey.setAttribute('aria-label','Show API key');
+  toggleKey.title='Show API key';
+  toggleKey.innerHTML='<i class="fa-solid fa-eye" aria-hidden="true"></i>';
   showToast('API key saved on this device');
 };
-clr.onclick=()=>{ clearStoredKey(); location.reload(); };
+clr.onclick=()=>{
+  if(clr.disabled) return;
+  clearStoredKey();
+  apiInput.value='';
+  apiInput.type='password';
+  apiInput.placeholder='Paste your API key';
+  toggleKey.setAttribute('aria-label','Show API key');
+  toggleKey.title='Show API key';
+  toggleKey.innerHTML='<i class="fa-solid fa-eye" aria-hidden="true"></i>';
+  updateKeyControls(false);
+  snapshot();
+  showToast('Saved API key removed');
+};
 
 /*━━━━━━━━━━ INIT ━━━━━━━━━━━━━━━━━━━━━━━━*/
 (async()=>{
   clearLegacyKey();
   const key=getStoredKey();
+  updateKeyControls(Boolean(key));
   if(key){
     apiInput.placeholder='API key saved on this device';
     live(key);

@@ -1767,3 +1767,50 @@
     min-height: 380px;
   }
 }
+
+/* Final display-type rhythm: preserve the editorial scale while giving
+   every wrapped heading enough room to breathe. */
+.home-page .home-hero h1 {
+  letter-spacing: -0.018em;
+  line-height: 1.07;
+}
+
+.home-page :is(.home-panel, .home-operations, .home-council, .home-finale) h2 {
+  letter-spacing: -0.012em;
+  line-height: 1.13;
+}
+
+.home-page main h3 {
+  line-height: 1.32;
+}
+
+@media (max-width: 680px) {
+  .home-page .home-hero h1 {
+    font-size: clamp(3rem, 13vw, 4.2rem);
+    line-height: 1.08;
+  }
+
+  .home-page .home-hero h1 em {
+    max-width: 100%;
+  }
+
+  .home-page :is(.home-panel, .home-operations, .home-council, .home-finale) h2 {
+    font-size: clamp(2.45rem, 11.5vw, 3.3rem);
+    line-height: 1.15;
+  }
+
+  .home-page .home-panel-head {
+    gap: 1.25rem;
+    margin-bottom: 1.9rem;
+  }
+
+  .home-page :is(.tenet-grid li, .legacy-timeline li, .benefit-grid li, .snapshot-card) {
+    padding: 1.35rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-page .home-hero h1 {
+    font-size: clamp(2.75rem, 13vw, 3.2rem);
+  }
+}
