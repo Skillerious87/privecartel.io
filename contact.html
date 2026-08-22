@@ -527,8 +527,10 @@
     @media(max-width:520px){
       .contact-section{padding-top:2rem}
       .contact-grid{grid-template-columns:1fr}
-      .profile-actions{grid-template-columns:1fr}
-      .copy-xid{width:100%}
+      /* Keep the copy button beside "Open Torn": stacked full-width it
+         reads as a mystery bar, since it is icon-only by design. */
+      .profile-actions{grid-template-columns:minmax(0,1fr) auto}
+      .copy-xid{width:auto;min-width:2.9rem}
       .application-grid{grid-template-columns:1fr}
       .application-footer{display:grid}
       .application-actions{

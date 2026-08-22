@@ -64,7 +64,7 @@
     els.repoName.value = settings.repo || "";
     els.branchName.value = settings.branch || "main";
     els.liveSiteUrl.value = settings.liveSiteUrl || "";
-    els.brandAssetPath.value = settings.assetPath || "images/Emblem.png";
+    els.brandAssetPath.value = settings.assetPath || "images/emblem-512.webp";
     localStorage.removeItem(TOKEN_KEY);
     els.githubToken.value = sessionStorage.getItem(TOKEN_KEY) || "";
     els.rememberToken.checked = Boolean(sessionStorage.getItem(TOKEN_KEY));
@@ -96,7 +96,7 @@
       branch: els.branchName.value.trim() || "main",
       token: els.githubToken.value.trim(),
       liveSiteUrl: els.liveSiteUrl.value.trim(),
-      assetPath: els.brandAssetPath.value.trim() || "images/Emblem.png",
+      assetPath: els.brandAssetPath.value.trim() || "images/emblem-512.webp",
     };
   }
 
@@ -113,7 +113,7 @@
       title: els.maintenanceTitle.value.trim() || "System Maintenance",
       message: els.maintenanceMessage.value.trim(),
       eta: els.maintenanceEta.value.trim() || "Back soon",
-      assetPath: els.brandAssetPath.value.trim() || "images/Emblem.png",
+      assetPath: els.brandAssetPath.value.trim() || "images/emblem-512.webp",
       contactLabel: els.contactLabel.value.trim() || "Join Discord",
       contactUrl: els.contactUrl.value.trim(),
     };

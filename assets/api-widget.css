@@ -1270,3 +1270,20 @@ body.has-recruitment-banner .api-toast {
     transition: none;
   }
 }
+
+/* ============================================================
+   Full-screen mobile menu owns the viewport
+   The launcher (z 1250) and recruitment banner (z 1100) both
+   outrank the nav panel (z 999), so they used to float on top
+   of the open menu. Nothing here is actionable while the menu
+   is up, so take them out of the layer entirely.
+   ============================================================ */
+body.menu-open > .api-launcher,
+body.menu-open .recruitment-banner,
+body.menu-open #backTop,
+body.menu-open .api-toast {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, visibility 0s linear 0.18s;
+}

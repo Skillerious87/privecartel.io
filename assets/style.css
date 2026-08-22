@@ -2011,7 +2011,7 @@ section.rules-block h2.section-title .num{
 
 
 /* ===== 10.  Content links  (updated) ===== */
-main a:not(.btn):not(.nav-links a) {
+main a:not(.btn):not(.nav-links a, .overlay-buttons a, .carousel-download a) {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-color: rgba(var(--accent-rgb), 0.45);

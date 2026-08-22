@@ -26,7 +26,7 @@
   function safeAssetPath(value) {
     const path = String(value || "").trim();
     if (/^(?:\.\.?\/|\/)?[a-z0-9_./-]+$/i.test(path)) return path;
-    return safeHttpUrl(path) || "images/Emblem.png";
+    return safeHttpUrl(path) || "images/emblem-512.webp";
   }
 
   function buildMaintenanceHtml(options) {
