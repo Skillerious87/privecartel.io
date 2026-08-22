@@ -346,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!widgetStyles) {
       widgetStyles = document.createElement("link");
       widgetStyles.rel = "stylesheet";
-      widgetStyles.href = siteLink("assets/api-widget.css?v=20260822-10");
+      widgetStyles.href = siteLink("assets/api-widget.css?v=20260822-11");
       widgetStyles.setAttribute("data-api-widget-styles", "");
       document.head.appendChild(widgetStyles);
     }
