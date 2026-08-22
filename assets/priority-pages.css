@@ -1179,3 +1179,15 @@ body.home-page main > section:not(.home-finale)::after {
     right: calc(max(1.5rem, (100% - 1260px) / 2) + 3.6rem);
   }
 }
+
+/* Keep the faction summary in its own document space. The old negative
+   margin placed the rail over the hero's Discover cue. */
+body.home-page .home-fact-rail {
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+@media (max-width: 680px) {
+  body.home-page .home-fact-rail {
+    margin-top: 1rem;
+  }
+}

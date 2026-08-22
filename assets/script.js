@@ -346,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!widgetStyles) {
       widgetStyles = document.createElement("link");
       widgetStyles.rel = "stylesheet";
-      widgetStyles.href = siteLink("assets/api-widget.css?v=20260822-9");
+      widgetStyles.href = siteLink("assets/api-widget.css?v=20260822-10");
       widgetStyles.setAttribute("data-api-widget-styles", "");
       document.head.appendChild(widgetStyles);
     }
@@ -381,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
           <div>
             <p class="api-dialog-kicker">Torn API &middot; local connection</p>
-            <h2 id="api-dialog-title">Connect Torn</h2>
+            <h2 id="api-dialog-title" tabindex="-1">Connect Torn</h2>
           </div>
         </header>
 
@@ -461,6 +461,8 @@ document.addEventListener("DOMContentLoaded", () => {
     else widgetStyles.addEventListener("load", revealLauncher, { once: true });
 
     const form = dialog.querySelector("[data-api-form]");
+    const shell = dialog.querySelector(".api-dialog-shell");
+    const title = dialog.querySelector("#api-dialog-title");
     const input = dialog.querySelector("#globalApiKey");
     const toggle = dialog.querySelector("[data-api-toggle]");
     const remove = dialog.querySelector("[data-api-remove]");
@@ -473,6 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const removeLabel = remove.querySelector("span");
     let closeTimer = 0;
     let removeTimer = 0;
+    const avoidSoftKeyboard = () => window.matchMedia("(max-width: 600px), (pointer: coarse)").matches;
 
     const showApiToast = (title, copy) => {
       document.querySelector("[data-api-toast]")?.remove();
@@ -567,9 +570,11 @@ document.addEventListener("DOMContentLoaded", () => {
       message.textContent = "";
       message.className = "api-dialog-message";
       resetVisibility();
+      if (shell) shell.scrollTop = 0;
       dialog.showModal();
       document.body.classList.add("api-dialog-open");
-      window.requestAnimationFrame(() => input.focus({ preventScroll: true }));
+      const focusTarget = avoidSoftKeyboard() ? title : input;
+      window.requestAnimationFrame(() => focusTarget?.focus({ preventScroll: true }));
     };
 
     launcher.addEventListener("click", openDialog);

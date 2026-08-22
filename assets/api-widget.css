@@ -1208,49 +1208,117 @@ body.has-recruitment-banner .api-toast {
 
 @media (max-width: 600px) {
   dialog.api-dialog {
-    max-height: calc(100dvh - 0.5rem) !important;
-    border-radius: 16px 16px 0 0 !important;
+    inset: auto 0 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    max-height: calc(100dvh - env(safe-area-inset-top) - 0.5rem) !important;
+    margin: auto 0 0 !important;
+    border-width: 1px 0 0 !important;
+    border-radius: 20px 20px 0 0 !important;
   }
 
   .api-dialog-shell {
-    max-height: calc(100dvh - 0.5rem) !important;
-    padding: 1rem 0.9rem max(1rem, env(safe-area-inset-bottom)) !important;
+    max-height: calc(100dvh - env(safe-area-inset-top) - 0.5rem) !important;
+    padding:
+      1.45rem
+      max(1rem, env(safe-area-inset-right))
+      calc(env(safe-area-inset-bottom) + 0.9rem)
+      max(1rem, env(safe-area-inset-left)) !important;
+    scroll-padding-block: 4rem 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .api-dialog-shell::after {
+    top: 0.5rem;
+    right: auto;
+    left: 50%;
+    width: 2.6rem;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(242, 238, 226, 0.22);
+    transform: translateX(-50%);
   }
 
   .api-dialog-close {
-    top: 0.7rem !important;
-    right: 0.7rem !important;
+    top: 0.72rem !important;
+    right: max(0.72rem, env(safe-area-inset-right)) !important;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    border-radius: 10px !important;
   }
 
   .api-dialog-header {
-    grid-template-columns: 2.85rem minmax(0, 1fr) !important;
-    gap: 0.68rem !important;
+    grid-template-columns: 3rem minmax(0, 1fr) !important;
+    gap: 0.72rem !important;
+    padding-right: 3rem !important;
   }
 
   .api-dialog-emblem {
-    width: 2.85rem !important;
-    height: 2.85rem !important;
+    width: 3rem !important;
+    height: 3rem !important;
   }
 
   .api-dialog-emblem img {
-    width: 2.4rem !important;
-    height: 2.4rem !important;
+    width: 2.55rem !important;
+    height: 2.55rem !important;
   }
 
   dialog.api-dialog h2 {
-    font-size: clamp(1.55rem, 7vw, 1.85rem) !important;
+    font-size: clamp(1.65rem, 7vw, 1.95rem) !important;
   }
 
   .api-dialog-description {
-    margin-top: 0.68rem !important;
+    margin-top: 0.72rem !important;
+    font-size: 0.78rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .api-dialog-state {
+    margin-top: 0.75rem !important;
+    padding: 0.65rem 0.72rem !important;
+  }
+
+  .api-key-entry {
+    padding: 0.85rem !important;
+  }
+
+  .api-key-settings,
+  .api-key-settings:link,
+  .api-key-settings:visited {
+    min-height: 2.75rem !important;
+    padding-inline: 0.7rem !important;
+  }
+
+  .api-dialog-field input {
+    font-size: 16px !important;
+  }
+
+  .api-dialog-field button {
+    min-width: 4.2rem !important;
+    height: 2.75rem !important;
+  }
+
+  .api-key-requirements {
+    font-size: 0.62rem !important;
   }
 
   .api-dialog-actions {
     grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.5rem !important;
   }
 
+  .api-dialog-save,
   .api-dialog-remove {
-    min-height: 2.4rem !important;
+    min-height: 2.85rem !important;
+  }
+
+  .api-dialog-privacy strong {
+    font-size: 0.68rem !important;
+  }
+
+  .api-dialog-privacy p {
+    font-size: 0.64rem !important;
+    line-height: 1.52 !important;
   }
 
   .api-toast {
@@ -1262,6 +1330,14 @@ body.has-recruitment-banner .api-toast {
 
   body.has-recruitment-banner .api-toast {
     bottom: calc(4.85rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 370px) {
+  .api-dialog-field button {
+    width: 2.75rem !important;
+    min-width: 2.75rem !important;
+    padding: 0 !important;
   }
 }
 
