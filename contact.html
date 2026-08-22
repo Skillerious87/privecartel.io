@@ -1072,7 +1072,7 @@
   </style>
   <link rel="stylesheet" href="assets/editorial.css">
   <link rel="stylesheet" href="assets/mobile.css">
-  <link rel="stylesheet" href="assets/application-dialog.css?v=20260822-5">
+  <link rel="stylesheet" href="assets/application-dialog.css?v=20260822-6">
   <link rel="stylesheet" href="assets/status-pills.css?v=20260822-2">
 </head>
 <body>
@@ -1255,7 +1255,7 @@
           <div class="application-header">
             <div>
               <span class="section-kicker">Private application</span>
-              <h2 id="application-heading" data-application-title>Your details</h2>
+              <h2 id="application-heading" data-application-title tabindex="-1">Your details</h2>
               <p id="application-dialog-copy" data-application-copy>Start with the information council needs to identify and contact you.</p>
             </div>
             <span class="application-badge">
@@ -1680,6 +1680,7 @@
         copy: 'Check the private message below, add anything useful, then submit it to council.'
       }
     ];
+    const avoidSoftKeyboard = () => window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
 
     const emitValueEvents = field => {
       field.dispatchEvent(new Event('input', {bubbles:true}));
@@ -1780,12 +1781,14 @@
       if(applicationTitle) applicationTitle.textContent = APPLICATION_STEPS[applicationStep].title;
       if(applicationCopy) applicationCopy.textContent = APPLICATION_STEPS[applicationStep].copy;
       setStatus('');
+      if(applicationContent) applicationContent.scrollTop = 0;
 
       if(focusFirst && applicationDialog?.open){
         const focusContainer = applicationDialog.querySelector(`[data-app-step="${applicationStep}"]:not([hidden])`);
-        const focusTarget = focusContainer?.matches('button, textarea, input:not([type="hidden"])')
+        const stepControl = focusContainer?.matches('button, textarea, input:not([type="hidden"])')
           ? focusContainer
           : focusContainer?.querySelector('button, textarea, input:not([type="hidden"])');
+        const focusTarget = avoidSoftKeyboard() ? applicationTitle : stepControl;
         window.requestAnimationFrame(() => focusTarget?.focus({preventScroll:true}));
       }
     };
@@ -1808,7 +1811,8 @@
       build();
       applicationDialog.showModal();
       document.body.classList.add('application-dialog-open');
-      window.requestAnimationFrame(() => name.focus({preventScroll:true}));
+      const focusTarget = avoidSoftKeyboard() ? applicationTitle : name;
+      window.requestAnimationFrame(() => focusTarget?.focus({preventScroll:true}));
     };
 
     const completeApplicationDialog = () => {
