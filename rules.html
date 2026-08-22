@@ -485,39 +485,88 @@
     }
 
     .rule-alert {
+      --rule-alert-rgb: 214, 183, 101;
+      --rule-alert-tone: #e7cc82;
+      position: relative;
+      isolation: isolate;
       display: grid;
-      grid-template-columns: 2.35rem minmax(0, 1fr);
-      gap: .75rem;
-      margin-top: 1rem;
-      padding: .95rem 1rem;
-      border: 1px solid rgba(255, 91, 91, .34);
-      border-left: 4px solid #ff5b5b;
-      border-radius: 8px;
-      background: rgba(255, 68, 68, .075);
-      color: #ffd1d1;
+      grid-template-columns: 2.75rem minmax(0, 1fr);
+      gap: .95rem;
+      align-items: start;
+      margin-top: 1.15rem;
+      padding: 1.05rem 1.15rem;
+      overflow: hidden;
+      border: 1px solid rgba(var(--rule-alert-rgb), .34);
+      border-radius: 10px;
+      background:
+        linear-gradient(115deg, rgba(var(--rule-alert-rgb), .14), transparent 58%),
+        rgba(12, 14, 15, .94);
+      box-shadow:
+        inset 3px 0 var(--rule-alert-tone),
+        inset 0 1px rgba(255, 255, 255, .035),
+        0 12px 28px rgba(0, 0, 0, .18);
+      color: rgba(238, 233, 219, .88);
+    }
+
+    .rule-alert::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: -4.5rem;
+      right: -3.5rem;
+      width: 10rem;
+      height: 10rem;
+      border: 1px solid rgba(var(--rule-alert-rgb), .1);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(var(--rule-alert-rgb), .09), transparent 68%);
+      pointer-events: none;
+    }
+
+    .rule-alert--critical {
+      --rule-alert-rgb: 232, 112, 118;
+      --rule-alert-tone: #e87076;
     }
 
     .rule-alert i {
-      width: 2.35rem;
-      height: 2.35rem;
+      width: 2.75rem;
+      height: 2.75rem;
       display: grid;
       place-items: center;
       border-radius: 50%;
-      background: rgba(255, 91, 91, .12);
-      color: #ff9d9d;
+      border: 1px solid rgba(var(--rule-alert-rgb), .3);
+      background: rgba(var(--rule-alert-rgb), .12);
+      color: var(--rule-alert-tone);
+      box-shadow: inset 0 0 0 4px rgba(0, 0, 0, .12);
+    }
+
+    .rule-alert > div {
+      min-width: 0;
+    }
+
+    .rule-alert-kicker {
+      display: block;
+      margin-bottom: .18rem;
+      color: var(--rule-alert-tone);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .11em;
+      line-height: 1.3;
+      text-transform: uppercase;
     }
 
     .rule-alert strong {
       display: block;
-      margin-bottom: .22rem;
-      color: #ffdada;
-      letter-spacing: .02em;
-      text-transform: uppercase;
+      margin-bottom: .3rem;
+      color: #f2eddf;
+      font-size: 1rem;
+      letter-spacing: .01em;
+      line-height: 1.35;
     }
 
     .rule-alert p {
       margin: 0;
-      line-height: 1.55;
+      color: rgba(232, 226, 206, .82);
+      line-height: 1.6;
     }
 
     .rules-card--chat {
@@ -790,12 +839,14 @@
       }
 
       .rule-alert {
-        grid-template-columns: 1fr;
+        grid-template-columns: 2.45rem minmax(0, 1fr);
+        gap: .75rem;
+        padding: .95rem;
       }
 
       .rule-alert i {
-        width: 2rem;
-        height: 2rem;
+        width: 2.45rem;
+        height: 2.45rem;
       }
 
       .council-grid,
@@ -839,7 +890,7 @@
         <aside class="rules-hero-note" aria-label="Rule priorities">
           <h2>What matters most</h2>
           <ul>
-            <li><i class="fa-solid fa-clock" aria-hidden="true"></i><span>Log in daily or leave clear notice before extended absence.</span></li>
+            <li><i class="fa-solid fa-clock" aria-hidden="true"></i><span>Stay within the 24-hour activity limit or arrange your absence in advance.</span></li>
             <li><i class="fa-solid fa-user-ninja" aria-hidden="true"></i><span>Join and execute Organised Crimes when assigned.</span></li>
             <li><i class="fa-solid fa-comments" aria-hidden="true"></i><span>Keep faction chat useful, civil and appropriate for everyone.</span></li>
           </ul>
@@ -901,21 +952,29 @@
               </div>
             </header>
             <div class="rules-card-body">
-              <p class="rules-lede">Reliable communication keeps the faction running smoothly. Stay visible, respond when needed and give leadership notice when real life takes priority.</p>
+              <p class="rules-lede">Consistent activity keeps the faction dependable. Stay visible, respond when needed and let leadership know before real life takes you away.</p>
               <dl class="rule-list">
                 <dt>Daily Presence</dt>
-                <dd>Log in at least once every 24 hours. A Last Action time above 24 hours will flag you as inactive.</dd>
+                <dd>Log in at least once every 24 hours. If your Last Action exceeds 24 hours without an approved absence, leadership may remove you from the faction.</dd>
                 <dt>Event Notifications</dt>
                 <dd>Enable the Torn and Discord notification channels you rely on so OC, chain and leadership pings reach you promptly.</dd>
                 <dt>OC Commitment</dt>
                 <dd>If you join an OC 2.0 scenario, remain available throughout its displayed planning window. Be healthy, in Torn and ready with every required item before initiation.</dd>
                 <dt>Chain Windows</dt>
                 <dd>Members who opt in must respond within five minutes during scheduled chain windows. Keep at least 50 Energy banked, fast targets bookmarked and hospital time below ten minutes.</dd>
-                <dt>Vacation Mode</dt>
-                <dd>If you will be away for 72 hours or more, enable Vacation Mode in Torn and share your expected return in faction chat. Your slot will be protected; an unexplained absence may result in removal after three inactive days.</dd>
+                <dt>Planned Absence</dt>
+                <dd>If you expect to be away for 24 hours or longer, privately message a leader through Torn or Discord before leaving and include your expected return. Faction-chat posts do not count as notice because they can quickly be buried. Use Vacation Mode for longer breaks; approved absences will not be treated as unexplained inactivity.</dd>
                 <dt>Quick Response</dt>
                 <dd>Leaders may send urgent in-game mail or Discord pings. Reply when possible so rosters can adjust in real time.</dd>
               </dl>
+              <div class="rule-alert rule-alert--critical" role="note" aria-label="24-hour inactivity policy">
+                <i class="fa-solid fa-user-clock" aria-hidden="true"></i>
+                <div>
+                  <span class="rule-alert-kicker">Membership standard</span>
+                  <strong>24-hour inactivity policy</strong>
+                  <p>More than 24 hours of unexplained inactivity may result in removal from the faction. To protect your place, send a leader a private Torn message or Discord DM before you leave. A message in faction chat is not accepted as notice.</p>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -948,6 +1007,7 @@
               <div class="rule-alert" role="note" aria-label="Mandatory OC participation policy">
                 <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
                 <div>
+                  <span class="rule-alert-kicker">Participation requirement</span>
                   <strong>Mandatory OC participation</strong>
                   <p>Members who do not join an OC within seven days will receive a formal warning. Failure to participate within fourteen days may result in removal. Real-life commitments come first; notify leadership as early as possible.</p>
                 </div>
@@ -1025,9 +1085,10 @@
                 <dt>Scamming</dt>
                 <dd>The faction permits buy-mugging as a gameplay mechanic. Any transaction or agreement, internal or external, is binding and must be honoured.</dd>
               </dl>
-              <div class="rule-alert" role="note" aria-label="External conduct enforcement policy">
+              <div class="rule-alert rule-alert--critical" role="note" aria-label="External conduct enforcement policy">
                 <i class="fa-solid fa-ban" aria-hidden="true"></i>
                 <div>
+                  <span class="rule-alert-kicker">Enforcement notice</span>
                   <strong>Protect the faction</strong>
                   <p>Any external action that could affect the faction's reputation, diplomacy or security must be cleared with leadership first. Serious or repeated breaches may result in immediate removal.</p>
                 </div>
