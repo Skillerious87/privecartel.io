@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (yearEl) yearEl.textContent = year;
   enhanceFooter(year);
   installRecruitmentBanner();
+  installApiWidget();
 
   document.querySelectorAll('a[target="_blank"]').forEach((link) => {
     const rel = new Set((link.getAttribute("rel") || "").split(/\s+/).filter(Boolean));
@@ -270,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function enhanceFooter(currentYear) {
-    const footer = document.querySelector("footer");
+    const footer = document.querySelector("body > footer");
     if (!footer || footer.dataset.enhanced === "true") return;
 
     footer.classList.add("site-footer");
@@ -335,6 +336,325 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>What happens behind the curtain stays ours.</p>
       </div>
     `;
+  }
+
+  function installApiWidget() {
+    const storageKey = "pcApiKey";
+    if (document.querySelector("[data-api-launcher]")) return;
+
+    let widgetStyles = document.querySelector("link[data-api-widget-styles]");
+    if (!widgetStyles) {
+      widgetStyles = document.createElement("link");
+      widgetStyles.rel = "stylesheet";
+      widgetStyles.href = siteLink("assets/api-widget.css?v=20260822-7");
+      widgetStyles.setAttribute("data-api-widget-styles", "");
+      document.head.appendChild(widgetStyles);
+    }
+
+    const launcher = document.createElement("button");
+    launcher.type = "button";
+    launcher.className = "api-launcher";
+    launcher.hidden = true;
+    launcher.setAttribute("data-api-launcher", "");
+    launcher.setAttribute("aria-haspopup", "dialog");
+    launcher.setAttribute("aria-controls", "api-connection-dialog");
+    launcher.innerHTML = `
+      <span class="api-launcher-icon" aria-hidden="true"><i class="fa-solid fa-key"></i></span>
+      <span class="api-launcher-label">Torn API</span>
+      <span class="api-launcher-status" aria-hidden="true"></span>
+    `;
+
+    const dialog = document.createElement("dialog");
+    dialog.className = "api-dialog";
+    dialog.id = "api-connection-dialog";
+    dialog.setAttribute("aria-labelledby", "api-dialog-title");
+    dialog.setAttribute("aria-describedby", "api-dialog-description");
+    dialog.innerHTML = `
+      <div class="api-dialog-shell">
+        <button class="api-dialog-close" type="button" aria-label="Close API key dialog" data-api-close>
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <header class="api-dialog-header" data-api-primary>
+          <div class="api-dialog-emblem" aria-hidden="true">
+            <img src="${siteLink("images/emblem-512.webp")}" alt="" width="512" height="512" decoding="async">
+          </div>
+          <div>
+            <p class="api-dialog-kicker">Torn API &middot; local connection</p>
+            <h2 id="api-dialog-title">Connect Torn</h2>
+          </div>
+        </header>
+
+        <p class="api-dialog-description" id="api-dialog-description" data-api-primary>Save a 16-character key to load live faction data in the member directory.</p>
+
+        <div class="api-dialog-state" data-api-state data-api-primary>
+          <span class="api-dialog-state-dot" aria-hidden="true"></span>
+          <div>
+            <strong data-api-state-title>No key saved</strong>
+            <span data-api-state-copy>Add a key to enable live Torn data.</span>
+          </div>
+          <span class="api-dialog-state-badge"><i class="fa-solid fa-lock" aria-hidden="true"></i> This browser</span>
+        </div>
+
+        <form class="api-dialog-form" data-api-form data-api-primary novalidate>
+          <div class="api-key-entry">
+            <div class="api-key-entry-heading">
+              <div class="api-key-entry-copy">
+                <label for="globalApiKey">Your Torn API key</label>
+                <span>Required for live member data</span>
+              </div>
+              <a class="api-key-settings" href="https://www.torn.com/preferences.php#tab=api" target="_blank" rel="noopener noreferrer">
+                <span>Get a key</span>
+                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="api-dialog-field">
+              <input type="password" id="globalApiKey" name="api-key" placeholder="Enter or paste your 16-character key" maxlength="16" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="api-key-requirements api-dialog-message api-dialog-privacy">
+              <button type="button" data-api-toggle aria-label="Show API key" title="Show API key">
+                <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                <span>Show</span>
+              </button>
+            </div>
+            <div class="api-key-requirements" id="api-key-requirements">
+              <span><i class="fa-solid fa-hashtag" aria-hidden="true"></i> 16 characters</span>
+              <span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Use minimum permissions</span>
+            </div>
+          </div>
+          <p class="api-dialog-message" id="api-dialog-message" data-api-message aria-live="polite"></p>
+
+          <div class="api-dialog-actions">
+            <button class="api-dialog-save" type="submit">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i>
+              <span>Save API key</span>
+            </button>
+            <button class="api-dialog-remove" type="button" data-api-remove>
+              <i class="fa-solid fa-trash" aria-hidden="true"></i>
+              <span>Remove key</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="api-dialog-privacy" id="api-dialog-privacy" data-api-primary>
+          <span aria-hidden="true"><i class="fa-solid fa-shield-halved"></i></span>
+          <div>
+            <strong>Private by design</strong>
+            <p>Stored only in this browser and sent directly to Torn over HTTPS.</p>
+          </div>
+        </div>
+
+        <div class="api-dialog-confirmation" data-api-confirmation hidden role="status" aria-live="polite">
+          <span aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+          <strong>API key saved</strong>
+          <p>Live member data is connected. Closing&hellip;</p>
+        </div>
+      </div>
+    `;
+
+    document.body.append(launcher, dialog);
+    document.body.classList.add("has-api-widget");
+
+    const revealLauncher = () => {
+      launcher.hidden = false;
+      launcher.classList.add("is-ready");
+    };
+    if (widgetStyles.sheet) revealLauncher();
+    else widgetStyles.addEventListener("load", revealLauncher, { once: true });
+
+    const form = dialog.querySelector("[data-api-form]");
+    const input = dialog.querySelector("#globalApiKey");
+    const toggle = dialog.querySelector("[data-api-toggle]");
+    const remove = dialog.querySelector("[data-api-remove]");
+    const message = dialog.querySelector("[data-api-message]");
+    const state = dialog.querySelector("[data-api-state]");
+    const stateTitle = dialog.querySelector("[data-api-state-title]");
+    const stateCopy = dialog.querySelector("[data-api-state-copy]");
+    const confirmation = dialog.querySelector("[data-api-confirmation]");
+    const primaryContent = [...dialog.querySelectorAll("[data-api-primary]")];
+    const removeLabel = remove.querySelector("span");
+    let closeTimer = 0;
+    let removeTimer = 0;
+
+    const showApiToast = (title, copy) => {
+      document.querySelector("[data-api-toast]")?.remove();
+      const toast = document.createElement("div");
+      toast.className = "api-toast";
+      toast.setAttribute("data-api-toast", "");
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      toast.innerHTML = `
+        <span aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+        <div><strong>${title}</strong><p>${copy}</p></div>
+        <button type="button" aria-label="Dismiss notification"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      `;
+      document.body.appendChild(toast);
+      const dismiss = () => {
+        toast.classList.remove("is-visible");
+        window.setTimeout(() => toast.remove(), 220);
+      };
+      toast.querySelector("button").addEventListener("click", dismiss, { once: true });
+      window.requestAnimationFrame(() => toast.classList.add("is-visible"));
+      window.setTimeout(dismiss, 4200);
+    };
+
+    const resetRemoveConfirmation = () => {
+      window.clearTimeout(removeTimer);
+      removeTimer = 0;
+      remove.dataset.confirming = "false";
+      remove.classList.remove("is-confirming");
+      removeLabel.textContent = "Remove key";
+      if (message.textContent === "Click again to remove the key from this browser.") {
+        message.textContent = "";
+        message.className = "api-dialog-message";
+      }
+    };
+
+    const resetDialogState = () => {
+      window.clearTimeout(closeTimer);
+      closeTimer = 0;
+      dialog.classList.remove("is-confirmed");
+      confirmation.hidden = true;
+      primaryContent.forEach((element) => { element.hidden = false; });
+      resetRemoveConfirmation();
+    };
+
+    const readKey = () => {
+      try {
+        const saved = localStorage.getItem(storageKey) || "";
+        if (saved) return saved;
+      } catch {
+        // Storage may be unavailable in private browsing modes.
+      }
+      try {
+        const previous = sessionStorage.getItem(storageKey) || "";
+        if (previous) {
+          localStorage.setItem(storageKey, previous);
+          sessionStorage.removeItem(storageKey);
+          return previous;
+        }
+      } catch {
+        // Keep the widget usable even when storage is blocked.
+      }
+      return "";
+    };
+
+    const resetVisibility = () => {
+      input.type = "password";
+      toggle.setAttribute("aria-label", "Show API key");
+      toggle.title = "Show API key";
+      toggle.setAttribute("aria-pressed", "false");
+      toggle.innerHTML = '<i class="fa-solid fa-eye" aria-hidden="true"></i><span>Show</span>';
+    };
+
+    const updateSavedState = () => {
+      const hasKey = Boolean(readKey());
+      launcher.classList.toggle("has-key", hasKey);
+      launcher.setAttribute("aria-label", hasKey ? "Manage saved Torn API key" : "Add a Torn API key");
+      launcher.title = hasKey ? "Torn API key saved" : "Add Torn API key";
+      state.classList.toggle("has-key", hasKey);
+      stateTitle.textContent = hasKey ? "API key saved" : "No key saved";
+      stateCopy.textContent = hasKey
+        ? "Live data is ready for the members directory."
+        : "Add a key to enable live Torn data.";
+      input.placeholder = hasKey ? "Paste a replacement key" : "Paste your API key";
+      remove.disabled = !hasKey;
+      return hasKey;
+    };
+
+    const openDialog = () => {
+      resetDialogState();
+      updateSavedState();
+      input.value = "";
+      message.textContent = "";
+      message.className = "api-dialog-message";
+      resetVisibility();
+      dialog.showModal();
+      document.body.classList.add("api-dialog-open");
+      window.requestAnimationFrame(() => input.focus({ preventScroll: true }));
+    };
+
+    launcher.addEventListener("click", openDialog);
+    dialog.querySelector("[data-api-close]").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("close", () => {
+      window.clearTimeout(closeTimer);
+      window.clearTimeout(removeTimer);
+      document.body.classList.remove("api-dialog-open");
+      launcher.focus({ preventScroll: true });
+    });
+
+    toggle.addEventListener("click", () => {
+      const reveal = input.type === "password";
+      input.type = reveal ? "text" : "password";
+      toggle.setAttribute("aria-label", reveal ? "Hide API key" : "Show API key");
+      toggle.title = reveal ? "Hide API key" : "Show API key";
+      toggle.setAttribute("aria-pressed", String(reveal));
+      toggle.innerHTML = `<i class="fa-solid ${reveal ? "fa-eye-slash" : "fa-eye"}" aria-hidden="true"></i><span>${reveal ? "Hide" : "Show"}</span>`;
+      input.focus();
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const key = input.value.trim();
+      if (key.length !== 16) {
+        message.textContent = "Torn API keys contain exactly 16 characters.";
+        message.className = "api-dialog-message is-error";
+        input.focus();
+        return;
+      }
+
+      try {
+        localStorage.setItem(storageKey, key);
+        sessionStorage.removeItem(storageKey);
+      } catch {
+        message.textContent = "This browser blocked local storage. Try again outside private browsing.";
+        message.className = "api-dialog-message is-error";
+        return;
+      }
+
+      input.value = "";
+      resetVisibility();
+      updateSavedState();
+      window.dispatchEvent(new CustomEvent("pc:api-key-change", { detail: { hasKey: true } }));
+      primaryContent.forEach((element) => { element.hidden = true; });
+      confirmation.hidden = false;
+      dialog.classList.add("is-confirmed");
+      showApiToast("API key saved", "Live member data is now connected.");
+      closeTimer = window.setTimeout(() => dialog.close("saved"), 900);
+    });
+
+    remove.addEventListener("click", () => {
+      if (remove.dataset.confirming !== "true") {
+        remove.dataset.confirming = "true";
+        remove.classList.add("is-confirming");
+        removeLabel.textContent = "Confirm removal";
+        message.textContent = "Click again to remove the key from this browser.";
+        message.className = "api-dialog-message";
+        removeTimer = window.setTimeout(resetRemoveConfirmation, 5000);
+        return;
+      }
+
+      resetRemoveConfirmation();
+      try {
+        localStorage.removeItem(storageKey);
+        sessionStorage.removeItem(storageKey);
+      } catch {
+        message.textContent = "The saved key could not be removed from this browser.";
+        message.className = "api-dialog-message is-error";
+        return;
+      }
+      input.value = "";
+      resetVisibility();
+      updateSavedState();
+      message.textContent = "Saved API key removed.";
+      message.className = "api-dialog-message is-success";
+      window.dispatchEvent(new CustomEvent("pc:api-key-change", { detail: { hasKey: false } }));
+      showApiToast("API key removed", "This browser no longer has a saved Torn key.");
+      closeTimer = window.setTimeout(() => dialog.close("removed"), 450);
+    });
+
+    updateSavedState();
   }
 
   function installRecruitmentBanner() {

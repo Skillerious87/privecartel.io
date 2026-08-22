@@ -1,0 +1,1272 @@
+/* ============================================================
+   Privé Cartel · global Torn API control
+   Loaded by assets/script.js with a versioned URL so the widget
+   can never depend on a stale copy of the main site stylesheet.
+   ============================================================ */
+
+:root {
+  --api-gold: var(--accent, #c8a95b);
+  --api-gold-light: var(--accent-light, #ead18b);
+  --api-gold-rgb: var(--accent-rgb, 200, 169, 91);
+  --api-ink: #07090b;
+  --api-panel: #101316;
+  --api-text: #f2eee2;
+  --api-muted: rgba(242, 238, 226, 0.62);
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+.api-launcher[hidden] {
+  display: none !important;
+}
+
+body > .api-launcher {
+  all: unset;
+  position: fixed !important;
+  right: max(1.25rem, env(safe-area-inset-right)) !important;
+  bottom: max(1.25rem, env(safe-area-inset-bottom)) !important;
+  z-index: 1250 !important;
+  width: 3.45rem !important;
+  height: 3.45rem !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.58) !important;
+  border-radius: 50% !important;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.12), transparent 26%),
+    linear-gradient(145deg, rgba(var(--api-gold-rgb), 0.2), rgba(7, 9, 11, 0.98) 62%) !important;
+  color: var(--api-gold-light) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  cursor: pointer !important;
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.1),
+    0 16px 38px rgba(0, 0, 0, 0.56),
+    0 0 0 4px rgba(var(--api-gold-rgb), 0.04) !important;
+  opacity: 0;
+  transform: translateY(0.65rem) scale(0.94);
+  isolation: isolate;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease !important;
+}
+
+body > .api-launcher.is-ready {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+body > .api-launcher:hover,
+body > .api-launcher:focus-visible {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(var(--api-gold-rgb), 0.92) !important;
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.13),
+    0 20px 44px rgba(0, 0, 0, 0.62),
+    0 0 0 4px rgba(var(--api-gold-rgb), 0.07),
+    0 0 28px rgba(var(--api-gold-rgb), 0.14) !important;
+}
+
+body > .api-launcher:focus-visible {
+  outline: 2px solid var(--api-gold-light) !important;
+  outline-offset: 4px !important;
+}
+
+.api-launcher-icon {
+  width: 2.55rem;
+  height: 2.55rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.26);
+  border-radius: 50%;
+  background: rgba(var(--api-gold-rgb), 0.07);
+  color: inherit;
+  font-size: 0.92rem;
+}
+
+.api-launcher-label {
+  position: absolute;
+  right: calc(100% + 0.72rem);
+  top: 50%;
+  width: max-content;
+  max-width: 12rem;
+  padding: 0.48rem 0.72rem;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.34);
+  border-radius: 8px;
+  background: rgba(7, 9, 11, 0.97);
+  color: rgba(242, 238, 226, 0.86);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  white-space: nowrap;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(0.35rem, -50%);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.api-launcher:hover .api-launcher-label,
+.api-launcher:focus-visible .api-launcher-label {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.api-launcher-status {
+  position: absolute;
+  top: 0.08rem;
+  right: 0.08rem;
+  width: 0.58rem;
+  height: 0.58rem;
+  border: 2px solid #090b0d;
+  border-radius: 50%;
+  background: #746f65;
+}
+
+.api-launcher.has-key .api-launcher-status {
+  background: #73d79b;
+  box-shadow: 0 0 11px rgba(115, 215, 155, 0.72);
+}
+
+body.has-api-widget #backTop {
+  bottom: max(5.45rem, calc(5.45rem + env(safe-area-inset-bottom))) !important;
+}
+
+body.api-dialog-open {
+  overflow: hidden !important;
+}
+
+dialog.api-dialog,
+dialog.api-dialog * {
+  box-sizing: border-box;
+}
+
+dialog.api-dialog {
+  position: fixed;
+  inset: 0;
+  width: min(calc(100vw - 2rem), 38rem) !important;
+  max-width: none !important;
+  max-height: min(calc(100dvh - 2rem), 47rem) !important;
+  margin: auto !important;
+  padding: 0 !important;
+  overflow: hidden auto !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.46) !important;
+  border-radius: 18px !important;
+  background: var(--api-ink) !important;
+  color: var(--api-text) !important;
+  box-shadow:
+    0 38px 110px rgba(0, 0, 0, 0.78),
+    0 0 0 1px rgba(255, 255, 255, 0.035),
+    0 0 58px rgba(var(--api-gold-rgb), 0.08) !important;
+}
+
+dialog.api-dialog[open] {
+  display: block !important;
+}
+
+dialog.api-dialog::backdrop {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(var(--api-gold-rgb), 0.14), transparent 26rem),
+    rgba(1, 2, 3, 0.88) !important;
+  backdrop-filter: blur(14px) saturate(0.82);
+}
+
+.api-dialog-shell {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  padding: 1.7rem !important;
+  background:
+    radial-gradient(circle at 0 0, rgba(var(--api-gold-rgb), 0.12), transparent 19rem),
+    linear-gradient(180deg, #121518, #090b0d 72%) !important;
+  animation: api-dialog-enter 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes api-dialog-enter {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.api-dialog-shell::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -7rem;
+  right: -7rem;
+  width: 18rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.09);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 3.5rem rgba(0, 0, 0, 0.035);
+  pointer-events: none;
+}
+
+.api-dialog-shell::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 1.35rem;
+  left: 1.35rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--api-gold-rgb), 0.95), transparent);
+}
+
+.api-dialog-close {
+  all: unset;
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 4 !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.26) !important;
+  border-radius: 50% !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: rgba(242, 238, 226, 0.68) !important;
+  cursor: pointer !important;
+}
+
+.api-dialog-close:hover,
+.api-dialog-close:focus-visible {
+  border-color: rgba(var(--api-gold-rgb), 0.62) !important;
+  background: rgba(var(--api-gold-rgb), 0.12) !important;
+  color: #fff !important;
+}
+
+.api-dialog-header {
+  display: grid !important;
+  grid-template-columns: 4.15rem minmax(0, 1fr) !important;
+  gap: 0.92rem !important;
+  align-items: center !important;
+  padding-right: 2.65rem !important;
+}
+
+.api-dialog-emblem {
+  position: relative;
+  width: 4.15rem !important;
+  height: 4.15rem !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.42) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, rgba(var(--api-gold-rgb), 0.12), rgba(0, 0, 0, 0.3)) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34) !important;
+}
+
+.api-dialog-emblem::after {
+  content: "";
+  position: absolute;
+  inset: 0.28rem;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.16);
+  border-radius: inherit;
+}
+
+.api-dialog-emblem img {
+  width: 3.52rem !important;
+  height: 3.52rem !important;
+  max-width: none !important;
+  margin: 0 !important;
+  object-fit: contain !important;
+  border-radius: 50% !important;
+}
+
+.api-dialog-kicker {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  margin: 0 0 0.24rem !important;
+  color: var(--api-gold) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.62rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.15em !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase !important;
+}
+
+.api-dialog-kicker::before {
+  content: "";
+  width: 1.15rem;
+  height: 1px;
+  background: currentColor;
+}
+
+dialog.api-dialog h2 {
+  margin: 0 !important;
+  color: var(--api-text) !important;
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-size: clamp(1.9rem, 4vw, 2.35rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.02 !important;
+}
+
+.api-dialog-description {
+  max-width: 56ch !important;
+  margin: 1.1rem 0 0 !important;
+  color: var(--api-muted) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.8rem !important;
+  line-height: 1.65 !important;
+}
+
+.api-dialog-state {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  gap: 0.68rem !important;
+  align-items: center !important;
+  margin-top: 1.1rem !important;
+  padding: 0.76rem 0.85rem !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.19) !important;
+  border-radius: 10px !important;
+  background: #0b0e10 !important;
+}
+
+.api-dialog-state-dot {
+  width: 0.55rem !important;
+  height: 0.55rem !important;
+  border-radius: 50% !important;
+  background: #746f65 !important;
+  box-shadow: 0 0 0 4px rgba(242, 238, 226, 0.035) !important;
+}
+
+.api-dialog-state.has-key {
+  border-color: rgba(115, 215, 155, 0.24) !important;
+  background: #0b1512 !important;
+}
+
+.api-dialog-state.has-key .api-dialog-state-dot {
+  background: #73d79b !important;
+  box-shadow: 0 0 0 4px rgba(115, 215, 155, 0.08), 0 0 11px rgba(115, 215, 155, 0.4) !important;
+}
+
+.api-dialog-state strong,
+.api-dialog-state div > span {
+  display: block !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+}
+
+.api-dialog-state-badge {
+  min-height: 1.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.38rem !important;
+  padding: 0.35rem 0.56rem !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.18) !important;
+  border-radius: 999px !important;
+  background: #15181a !important;
+  color: rgba(242, 238, 226, 0.55) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.58rem !important;
+  font-weight: 650 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+.api-dialog-state.has-key .api-dialog-state-badge {
+  border-color: rgba(115, 215, 155, 0.2) !important;
+  color: #9ee2b9 !important;
+}
+
+.api-dialog-state strong {
+  color: rgba(242, 238, 226, 0.9) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+}
+
+.api-dialog-state div > span {
+  margin-top: 0.08rem !important;
+  color: rgba(242, 238, 226, 0.48) !important;
+  font-size: 0.64rem !important;
+  line-height: 1.42 !important;
+}
+
+.api-dialog-form {
+  width: 100% !important;
+  margin: 1rem 0 0 !important;
+  padding: 0 !important;
+}
+
+.api-key-entry {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 1rem !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.29) !important;
+  border-radius: 14px !important;
+  background: #0c0f12 !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04), 0 12px 28px rgba(0, 0, 0, 0.22) !important;
+}
+
+.api-key-entry-heading {
+  display: grid !important;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto !important;
+  gap: 0.72rem !important;
+  align-items: center !important;
+  margin-bottom: 0.85rem !important;
+}
+
+.api-key-entry-icon {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  display: grid !important;
+  place-items: center !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.25) !important;
+  border-radius: 10px !important;
+  background: #1a1d1f !important;
+  color: var(--api-gold-light) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.04) !important;
+  font-size: 0.78rem !important;
+}
+
+.api-key-entry-icon i {
+  display: block !important;
+  line-height: 1 !important;
+}
+
+.api-key-entry-copy {
+  min-width: 0 !important;
+}
+
+.api-key-entry-copy label,
+.api-key-entry-copy > span {
+  display: block !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+}
+
+.api-key-entry-copy label {
+  color: rgba(242, 238, 226, 0.9) !important;
+  font-size: 0.73rem !important;
+  font-weight: 650 !important;
+  line-height: 1.35 !important;
+}
+
+.api-key-entry-copy > span {
+  margin-top: 0.08rem !important;
+  color: rgba(242, 238, 226, 0.48) !important;
+  font-size: 0.63rem !important;
+  line-height: 1.4 !important;
+}
+
+.api-key-settings,
+.api-key-settings:link,
+.api-key-settings:visited {
+  min-height: 2.35rem !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.4rem !important;
+  padding: 0.5rem 0.72rem !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.32) !important;
+  border-radius: 9px !important;
+  background: #181a1c !important;
+  color: var(--api-gold-light) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.62rem !important;
+  font-weight: 650 !important;
+  line-height: 1.25 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+.api-key-settings:hover,
+.api-key-settings:focus-visible {
+  border-color: rgba(var(--api-gold-rgb), 0.5) !important;
+  background: #1b1d1f !important;
+  color: #f5d982 !important;
+  outline: none !important;
+}
+
+.api-key-settings i {
+  font-size: 0.58rem !important;
+}
+
+.api-dialog-field {
+  width: 100% !important;
+  min-height: 3.65rem !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.42) !important;
+  border-radius: 11px !important;
+  background: #030506 !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.03), 0 8px 18px rgba(0, 0, 0, 0.18) !important;
+}
+
+.api-dialog-field:focus-within {
+  border-color: var(--api-gold-light) !important;
+  box-shadow: 0 0 0 3px rgba(var(--api-gold-rgb), 0.1) !important;
+}
+
+.api-dialog-field input {
+  all: unset;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 3.57rem !important;
+  box-sizing: border-box !important;
+  padding: 0.78rem 0.95rem !important;
+  color: var(--api-text) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.86rem !important;
+  line-height: 1.4 !important;
+}
+
+.api-dialog-field input::placeholder {
+  color: rgba(242, 238, 226, 0.39) !important;
+}
+
+.api-dialog-field button {
+  all: unset;
+  min-width: 4.85rem !important;
+  height: 2.9rem !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.4rem !important;
+  margin-right: 0.36rem !important;
+  padding: 0 0.7rem !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.14) !important;
+  border-radius: 8px !important;
+  background: #181b1e !important;
+  color: rgba(242, 238, 226, 0.58) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.63rem !important;
+  font-weight: 650 !important;
+  cursor: pointer !important;
+}
+
+.api-key-requirements {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 0.45rem 1rem !important;
+  margin-top: 0.68rem !important;
+  color: rgba(242, 238, 226, 0.45) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.59rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+}
+
+.api-key-requirements span {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.36rem !important;
+}
+
+.api-key-requirements i {
+  color: rgba(var(--api-gold-rgb), 0.72) !important;
+  font-size: 0.58rem !important;
+}
+
+.api-dialog-field button:hover,
+.api-dialog-field button:focus-visible {
+  border-color: rgba(var(--api-gold-rgb), 0.34) !important;
+  background: #1c1f22 !important;
+  color: var(--api-gold-light) !important;
+  outline: none !important;
+}
+
+.api-dialog-message {
+  min-height: 1.05rem !important;
+  margin: 0.38rem 0 0 !important;
+  color: rgba(242, 238, 226, 0.46) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.65rem !important;
+  line-height: 1.45 !important;
+}
+
+.api-dialog-message.is-error { color: #efaaa0 !important; }
+.api-dialog-message.is-success { color: #9ee2b9 !important; }
+
+.api-dialog-actions {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: 0.65rem !important;
+  margin: 0.72rem 0 0 !important;
+}
+
+.api-dialog-save,
+.api-dialog-remove {
+  all: unset;
+  min-height: 3rem !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.48rem !important;
+  padding: 0.65rem 0.95rem !important;
+  border-radius: 9px !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  cursor: pointer !important;
+}
+
+.api-dialog-save {
+  border: 1px solid var(--api-gold-light) !important;
+  background: linear-gradient(135deg, var(--api-gold-light), var(--api-gold) 55%, #9a792d) !important;
+  color: #080704 !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.4), 0 11px 22px rgba(0, 0, 0, 0.24) !important;
+}
+
+.api-dialog-save:hover,
+.api-dialog-save:focus-visible {
+  filter: brightness(1.07);
+}
+
+.api-dialog-remove {
+  border: 1px solid rgba(223, 141, 129, 0.3) !important;
+  background: rgba(91, 39, 33, 0.15) !important;
+  color: #e4afa6 !important;
+}
+
+.api-dialog-remove:hover,
+.api-dialog-remove:focus-visible {
+  border-color: rgba(239, 169, 158, 0.54) !important;
+  background: rgba(112, 48, 40, 0.24) !important;
+  color: #ffd5ce !important;
+}
+
+.api-dialog-remove:disabled {
+  border-color: rgba(242, 238, 226, 0.1) !important;
+  background: rgba(255, 255, 255, 0.018) !important;
+  color: rgba(242, 238, 226, 0.26) !important;
+  cursor: not-allowed !important;
+}
+
+.api-dialog-privacy {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 0.65rem !important;
+  margin-top: 1rem !important;
+  padding-top: 0.95rem !important;
+  border-top: 1px solid rgba(var(--api-gold-rgb), 0.15) !important;
+}
+
+.api-dialog-privacy-item {
+  min-width: 0 !important;
+  display: grid !important;
+  grid-template-columns: 2.15rem minmax(0, 1fr) !important;
+  gap: 0.62rem !important;
+  align-items: start !important;
+  padding: 0.72rem !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.12) !important;
+  border-radius: 10px !important;
+  background: #0c0f11 !important;
+}
+
+.api-dialog-privacy-item > span {
+  width: 2.15rem !important;
+  height: 2.15rem !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.2) !important;
+  border-radius: 8px !important;
+  background: #171a1c !important;
+  color: var(--api-gold) !important;
+}
+
+.api-dialog-privacy strong {
+  display: block !important;
+  color: rgba(242, 238, 226, 0.84) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+}
+
+.api-dialog-privacy p {
+  margin: 0.18rem 0 0 !important;
+  color: rgba(242, 238, 226, 0.49) !important;
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+  font-size: 0.64rem !important;
+  line-height: 1.55 !important;
+}
+
+@media (max-width: 900px) {
+  body.has-recruitment-banner > .api-launcher {
+    bottom: calc(5rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  body.has-recruitment-banner.has-api-widget #backTop {
+    bottom: calc(9rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  body > .api-launcher {
+    right: max(0.75rem, env(safe-area-inset-right)) !important;
+    bottom: max(0.75rem, env(safe-area-inset-bottom)) !important;
+    width: 3.15rem !important;
+    height: 3.15rem !important;
+  }
+
+  .api-launcher-icon {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .api-launcher-label {
+    display: none;
+  }
+
+  body.has-api-widget #backTop {
+    right: max(0.8rem, env(safe-area-inset-right)) !important;
+    bottom: calc(4.55rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  body.has-recruitment-banner > .api-launcher {
+    bottom: calc(4.95rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  body.has-recruitment-banner.has-api-widget #backTop {
+    bottom: calc(8.7rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  dialog.api-dialog {
+    inset: auto 0 0 !important;
+    width: 100% !important;
+    max-height: calc(100dvh - 0.65rem) !important;
+    margin: auto 0 0 !important;
+    border-width: 1px 0 0 !important;
+    border-radius: 20px 20px 0 0 !important;
+  }
+
+  .api-dialog-shell {
+    padding: 1.12rem 1rem max(1.15rem, env(safe-area-inset-bottom)) !important;
+  }
+
+  .api-dialog-close {
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+  }
+
+  .api-dialog-header {
+    grid-template-columns: 3.55rem minmax(0, 1fr) !important;
+    gap: 0.78rem !important;
+    padding-right: 2.7rem !important;
+  }
+
+  .api-dialog-emblem {
+    width: 3.55rem !important;
+    height: 3.55rem !important;
+  }
+
+  .api-dialog-emblem img {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+
+  dialog.api-dialog h2 {
+    font-size: clamp(1.58rem, 8vw, 1.95rem) !important;
+  }
+
+  .api-dialog-description {
+    margin-top: 0.9rem !important;
+    font-size: 0.74rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .api-dialog-state {
+    margin-top: 0.9rem !important;
+  }
+
+  .api-dialog-form {
+    margin-top: 0.9rem !important;
+  }
+
+  .api-key-entry {
+    padding: 0.72rem !important;
+  }
+
+  .api-key-entry-heading {
+    grid-template-columns: 2.25rem minmax(0, 1fr) !important;
+    gap: 0.62rem !important;
+  }
+
+  .api-key-entry-icon {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+  }
+
+  .api-key-settings {
+    grid-column: 2 !important;
+    justify-self: start !important;
+  }
+
+  .api-dialog-privacy {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .api-dialog-actions {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+
+  .api-dialog-save,
+  .api-dialog-remove {
+    width: 100% !important;
+  }
+
+  .api-dialog-remove {
+    min-height: 2.7rem !important;
+  }
+}
+
+@media (max-width: 370px) {
+  .api-dialog-state div > span {
+    display: none !important;
+  }
+
+  .api-dialog-privacy p {
+    font-size: 0.61rem !important;
+  }
+
+  .api-dialog-state-badge {
+    display: none !important;
+  }
+
+  .api-dialog-field button {
+    min-width: 2.7rem !important;
+    width: 2.7rem !important;
+    padding: 0 !important;
+  }
+
+  .api-dialog-field button span {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body > .api-launcher,
+  .api-launcher-label,
+  .api-dialog-shell {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Compact production pass ---------------------------------------
+   The widget stylesheet is intentionally authoritative so it can be
+   injected on every page without inheriting page-specific form rules. */
+dialog.api-dialog {
+  width: min(calc(100vw - 2rem), 34rem) !important;
+  max-height: min(calc(100dvh - 2rem), 41rem) !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  scrollbar-width: none !important;
+}
+
+dialog.api-dialog::-webkit-scrollbar,
+.api-dialog-shell::-webkit-scrollbar {
+  display: none !important;
+}
+
+.api-dialog [hidden] {
+  display: none !important;
+}
+
+.api-dialog-shell {
+  max-height: min(calc(100dvh - 2rem), 41rem) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: none !important;
+  padding: 1.35rem !important;
+  background:
+    radial-gradient(circle at 0 0, rgba(var(--api-gold-rgb), 0.085), transparent 17rem),
+    linear-gradient(180deg, #101316, #090b0d 76%) !important;
+}
+
+.api-dialog-shell::before {
+  opacity: 0.55 !important;
+}
+
+.api-dialog-close {
+  top: 0.85rem !important;
+  right: 0.85rem !important;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  border-radius: 8px !important;
+}
+
+.api-dialog-header {
+  grid-template-columns: 3.15rem minmax(0, 1fr) !important;
+  gap: 0.8rem !important;
+  padding-right: 2.5rem !important;
+}
+
+.api-dialog-emblem {
+  width: 3.15rem !important;
+  height: 3.15rem !important;
+  border-color: rgba(var(--api-gold-rgb), 0.28) !important;
+  box-shadow: 0 9px 22px rgba(0, 0, 0, 0.26) !important;
+}
+
+.api-dialog-emblem img {
+  width: 2.7rem !important;
+  height: 2.7rem !important;
+}
+
+.api-dialog-kicker {
+  margin-bottom: 0.18rem !important;
+  font-size: 0.58rem !important;
+  letter-spacing: 0.13em !important;
+}
+
+dialog.api-dialog h2 {
+  font-size: clamp(1.8rem, 4vw, 2.2rem) !important;
+  line-height: 1.05 !important;
+}
+
+.api-dialog-description {
+  margin-top: 0.75rem !important;
+  font-size: 0.76rem !important;
+  line-height: 1.58 !important;
+}
+
+.api-dialog-state {
+  gap: 0.58rem !important;
+  margin-top: 0.8rem !important;
+  padding: 0.58rem 0.68rem !important;
+  border-radius: 8px !important;
+  background: rgba(3, 5, 6, 0.54) !important;
+}
+
+.api-dialog-state div > span {
+  display: none !important;
+}
+
+.api-dialog-state strong {
+  font-size: 0.68rem !important;
+}
+
+.api-dialog-state-badge {
+  min-height: 1.65rem !important;
+  padding: 0.28rem 0.48rem !important;
+  font-size: 0.55rem !important;
+}
+
+.api-dialog-form {
+  margin-top: 0.8rem !important;
+}
+
+.api-key-entry {
+  padding: 0.82rem !important;
+  border-color: rgba(var(--api-gold-rgb), 0.2) !important;
+  border-radius: 10px !important;
+  background: rgba(7, 9, 11, 0.76) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.03) !important;
+}
+
+.api-key-entry-heading {
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  gap: 0.75rem !important;
+  margin-bottom: 0.62rem !important;
+}
+
+.api-key-entry-icon {
+  display: none !important;
+}
+
+.api-key-entry-copy label {
+  font-size: 0.7rem !important;
+}
+
+.api-key-entry-copy > span {
+  font-size: 0.59rem !important;
+}
+
+.api-key-settings,
+.api-key-settings:link,
+.api-key-settings:visited {
+  min-height: 2.1rem !important;
+  padding: 0.42rem 0.58rem !important;
+  border-color: rgba(var(--api-gold-rgb), 0.24) !important;
+  border-radius: 7px !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+  font-size: 0.58rem !important;
+}
+
+.api-dialog-field {
+  min-height: 3.25rem !important;
+  border-color: rgba(var(--api-gold-rgb), 0.34) !important;
+  border-radius: 8px !important;
+}
+
+.api-dialog-field input {
+  min-height: 3.17rem !important;
+  padding: 0.72rem 0.82rem !important;
+  font-size: 0.82rem !important;
+}
+
+.api-dialog-field button {
+  min-width: 4.35rem !important;
+  height: 2.55rem !important;
+  margin-right: 0.32rem !important;
+  border-radius: 6px !important;
+}
+
+.api-key-requirements {
+  margin-top: 0.52rem !important;
+  font-size: 0.56rem !important;
+}
+
+.api-dialog-message:empty {
+  display: none !important;
+}
+
+.api-dialog-message:not(:empty) {
+  min-height: 0 !important;
+  margin-top: 0.55rem !important;
+}
+
+.api-dialog-actions {
+  gap: 0.55rem !important;
+  margin-top: 0.68rem !important;
+}
+
+.api-dialog-save,
+.api-dialog-remove {
+  min-height: 2.8rem !important;
+  border-radius: 8px !important;
+  font-size: 0.68rem !important;
+}
+
+.api-dialog-remove {
+  border-color: transparent !important;
+  background: transparent !important;
+  color: rgba(239, 175, 164, 0.75) !important;
+}
+
+.api-dialog-remove:hover,
+.api-dialog-remove:focus-visible,
+.api-dialog-remove.is-confirming {
+  border-color: rgba(239, 169, 158, 0.34) !important;
+  background: rgba(112, 48, 40, 0.14) !important;
+  color: #ffd5ce !important;
+}
+
+.api-dialog-remove:disabled {
+  display: none !important;
+}
+
+.api-dialog-privacy {
+  grid-template-columns: 2rem minmax(0, 1fr) !important;
+  gap: 0.62rem !important;
+  align-items: center !important;
+  margin-top: 0.82rem !important;
+  padding-top: 0.78rem !important;
+}
+
+.api-dialog-privacy > span {
+  width: 2rem !important;
+  height: 2rem !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid rgba(var(--api-gold-rgb), 0.16) !important;
+  border-radius: 7px !important;
+  background: rgba(var(--api-gold-rgb), 0.045) !important;
+  color: var(--api-gold) !important;
+  font-size: 0.7rem !important;
+}
+
+.api-dialog-privacy strong {
+  font-size: 0.65rem !important;
+}
+
+.api-dialog-privacy p {
+  margin-top: 0.1rem !important;
+  font-size: 0.6rem !important;
+  line-height: 1.48 !important;
+}
+
+.api-dialog-confirmation {
+  min-height: 15.5rem !important;
+  display: grid !important;
+  place-items: center !important;
+  align-content: center !important;
+  gap: 0.55rem !important;
+  text-align: center !important;
+}
+
+.api-dialog-confirmation > span {
+  width: 3.25rem !important;
+  height: 3.25rem !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 1px solid rgba(115, 215, 155, 0.35) !important;
+  border-radius: 50% !important;
+  background: rgba(115, 215, 155, 0.09) !important;
+  color: #8ce6ae !important;
+  box-shadow: 0 0 28px rgba(115, 215, 155, 0.08) !important;
+}
+
+.api-dialog-confirmation strong {
+  color: var(--api-text) !important;
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-size: 1.7rem !important;
+  font-weight: 600 !important;
+}
+
+.api-dialog-confirmation p {
+  margin: 0 !important;
+  color: var(--api-muted) !important;
+  font-size: 0.7rem !important;
+}
+
+.api-toast {
+  position: fixed;
+  z-index: 1400;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  width: min(calc(100vw - 2rem), 21rem);
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) 2rem;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.8rem;
+  border: 1px solid rgba(115, 215, 155, 0.3);
+  border-radius: 9px;
+  background: rgba(9, 18, 15, 0.97);
+  color: #eef8f1;
+  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.api-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.api-toast > span {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(115, 215, 155, 0.12);
+  color: #8ce6ae;
+}
+
+.api-toast strong,
+.api-toast p {
+  display: block;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
+
+.api-toast strong {
+  font-size: 0.7rem;
+}
+
+.api-toast p {
+  margin: 0.08rem 0 0;
+  color: rgba(238, 248, 241, 0.62);
+  font-size: 0.6rem;
+  line-height: 1.45;
+}
+
+.api-toast button {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(238, 248, 241, 0.55);
+  cursor: pointer;
+}
+
+.api-toast button:is(:hover, :focus-visible) {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  outline: 2px solid rgba(115, 215, 155, 0.45);
+}
+
+body.has-recruitment-banner .api-toast {
+  bottom: calc(5rem + env(safe-area-inset-bottom));
+}
+
+@media (max-width: 600px) {
+  dialog.api-dialog {
+    max-height: calc(100dvh - 0.5rem) !important;
+    border-radius: 16px 16px 0 0 !important;
+  }
+
+  .api-dialog-shell {
+    max-height: calc(100dvh - 0.5rem) !important;
+    padding: 1rem 0.9rem max(1rem, env(safe-area-inset-bottom)) !important;
+  }
+
+  .api-dialog-close {
+    top: 0.7rem !important;
+    right: 0.7rem !important;
+  }
+
+  .api-dialog-header {
+    grid-template-columns: 2.85rem minmax(0, 1fr) !important;
+    gap: 0.68rem !important;
+  }
+
+  .api-dialog-emblem {
+    width: 2.85rem !important;
+    height: 2.85rem !important;
+  }
+
+  .api-dialog-emblem img {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+  }
+
+  dialog.api-dialog h2 {
+    font-size: clamp(1.55rem, 7vw, 1.85rem) !important;
+  }
+
+  .api-dialog-description {
+    margin-top: 0.68rem !important;
+  }
+
+  .api-dialog-actions {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .api-dialog-remove {
+    min-height: 2.4rem !important;
+  }
+
+  .api-toast {
+    right: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    left: 0.75rem;
+    width: auto;
+  }
+
+  body.has-recruitment-banner .api-toast {
+    bottom: calc(4.85rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .api-toast {
+    transition: none;
+  }
+}

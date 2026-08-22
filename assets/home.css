@@ -471,9 +471,11 @@
 .home-fact-rail strong {
   flex: 0 0 auto;
   color: var(--accent-light);
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 

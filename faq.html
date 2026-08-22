@@ -503,8 +503,9 @@
     </style>
   <link rel="stylesheet" href="assets/editorial.css">
   <link rel="stylesheet" href="assets/mobile.css">
+  <link rel="stylesheet" href="assets/priority-pages.css?v=20260822-4">
 </head>
-  <body>
+  <body class="faq-page">
     <!-- NAVBAR -->
     <script type="module" src="assets/navbar.js"></script>
     <pc-navbar></pc-navbar>
@@ -936,7 +937,7 @@
       <p>&copy; <span id="year"></span> Privé Cartel. </p>
     </footer>
     <!-- GLOBAL JS (adds back‑to‑top, progress bar, reveal‑on‑scroll, etc.) -->
-    <script src="assets/script.js"></script>
+    <script src="assets/script.js?v=20260822-3"></script>
     <!-- PAGE JS -->
     <script>
       const faqItems = [...document.querySelectorAll('.faq-item')];
@@ -994,30 +995,37 @@
       expandFaqs.addEventListener('click', () => visibleItems().forEach(item => { item.open = true; }));
       collapseFaqs.addEventListener('click', () => faqItems.forEach(item => { item.open = false; }));
 
-      const categoryObserver = new IntersectionObserver(entries => {
-        const visible = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if ('IntersectionObserver' in window) {
+        const categoryObserver = new IntersectionObserver(entries => {
+          const visible = entries
+            .filter(entry => entry.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
 
-        if (!visible) return;
-        navLinks.forEach(link => {
-          const isActive = link.getAttribute('href') === `#${visible.target.id}`;
-          link.classList.toggle('active', isActive);
-          if (isActive) {
-            link.setAttribute('aria-current', 'true');
-          } else {
-            link.removeAttribute('aria-current');
-          }
+          if (!visible) return;
+          navLinks.forEach(link => {
+            const isActive = link.getAttribute('href') === `#${visible.target.id}`;
+            link.classList.toggle('active', isActive);
+            if (isActive) {
+              link.setAttribute('aria-current', 'true');
+            } else {
+              link.removeAttribute('aria-current');
+            }
+          });
+        }, {
+          rootMargin: '-35% 0px -55% 0px',
+          threshold: 0
         });
-      }, {
-        rootMargin: '-35% 0px -55% 0px',
-        threshold: 0
-      });
 
-      faqCats.forEach(cat => categoryObserver.observe(cat));
+        faqCats.forEach(cat => categoryObserver.observe(cat));
+      }
 
       if (location.hash) {
-        const target = document.querySelector(location.hash);
+        let target = null;
+        try {
+          target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        } catch {
+          target = null;
+        }
         const firstItem = target?.nextElementSibling;
         if (firstItem?.classList.contains('faq-item')) firstItem.open = true;
       }

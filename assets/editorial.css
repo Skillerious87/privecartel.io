@@ -661,9 +661,11 @@ body:not(.recruitment-page) .stats {
 
 body:not(.recruitment-page) .stat-value {
   color: var(--accent-light);
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.7rem;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 /* News and articles ---------------------------------------------- */

@@ -190,32 +190,6 @@
   .crown{color:var(--accent);margin-left:.25rem;font-size:.9rem}
 
   /* 4. NOTICE CARD ────────────────────────────────────────────── */
-  .notice{
-    display:grid;grid-template-columns:2.75rem minmax(0,1fr);gap:.9rem;
-    margin-top:1.4rem;padding:1.1rem 1.2rem;
-    border:1px solid rgba(var(--accent-rgb),.26);border-radius:14px;
-    background:linear-gradient(120deg,rgba(var(--accent-rgb),.09),rgba(255,255,255,.018) 55%);
-    color:var(--text-2);font-size:.86rem;line-height:1.6;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.04)
-  }
-  .notice-icon{
-    width:2.75rem;height:2.75rem;display:grid;place-items:center;
-    border:1px solid rgba(var(--accent-rgb),.25);border-radius:11px;
-    background:rgba(0,0,0,.22);color:var(--accent);font-size:1rem
-  }
-  .notice-copy{min-width:0}
-  .notice-copy strong{display:block;margin-bottom:.18rem;color:var(--accent-light);font-size:.92rem}
-  .notice-copy p{margin:0}
-  .notice-fallback{margin-top:.6rem!important;padding-top:.6rem;border-top:1px solid rgba(var(--accent-rgb),.14);color:rgba(230,227,212,.68)}
-  .notice-fallback i{margin-right:.35rem;color:var(--accent)}
-  .notice.loading .notice-icon i{display:none}
-  .notice.loading .notice-icon::after{
-    content:'';width:15px;height:15px;
-    border:3px solid var(--accent);border-top-color:transparent;border-radius:50%;
-    animation:spin .8s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .no-enc{color:#ff8d8d;font-weight:600}
-
   /* 5. TOAST NOTIFICATION ─────────────────────────────────────── */
   .toast{
     position:fixed;bottom:1.5rem;right:1.5rem;background:var(--accent);color:#000;
@@ -268,8 +242,6 @@
     .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   }
   @media(max-width:550px){
-    .notice{grid-template-columns:2.35rem minmax(0,1fr);padding:1rem;gap:.75rem}
-    .notice-icon{width:2.35rem;height:2.35rem}
     .stats{padding:.85rem}
     .stats-grid{gap:.7rem}
     .stat{min-height:5.5rem;padding:.75rem}
@@ -288,6 +260,7 @@
   <link rel="stylesheet" href="assets/editorial.css">
   <link rel="stylesheet" href="assets/members.css">
   <link rel="stylesheet" href="assets/mobile.css">
+  <link rel="stylesheet" href="assets/status-pills.css?v=20260822-2">
 </head>
 <body class="members-page">
 <a class="skip-link" href="#main">Skip to member directory</a>
@@ -321,59 +294,20 @@
       </span>
     </header>
 
-    <!-- SEARCH -->
-    <div class="member-search">
-      <label class="field-label" for="memberSearch">Search the roster</label>
-      <div class="field-shell search-field-shell">
-        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <input type="search" id="memberSearch" placeholder="Name, role or status" autocomplete="off" aria-describedby="memberSearchHelp">
-        <button type="button" class="field-action clear-search" id="clearSearchBtn" aria-label="Clear member search" title="Clear search" hidden>
-          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        </button>
+    <div class="directory-tools">
+      <!-- SEARCH -->
+      <div class="member-search">
+        <label class="field-label" for="memberSearch">Search the roster</label>
+        <div class="field-shell search-field-shell">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input type="search" id="memberSearch" placeholder="Name, role or status" autocomplete="off" aria-describedby="memberSearchHelp">
+          <button type="button" class="field-action clear-search" id="clearSearchBtn" aria-label="Clear member search" title="Clear search" hidden>
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+        <span class="field-help" id="memberSearchHelp">Try a member name, “Leader”, “Hospital” or “Traveling”.</span>
       </div>
-      <span class="field-help" id="memberSearchHelp">Try a member name, “Leader”, “Hospital” or “Traveling”.</span>
     </div>
-
-    <!-- OPTIONAL LIVE API ACCESS -->
-    <section class="api-access" id="notice" aria-labelledby="apiAccessTitle">
-      <div class="api-access-heading">
-        <span class="api-access-icon" aria-hidden="true"><i class="fa-solid fa-bolt"></i></span>
-        <div>
-          <p class="api-kicker">Optional live connection</p>
-          <h3 id="apiAccessTitle">Load live Torn stats</h3>
-          <p>Use your own Torn API key to replace the published snapshot with the latest member data.</p>
-        </div>
-        <span class="api-state" id="apiState" aria-live="polite"><i class="fa-solid fa-database" aria-hidden="true"></i> Snapshot active</span>
-      </div>
-
-      <div class="api-controls">
-        <div class="api-key-field">
-          <label class="field-label" for="apiKeyInput">Torn API key</label>
-          <div class="field-shell">
-            <i class="fa-solid fa-key" aria-hidden="true"></i>
-            <input type="password" id="apiKeyInput" placeholder="Paste your API key" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="apiKeyHelp">
-            <button type="button" class="field-action" id="toggleKeyBtn" aria-label="Show API key" title="Show API key">
-              <i class="fa-solid fa-eye" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-        <div class="api-actions">
-          <button type="button" class="api-primary" id="saveKeyBtn" title="Save API key on this device">
-            <i class="fa-solid fa-cloud-arrow-down" aria-hidden="true"></i>
-            <span>Save &amp; load live data</span>
-          </button>
-          <button type="button" class="api-secondary" id="clearKeyBtn" title="Delete API key from this device" aria-label="Delete saved API key from this device">
-            <i class="fa-solid fa-trash" aria-hidden="true"></i>
-            <span>Delete saved key</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="api-privacy" id="apiKeyHelp">
-        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-        <p><strong>Your key stays on this device.</strong> It is stored in this browser and sent directly to Torn over HTTPS. Privé Cartel never receives it. Only save a key on a device you trust.</p>
-      </div>
-    </section>
 
     <!-- DIRECTORY STATS -->
     <div class="stats" id="memberStats" aria-live="polite">
@@ -413,9 +347,18 @@
     <!-- TABLE -->
     <div class="table-wrap">
       <table class="member-table" id="memberTable" aria-describedby="resultsSummary">
+        <colgroup>
+          <col class="member-col-rank">
+          <col class="member-col-avatar">
+          <col class="member-col-name">
+          <col class="member-col-level">
+          <col class="member-col-role">
+          <col class="member-col-days">
+          <col class="member-col-status">
+        </colgroup>
         <thead>
           <tr>
-            <th scope="col">#</th><th scope="col"><span class="sr-only">Avatar</span></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="ign">IGN</button></th>
+            <th class="rank-heading" scope="col"><span aria-hidden="true">#</span><span class="sr-only">Roster position</span></th><th class="avatar-heading" scope="col"><i class="fa-regular fa-user" aria-hidden="true"></i><span class="sr-only">Avatar</span></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="ign">Member</button></th>
             <th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="level">Level</button></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="role">Role</button></th>
             <th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="days">Days in faction</button></th><th scope="col" aria-sort="none"><button class="sort-button" type="button" data-col="status">Status</button></th>
           </tr>
@@ -433,7 +376,7 @@
 <footer><p>&copy; <span id="year"></span> Privé Cartel.</p></footer>
 
 <!-- ───────────────────────── GLOBAL SCRIPT ────────────────────── -->
-<script src="assets/script.js"></script>
+<script src="assets/script.js?v=20260822-3"></script>
 
 <!-- ────────────────────────── PAGE LOGIC ──────────────────────── -->
 <script>
@@ -447,18 +390,12 @@ const LS='pcApiKey',
 
 const $=s=>document.querySelector(s),
       body=$('#memberBody'),
-      notice=$('#notice'),
       empty=$('#emptyState');
 
-const apiInput=$('#apiKeyInput'),
-      save=$('#saveKeyBtn'),
-      clr=$('#clearKeyBtn'),
-      search=$('#memberSearch'),
-      toggleKey=$('#toggleKeyBtn'),
+const search=$('#memberSearch'),
       clearSearch=$('#clearSearchBtn'),
       directoryMode=$('#directoryMode'),
       directoryModeLabel=$('#directoryModeLabel'),
-      apiState=$('#apiState'),
       resultsSummary=$('#resultsSummary');
 
 const stats={count:$('#statsCount'),
@@ -495,18 +432,6 @@ function setDataMode(isLive, pending=false){
     directoryMode.classList.toggle('is-live',isLive);
     directoryModeLabel.textContent=pending?'Refreshing roster':isLive?'Live Torn data':'Published snapshot';
   }
-  if(apiState){
-    apiState.classList.toggle('is-live',isLive);
-    apiState.innerHTML=pending
-      ? '<i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i> Connecting'
-      : isLive
-        ? '<i class="fa-solid fa-signal" aria-hidden="true"></i> Live data active'
-        : '<i class="fa-solid fa-database" aria-hidden="true"></i> Snapshot active';
-  }
-}
-function updateKeyControls(hasKey){
-  clr.disabled=!hasKey;
-  clr.title=hasKey?'Delete API key from this device':'No saved API key to remove';
 }
 function updateResultsSummary(){
   if(!resultsSummary) return;
@@ -521,11 +446,11 @@ function statusMarkup(counts){
         jail = counts.jail      || 0,
         trav = counts.traveling || 0,
         abr  = counts.abroad    || 0;
-  return `<span><strong>${ok}</strong> Okay</span>
-          <span><strong>${hosp}</strong> Hospital</span>
-          <span><strong>${jail}</strong> Jail</span>
-          <span><strong>${trav}</strong> Travel</span>
-          <span><strong>${abr}</strong> Abroad</span>`;
+  return `<span class="status-count status-count--okay"><i aria-hidden="true"></i><strong>${ok}</strong><em>Okay</em></span>
+          <span class="status-count status-count--hospital"><i aria-hidden="true"></i><strong>${hosp}</strong><em>Hospital</em></span>
+          <span class="status-count status-count--jail"><i aria-hidden="true"></i><strong>${jail}</strong><em>Jail</em></span>
+          <span class="status-count status-count--traveling"><i aria-hidden="true"></i><strong>${trav}</strong><em>Traveling</em></span>
+          <span class="status-count status-count--abroad"><i aria-hidden="true"></i><strong>${abr}</strong><em>Abroad</em></span>`;
 }
 
 function escapeHTML(value){
@@ -555,11 +480,6 @@ function setStoredKey(value){
   try{localStorage.setItem(LS,value);}catch{return false;}
   try{sessionStorage.removeItem(LS);}catch{}
   return true;
-}
-
-function clearStoredKey(){
-  try{localStorage.removeItem(LS);}catch{}
-  try{sessionStorage.removeItem(LS);}catch{}
 }
 
 function clearLegacyKey(){
@@ -613,10 +533,6 @@ async function getSnapshotCommitDate(){
 /* UI helpers */
 const crown=r=>crownRX.test(r)?' <i class="fa-solid fa-crown crown" aria-hidden="true"></i>':'';
 const tidy=s=>(s||'').replace(/_/g,' ');
-const ico=s=>/jail/i.test(s)?'🚔':
-             /hospital/i.test(s)?'🏥':
-             /travel/i.test(s)?'✈️':
-             /abroad/i.test(s)?'🌍':'✅';
 const cls=s=>/jail/i.test(s)?'status-jail':
              /hospital/i.test(s)?'status-hospital':
              /travel/i.test(s)?'status-traveling':
@@ -652,20 +568,6 @@ clearSearch.addEventListener('click',()=>{
   clearSearch.hidden=true;
   applyFilter();
   search.focus();
-});
-
-toggleKey.addEventListener('click',()=>{
-  const reveal=apiInput.type==='password';
-  apiInput.type=reveal?'text':'password';
-  toggleKey.setAttribute('aria-label',reveal?'Hide API key':'Show API key');
-  toggleKey.title=reveal?'Hide API key':'Show API key';
-  toggleKey.innerHTML=`<i class="fa-solid ${reveal?'fa-eye-slash':'fa-eye'}" aria-hidden="true"></i>`;
-  apiInput.focus();
-});
-apiInput.addEventListener('keydown',event=>{
-  if(event.key!=='Enter') return;
-  event.preventDefault();
-  save.click();
 });
 
 /*━━━━━━━━━━ SORTING ━━━━━━━━━━━━━━━━━━━━━*/
@@ -719,7 +621,10 @@ function row(m){
     <td data-label="Role">${safeRole}${crown(role)}</td>
     <td data-label="Days">${days}</td>
     <td data-label="Status" class="${cls(pretty)}">
-      ${ico(pretty)} ${safeStatus}
+      <span class="member-status-pill">
+        <span class="member-status-dot" aria-hidden="true"></span>
+        <span>${safeStatus}</span>
+      </span>
     </td>`;
   body.appendChild(tr);
 }
@@ -746,7 +651,6 @@ async function fetchSnapshot(){
 
 async function snapshot(){
   const version=++loadVersion;
-  notice.classList.remove('loading');
   setDataMode(false);
   try{
     const {response:res,list,label}=await fetchSnapshot();
@@ -789,7 +693,6 @@ async function snapshot(){
 /*━━━━━━━━━━ LIVE FETCH & AVATARS ━━━━━━━━━━━━━━━━━━━━━*/
 async function live(key){
   const version=++loadVersion;
-  notice.classList.add('loading');
   setDataMode(false,true);
   try{
     const r=await fetch(`https://api.torn.com/faction/?selections=basic&key=${encodeURIComponent(key)}`);
@@ -832,53 +735,26 @@ async function live(key){
     if(version!==loadVersion) return;
     setDataMode(false);
     showToast(err.message || 'Live API unavailable; showing snapshot');
-    notice.classList.remove('loading');
     snapshot(); // fallback
     return;
   }
-  if(version===loadVersion) notice.classList.remove('loading');
 }
 
-/*━━━━━━━━━━ CONTROLS ━━━━━━━━━━━━━━━━━━━━━*/
-save.onclick=async()=>{
-  const k=apiInput.value.trim();
-  if(k.length<10){ showToast('Invalid API key'); return; }
-  if(!setStoredKey(k)){ showToast('This browser blocked device storage'); return; }
-  updateKeyControls(true);
-  live(k);
-  apiInput.value='';
-  apiInput.type='password';
-  apiInput.placeholder='API key saved on this device';
-  toggleKey.setAttribute('aria-label','Show API key');
-  toggleKey.title='Show API key';
-  toggleKey.innerHTML='<i class="fa-solid fa-eye" aria-hidden="true"></i>';
-  showToast('API key saved on this device');
-};
-clr.onclick=()=>{
-  if(clr.disabled) return;
-  clearStoredKey();
-  apiInput.value='';
-  apiInput.type='password';
-  apiInput.placeholder='Paste your API key';
-  toggleKey.setAttribute('aria-label','Show API key');
-  toggleKey.title='Show API key';
-  toggleKey.innerHTML='<i class="fa-solid fa-eye" aria-hidden="true"></i>';
-  updateKeyControls(false);
-  snapshot();
-  showToast('Saved API key removed');
-};
+/*━━━━━━━━━━ GLOBAL API WIDGET SYNC ━━━━━━━━━━━━━━━━━━━━━*/
+function refreshDataSource(){
+  const key=getStoredKey();
+  return key ? live(key) : snapshot();
+}
+
+window.addEventListener('pc:api-key-change',refreshDataSource);
+window.addEventListener('storage',event=>{
+  if(event.key===LS) refreshDataSource();
+});
 
 /*━━━━━━━━━━ INIT ━━━━━━━━━━━━━━━━━━━━━━━━*/
 (async()=>{
   clearLegacyKey();
-  const key=getStoredKey();
-  updateKeyControls(Boolean(key));
-  if(key){
-    apiInput.placeholder='API key saved on this device';
-    live(key);
-  }else{
-    snapshot();
-  }
+  await refreshDataSource();
   $('#year').textContent=new Date().getFullYear();
 })();
 })();

@@ -244,6 +244,87 @@
       color: var(--accent-light);
     }
 
+    .rules-overview {
+      margin-bottom: 1.5rem;
+      padding: 1.15rem;
+      border: 1px solid rgba(var(--accent-rgb), .3);
+      border-radius: 10px;
+      background:
+        linear-gradient(115deg, rgba(var(--accent-rgb), .11), transparent 48%),
+        rgba(13, 15, 16, .96);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
+    }
+
+    .rules-overview-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: end;
+      margin-bottom: .9rem;
+    }
+
+    .rules-overview-kicker {
+      display: block;
+      margin-bottom: .15rem;
+      color: var(--accent);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .rules-overview h2 {
+      margin: 0;
+      color: #f2eddf;
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+    }
+
+    .rules-overview-head > span:last-child {
+      color: rgba(232, 226, 206, .58);
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rules-overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: .65rem;
+    }
+
+    .rules-overview-item {
+      min-width: 0;
+      padding: .85rem;
+      border: 1px solid rgba(var(--accent-rgb), .16);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .025);
+    }
+
+    .rules-overview-item i {
+      display: block;
+      margin-bottom: .55rem;
+      color: var(--accent);
+      font-size: 1rem;
+    }
+
+    .rules-overview-item strong {
+      display: block;
+      margin-bottom: .2rem;
+      color: var(--accent-light);
+      font-size: .88rem;
+      line-height: 1.35;
+    }
+
+    .rules-overview-item p {
+      margin: 0;
+      color: rgba(232, 226, 206, .72);
+      font-size: .8rem;
+      line-height: 1.5;
+    }
+
     .rules-charter {
       padding: 3rem 0 4.5rem;
     }
@@ -709,6 +790,52 @@
       color: rgba(232, 226, 206, .82);
     }
 
+    .rules-card--sources .rules-card-body {
+      display: grid;
+      gap: .85rem;
+    }
+
+    .rules-card--sources .rules-lede {
+      margin-bottom: 0;
+    }
+
+    .rules-source-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rules-source-list a,
+    .rules-source-list a:link,
+    .rules-source-list a:visited {
+      display: inline-flex;
+      gap: .45rem;
+      align-items: center;
+      min-height: 2.45rem;
+      padding: .58rem .75rem;
+      border: 1px solid rgba(var(--accent-rgb), .22);
+      border-radius: 999px;
+      background: rgba(var(--accent-rgb), .06);
+      color: var(--accent-light);
+      font-size: .8rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .rules-source-list a:hover,
+    .rules-source-list a:focus-visible {
+      border-color: rgba(var(--accent-rgb), .5);
+      background: rgba(var(--accent-rgb), .12);
+      color: #fff9e8;
+    }
+
+    .rules-source-list i {
+      color: var(--accent);
+    }
+
     .rules-closing {
       text-align: center;
       color: rgba(232, 226, 206, .84);
@@ -757,6 +884,10 @@
       .rules-nav {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .rules-overview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 640px) {
@@ -800,6 +931,25 @@
 
       .rules-charter {
         padding: 2rem 0 3.25rem;
+      }
+
+      .rules-overview {
+        margin-bottom: 1rem;
+        padding: .9rem;
+      }
+
+      .rules-overview-head {
+        display: block;
+      }
+
+      .rules-overview-head > span:last-child {
+        display: block;
+        margin-top: .35rem;
+        white-space: normal;
+      }
+
+      .rules-overview-grid {
+        grid-template-columns: 1fr;
       }
 
       .rules-nav {
@@ -884,7 +1034,7 @@
           </div>
           <p class="rules-revision">
             <span><i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Seven clear standards</span>
-            <span><i class="fa-regular fa-calendar-check" aria-hidden="true"></i> Reviewed August 2026</span>
+            <span><i class="fa-regular fa-calendar-check" aria-hidden="true"></i> Policy &amp; mechanics reviewed August 2026</span>
           </p>
         </div>
         <aside class="rules-hero-note" aria-label="Rule priorities">
@@ -899,6 +1049,39 @@
     </section>
 
     <section class="rules-charter">
+      <div class="container">
+        <section class="rules-overview" aria-labelledby="rules-overview-title">
+          <div class="rules-overview-head">
+            <div>
+              <span class="rules-overview-kicker">Standards at a glance</span>
+              <h2 id="rules-overview-title">Know these before anything else</h2>
+            </div>
+            <span>Leadership may review exceptional circumstances</span>
+          </div>
+          <div class="rules-overview-grid">
+            <article class="rules-overview-item">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              <strong>24-hour activity limit</strong>
+              <p>Unexplained inactivity beyond 24 hours may result in removal.</p>
+            </article>
+            <article class="rules-overview-item">
+              <i class="fa-solid fa-message" aria-hidden="true"></i>
+              <strong>Private absence notice</strong>
+              <p>Tell a leader through private Torn chat/mail or Discord DM before leaving.</p>
+            </article>
+            <article class="rules-overview-item">
+              <i class="fa-solid fa-user-ninja" aria-hidden="true"></i>
+              <strong>OC participation</strong>
+              <p>Join within seven days; continued non-participation can lead to removal.</p>
+            </article>
+            <article class="rules-overview-item">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <strong>Protect the faction</strong>
+              <p>Do not expose internal business or take external action on its behalf.</p>
+            </article>
+          </div>
+        </section>
+      </div>
       <div class="container rules-layout">
         <aside class="rules-sidebar" aria-label="Rules navigation">
           <div class="rules-sidebar-panel">
@@ -911,6 +1094,7 @@
               <a href="#conduct"><span>4</span> External Conduct</a>
               <a href="#culture"><span>5</span> Culture</a>
               <a href="#warfare"><span>6</span> Conflict &amp; Warfare</a>
+              <a href="#references"><span><i class="fa-solid fa-book-open" aria-hidden="true"></i></span> References</a>
               <a href="#leadership"><span><i class="fa-solid fa-crown" aria-hidden="true"></i></span> Leadership</a>
             </nav>
             <div class="rules-sidebar-cta">
@@ -952,27 +1136,27 @@
               </div>
             </header>
             <div class="rules-card-body">
-              <p class="rules-lede">Consistent activity keeps the faction dependable. Stay visible, respond when needed and let leadership know before real life takes you away.</p>
+              <p class="rules-lede">These are faction membership standards. Consistent activity matters, but real life comes first when leadership receives clear private notice in advance.</p>
               <dl class="rule-list">
-                <dt>Daily Presence</dt>
-                <dd>Log in at least once every 24 hours. If your Last Action exceeds 24 hours without an approved absence, leadership may remove you from the faction.</dd>
-                <dt>Event Notifications</dt>
-                <dd>Enable the Torn and Discord notification channels you rely on so OC, chain and leadership pings reach you promptly.</dd>
-                <dt>OC Commitment</dt>
-                <dd>If you join an OC 2.0 scenario, remain available throughout its displayed planning window. Be healthy, in Torn and ready with every required item before initiation.</dd>
-                <dt>Chain Windows</dt>
-                <dd>Members who opt in must respond within five minutes during scheduled chain windows. Keep at least 50 Energy banked, fast targets bookmarked and hospital time below ten minutes.</dd>
+                <dt>Daily Activity</dt>
+                <dd>Keep your Last Action within 24 hours. Once it exceeds 24 hours without an approved absence, leadership may remove you from the faction.</dd>
                 <dt>Planned Absence</dt>
-                <dd>If you expect to be away for 24 hours or longer, privately message a leader through Torn or Discord before leaving and include your expected return. Faction-chat posts do not count as notice because they can quickly be buried. Use Vacation Mode for longer breaks; approved absences will not be treated as unexplained inactivity.</dd>
-                <dt>Quick Response</dt>
-                <dd>Leaders may send urgent in-game mail or Discord pings. Reply when possible so rosters can adjust in real time.</dd>
+                <dd>If you expect to be away for 24 hours or longer, privately message a leader through Torn chat/mail or Discord DM before leaving and include your expected return. Faction-chat posts do not count because they can quickly be buried.</dd>
+                <dt>OC Availability</dt>
+                <dd>Accept an OC role only when you can remain available for its displayed planning period. If your plans change, privately contact leadership or the OC coordinator before readiness is affected.</dd>
+                <dt>Chain Availability</dt>
+                <dd>Opting into a scheduled chain commits you to the announced window and target. Follow leadership calls and the shared five-minute chain timer; tell the chain lead immediately if you must step away.</dd>
+                <dt>Notifications</dt>
+                <dd>Enable the Torn events and Discord channels you rely on so OC, chain and leadership messages reach you promptly.</dd>
+                <dt>Leader Messages</dt>
+                <dd>Reply to urgent Torn mail, private chat or Discord messages when possible so leadership can adjust rosters and operations in time.</dd>
               </dl>
               <div class="rule-alert rule-alert--critical" role="note" aria-label="24-hour inactivity policy">
                 <i class="fa-solid fa-user-clock" aria-hidden="true"></i>
                 <div>
                   <span class="rule-alert-kicker">Membership standard</span>
                   <strong>24-hour inactivity policy</strong>
-                  <p>More than 24 hours of unexplained inactivity may result in removal from the faction. To protect your place, send a leader a private Torn message or Discord DM before you leave. A message in faction chat is not accepted as notice.</p>
+                  <p>More than 24 hours of unexplained inactivity may result in removal from the faction. To protect your place, send a leader a private Torn chat/mail message or Discord DM before you leave. A message in faction chat is not accepted as notice.</p>
                 </div>
               </div>
             </div>
@@ -987,29 +1171,33 @@
               </div>
             </header>
             <div class="rules-card-body">
-              <p class="rules-lede">Organised Crimes require preparation and dependable participation. Confirm that you can meet the full commitment before taking a role.</p>
+              <p class="rules-lede">This section combines current Torn OC 2.0 mechanics with Priv&eacute; participation policy. Confirm that you can meet the full commitment before accepting a role.</p>
               <dl class="rule-list">
-                <dt>Scenario System</dt>
-                <dd>Every OC is a named scenario from levels 1&ndash;10. Difficulty tiers are Lambda, Sigma, Phi, Psi and Omega, with Scope costs increasing by tier.</dd>
+                <dt>Scenario Tiers</dt>
+                <dd>OC 2.0 uses named scenarios from levels 1&ndash;10, grouped into Lambda, Sigma, Phi, Psi and Omega spawning tiers. Higher tiers cost more Scope and generally demand stronger role suitability.</dd>
                 <dt>Scope Pool</dt>
-                <dd>Factions start with 25 Scope, can hold up to 100 and regenerate one Scope per day. Completing scenarios may also award bonus Scope.</dd>
-                <dt>Planning to Execution</dt>
-                <dd>When planning completes, initiation lasts less than one minute. During that phase every participant must remain healthy and in Torn, with all required tools and materials available, or the run may fail.</dd>
-                <dt>Roles and Items</dt>
-                <dd>Participants fill role slots based on suitability and success score. Materials such as C-4 and zip-ties are consumed; tools such as Jemmy and DSLR persist.</dd>
+                <dd>Factions migrating to OC 2.0 start with 25 Scope, can hold 100 and passively regenerate one Scope per day. Successful scenarios can return additional Scope.</dd>
+                <dt>Planning Progress</dt>
+                <dd>Planning advances through the participants, with each member given up to 24 hours to complete their step. Once every filled role has completed planning, the scenario moves into execution.</dd>
+                <dt>Execution Readiness</dt>
+                <dd>Execution lasts less than one minute. Throughout it, every participant must be healthy, in Torn rather than travelling, and have every required tool or material available.</dd>
+                <dt>Tools and Materials</dt>
+                <dd>Items marked <strong>Required</strong> act as reusable tools; items marked <strong>Used</strong> are materials consumed by the scenario. Check the item effect rather than relying only on its inventory category.</dd>
+                <dt>Roles and Suitability</dt>
+                <dd>Take only an assigned or approved role. Role suitability affects the displayed success score, but Torn does not publish a guaranteed pass threshold.</dd>
                 <dt>New Member Guide</dt>
                 <dd>Before joining your first scenario, read the <a href="guides/organized-crimes-2.html">Organized Crimes 2.0 guide</a> for slot selection, item checks, timers and payout expectations.</dd>
-                <dt>Payout Split</dt>
-                <dd>On success, leadership chooses the split between the faction and participants. Cash can go to wallets or faction balances; item rewards may be allocated randomly or paid out at market value from faction funds.</dd>
-                <dt>Readiness</dt>
-                <dd>Join only if you can remain active for the scenario's displayed planning time and keep your Last Action time below 24 hours. If your availability changes, notify leadership immediately.</dd>
+                <dt>Payout System</dt>
+                <dd>Leadership chooses the faction/participant percentage. The participant allocation is split equally; cash can go to wallets or faction balances, while item rewards can be allocated randomly or paid at market value from faction funds.</dd>
+                <dt>Member Responsibility</dt>
+                <dd>Do not abandon a role silently. If your availability or required items change, privately notify leadership or the OC coordinator as soon as possible.</dd>
               </dl>
               <div class="rule-alert" role="note" aria-label="Mandatory OC participation policy">
                 <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
                 <div>
                   <span class="rule-alert-kicker">Participation requirement</span>
                   <strong>Mandatory OC participation</strong>
-                  <p>Members who do not join an OC within seven days will receive a formal warning. Failure to participate within fourteen days may result in removal. Real-life commitments come first; notify leadership as early as possible.</p>
+                  <p>Members who do not join an OC within seven days will receive a formal warning. Continued non-participation beyond fourteen days may result in removal. Real-life commitments come first when leadership receives private notice as early as possible.</p>
                 </div>
               </div>
             </div>
@@ -1076,14 +1264,18 @@
                 <dd>Obtain approval before hospital sprees, territory raids, high-value bounties or chain hits against ranked allies. One unauthorised attack can invite serious retaliation.</dd>
                 <dt>Outside Intervention</dt>
                 <dd>Arranging mercenaries or intimidation squads without leadership consent is forbidden. Recruiting outsiders, or threatening to, counts as hostile action.</dd>
-                <dt>Trade and Marketplace</dt>
-                <dd>Use Torn's Trade window or Item Market, and keep evidence of deals worth more than $50m. Real-money, cross-game and cryptocurrency trades are prohibited.</dd>
+                <dt>Torn Rule Compliance</dt>
+                <dd>Follow Torn's current game rules at all times. Real-money trading, exchanges for assets or services in other games, account trading or sharing, multiple accounts and exploit abuse are prohibited.</dd>
+                <dt>Secure Trading</dt>
+                <dd>Use Torn's Trade window or Item Market, check both confirmation screens carefully and retain evidence for deals worth more than $50m.</dd>
                 <dt>Public Channels</dt>
                 <dd>Slurs, doxxing and real-life threats are prohibited. Keep internal messages, screenshots and strategy out of forums, global chat and other public channels.</dd>
                 <dt>Harassment</dt>
                 <dd>Light-hearted banter is welcome; stalking, repeated unwanted messages and intimidation are not. Save relevant evidence and report concerns privately to leadership.</dd>
-                <dt>Scamming</dt>
-                <dd>The faction permits buy-mugging as a gameplay mechanic. Any transaction or agreement, internal or external, is binding and must be honoured.</dd>
+                <dt>Deal Standard</dt>
+                <dd>Although Torn permits ordinary scamming as gameplay, Priv&eacute; Cartel does not. Honour every agreed price, split, service and repayment, whether dealing with a member or an outsider.</dd>
+                <dt>Buy-Mugging</dt>
+                <dd>Buy-mugging is permitted unless leadership has restricted the target or a no-mug agreement formed part of the transaction. Any agreed terms remain binding.</dd>
               </dl>
               <div class="rule-alert rule-alert--critical" role="note" aria-label="External conduct enforcement policy">
                 <i class="fa-solid fa-ban" aria-hidden="true"></i>
@@ -1110,7 +1302,9 @@
                 <dt>Mentoring</dt>
                 <dd>New arrivals can request a mentor for builds, routes and revenue strategies.</dd>
                 <dt>Resource Pool</dt>
-                <dd>Donate spare medical items, weapons, armour or other useful supplies when leadership requests them. What helps one member can help the whole faction.</dd>
+                <dd>Contribute spare medical items, weapons, armour or other useful supplies when leadership requests them and you are able.</dd>
+                <dt>Armoury Stewardship</dt>
+                <dd>Borrow faction equipment only for its intended purpose, return it promptly and never sell, transfer or retain shared resources without permission.</dd>
                 <dt>Knowledge Sharing</dt>
                 <dd>Post patch-note finds, economy tips and smart-play advice so the entire faction stays ahead.</dd>
               </dl>
@@ -1126,17 +1320,37 @@
               </div>
             </header>
             <div class="rules-card-body">
-              <p class="rules-lede">Avoid unnecessary conflict and protect the faction's energy, respect and perks. Only take part in coordinated action when leadership calls for it.</p>
+              <p class="rules-lede">Avoid unnecessary conflict and protect the faction's energy and respect. Take part in organised action only when leadership calls for it.</p>
               <dl class="rule-list">
-                <dt>Non-Warring Stance</dt>
+                <dt>Peace-First Stance</dt>
                 <dd>We prioritise profit and preservation over conquest.</dd>
-                <dt>Energy Drain</dt>
-                <dd>Random hits waste energy better spent on training, chains and coordinated faction events.</dd>
-                <dt>Perk Protection</dt>
-                <dd>Sustained losses can threaten respect-funded upgrades, member capacity and faction benefits.</dd>
-                <dt>Defensive Hits</dt>
-                <dd>When leaders call a shield wall, one timely revive or defend can help end hostilities.</dd>
+                <dt>Authorised Action</dt>
+                <dd>Do not start raids, retaliation campaigns or repeated attacks in the faction's name without leadership approval. Random hits also spend energy better reserved for training and coordinated events.</dd>
+                <dt>Respect Protection</dt>
+                <dd>When an opponent gains respect by attacking a faction member, our faction loses 25% of the amount they gained. Repeated losses can reduce respect available for active special branches and future upgrades.</dd>
+                <dt>Defensive Calls</dt>
+                <dd>When leadership requests defensive hits, revives or other support, follow the named target and timing instructions rather than acting independently.</dd>
               </dl>
+            </div>
+          </section>
+
+          <section id="references" class="rules-card rules-card--sources">
+            <header class="rules-card-head">
+              <span class="rule-number"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+              <div>
+                <p class="rule-eyebrow">Research basis</p>
+                <h2>Official Torn References</h2>
+              </div>
+            </header>
+            <div class="rules-card-body">
+              <p class="rules-lede">Game-mechanic statements were checked in August 2026 against Torn's official rules and help wiki. Priv&eacute; membership thresholds and enforcement decisions remain faction policy.</p>
+              <ul class="rules-source-list" aria-label="Official Torn references">
+                <li><a href="https://www.torn.com/rules.php" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Game Rules</a></li>
+                <li><a href="https://wiki.torn.com/wiki/Organized_Crime_2.0" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> OC 2.0</a></li>
+                <li><a href="https://wiki.torn.com/wiki/Chaining_2.0" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Chaining</a></li>
+                <li><a href="https://wiki.torn.com/wiki/Factions" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Factions</a></li>
+                <li><a href="https://wiki.torn.com/wiki/Trade" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Trading</a></li>
+              </ul>
             </div>
           </section>
 
@@ -1165,6 +1379,7 @@
               </div>
             </header>
             <div class="rules-card-body">
+              <p class="rules-lede">Contact any council member for an absence, exception, dispute or approval. Required notices must be sent privately through Torn chat/mail or Discord DM, never left only in faction chat.</p>
               <div class="council-grid">
                 <a class="council-member" href="https://www.torn.com/profiles.php?XID=2804871" target="_blank" rel="noopener">
                   <i class="fa-solid fa-crown" aria-hidden="true"></i>

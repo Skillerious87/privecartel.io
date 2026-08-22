@@ -1070,6 +1070,8 @@
   </style>
   <link rel="stylesheet" href="assets/editorial.css">
   <link rel="stylesheet" href="assets/mobile.css">
+  <link rel="stylesheet" href="assets/application-dialog.css?v=20260822-5">
+  <link rel="stylesheet" href="assets/status-pills.css?v=20260822-2">
 </head>
 <body>
 
@@ -1216,25 +1218,57 @@
       </section>
 
       <section class="application-layout" aria-label="Application and contact routes">
-        <section class="application-panel" aria-labelledby="application-heading">
+        <section class="application-launch-card" aria-labelledby="application-launch-title">
+          <div>
+            <span class="section-kicker">Applicant intake</span>
+            <h2 id="application-launch-title">Start your application</h2>
+            <p>A focused three-step application that gives council exactly what they need to review your request.</p>
+          </div>
+          <ol class="application-launch-steps" aria-label="Application steps">
+            <li><span>01</span><strong>Your details</strong></li>
+            <li><span>02</span><strong>Faction fit</strong></li>
+            <li><span>03</span><strong>Review &amp; send</strong></li>
+          </ol>
+          <button class="application-open" id="openApplication" type="button" data-application-open>
+            <span>Begin application</span>
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+          <p class="application-launch-note"><i class="fa-solid fa-lock" aria-hidden="true"></i> Sent privately to council for review.</p>
+        </section>
+
+        <dialog class="application-dialog" id="applicationDialog" aria-labelledby="application-heading" aria-describedby="application-dialog-copy">
+          <div class="application-dialog-shell">
+            <button class="application-dialog-close" type="button" data-application-close aria-label="Close application dialog">
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+
+            <div class="application-progress" aria-label="Application progress">
+              <span class="is-current" data-application-progress="0"><i>1</i><b>Details</b></span>
+              <span data-application-progress="1"><i>2</i><b>Fit</b></span>
+              <span data-application-progress="2"><i>3</i><b>Review</b></span>
+            </div>
+
+            <div class="application-dialog-content">
+        <section class="application-panel" aria-labelledby="application-heading" data-application-panel>
           <div class="application-header">
             <div>
-              <span class="section-kicker">Applicant Intake</span>
-              <h2 id="application-heading">Application Starter</h2>
-              <p>Send council a clear, structured application with the details they need to route your request.</p>
+              <span class="section-kicker">Private application</span>
+              <h2 id="application-heading" data-application-title>Your details</h2>
+              <p id="application-dialog-copy" data-application-copy>Start with the information council needs to identify and contact you.</p>
             </div>
             <span class="application-badge">
               <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
               Council Review
             </span>
           </div>
+          <span id="applicationStatus" class="form-status" role="status" aria-live="polite"></span>
 
           <div class="application-grid">
-            <div class="application-field">
+            <div class="application-field application-field--name" data-app-step="0">
               <label for="appName">Torn name</label>
               <input id="appName" type="text" autocomplete="nickname" placeholder="Your Torn name">
             </div>
-            <div class="application-field">
+            <div class="application-field application-field--level" data-app-step="0">
               <label for="appLevel">Level</label>
               <div class="level-control">
                 <button type="button" class="level-step" data-level-step="-1" aria-label="Decrease level">
@@ -1246,11 +1280,18 @@
                 </button>
               </div>
             </div>
-            <div class="application-field">
+            <div class="application-field application-field--contact" data-app-step="0">
               <label for="appContact">Reply contact</label>
-              <input id="appContact" type="text" autocomplete="email" placeholder="Email, Discord, or Torn ID">
+              <input id="appContact" type="text" autocomplete="email" placeholder="Email, Discord, or Torn ID" aria-describedby="app-contact-privacy">
             </div>
-            <div class="application-field">
+            <div class="application-privacy-note" id="app-contact-privacy" data-app-step="0" role="note">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              <div>
+                <strong>Your contact details stay private</strong>
+                <p>Your email address, Discord username or Torn ID will be included in an application email sent to Privé Cartel’s restricted-access Gmail inbox. It is used only to review and respond to your application, then securely deleted after a decision is recorded.</p>
+              </div>
+            </div>
+            <div class="application-field" data-app-step="1">
               <label id="appFocusLabel" for="appFocus">Primary focus</label>
               <input id="appFocus" type="hidden" value="OC 2.0">
               <div class="choice-control" role="radiogroup" aria-labelledby="appFocusLabel" data-choice-group data-choice-input="appFocus">
@@ -1276,7 +1317,7 @@
                 </button>
               </div>
             </div>
-            <div class="application-field">
+            <div class="application-field" data-app-step="1">
               <label id="appActivityLabel" for="appActivity">Activity</label>
               <input id="appActivity" type="hidden" value="Daily">
               <div class="choice-control" role="radiogroup" aria-labelledby="appActivityLabel" data-choice-group data-choice-input="appActivity">
@@ -1300,26 +1341,46 @@
             </div>
           </div>
 
-          <textarea id="applicationTemplate" class="application-template" aria-label="Generated application message"></textarea>
-          <div class="application-footer">
+          <textarea id="applicationTemplate" class="application-template" data-app-step="2" aria-label="Generated application message"></textarea>
+          <div class="application-footer" data-app-step="2">
             <span class="application-hint">Edit the message if you want to add stats, merits, travel capacity or OC availability.</span>
             <div class="application-actions">
-              <button id="sendApplication" class="submit-application" type="button">
-                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-                Send Application
-              </button>
               <button id="copyApplication" type="button">
                 <i class="fa-regular fa-copy" aria-hidden="true"></i>
-                Copy Message
+                Copy draft
               </button>
               <button id="resetApplication" type="button">
                 <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
-                Reset
+                Start over
               </button>
             </div>
-            <span id="applicationStatus" class="form-status" role="status" aria-live="polite"></span>
           </div>
         </section>
+            </div>
+
+            <div class="application-complete" data-application-complete hidden role="status" aria-live="polite">
+              <span aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+              <strong>Application sent</strong>
+              <p>Council has received your application. We will be in touch.</p>
+            </div>
+
+            <div class="application-dialog-nav" data-application-nav role="group" aria-label="Application navigation">
+              <button class="application-previous" type="button" data-application-previous disabled>
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                <span>Previous</span>
+              </button>
+              <span data-application-step-label aria-live="polite">Step 1 of 3</span>
+              <button class="application-next" type="button" data-application-next>
+                <span>Next</span>
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+              <button id="sendApplication" class="application-next application-submit-nav" type="button" aria-label="Submit application" hidden>
+                <span>Submit</span>
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </dialog>
 
         <aside class="contact-aside" aria-label="Contact guidance">
           <section class="contact-panel" aria-labelledby="contact-priority">
@@ -1433,7 +1494,7 @@
 
 <!-- GLOBAL SCRIPT -->
 <script src="assets/contact-config.js"></script>
-<script src="assets/script.js"></script>
+<script src="assets/script.js?v=20260822-3"></script>
 
 <!-- LIVE STATUS & AVATARS -->
 <script>
@@ -1516,6 +1577,8 @@
       pill.textContent = 'No key';
       pill.title = 'Save a Torn API key on the members page to show live status';
       pill.setAttribute('aria-label', pill.title);
+      pill.classList.remove('online','offline','idle','traveling','error','changed');
+      delete pill.dataset.state;
     });
   }
 
@@ -1575,15 +1638,46 @@
     const copy = document.getElementById('copyApplication');
     const reset = document.getElementById('resetApplication');
     const status = document.getElementById('applicationStatus');
+    const applicationDialog = document.getElementById('applicationDialog');
+    const applicationPanel = applicationDialog?.querySelector('[data-application-panel]');
+    const applicationContent = applicationDialog?.querySelector('.application-dialog-content');
+    const applicationComplete = applicationDialog?.querySelector('[data-application-complete]');
+    const applicationNav = applicationDialog?.querySelector('[data-application-nav]');
+    const applicationPrevious = applicationDialog?.querySelector('[data-application-previous]');
+    const applicationNext = applicationDialog?.querySelector('[data-application-next]');
+    const applicationStepLabel = applicationDialog?.querySelector('[data-application-step-label]');
+    const applicationTitle = applicationDialog?.querySelector('[data-application-title]');
+    const applicationCopy = applicationDialog?.querySelector('[data-application-copy]');
+    const applicationProgressRoot = applicationDialog?.querySelector('.application-progress');
+    const applicationProgress = [...(applicationDialog?.querySelectorAll('[data-application-progress]') || [])];
+    const applicationTriggers = [...document.querySelectorAll('[data-application-open]')];
+    const applicationClose = applicationDialog?.querySelector('[data-application-close]');
     if(!name || !level || !contact || !focus || !activity || !output) return;
 
     let sending = false;
+    let applicationStep = 0;
+    let applicationCloseTimer = 0;
+    let applicationReturnFocus = applicationTriggers[0] || null;
     let cooldownTimer = null;
     let cooldownMessage = 'Application sending is temporarily locked. You can send again in';
     let cooldownType = 'warn';
     const sendDefaultHtml = send?.innerHTML || '';
     const LEVEL_MIN = 1;
     const LEVEL_MAX = 100;
+    const APPLICATION_STEPS = [
+      {
+        title: 'Your details',
+        copy: 'Start with the information council needs to identify and contact you.'
+      },
+      {
+        title: 'Your faction fit',
+        copy: 'Choose the focus and activity pattern that best reflects how you play.'
+      },
+      {
+        title: 'Review and send',
+        copy: 'Check the private message below, add anything useful, then submit it to council.'
+      }
+    ];
 
     const emitValueEvents = field => {
       field.dispatchEvent(new Event('input', {bubbles:true}));
@@ -1666,6 +1760,99 @@
       status.className = `form-status ${type}`.trim();
     };
 
+    const showApplicationStep = (nextStep, focusFirst = true) => {
+      applicationStep = Math.max(0, Math.min(2, Number(nextStep) || 0));
+      applicationDialog?.querySelectorAll('[data-app-step]').forEach(element => {
+        element.hidden = Number(element.dataset.appStep) !== applicationStep;
+      });
+      applicationProgress.forEach((item, index) => {
+        item.classList.toggle('is-current', index === applicationStep);
+        item.classList.toggle('is-complete', index < applicationStep);
+        if(index === applicationStep) item.setAttribute('aria-current', 'step');
+        else item.removeAttribute('aria-current');
+      });
+      if(applicationPrevious) applicationPrevious.disabled = applicationStep === 0;
+      if(applicationNext) applicationNext.hidden = applicationStep === 2;
+      if(send) send.hidden = applicationStep !== 2;
+      if(applicationStepLabel) applicationStepLabel.textContent = `Step ${applicationStep + 1} of 3`;
+      if(applicationTitle) applicationTitle.textContent = APPLICATION_STEPS[applicationStep].title;
+      if(applicationCopy) applicationCopy.textContent = APPLICATION_STEPS[applicationStep].copy;
+      setStatus('');
+
+      if(focusFirst && applicationDialog?.open){
+        const focusContainer = applicationDialog.querySelector(`[data-app-step="${applicationStep}"]:not([hidden])`);
+        const focusTarget = focusContainer?.matches('button, textarea, input:not([type="hidden"])')
+          ? focusContainer
+          : focusContainer?.querySelector('button, textarea, input:not([type="hidden"])');
+        window.requestAnimationFrame(() => focusTarget?.focus({preventScroll:true}));
+      }
+    };
+
+    const resetApplicationDialog = () => {
+      window.clearTimeout(applicationCloseTimer);
+      applicationCloseTimer = 0;
+      if(applicationPanel) applicationPanel.hidden = false;
+      if(applicationContent) applicationContent.hidden = false;
+      if(applicationNav) applicationNav.hidden = false;
+      if(applicationProgressRoot) applicationProgressRoot.hidden = false;
+      if(applicationComplete) applicationComplete.hidden = true;
+      showApplicationStep(0, false);
+    };
+
+    const openApplicationDialog = event => {
+      if(!applicationDialog || applicationDialog.open) return;
+      if(event?.currentTarget instanceof HTMLElement) applicationReturnFocus = event.currentTarget;
+      resetApplicationDialog();
+      build();
+      applicationDialog.showModal();
+      document.body.classList.add('application-dialog-open');
+      window.requestAnimationFrame(() => name.focus({preventScroll:true}));
+    };
+
+    const completeApplicationDialog = () => {
+      if(!applicationDialog?.open) return;
+      if(applicationPanel) applicationPanel.hidden = true;
+      if(applicationContent) applicationContent.hidden = true;
+      if(applicationNav) applicationNav.hidden = true;
+      if(applicationProgressRoot) applicationProgressRoot.hidden = true;
+      if(applicationComplete) applicationComplete.hidden = false;
+      applicationCloseTimer = window.setTimeout(() => applicationDialog.close('submitted'), 1800);
+    };
+
+    applicationTriggers.forEach(trigger => trigger.addEventListener('click', openApplicationDialog));
+    applicationClose?.addEventListener('click', () => applicationDialog?.close('dismissed'));
+    applicationDialog?.addEventListener('click', event => {
+      if(event.target === applicationDialog) applicationDialog.close('dismissed');
+    });
+    applicationDialog?.addEventListener('close', () => {
+      window.clearTimeout(applicationCloseTimer);
+      document.body.classList.remove('application-dialog-open');
+      applicationReturnFocus?.focus({preventScroll:true});
+    });
+    applicationPrevious?.addEventListener('click', () => showApplicationStep(applicationStep - 1));
+    applicationNext?.addEventListener('click', () => {
+      if(applicationStep === 0){
+        const numericLevel = Number(level.value);
+        if(!name.value.trim()){
+          setStatus('Enter your Torn name to continue.', 'error');
+          name.focus();
+          return;
+        }
+        if(!level.value || !Number.isInteger(numericLevel) || numericLevel < LEVEL_MIN || numericLevel > LEVEL_MAX){
+          setStatus('Enter a Torn level between 1 and 100 to continue.', 'error');
+          level.focus();
+          return;
+        }
+        if(!contact.value.trim()){
+          setStatus('Add an email, Discord name or Torn ID for the reply.', 'error');
+          contact.focus();
+          return;
+        }
+      }
+      if(applicationStep === 1) build();
+      showApplicationStep(applicationStep + 1);
+    });
+
     const formatWait = ms => {
       const seconds = Math.max(0, Math.ceil(ms / 1000));
       const mins = Math.floor(seconds / 60);
@@ -1744,6 +1931,7 @@
       const numericLevel = Number(data.level);
       if(!data.name) return 'Enter your Torn name before sending.';
       if(!data.level || !Number.isInteger(numericLevel) || numericLevel < LEVEL_MIN || numericLevel > LEVEL_MAX) return 'Enter a Torn level between 1 and 100 before sending.';
+      if(!data.contact) return 'Add a reply contact before sending.';
       if(!data.message) return 'Write a message before sending.';
       return '';
     };
@@ -1797,6 +1985,7 @@
 
         showToast('Application submitted');
         startCooldown(SUBMIT_COOLDOWN_MS, 'Application submitted. You can send another in', 'ok');
+        completeApplicationDialog();
       }catch{
         startCooldown(SUBMIT_RETRY_MS, 'Submission failed. You can retry in', 'error');
       }finally{
@@ -1821,8 +2010,11 @@
       if(cooldownRemaining() > 0) renderCooldown();
       else setStatus('');
       build();
+      showApplicationStep(0);
     });
     build();
+    showApplicationStep(0, false);
+    if(location.hash === '#application-heading' || location.hash === '#application') openApplicationDialog();
     if(cooldownRemaining() > 0) startCooldown(cooldownRemaining());
   }
 
@@ -1886,6 +2078,23 @@
     }else if(apiKey){
       refreshStatuses(apiKey);
     }
+  });
+
+  window.addEventListener('pc:api-key-change', async event=>{
+    clearTimeout(timer);
+    if(!event.detail?.hasKey){
+      apiKey = '';
+      setNoKey();
+      return;
+    }
+    try{ apiKey = localStorage.getItem(DEVICE_KEY) || ''; }
+    catch{ apiKey = ''; }
+    if(!apiKey){
+      setNoKey();
+      return;
+    }
+    await hydrateOnce(apiKey);
+    schedule(apiKey);
   });
 
   try{ apiKey = localStorage.getItem(DEVICE_KEY) || ''; }

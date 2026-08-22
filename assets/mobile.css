@@ -415,6 +415,14 @@
     bottom: calc(4.75rem + env(safe-area-inset-bottom));
   }
 
+  body.has-recruitment-banner .api-launcher {
+    bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
+
+  body.has-recruitment-banner.has-api-widget #backTop {
+    bottom: calc(9rem + env(safe-area-inset-bottom));
+  }
+
   #backTop {
     right: max(var(--mobile-gutter), env(safe-area-inset-right));
     width: 48px;
@@ -551,51 +559,6 @@
   /* Members ----------------------------------------------------- */
   .members-page .members-panel {
     padding: var(--mobile-card-pad);
-  }
-
-  .members-page .api-access-heading {
-    grid-template-columns: 2.75rem minmax(0, 1fr);
-  }
-
-  .members-page .api-state {
-    grid-column: 2;
-    justify-self: start;
-  }
-
-  .members-page .api-controls {
-    grid-template-columns: minmax(0, 1fr);
-    width: 100%;
-  }
-
-  .members-page .api-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.65rem;
-    width: 100%;
-  }
-
-  .members-page :is(.api-primary, .api-secondary) {
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-    min-height: 52px;
-    box-sizing: border-box;
-    white-space: normal;
-  }
-
-  .members-page :is(#saveKeyBtn, #clearKeyBtn) {
-    grid-column: auto;
-    width: 100%;
-    padding-inline: 1rem;
-  }
-
-  .members-page #clearKeyBtn span {
-    white-space: nowrap;
-  }
-
-  .members-page .api-privacy {
-    text-align: left;
   }
 
   /* Rules, FAQ and contact ------------------------------------- */
@@ -849,26 +812,6 @@
     gap: 1.1rem;
   }
 
-  .members-page .api-access {
-    padding: 1rem;
-  }
-
-  .members-page .api-access-heading {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
-    gap: 0.75rem;
-  }
-
-  .members-page .api-access-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-
-  .members-page .api-privacy {
-    grid-template-columns: 1.65rem minmax(0, 1fr);
-    gap: 0.6rem;
-    padding: 0.8rem;
-  }
-
   .members-page .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -997,13 +940,16 @@
     grid-column: auto;
   }
 
-  :is(.stats-grid, .summary-grid, .metric-grid, .metrics),
-  .members-page .stats-grid {
+  :is(.stats-grid, .summary-grid, .metric-grid, .metrics) {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .members-page .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .members-page .stat-status {
-    grid-column: auto;
+    grid-column: 1 / -1;
   }
 
   .home-fact-rail,

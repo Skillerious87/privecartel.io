@@ -648,7 +648,634 @@ pc-navbar {
   .site-search-meta > span:last-child { display: none; }
 }
 
-/* ===== 4C. Discord handoff dialog ===== */
+/* ===== 4C. Global Torn API control ============================== */
+/* Retained temporarily for rollback; the versioned widget stylesheet is authoritative. */
+@media not all {
+body.api-dialog-open {
+  overflow: hidden;
+}
+
+.api-launcher {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1050;
+  min-width: 52px;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.58rem;
+  padding: 0.42rem 0.72rem 0.42rem 0.42rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.48);
+  border-radius: 999px;
+  background:
+    linear-gradient(145deg, rgba(var(--accent-rgb), 0.13), transparent 54%),
+    rgba(8, 10, 12, 0.96);
+  color: var(--accent-light);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.07),
+    0 14px 38px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    border-color 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.api-launcher:hover,
+.api-launcher:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(var(--accent-rgb), 0.82);
+  background:
+    linear-gradient(145deg, rgba(var(--accent-rgb), 0.2), transparent 58%),
+    rgba(11, 13, 15, 0.98);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.09),
+    0 18px 44px rgba(0, 0, 0, 0.56),
+    0 0 24px rgba(var(--accent-rgb), 0.12);
+}
+
+.api-launcher-icon {
+  width: 2.35rem;
+  height: 2.35rem;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.16), rgba(var(--accent-rgb), 0.045));
+  color: var(--accent-light);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.api-launcher-status {
+  width: 0.42rem;
+  height: 0.42rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: rgba(240, 236, 223, 0.32);
+  box-shadow: 0 0 0 3px rgba(240, 236, 223, 0.04);
+}
+
+.api-launcher.has-key .api-launcher-status {
+  background: #73d79b;
+  box-shadow: 0 0 0 3px rgba(115, 215, 155, 0.1), 0 0 12px rgba(115, 215, 155, 0.45);
+}
+
+body.has-api-widget #backTop {
+  bottom: 5.75rem;
+}
+
+body.has-recruitment-banner.has-api-widget #backTop {
+  bottom: 5.75rem;
+}
+
+.api-dialog {
+  width: min(calc(100vw - 2rem), 570px);
+  max-width: none;
+  max-height: min(calc(100dvh - 2rem), 760px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden auto;
+  border: 1px solid rgba(var(--accent-rgb), 0.42);
+  border-radius: 20px;
+  background: rgba(7, 9, 11, 0.99);
+  color: var(--text-1);
+  box-shadow:
+    0 36px 110px rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(255, 255, 255, 0.035),
+    0 0 56px rgba(var(--accent-rgb), 0.08);
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition:
+    opacity 0.28s ease,
+    transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+    overlay 0.28s ease allow-discrete,
+    display 0.28s ease allow-discrete;
+}
+
+.api-dialog[open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@starting-style {
+  .api-dialog[open] {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+}
+
+.api-dialog::backdrop {
+  background:
+    radial-gradient(circle at 50% 36%, rgba(var(--accent-rgb), 0.13), transparent 27rem),
+    rgba(2, 3, 4, 0.86);
+  backdrop-filter: blur(16px) saturate(0.86);
+  opacity: 0;
+  transition:
+    opacity 0.28s ease,
+    overlay 0.28s ease allow-discrete,
+    display 0.28s ease allow-discrete;
+}
+
+.api-dialog[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .api-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+.api-dialog-shell {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1.3rem, 4vw, 2rem);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(var(--accent-rgb), 0.14), transparent 19rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), transparent 42%),
+    rgba(8, 10, 12, 0.98);
+}
+
+.api-dialog-shell::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -8rem;
+  right: -7rem;
+  width: 20rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(var(--accent-rgb), 0.09);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 4rem rgba(0, 0, 0, 0.035);
+  pointer-events: none;
+}
+
+.api-dialog-shell::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  left: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.95), transparent);
+  pointer-events: none;
+}
+
+.api-dialog-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(240, 236, 223, 0.68);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.api-dialog-close:hover,
+.api-dialog-close:focus-visible {
+  border-color: rgba(var(--accent-rgb), 0.58);
+  background: rgba(var(--accent-rgb), 0.11);
+  color: #fff;
+}
+
+.api-dialog-header {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: center;
+  padding-right: 2.7rem;
+}
+
+.api-dialog-emblem {
+  position: relative;
+  width: 5rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.14), rgba(0, 0, 0, 0.32));
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.06),
+    0 14px 34px rgba(0, 0, 0, 0.34),
+    0 0 24px rgba(var(--accent-rgb), 0.08);
+}
+
+.api-dialog-emblem::after {
+  content: "";
+  position: absolute;
+  inset: 0.32rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.api-dialog-emblem img {
+  width: 4.15rem;
+  height: 4.15rem;
+  object-fit: contain;
+  border-radius: 50%;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.34));
+}
+
+.api-dialog-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.48rem;
+  margin: 0 0 0.28rem;
+  color: var(--accent);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.api-dialog-kicker::before {
+  content: "";
+  width: 1.25rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.api-dialog h2 {
+  margin: 0;
+  color: var(--text-1);
+  font-size: clamp(2rem, 5vw, 2.65rem);
+  line-height: 1;
+}
+
+.api-dialog-description {
+  max-width: 49ch;
+  margin: 1.25rem 0 0;
+  color: rgba(240, 236, 223, 0.66);
+  font-size: 0.84rem;
+  line-height: 1.7;
+}
+
+.api-dialog-state {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.18);
+  border-radius: 11px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.api-dialog-state-dot {
+  width: 0.58rem;
+  height: 0.58rem;
+  border-radius: 50%;
+  background: rgba(240, 236, 223, 0.28);
+  box-shadow: 0 0 0 4px rgba(240, 236, 223, 0.035);
+}
+
+.api-dialog-state.has-key {
+  border-color: rgba(115, 215, 155, 0.22);
+  background: rgba(115, 215, 155, 0.055);
+}
+
+.api-dialog-state.has-key .api-dialog-state-dot {
+  background: #73d79b;
+  box-shadow: 0 0 0 4px rgba(115, 215, 155, 0.08), 0 0 12px rgba(115, 215, 155, 0.32);
+}
+
+.api-dialog-state strong,
+.api-dialog-state span {
+  display: block;
+}
+
+.api-dialog-state strong {
+  color: rgba(240, 236, 223, 0.9);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.api-dialog-state div > span {
+  margin-top: 0.08rem;
+  color: rgba(240, 236, 223, 0.48);
+  font-size: 0.66rem;
+  line-height: 1.45;
+}
+
+.api-dialog-form {
+  margin-top: 1.15rem;
+}
+
+.api-dialog-form > label {
+  display: block;
+  margin-bottom: 0.46rem;
+  color: rgba(240, 236, 223, 0.84);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.api-dialog-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 3.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(var(--accent-rgb), 0.38);
+  border-radius: 11px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    rgba(3, 4, 6, 0.68);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.035);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.api-dialog-field:focus-within {
+  border-color: var(--accent-light);
+  background: rgba(var(--accent-rgb), 0.045);
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.1);
+}
+
+.api-dialog-field > i {
+  padding-left: 1rem;
+  color: rgba(var(--accent-rgb), 0.82);
+  font-size: 0.82rem;
+}
+
+.api-dialog-field input {
+  width: 100%;
+  min-width: 0;
+  min-height: 3.42rem;
+  padding: 0.72rem 0.8rem;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text-1);
+  font: inherit;
+  font-size: 0.88rem;
+}
+
+.api-dialog-field input::placeholder {
+  color: rgba(240, 236, 223, 0.4);
+}
+
+.api-dialog-field button {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  margin-right: 0.35rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(240, 236, 223, 0.58);
+  cursor: pointer;
+}
+
+.api-dialog-field button:hover,
+.api-dialog-field button:focus-visible {
+  background: rgba(var(--accent-rgb), 0.11);
+  color: var(--accent-light);
+}
+
+.api-dialog-message {
+  min-height: 1.2rem;
+  margin: 0.42rem 0 0;
+  color: rgba(240, 236, 223, 0.46);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.api-dialog-message.is-error {
+  color: #efaaa0;
+}
+
+.api-dialog-message.is-success {
+  color: #9ee2b9;
+}
+
+.api-dialog-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  margin-top: 0.85rem;
+}
+
+.api-dialog-save,
+.api-dialog-remove {
+  min-height: 3.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.api-dialog-save {
+  border: 1px solid var(--accent-light);
+  background: linear-gradient(135deg, var(--accent-light), var(--accent) 55%, var(--accent-deep));
+  color: #080704;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.38), 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+.api-dialog-save:hover,
+.api-dialog-save:focus-visible {
+  background: linear-gradient(135deg, #faedc3, var(--accent-light) 52%, var(--accent));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.44), 0 15px 28px rgba(0, 0, 0, 0.3);
+}
+
+.api-dialog-remove {
+  border: 1px solid rgba(223, 141, 129, 0.3);
+  background: rgba(91, 39, 33, 0.15);
+  color: #e5b0a7;
+}
+
+.api-dialog-remove:hover,
+.api-dialog-remove:focus-visible {
+  border-color: rgba(239, 169, 158, 0.52);
+  background: rgba(112, 48, 40, 0.24);
+  color: #ffd5ce;
+}
+
+.api-dialog-remove:disabled {
+  border-color: rgba(240, 236, 223, 0.1);
+  background: rgba(255, 255, 255, 0.018);
+  color: rgba(240, 236, 223, 0.28);
+  cursor: not-allowed;
+}
+
+.api-dialog-privacy {
+  display: grid;
+  grid-template-columns: 2.3rem minmax(0, 1fr);
+  gap: 0.72rem;
+  align-items: start;
+  margin-top: 1.15rem;
+  padding-top: 1.05rem;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.15);
+}
+
+.api-dialog-privacy > span {
+  width: 2.3rem;
+  height: 2.3rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.06);
+  color: var(--accent);
+}
+
+.api-dialog-privacy strong {
+  display: block;
+  color: rgba(240, 236, 223, 0.84);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.api-dialog-privacy p {
+  margin: 0.2rem 0 0;
+  color: rgba(240, 236, 223, 0.5);
+  font-size: 0.67rem;
+  line-height: 1.58;
+}
+
+@media (max-width: 600px) {
+  .api-launcher {
+    right: max(0.8rem, env(safe-area-inset-right));
+    bottom: max(0.8rem, env(safe-area-inset-bottom));
+    width: 3.1rem;
+    min-width: 3.1rem;
+    min-height: 3.1rem;
+    padding: 0;
+  }
+
+  .api-launcher-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
+  .api-launcher-label,
+  .api-launcher-status {
+    position: absolute;
+  }
+
+  .api-launcher-label {
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .api-launcher-status {
+    top: 0.12rem;
+    right: 0.12rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    box-shadow: 0 0 0 3px #080a0c;
+  }
+
+  body.has-api-widget #backTop {
+    right: max(0.86rem, env(safe-area-inset-right));
+    bottom: calc(4.55rem + env(safe-area-inset-bottom));
+  }
+
+  body.has-recruitment-banner .api-launcher {
+    bottom: calc(4.85rem + env(safe-area-inset-bottom));
+  }
+
+  body.has-recruitment-banner.has-api-widget #backTop {
+    bottom: calc(8.6rem + env(safe-area-inset-bottom));
+  }
+
+  .api-dialog {
+    width: 100%;
+    max-height: calc(100dvh - 0.75rem);
+    margin: auto 0 0;
+    border-width: 1px 0 0;
+    border-radius: 22px 22px 0 0;
+    transform: translateY(24px);
+  }
+
+  .api-dialog[open] {
+    transform: translateY(0);
+  }
+
+  .api-dialog-shell {
+    padding: 1.15rem 1rem max(1.2rem, env(safe-area-inset-bottom));
+  }
+
+  .api-dialog-header {
+    grid-template-columns: 3.9rem minmax(0, 1fr);
+    gap: 0.85rem;
+    padding-right: 2.7rem;
+  }
+
+  .api-dialog-emblem {
+    width: 3.9rem;
+  }
+
+  .api-dialog-emblem img {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .api-dialog h2 {
+    font-size: clamp(1.68rem, 8vw, 2.05rem);
+  }
+
+  .api-dialog-description {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+
+  .api-dialog-state {
+    margin-top: 1rem;
+  }
+
+  .api-dialog-form {
+    margin-top: 1rem;
+  }
+
+  .api-dialog-actions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .api-dialog-save,
+  .api-dialog-remove {
+    width: 100%;
+  }
+
+  .api-dialog-remove {
+    min-height: 2.75rem;
+  }
+}
+
+}
+/* ===== 4D. Discord handoff dialog ===== */
 body.discord-dialog-open {
   overflow: hidden;
   touch-action: none;
