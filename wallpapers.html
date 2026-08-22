@@ -359,11 +359,14 @@
     }
     .wallpaper-grid {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+      align-items: start;
       gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
     .wallpaper-card {
       position: relative;
+      aspect-ratio: 16 / 9;
+      min-width: 0;
       overflow: hidden;
       border-radius: 12px;
       border: 1px solid rgba(214,184,109,0.2);
@@ -377,6 +380,7 @@
     }
     .wallpaper-card img {
       width: 100%;
+      height: 100%;
       display: block;
       object-fit: cover;
     }
