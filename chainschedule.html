@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="assets/editorial.css">
   <link rel="stylesheet" href="assets/mobile.css">
-  <link rel="stylesheet" href="assets/chain-schedule.css?v=20260822-1">
+  <link rel="stylesheet" href="assets/chain-schedule.css?v=20260822-2">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -134,7 +134,12 @@
                 <li><i class="is-completed" aria-hidden="true"></i> Completed</li>
                 <li><i class="is-cancelled" aria-hidden="true"></i> Cancelled</li>
               </ul>
-              <p id="calendarHelp"><i class="fa-regular fa-keyboard" aria-hidden="true"></i> Use arrow keys to move by day, Page Up or Page Down to change month.</p>
+              <p id="calendarHelp">
+                <i class="fa-regular fa-keyboard chain-calendar-help-keyboard" aria-hidden="true"></i>
+                <i class="fa-regular fa-hand-pointer chain-calendar-help-touch" aria-hidden="true"></i>
+                <span class="chain-calendar-help-keyboard">With a date focused, use arrow keys to move by day and Page Up or Page Down to change month.</span>
+                <span class="chain-calendar-help-touch">Tap a date for details. Use the controls above to change month.</span>
+              </p>
             </div>
           </section>
 
@@ -208,6 +213,6 @@
   </footer>
 
   <script src="assets/script.js?v=20260822-4"></script>
-  <script src="assets/chain-schedule.js?v=20260822-1" defer></script>
+  <script src="assets/chain-schedule.js?v=20260822-2" defer></script>
 </body>
 </html>

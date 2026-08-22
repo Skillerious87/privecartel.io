@@ -526,7 +526,10 @@
   calendarBody.addEventListener("click", (event) => {
     const dayButton = event.target.closest("[data-date]");
     if (!dayButton) return;
-    selectDate(dateFromKey(dayButton.dataset.date), { revealDetail: event.detail > 0 });
+    selectDate(dateFromKey(dayButton.dataset.date), {
+      focusCalendar: true,
+      revealDetail: event.detail > 0
+    });
   });
 
   calendarBody.addEventListener("keydown", (event) => {

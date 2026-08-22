@@ -631,6 +631,10 @@
   color: rgba(var(--accent-rgb), 0.7);
 }
 
+.chain-calendar-help-touch {
+  display: none;
+}
+
 /* Selected date ------------------------------------------------ */
 .chain-date-detail {
   position: sticky;
@@ -1416,6 +1420,20 @@
 
   .chain-legend li {
     font-size: 0.53rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .chain-calendar-help-keyboard {
+    display: none;
+  }
+
+  .chain-calendar-help-touch {
+    display: inline;
+  }
+
+  .chain-calendar-footer > p {
+    display: block;
   }
 }
 
