@@ -2750,3 +2750,149 @@
     transition: none;
   }
 }
+
+/* Desktop calendar balance -------------------------------------
+   The selected-date panel carries much denser content than the
+   calendar. Give it a useful working width, then use that width to
+   collapse metadata, readiness, and actions into compact rows. */
+@media (min-width: 1180px) {
+  .chain-schedule-page {
+    --chain-shell: min(calc(100% - 3rem), 1440px);
+  }
+
+  .chain-schedule-layout {
+    grid-template-columns: minmax(0, 1.62fr) minmax(470px, 1fr);
+    gap: clamp(1rem, 1.5vw, 1.35rem);
+  }
+
+  .chain-date-detail {
+    top: calc(var(--nav-h, 72px) + 0.75rem);
+    min-height: 0;
+    max-height: calc(100svh - var(--nav-h, 72px) - 1.5rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: rgba(var(--accent-rgb), 0.42) rgba(255, 255, 255, 0.025);
+    scrollbar-width: thin;
+  }
+
+  .chain-date-detail::-webkit-scrollbar {
+    width: 0.45rem;
+  }
+
+  .chain-date-detail::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .chain-date-detail::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(var(--accent-rgb), 0.36);
+  }
+
+  .chain-detail-head {
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .chain-detail-date-number {
+    width: 3.25rem;
+    height: 3.25rem;
+    font-size: 1.75rem;
+  }
+
+  .chain-detail-head h3 {
+    font-size: 1.5rem;
+  }
+
+  .chain-detail-body {
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .chain-event-card {
+    padding: 0.8rem;
+  }
+
+  .chain-event-card h4 {
+    margin-top: 0.55rem;
+  }
+
+  .chain-date-detail .chain-event-meta {
+    display: grid;
+    grid-template-columns: 0.7fr 1fr 1.25fr;
+    margin-top: 0.65rem;
+    border-block: 1px solid rgba(var(--accent-rgb), 0.13);
+  }
+
+  .chain-date-detail .chain-event-meta > div {
+    min-width: 0;
+    display: block;
+    padding: 0.5rem 0.55rem;
+    border-bottom: 0;
+  }
+
+  .chain-date-detail .chain-event-meta > div:first-child {
+    padding-left: 0;
+  }
+
+  .chain-date-detail .chain-event-meta > div:last-child {
+    padding-right: 0;
+  }
+
+  .chain-date-detail .chain-event-meta > div + div {
+    border-left: 1px solid rgba(var(--accent-rgb), 0.11);
+  }
+
+  .chain-date-detail .chain-event-meta dd {
+    margin-top: 0.18rem;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .chain-date-detail .chain-event-note {
+    max-width: 68ch;
+    margin-top: 0.6rem;
+    font-size: 0.72rem;
+    line-height: 1.55;
+  }
+
+  .chain-date-detail .chain-preparation {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+  }
+
+  .chain-date-detail .chain-preparation .chain-event-checklist {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.28rem 0.4rem;
+    margin-top: 0.55rem;
+  }
+
+  .chain-date-detail .chain-preparation .chain-event-checklist label {
+    min-height: 2.35rem;
+    height: 100%;
+    align-items: start;
+    padding: 0.38rem 0.42rem;
+    line-height: 1.42;
+  }
+
+  .chain-date-detail .chain-preparation-check {
+    margin-top: 0.08rem;
+  }
+
+  .chain-date-detail .chain-event-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+  }
+
+  .chain-date-detail .chain-event-actions > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .chain-date-detail .chain-event-actions :is(button, a) {
+    min-height: 2.45rem;
+    padding-block: 0.45rem;
+  }
+}
