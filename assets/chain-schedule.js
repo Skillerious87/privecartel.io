@@ -15,6 +15,8 @@
   const dateDetail = document.querySelector("[data-date-detail]");
   const upcomingList = document.querySelector("[data-upcoming-list]");
   const scheduleStatus = document.querySelector("[data-schedule-status]");
+  const scheduleRetry = document.querySelector("[data-schedule-retry]");
+  const calendarSection = document.querySelector(".chain-calendar-section");
 
   if (!calendarBody || !calendarMonth || !dateDetail || !upcomingList) return;
 
@@ -23,6 +25,7 @@
 
   const ZONE_KEY = "pcChainScheduleZone";
   const VIEW_KEY = "pcChainScheduleView";
+  const PREPARATION_KEY = "pcChainSchedulePreparationV1";
   const REFRESH_INTERVAL = 5 * 60 * 1000;
 
   const DEFAULT_SCHEDULE = {
@@ -60,6 +63,19 @@
     }
   };
 
+  const readPreparation = () => {
+    try {
+      const stored = JSON.parse(readStorage(PREPARATION_KEY) || "{}");
+      if (!stored || typeof stored !== "object" || Array.isArray(stored)) return {};
+      return Object.fromEntries(Object.entries(stored).map(([eventId, items]) => [
+        eventId,
+        Array.isArray(items) ? items.map(String).filter(Boolean).slice(0, 12) : []
+      ]));
+    } catch {
+      return {};
+    }
+  };
+
   const state = {
     schedule: DEFAULT_SCHEDULE,
     events: [],
@@ -70,7 +86,11 @@
     zone: readStorage(ZONE_KEY) === "local" && !viewerIsUtc ? "local" : "tct",
     view: readStorage(VIEW_KEY) === "agenda" ? "agenda" : "calendar",
     showPast: false,
-    loadError: false
+    loadError: false,
+    refreshError: false,
+    isLoading: true,
+    hasLoaded: false,
+    preparation: readPreparation()
   };
 
   /* ── Time formatting ────────────────────────────────────────
@@ -79,18 +99,24 @@
 
   const activeZone = () => (state.zone === "local" ? localTimeZone : "UTC");
 
-  const localAbbreviation = (() => {
+  const abbreviationIn = (date, timeZone) => {
     try {
-      const parts = new Intl.DateTimeFormat("en-GB", { timeZone: localTimeZone, timeZoneName: "short" })
-        .formatToParts(new Date());
+      const parts = new Intl.DateTimeFormat("en-GB", { timeZone, timeZoneName: "short" })
+        .formatToParts(date);
       return parts.find((part) => part.type === "timeZoneName")?.value || "local";
     } catch {
       return "local";
     }
-  })();
+  };
 
-  const zoneLabel = () => (state.zone === "local" ? localAbbreviation : state.schedule.timeZoneLabel || "TCT");
-  const otherZoneLabel = () => (state.zone === "local" ? state.schedule.timeZoneLabel || "TCT" : localAbbreviation);
+  const localAbbreviation = abbreviationIn(new Date(), localTimeZone);
+
+  const zoneLabel = (date = new Date()) => (
+    state.zone === "local" ? abbreviationIn(date, localTimeZone) : state.schedule.timeZoneLabel || "TCT"
+  );
+  const otherZoneLabel = (date = new Date()) => (
+    state.zone === "local" ? state.schedule.timeZoneLabel || "TCT" : abbreviationIn(date, localTimeZone)
+  );
 
   const formatterCache = new Map();
   const formatter = (options) => {
@@ -242,7 +268,7 @@
 
   /* ── Presentation helpers ──────────────────────────────────── */
 
-  const formatRange = (event) => `${timeIn(event.start)}–${timeIn(event.end)} ${zoneLabel()}`;
+  const formatRange = (event) => `${timeIn(event.start)}–${timeIn(event.end)} ${zoneLabel(event.start)}`;
 
   /*
    * The zone the viewer is not currently reading, for the second line.
@@ -261,7 +287,7 @@
 
     const startDay = dayPart.format(event.start);
     const endDay = dayPart.format(event.end);
-    const label = otherZoneLabel();
+    const label = otherZoneLabel(event.start);
 
     return startDay === endDay
       ? `${startDay}, ${timePart.format(event.start)}–${timePart.format(event.end)} ${label}`
@@ -317,12 +343,15 @@
     const gridStart = addDays(first, -mondayOffset);
     const selectedKey = dateKey(state.selectedDate);
     const todayKey = dateKey(state.today);
+    const daysInMonth = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate();
+    const weekCount = Math.ceil((mondayOffset + daysInMonth) / 7);
 
     calendarMonth.textContent = monthFormatter.format(first);
     if (calendarCaption) calendarCaption.textContent = `${monthFormatter.format(first)} chain schedule`;
+    calendarBody.closest("table")?.setAttribute("aria-rowcount", String(weekCount + 1));
     calendarBody.replaceChildren();
 
-    for (let week = 0; week < 6; week += 1) {
+    for (let week = 0; week < weekCount; week += 1) {
       const row = document.createElement("tr");
 
       for (let dayIndex = 0; dayIndex < 7; dayIndex += 1) {
@@ -396,8 +425,37 @@
   const eventCard = (event, { compact = false } = {}) => {
     const alternate = formatAlternateRange(event);
     const live = isLive(event);
+    const preparationOpen = event.end.getTime() >= Date.now()
+      && event.status !== "completed"
+      && event.status !== "cancelled";
+    const completedPreparation = new Set(state.preparation[event.id] || []);
+    const completedCount = event.expectations.filter((item) => completedPreparation.has(item)).length;
+    const preparationPercent = event.expectations.length
+      ? Math.round((completedCount / event.expectations.length) * 100)
+      : 0;
     const checklist = !compact && event.expectations.length
-      ? `<ul class="chain-event-checklist">${event.expectations.map((item) => `<li><i class="fa-solid fa-check" aria-hidden="true"></i><span>${escapeHtml(item)}</span></li>`).join("")}</ul>`
+      ? preparationOpen
+        ? `<div class="chain-preparation${completedCount === event.expectations.length ? " is-complete" : ""}" data-prep-panel="${escapeHtml(event.id)}" role="group" aria-label="Personal preparation">
+            <header>
+              <div>
+                <h5>My preparation</h5>
+                <p>Saved on this device</p>
+              </div>
+              <strong data-prep-count>${completedCount} of ${event.expectations.length} ready</strong>
+            </header>
+            <div class="chain-preparation-meter" role="progressbar" aria-label="Personal preparation progress" aria-valuemin="0" aria-valuemax="${event.expectations.length}" aria-valuenow="${completedCount}">
+              <span style="--chain-preparation-progress: ${preparationPercent}%"></span>
+            </div>
+            <ul class="chain-event-checklist">${event.expectations.map((item, index) => `
+              <li>
+                <label>
+                  <input type="checkbox" data-prep-check data-event-id="${escapeHtml(event.id)}" data-prep-index="${index}"${completedPreparation.has(item) ? " checked" : ""}>
+                  <span class="chain-preparation-check" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+                  <span>${escapeHtml(item)}</span>
+                </label>
+              </li>`).join("")}</ul>
+          </div>`
+        : `<ul class="chain-event-checklist is-static">${event.expectations.map((item) => `<li><i class="fa-solid fa-check" aria-hidden="true"></i><span>${escapeHtml(item)}</span></li>`).join("")}</ul>`
       : "";
     const briefing = event.briefingUrl
       ? `<a href="${escapeHtml(event.briefingUrl)}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Open briefing</a>`
@@ -430,6 +488,17 @@
   };
 
   const renderDateDetail = () => {
+    if (state.isLoading && !state.events.length) {
+      dateDetail.setAttribute("aria-busy", "true");
+      dateDetail.innerHTML = `
+        <div class="chain-detail-loading">
+          <span aria-hidden="true"><i class="fa-solid fa-spinner fa-spin"></i></span>
+          <p>Syncing the latest operation windows from council&hellip;</p>
+        </div>`;
+      return;
+    }
+
+    dateDetail.removeAttribute("aria-busy");
     const selectedEvents = eventsForDate(state.selectedDate);
     const updated = formatUpdated();
     const head = `
@@ -471,6 +540,14 @@
 
   const renderAgenda = () => {
     if (!agendaList) return;
+    if (state.isLoading && !state.events.length) {
+      agendaList.innerHTML = `
+        <div class="chain-upcoming-empty is-loading" aria-hidden="true">
+          <span><i class="fa-solid fa-spinner fa-spin"></i></span>
+          <div><strong>Loading the agenda&hellip;</strong><p>Fetching the latest published operations.</p></div>
+        </div>`;
+      return;
+    }
     const source = state.showPast ? [...state.events].reverse() : activeUpcomingEvents();
 
     if (!source.length) {
@@ -532,6 +609,17 @@
   };
 
   const renderUpcoming = () => {
+    if (state.isLoading && !state.events.length) {
+      upcomingList.setAttribute("aria-busy", "true");
+      upcomingList.innerHTML = `
+        <div class="chain-upcoming-empty is-loading">
+          <span aria-hidden="true"><i class="fa-solid fa-spinner fa-spin"></i></span>
+          <div><strong>Checking the forward schedule&hellip;</strong><p>The latest operation windows will appear here.</p></div>
+        </div>`;
+      return;
+    }
+
+    upcomingList.removeAttribute("aria-busy");
     const upcoming = activeUpcomingEvents().slice(0, 6);
 
     if (!upcoming.length) {
@@ -584,6 +672,21 @@
   const renderNextBrief = () => {
     const live = liveEvents()[0];
     const nextEvent = live || activeUpcomingEvents()[0];
+
+    if (state.isLoading && !state.events.length) {
+      if (heroNodes.title) heroNodes.title.textContent = "Loading schedule…";
+      if (heroNodes.time) heroNodes.time.textContent = "Syncing the latest operation window from council.";
+      if (heroNodes.alt) heroNodes.alt.textContent = "";
+      if (heroNodes.status) heroNodes.status.textContent = "Syncing";
+      if (heroNodes.target) heroNodes.target.textContent = "—";
+      if (heroNodes.lead) heroNodes.lead.textContent = "—";
+      if (heroNodes.countdown) {
+        heroNodes.countdown.removeAttribute("data-mode");
+        heroNodes.countdown.innerHTML = '<span class="chain-countdown-idle"><i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Checking the council calendar…</span>';
+      }
+      if (heroNodes.actions) heroNodes.actions.hidden = true;
+      return;
+    }
 
     if (heroNodes.liveBanner) {
       heroNodes.liveBanner.hidden = !live;
@@ -647,6 +750,19 @@
   const renderSummary = () => {
     const summary = $("[data-schedule-summary]");
     if (!summary) return;
+
+    if (state.isLoading && !state.events.length) {
+      summary.setAttribute("aria-busy", "true");
+      summary.innerHTML = ["Upcoming windows", "Confirmed", "Provisional", "Completed"].map((label) => `
+        <div class="chain-summary-tile is-loading">
+          <i class="fa-solid fa-circle-notch" aria-hidden="true"></i>
+          <strong>&mdash;</strong>
+          <span>${label}</span>
+        </div>`).join("");
+      return;
+    }
+
+    summary.removeAttribute("aria-busy");
     const upcoming = activeUpcomingEvents();
     const confirmed = upcoming.filter((event) => event.status === "confirmed").length;
     const planning = upcoming.filter((event) => event.status === "planning").length;
@@ -732,6 +848,24 @@
     renderSummary();
     renderNextBrief();
     renderLiveRemaining();
+  };
+
+  const renderPreparationProgress = (event) => {
+    const completed = new Set(state.preparation[event.id] || []);
+    const count = event.expectations.filter((item) => completed.has(item)).length;
+    const percent = event.expectations.length ? Math.round((count / event.expectations.length) * 100) : 0;
+
+    $$('[data-prep-panel]').filter((panel) => panel.dataset.prepPanel === event.id).forEach((panel) => {
+      const countNode = panel.querySelector("[data-prep-count]");
+      const meter = panel.querySelector(".chain-preparation-meter");
+      const fill = meter?.querySelector("span");
+      if (countNode) countNode.textContent = `${count} of ${event.expectations.length} ready`;
+      if (meter) meter.setAttribute("aria-valuenow", String(count));
+      if (fill) fill.style.setProperty("--chain-preparation-progress", `${percent}%`);
+      panel.classList.toggle("is-complete", count === event.expectations.length);
+    });
+
+    return count;
   };
 
   /* ── Navigation ────────────────────────────────────────────── */
@@ -903,11 +1037,13 @@
     scheduleStatus.classList.remove("is-error");
     announceTimer = window.setTimeout(() => {
       scheduleStatus.textContent = defaultStatusMessage();
+      scheduleStatus.classList.toggle("is-error", state.loadError || state.refreshError);
     }, 6000);
   };
 
   const defaultStatusMessage = () => {
     if (state.loadError) return "The published schedule could not be loaded. Check Discord for the latest chain announcement.";
+    if (state.refreshError) return "The schedule could not be refreshed. Showing the last successful update.";
     const updated = formatUpdated();
     return updated ? `Council schedule last updated ${updated}.` : "Council schedule loaded.";
   };
@@ -979,6 +1115,25 @@
     if (event.target.closest("[data-download-all]")) downloadAll();
   });
 
+  document.addEventListener("change", (event) => {
+    const checkbox = event.target.closest("[data-prep-check]");
+    if (!checkbox) return;
+    const chainEvent = state.events.find((item) => item.id === checkbox.dataset.eventId);
+    const item = chainEvent?.expectations[Number(checkbox.dataset.prepIndex)];
+    if (!chainEvent || !item) return;
+
+    const completed = new Set(state.preparation[chainEvent.id] || []);
+    if (checkbox.checked) completed.add(item);
+    else completed.delete(item);
+
+    state.preparation[chainEvent.id] = [...completed];
+    writeStorage(PREPARATION_KEY, JSON.stringify(state.preparation));
+    const count = renderPreparationProgress(chainEvent);
+    announce(count === chainEvent.expectations.length
+      ? `${chainEvent.title} preparation complete.`
+      : `${count} of ${chainEvent.expectations.length} preparation items complete.`);
+  });
+
   upcomingList.addEventListener("click", (event) => {
     const upcomingButton = event.target.closest("[data-upcoming-date]");
     if (!upcomingButton) return;
@@ -1015,7 +1170,35 @@
     return true;
   };
 
+  const scheduleSignature = (schedule) => JSON.stringify({
+    updatedAt: schedule.updatedAt,
+    events: schedule.events.map((event) => ({
+      id: event.id,
+      title: event.title,
+      start: event.start.toISOString(),
+      end: event.end.toISOString(),
+      status: event.status,
+      target: event.target,
+      lead: event.lead,
+      rallyPoint: event.rallyPoint,
+      notes: event.notes,
+      expectations: event.expectations,
+      briefingUrl: event.briefingUrl
+    }))
+  });
+
   const loadSchedule = async ({ silent = false } = {}) => {
+    if (!silent) {
+      state.isLoading = true;
+      calendarSection?.setAttribute("aria-busy", "true");
+      if (scheduleRetry) scheduleRetry.hidden = true;
+      if (scheduleStatus) {
+        scheduleStatus.textContent = "Loading the latest council schedule…";
+        scheduleStatus.classList.remove("is-error");
+      }
+      renderAll();
+    }
+
     try {
       const response = await fetch("data/chain-schedule.json", {
         headers: { Accept: "application/json" },
@@ -1023,12 +1206,14 @@
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const loaded = normaliseSchedule(await response.json());
-      const changed = JSON.stringify(loaded.events.map((event) => event.id))
-        !== JSON.stringify(state.events.map((event) => event.id));
+      const changed = scheduleSignature(loaded) !== scheduleSignature(state.schedule);
 
       state.schedule = loaded;
       state.events = loaded.events;
       state.loadError = false;
+      state.refreshError = false;
+      state.isLoading = false;
+      state.hasLoaded = true;
 
       /* On first load, open on the next operation unless a link named a date. */
       if (!silent && !applyHashDate()) {
@@ -1045,21 +1230,35 @@
           ? "The schedule was updated by council just now."
           : defaultStatusMessage();
       }
+      if (scheduleRetry) scheduleRetry.hidden = true;
     } catch (error) {
       console.error("Chain schedule could not be loaded.", error);
-      if (!silent) {
+      if (!silent && !state.hasLoaded) {
         state.schedule = DEFAULT_SCHEDULE;
         state.events = [];
         state.loadError = true;
+        state.refreshError = false;
+        state.isLoading = false;
+        if (scheduleStatus) {
+          scheduleStatus.textContent = defaultStatusMessage();
+          scheduleStatus.classList.add("is-error");
+        }
+      } else {
+        state.isLoading = false;
+        state.refreshError = true;
         if (scheduleStatus) {
           scheduleStatus.textContent = defaultStatusMessage();
           scheduleStatus.classList.add("is-error");
         }
       }
+      if (scheduleRetry) scheduleRetry.hidden = false;
     }
 
+    calendarSection?.removeAttribute("aria-busy");
     renderAll();
   };
+
+  scheduleRetry?.addEventListener("click", () => loadSchedule());
 
   window.addEventListener("hashchange", () => {
     if (applyHashDate()) {
@@ -1069,7 +1268,6 @@
   });
 
   applyHashDate();
-  renderAll();
   loadSchedule();
 
   /* The hero countdown is the reason members open this page. */

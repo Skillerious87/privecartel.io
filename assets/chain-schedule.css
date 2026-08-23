@@ -44,6 +44,44 @@
   background: currentColor;
 }
 
+.chain-noscript {
+  position: relative;
+  z-index: 3;
+  padding-top: calc(var(--nav-h, 72px) + 0.75rem);
+  border-bottom: 1px solid rgba(231, 164, 154, 0.28);
+  background: rgba(44, 20, 18, 0.96);
+}
+
+.chain-noscript .chain-shell {
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.7rem;
+}
+
+.chain-noscript i {
+  color: #efb7af;
+}
+
+.chain-noscript p {
+  flex: 1 1 20rem;
+  margin: 0;
+  color: rgba(240, 236, 223, 0.72);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.chain-noscript strong {
+  color: #fff;
+}
+
+.chain-noscript a {
+  color: #efb7af;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
 /* Hero --------------------------------------------------------- */
 .chain-hero {
   position: relative;
@@ -871,6 +909,147 @@
   font-size: 0.65rem;
 }
 
+.chain-preparation {
+  margin-top: 0.9rem;
+  padding: 0.85rem 0 0;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.16);
+}
+
+.chain-preparation > header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.chain-preparation h5,
+.chain-preparation header p {
+  margin: 0;
+}
+
+.chain-preparation h5 {
+  color: rgba(240, 236, 223, 0.88);
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.chain-preparation header p {
+  margin-top: 0.12rem;
+  color: rgba(240, 236, 223, 0.38);
+  font-size: 0.62rem;
+}
+
+.chain-preparation header strong {
+  color: var(--accent-light);
+  font-size: 0.65rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.chain-preparation.is-complete header strong {
+  color: #94e1b1;
+}
+
+.chain-preparation-meter {
+  height: 0.25rem;
+  margin-top: 0.65rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(240, 236, 223, 0.08);
+}
+
+.chain-preparation-meter > span {
+  width: var(--chain-preparation-progress, 0%);
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.3);
+  transition: width 0.22s ease;
+}
+
+.chain-preparation.is-complete .chain-preparation-meter > span {
+  background: linear-gradient(90deg, #5dbb82, #94e1b1);
+  box-shadow: 0 0 12px rgba(120, 213, 156, 0.28);
+}
+
+.chain-preparation .chain-event-checklist {
+  gap: 0.3rem;
+  margin-top: 0.65rem;
+}
+
+.chain-preparation .chain-event-checklist li {
+  display: block;
+}
+
+.chain-preparation .chain-event-checklist label {
+  position: relative;
+  min-height: 2.35rem;
+  display: grid;
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: rgba(240, 236, 223, 0.62);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.chain-preparation .chain-event-checklist label:hover {
+  border-color: rgba(var(--accent-rgb), 0.18);
+  background: rgba(var(--accent-rgb), 0.04);
+  color: rgba(240, 236, 223, 0.82);
+}
+
+.chain-preparation .chain-event-checklist input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
+.chain-preparation-check {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  color: transparent;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.chain-preparation-check i {
+  margin: 0;
+  color: inherit;
+  font-size: 0.58rem;
+}
+
+.chain-preparation .chain-event-checklist input:focus-visible + .chain-preparation-check {
+  outline: 2px solid rgba(var(--accent-rgb), 0.48);
+  outline-offset: 2px;
+}
+
+.chain-preparation .chain-event-checklist input:checked + .chain-preparation-check {
+  border-color: rgba(120, 213, 156, 0.58);
+  background: rgba(120, 213, 156, 0.16);
+  color: #94e1b1;
+}
+
+.chain-preparation .chain-event-checklist input:checked ~ span:last-child {
+  color: rgba(240, 236, 223, 0.42);
+  text-decoration: line-through;
+  text-decoration-color: rgba(120, 213, 156, 0.42);
+}
+
 .chain-event-actions {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -914,14 +1093,50 @@
 
 .chain-load-status {
   min-height: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem;
   margin: 0.8rem 0 0;
   color: rgba(240, 236, 223, 0.42);
   font-size: 0.74rem;
   text-align: right;
 }
 
-.chain-load-status.is-error {
+.chain-load-status > p {
+  margin: 0;
+}
+
+.chain-load-status > p.is-error {
   color: #e7a49a;
+}
+
+.chain-load-status button {
+  min-height: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.38rem 0.7rem;
+  border: 1px solid rgba(231, 164, 154, 0.38);
+  border-radius: 5px;
+  background: rgba(231, 164, 154, 0.07);
+  color: #efb7af;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.chain-load-status button[hidden] {
+  display: none;
+}
+
+.chain-load-status button:is(:hover, :focus-visible) {
+  border-color: #efb7af;
+  background: rgba(231, 164, 154, 0.12);
+  outline: 2px solid rgba(231, 164, 154, 0.2);
+  outline-offset: 2px;
 }
 
 /* Upcoming ----------------------------------------------------- */
@@ -2470,4 +2685,68 @@
    card against empty space; auto-fit keeps the row honest. */
 .chain-upcoming-list {
   grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+}
+
+/* Loading and recovery states ---------------------------------- */
+.chain-summary-tile.is-loading strong,
+.chain-summary-tile.is-loading i {
+  color: rgba(240, 236, 223, 0.28);
+}
+
+.chain-summary-tile.is-loading i {
+  animation: chain-loading-pulse 1.4s ease-in-out infinite;
+}
+
+.chain-upcoming-empty.is-loading {
+  min-height: 8rem;
+}
+
+.chain-upcoming-empty.is-loading strong {
+  color: rgba(240, 236, 223, 0.78);
+}
+
+.chain-countdown-idle i {
+  margin-right: 0.38rem;
+  color: rgba(var(--accent-rgb), 0.75);
+}
+
+@keyframes chain-loading-pulse {
+  0%, 100% { opacity: 0.34; }
+  50% { opacity: 0.82; }
+}
+
+@media (max-width: 640px) {
+  .chain-load-status {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .chain-preparation > header {
+    align-items: start;
+  }
+}
+
+@media (max-width: 430px) {
+  .chain-preparation > header {
+    display: grid;
+  }
+
+  .chain-preparation .chain-event-checklist label {
+    padding-inline: 0.35rem;
+  }
+
+  .chain-noscript .chain-shell {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chain-preparation-meter > span,
+  .chain-summary-tile.is-loading i,
+  .chain-detail-loading .fa-spin,
+  .chain-upcoming-empty .fa-spin,
+  .chain-countdown-idle .fa-spin {
+    animation: none;
+    transition: none;
+  }
 }

@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="assets/editorial.css">
   <link rel="stylesheet" href="assets/mobile.css">
-  <link rel="stylesheet" href="assets/chain-schedule.css?v=20260823-1">
+  <link rel="stylesheet" href="assets/chain-schedule.css?v=20260823-2">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -47,6 +47,16 @@
 <body class="chain-schedule-page" data-hide-recruitment-banner="true">
   <script type="module" src="assets/navbar.js"></script>
   <pc-navbar></pc-navbar>
+
+  <noscript>
+    <div class="chain-noscript" role="status">
+      <div class="chain-shell">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <p><strong>JavaScript is required to load the live chain calendar.</strong> Check Discord for the latest operation window and council updates.</p>
+        <a href="https://discord.gg/DmxrRAjBdk" target="_blank" rel="noopener noreferrer">Open Discord</a>
+      </div>
+    </div>
+  </noscript>
 
   <header class="chain-hero" aria-labelledby="chain-page-title">
     <div class="chain-hero-orbit" aria-hidden="true"></div>
@@ -208,7 +218,12 @@
           <div data-agenda-list></div>
         </div>
 
-        <p class="chain-load-status" data-schedule-status role="status" aria-live="polite"></p>
+        <div class="chain-load-status">
+          <p data-schedule-status role="status" aria-live="polite">Loading the council schedule&hellip;</p>
+          <button type="button" data-schedule-retry hidden>
+            <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> Try again
+          </button>
+        </div>
       </div>
     </section>
 
@@ -270,6 +285,6 @@
   </footer>
 
   <script src="assets/script.js?v=20260822-4"></script>
-  <script src="assets/chain-schedule.js?v=20260823-1" defer></script>
+  <script src="assets/chain-schedule.js?v=20260823-2" defer></script>
 </body>
 </html>
