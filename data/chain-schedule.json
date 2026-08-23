@@ -2,19 +2,27 @@
   "schemaVersion": 1,
   "timeZone": "UTC",
   "timeZoneLabel": "TCT",
-  "updatedAt": "2026-08-23T10:21:54.625Z",
+  "updatedAt": "2026-08-23T11:03:46.530Z",
   "events": [
     {
-      "id": "test-chain-2026-08-23",
-      "title": "Test Chain",
-      "start": "2026-08-25T11:00:00.000Z",
-      "end": "2026-08-25T13:00:00.000Z",
+      "id": "edvd-xanax-2026-08-28",
+      "title": "EDVD + Xanax",
+      "start": "2026-08-28T15:00:00.000Z",
+      "end": "2026-08-28T18:00:00.000Z",
       "status": "planning",
       "target": "250",
-      "lead": "Skillerious",
+      "lead": "ForeverHydrox",
       "rallyPoint": "Faction chat and Discord",
-      "notes": "Watch faction channels for the final operational brief.",
-      "expectations": [],
+      "notes": "250-hit chain focused on steady participation and maintaining the timer. Please arrive with energy stacked and targets prepared. Follow live instructions in Discord, call out any availability issues early, and avoid taking bonus hits unless assigned by the chain lead.",
+      "expectations": [
+        "Stack energy before the start",
+        "Prepare a list of suitable targets",
+        "Have Xanax and points available if required",
+        "Join Discord before the opening call",
+        "Check that you are out of hospital and jail",
+        "Avoid unnecessary attacks before the chain",
+        "Watch the chain timer between hits"
+      ],
       "briefingUrl": ""
     }
   ]
