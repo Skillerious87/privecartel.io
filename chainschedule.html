@@ -27,17 +27,17 @@
   <link rel="stylesheet" href="assets/style.css">
   <link rel="stylesheet" href="assets/editorial.css">
   <link rel="stylesheet" href="assets/mobile.css">
-  <link rel="stylesheet" href="assets/chain-schedule.css?v=20260822-2">
+  <link rel="stylesheet" href="assets/chain-schedule.css?v=20260823-1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Priv\u00e9 Cartel Chain Schedule",
+    "name": "Privé Cartel Chain Schedule",
     "url": "https://www.privecartel.com/chainschedule.html",
-    "description": "The official Priv\u00e9 Cartel calendar for scheduled faction chains.",
+    "description": "The official Privé Cartel calendar for scheduled faction chains.",
     "isPartOf": {
       "@type": "WebSite",
-      "name": "Priv\u00e9 Cartel",
+      "name": "Privé Cartel",
       "url": "https://www.privecartel.com/"
     },
     "inLanguage": "en-GB"
@@ -70,16 +70,37 @@
             <h2 id="next-chain-heading" data-next-title>Loading schedule&hellip;</h2>
           </div>
         </div>
+
+        <div class="chain-countdown" data-next-countdown role="timer" aria-live="off">
+          <span class="chain-countdown-idle">Checking the council calendar&hellip;</span>
+        </div>
+
         <p class="chain-next-time" data-next-time>Checking the council calendar.</p>
+        <p class="chain-next-alt-time" data-next-alt-time></p>
+
         <dl>
           <div><dt>Status</dt><dd data-next-status>Loading</dd></div>
           <div><dt>Target</dt><dd data-next-target>&mdash;</dd></div>
-          <div><dt>Countdown</dt><dd data-next-countdown>&mdash;</dd></div>
+          <div><dt>Chain lead</dt><dd data-next-lead>&mdash;</dd></div>
         </dl>
+
+        <div class="chain-next-actions" data-next-actions hidden>
+          <button type="button" data-hero-action="download"><i class="fa-regular fa-calendar-plus" aria-hidden="true"></i> Add to calendar</button>
+          <button type="button" data-hero-action="copy"><i class="fa-regular fa-copy" aria-hidden="true"></i> Copy brief</button>
+        </div>
+
         <a href="#calendar" class="chain-jump-link">Open calendar <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
       </aside>
     </div>
   </header>
+
+  <div class="chain-live-banner" data-live-banner hidden role="status">
+    <div class="chain-shell">
+      <span class="chain-live-dot" aria-hidden="true"></span>
+      <p data-live-banner-copy></p>
+      <a href="#calendar">View window <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+  </div>
 
   <main id="main-content">
     <section class="chain-calendar-section" id="calendar" aria-labelledby="calendar-section-title">
@@ -95,7 +116,33 @@
           </div>
         </header>
 
-        <div class="chain-schedule-layout">
+        <div class="chain-summary" data-schedule-summary aria-label="Schedule summary"></div>
+
+        <div class="chain-controls">
+          <div class="chain-control-group" role="group" aria-label="Display times in">
+            <span class="chain-control-label"><i class="fa-regular fa-clock" aria-hidden="true"></i> Times in</span>
+            <div class="chain-segmented">
+              <button type="button" data-zone-option="tct" aria-pressed="true"><span>TCT</span></button>
+              <button type="button" data-zone-option="local" aria-pressed="false"><span>Local</span></button>
+            </div>
+          </div>
+
+          <div class="chain-control-group" role="group" aria-label="Schedule view">
+            <span class="chain-control-label"><i class="fa-solid fa-table-cells" aria-hidden="true"></i> View</span>
+            <div class="chain-segmented">
+              <button type="button" data-view-option="calendar" aria-pressed="true"><span>Calendar</span></button>
+              <button type="button" data-view-option="agenda" aria-pressed="false"><span>Agenda</span></button>
+            </div>
+          </div>
+
+          <button type="button" class="chain-control-action" data-download-all>
+            <i class="fa-solid fa-download" aria-hidden="true"></i> Download all upcoming
+          </button>
+        </div>
+
+        <p class="chain-zone-note" data-zone-note></p>
+
+        <div class="chain-schedule-layout" data-view-panel="calendar">
           <section class="chain-calendar-card" aria-label="Chain calendar">
             <header class="chain-calendar-toolbar">
               <div>
@@ -143,12 +190,22 @@
             </div>
           </section>
 
-          <aside class="chain-date-detail" data-date-detail tabindex="-1" aria-live="polite" aria-labelledby="selectedDateTitle">
+          <aside class="chain-date-detail" data-date-detail tabindex="-1" aria-labelledby="selectedDateTitle">
             <div class="chain-detail-loading">
               <span aria-hidden="true"><i class="fa-solid fa-spinner fa-spin"></i></span>
               <p>Loading selected date&hellip;</p>
             </div>
           </aside>
+        </div>
+
+        <div class="chain-agenda" data-view-panel="agenda" hidden>
+          <div class="chain-agenda-toolbar">
+            <p>Every published operation in order. Times follow the setting above.</p>
+            <button type="button" class="chain-control-action" data-toggle-past aria-pressed="false">
+              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> <span>Show past operations</span>
+            </button>
+          </div>
+          <div data-agenda-list></div>
         </div>
 
         <p class="chain-load-status" data-schedule-status role="status" aria-live="polite"></p>
@@ -213,6 +270,6 @@
   </footer>
 
   <script src="assets/script.js?v=20260822-4"></script>
-  <script src="assets/chain-schedule.js?v=20260822-2" defer></script>
+  <script src="assets/chain-schedule.js?v=20260823-1" defer></script>
 </body>
 </html>

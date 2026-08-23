@@ -29,7 +29,7 @@
   gap: 0.55rem;
   margin: 0;
   color: var(--accent);
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   line-height: 1.5;
@@ -164,7 +164,7 @@
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.22);
   color: rgba(240, 236, 223, 0.6);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   font-weight: 600;
 }
 
@@ -220,7 +220,7 @@
 .chain-next-brief-top p {
   margin: 0;
   color: rgba(var(--accent-rgb), 0.7);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -238,7 +238,7 @@
 .chain-next-time {
   margin: 1rem 0;
   color: var(--chain-muted);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   line-height: 1.65;
 }
 
@@ -257,13 +257,13 @@
 
 .chain-next-brief dt {
   color: rgba(240, 236, 223, 0.46);
-  font-size: 0.68rem;
+  font-size: 0.78rem;
 }
 
 .chain-next-brief dd {
   margin: 0;
   color: rgba(240, 236, 223, 0.88);
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 650;
   text-align: right;
 }
@@ -278,7 +278,7 @@
   gap: 1rem;
   margin-top: 0.6rem;
   color: var(--accent-light);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 650;
   text-decoration: none;
 }
@@ -355,13 +355,13 @@
 
 .chain-time-standard strong {
   color: rgba(240, 236, 223, 0.88);
-  font-size: 0.73rem;
+  font-size: 0.82rem;
 }
 
 .chain-time-standard span {
   margin-top: 0.12rem;
   color: rgba(240, 236, 223, 0.48);
-  font-size: 0.63rem;
+  font-size: 0.74rem;
   line-height: 1.5;
 }
 
@@ -401,7 +401,7 @@
 .chain-calendar-toolbar p {
   margin: 0;
   color: rgba(var(--accent-rgb), 0.66);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -439,7 +439,7 @@
   width: auto;
   padding-inline: 0.85rem;
   color: var(--accent-light);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
@@ -467,7 +467,7 @@
   height: 2rem;
   padding: 0;
   color: rgba(240, 236, 223, 0.42);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-align: center;
@@ -541,21 +541,16 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   font-weight: 700;
   line-height: 1;
 }
 
-.chain-day-event-name {
+.chain-day-chips {
   min-width: 0;
-  align-self: end;
-  overflow: hidden;
-  color: rgba(240, 236, 223, 0.7);
-  font-size: 0.55rem;
-  font-weight: 600;
-  line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: grid;
+  align-content: end;
+  gap: 0.2rem;
 }
 
 .chain-day-markers {
@@ -615,13 +610,13 @@
   align-items: center;
   gap: 0.35rem;
   color: rgba(240, 236, 223, 0.54);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
 }
 
 .chain-calendar-footer > p {
   margin: 0;
   color: rgba(240, 236, 223, 0.42);
-  font-size: 0.57rem;
+  font-size: 0.7rem;
   line-height: 1.55;
   text-align: right;
 }
@@ -675,7 +670,7 @@
   max-width: 24rem;
   margin: 0;
   color: var(--chain-muted);
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   line-height: 1.65;
 }
 
@@ -713,7 +708,7 @@
 .chain-detail-head p {
   margin: 0;
   color: rgba(var(--accent-rgb), 0.68);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -758,7 +753,7 @@
   border-radius: 999px;
   background: rgba(var(--accent-rgb), 0.07);
   color: var(--accent-light);
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -792,7 +787,7 @@
 
 .chain-event-duration {
   color: rgba(240, 236, 223, 0.4);
-  font-size: 0.57rem;
+  font-size: 0.7rem;
   font-weight: 600;
 }
 
@@ -807,14 +802,14 @@
 .chain-event-primary-time {
   margin: 0.3rem 0 0;
   color: var(--accent-light);
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   font-weight: 650;
 }
 
 .chain-event-local-time {
   margin: 0.15rem 0 0;
   color: rgba(240, 236, 223, 0.46);
-  font-size: 0.59rem;
+  font-size: 0.7rem;
   line-height: 1.5;
 }
 
@@ -833,13 +828,13 @@
 
 .chain-event-meta dt {
   color: rgba(240, 236, 223, 0.4);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
 }
 
 .chain-event-meta dd {
   margin: 0;
   color: rgba(240, 236, 223, 0.78);
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   font-weight: 600;
   line-height: 1.45;
   text-align: right;
@@ -849,7 +844,7 @@
 .chain-event-note {
   margin: 0.72rem 0 0;
   color: var(--chain-muted);
-  font-size: 0.65rem;
+  font-size: 0.74rem;
   line-height: 1.62;
 }
 
@@ -866,14 +861,14 @@
   grid-template-columns: 1rem minmax(0, 1fr);
   gap: 0.42rem;
   color: rgba(240, 236, 223, 0.6);
-  font-size: 0.61rem;
+  font-size: 0.74rem;
   line-height: 1.5;
 }
 
 .chain-event-checklist i {
   margin-top: 0.2rem;
   color: rgba(var(--accent-rgb), 0.72);
-  font-size: 0.55rem;
+  font-size: 0.65rem;
 }
 
 .chain-event-actions {
@@ -896,7 +891,7 @@
   background: rgba(var(--accent-rgb), 0.065);
   color: var(--accent-light) !important;
   font: inherit;
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   font-weight: 650;
   text-decoration: none !important;
   cursor: pointer;
@@ -912,7 +907,7 @@
 .chain-detail-updated {
   margin: 0;
   color: rgba(240, 236, 223, 0.38);
-  font-size: 0.55rem;
+  font-size: 0.65rem;
   line-height: 1.5;
   text-align: center;
 }
@@ -921,7 +916,7 @@
   min-height: 1.2rem;
   margin: 0.8rem 0 0;
   color: rgba(240, 236, 223, 0.42);
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   text-align: right;
 }
 
@@ -963,7 +958,7 @@
 
 .chain-upcoming-date {
   color: rgba(var(--accent-rgb), 0.68);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -983,7 +978,7 @@
   justify-content: space-between;
   gap: 0.6rem;
   color: var(--chain-muted);
-  font-size: 0.63rem;
+  font-size: 0.74rem;
 }
 
 .chain-upcoming-card > span:last-child i {
@@ -1030,7 +1025,7 @@
   max-width: 42rem;
   margin: 0.25rem 0 0;
   color: var(--chain-muted);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   line-height: 1.65;
 }
 
@@ -1057,7 +1052,7 @@
 
 .chain-readiness-grid li > span {
   color: rgba(var(--accent-rgb), 0.48);
-  font-size: 0.62rem;
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.13em;
 }
@@ -1085,7 +1080,7 @@
 .chain-readiness-grid p {
   margin: 0;
   color: var(--chain-muted);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   line-height: 1.72;
 }
 
@@ -1118,13 +1113,13 @@
 
 .chain-council-note strong {
   color: var(--text-1);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
 }
 
 .chain-council-note p {
   margin: 0.14rem 0 0;
   color: var(--chain-muted);
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   line-height: 1.55;
 }
 
@@ -1242,7 +1237,7 @@
   }
 
   .chain-calendar-table th {
-    font-size: 0.52rem;
+    font-size: 0.65rem;
   }
 
   .chain-day {
@@ -1255,10 +1250,10 @@
   .chain-day-number {
     width: 1.55rem;
     height: 1.55rem;
-    font-size: 0.64rem;
+    font-size: 0.74rem;
   }
 
-  .chain-day-event-name {
+  .chain-day-chips {
     display: none;
   }
 
@@ -1304,7 +1299,7 @@
   }
 
   .chain-kicker {
-    font-size: 0.61rem;
+    font-size: 0.74rem;
     letter-spacing: 0.14em;
   }
 
@@ -1348,7 +1343,7 @@
 
   .chain-calendar-table th {
     height: 1.75rem;
-    font-size: 0.47rem;
+    font-size: 0.6rem;
   }
 
   .chain-day {
@@ -1359,7 +1354,7 @@
   .chain-day-number {
     width: 1.4rem;
     height: 1.4rem;
-    font-size: 0.59rem;
+    font-size: 0.7rem;
   }
 
   .chain-day-markers {
@@ -1419,7 +1414,7 @@
   }
 
   .chain-legend li {
-    font-size: 0.53rem;
+    font-size: 0.65rem;
   }
 }
 
@@ -1442,4 +1437,639 @@
   .chain-upcoming-card {
     transition: none;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LIVE COUNTDOWN, TIMEZONE CONTROLS, AGENDA
+   Added alongside the original calendar so the page works as a
+   live operations board rather than a static month grid.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Hero countdown ------------------------------------------------ */
+.chain-countdown {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin: 0.35rem 0 0.9rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border-radius: 6px;
+  background:
+    linear-gradient(140deg, rgba(var(--accent-rgb), 0.1), transparent 62%),
+    rgba(0, 0, 0, 0.3);
+}
+
+.chain-countdown-label {
+  flex: 1 0 100%;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: rgba(var(--accent-rgb), 0.85);
+}
+
+.chain-countdown-part {
+  display: grid;
+  justify-items: center;
+  gap: 0.1rem;
+  min-width: 3.1rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.chain-countdown-part b {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.75rem, 4.4vw, 2.5rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--accent-light);
+}
+
+.chain-countdown-part small {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(240, 236, 223, 0.5);
+}
+
+.chain-countdown[data-mode="live"] {
+  border-color: rgba(120, 213, 156, 0.4);
+  background:
+    linear-gradient(140deg, rgba(120, 213, 156, 0.12), transparent 62%),
+    rgba(0, 0, 0, 0.3);
+}
+
+.chain-countdown[data-mode="live"] .chain-countdown-label { color: #8fe0b1; }
+.chain-countdown[data-mode="live"] .chain-countdown-part b { color: #8fe0b1; }
+
+.chain-countdown-idle {
+  padding: 0.4rem 0;
+  font-size: 0.74rem;
+  color: rgba(240, 236, 223, 0.55);
+}
+
+.chain-next-alt-time {
+  margin: -0.35rem 0 0.2rem;
+  font-size: 0.7rem;
+  color: rgba(240, 236, 223, 0.5);
+}
+
+.chain-next-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+}
+
+.chain-next-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.32);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(240, 236, 223, 0.85);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+
+.chain-next-actions button:is(:hover, :focus-visible) {
+  border-color: var(--accent-light);
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent-light);
+}
+
+/* Live banner --------------------------------------------------- */
+.chain-live-banner {
+  position: relative;
+  z-index: 2;
+  border-block: 1px solid rgba(120, 213, 156, 0.35);
+  background:
+    linear-gradient(90deg, rgba(120, 213, 156, 0.16), rgba(120, 213, 156, 0.04) 60%),
+    rgba(10, 16, 13, 0.9);
+}
+
+.chain-live-banner .chain-shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.75rem;
+}
+
+.chain-live-banner p {
+  flex: 1 1 16rem;
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #cdeedd;
+}
+
+.chain-live-banner a,
+.chain-live-banner a:link,
+.chain-live-banner a:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8fe0b1;
+  text-decoration: none;
+}
+
+.chain-live-banner a:is(:hover, :focus-visible) { color: #b6f0cd; }
+
+.chain-live-dot {
+  flex: none;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #78d59c;
+  box-shadow: 0 0 0 0 rgba(120, 213, 156, 0.55);
+  animation: chain-live-pulse 2s ease-out infinite;
+}
+
+@keyframes chain-live-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(120, 213, 156, 0.5); }
+  70% { box-shadow: 0 0 0 0.75rem rgba(120, 213, 156, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(120, 213, 156, 0); }
+}
+
+.chain-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.24rem 0.62rem;
+  border: 1px solid rgba(120, 213, 156, 0.45);
+  border-radius: 999px;
+  background: rgba(120, 213, 156, 0.12);
+  color: #8fe0b1;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.chain-live-pill i {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #78d59c;
+  animation: chain-live-pulse 2s ease-out infinite;
+}
+
+/* Summary strip -------------------------------------------------- */
+.chain-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
+}
+
+.chain-summary-tile {
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  padding: 0.95rem 0.7rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.018);
+  text-align: center;
+}
+
+.chain-summary-tile i { font-size: 0.86rem; color: rgba(var(--accent-rgb), 0.75); }
+
+.chain-summary-tile strong {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--text-1);
+}
+
+.chain-summary-tile span {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(240, 236, 223, 0.5);
+}
+
+/* Controls ------------------------------------------------------- */
+.chain-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.4rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.chain-control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.chain-control-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(240, 236, 223, 0.45);
+}
+
+.chain-segmented {
+  display: inline-flex;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.chain-segmented button {
+  padding: 0.36rem 0.85rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(240, 236, 223, 0.6);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.chain-segmented button:is(:hover, :focus-visible) { color: var(--text-1); }
+
+.chain-segmented button.is-active {
+  background: rgba(var(--accent-rgb), 0.16);
+  color: var(--accent-light);
+}
+
+.chain-control-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: auto;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.26);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(240, 236, 223, 0.82);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
+
+.chain-control-action:is(:hover, :focus-visible) {
+  border-color: var(--accent-light);
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent-light);
+}
+
+.chain-control-action[aria-pressed="true"] {
+  border-color: var(--accent-light);
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--accent-light);
+}
+
+.chain-zone-note {
+  margin: 0.6rem 0 1.1rem;
+  font-size: 0.7rem;
+  color: rgba(240, 236, 223, 0.45);
+}
+
+/* Calendar day chips --------------------------------------------- */
+.chain-day-chip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.3rem;
+  padding: 0.16rem 0.32rem;
+  overflow: hidden;
+  border-left: 2px solid var(--accent-light);
+  border-radius: 2px;
+  background: rgba(var(--accent-rgb), 0.12);
+}
+
+.chain-day-chip b {
+  font-size: 0.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-light);
+}
+
+.chain-day-chip span {
+  overflow: hidden;
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: rgba(240, 236, 223, 0.78);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.chain-day-chip.is-planning { border-left-color: #8fb8df; background: rgba(143, 184, 223, 0.1); }
+.chain-day-chip.is-planning b { color: #8fb8df; }
+.chain-day-chip.is-completed { border-left-color: #78d59c; background: rgba(120, 213, 156, 0.09); }
+.chain-day-chip.is-completed b { color: #78d59c; }
+.chain-day-chip.is-cancelled { border-left-color: #dc8f84; background: rgba(220, 143, 132, 0.09); }
+.chain-day-chip.is-cancelled b { color: #dc8f84; }
+.chain-day-chip.is-cancelled span { text-decoration: line-through; opacity: 0.7; }
+
+.chain-day-chip.is-live {
+  border-left-color: #78d59c;
+  background: rgba(120, 213, 156, 0.16);
+}
+
+.chain-day-more {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(var(--accent-rgb), 0.75);
+}
+
+.chain-day.is-live {
+  border-color: rgba(120, 213, 156, 0.5);
+  background: rgba(120, 213, 156, 0.07);
+}
+
+.chain-day.is-live .chain-day-number {
+  background: #78d59c;
+  color: #06120b;
+}
+
+/* Detail panel jump --------------------------------------------- */
+.chain-detail-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--accent-light);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.chain-detail-jump:is(:hover, :focus-visible) {
+  border-color: var(--accent-light);
+  background: rgba(var(--accent-rgb), 0.1);
+}
+
+.chain-event-card.is-live {
+  border-color: rgba(120, 213, 156, 0.4);
+  background:
+    linear-gradient(140deg, rgba(120, 213, 156, 0.08), transparent 55%),
+    rgba(255, 255, 255, 0.02);
+}
+
+.chain-event-remaining {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.15rem 0 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #8fe0b1;
+}
+
+.chain-event-local-time {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chain-upcoming-card.is-live {
+  border-color: rgba(120, 213, 156, 0.42);
+  background: rgba(120, 213, 156, 0.07);
+}
+
+/* Agenda --------------------------------------------------------- */
+.chain-agenda-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.chain-agenda-toolbar p {
+  flex: 1 1 16rem;
+  margin: 0;
+  font-size: 0.74rem;
+  color: rgba(240, 236, 223, 0.55);
+}
+
+.chain-agenda-group + .chain-agenda-group { margin-top: 2rem; }
+
+.chain-agenda-month {
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.2);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.4rem, 3vw, 1.85rem);
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.chain-agenda-items {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chain-agenda-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1rem 3.4rem minmax(0, 1fr);
+  gap: 0.9rem;
+  padding: 1.05rem 1.15rem 1.05rem 0;
+  border: 1px solid rgba(var(--accent-rgb), 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.chain-agenda-item.is-past { opacity: 0.62; }
+
+.chain-agenda-item.is-live {
+  border-color: rgba(120, 213, 156, 0.4);
+  background:
+    linear-gradient(120deg, rgba(120, 213, 156, 0.08), transparent 50%),
+    rgba(255, 255, 255, 0.018);
+}
+
+/* A vertical rail turns the list into a timeline. */
+.chain-agenda-rail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.chain-agenda-rail::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(var(--accent-rgb), 0.35), transparent);
+  transform: translateX(-50%);
+}
+
+.chain-agenda-rail > span {
+  position: relative;
+  align-self: center;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--accent-light);
+  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
+}
+
+.chain-agenda-item.is-live .chain-agenda-rail > span {
+  background: #78d59c;
+  box-shadow: 0 0 10px rgba(120, 213, 156, 0.6);
+}
+
+.chain-agenda-date {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 0.1rem;
+  padding-top: 0.15rem;
+}
+
+.chain-agenda-date strong {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--accent-light);
+}
+
+.chain-agenda-date small {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240, 236, 223, 0.45);
+}
+
+.chain-agenda-body { min-width: 0; display: grid; gap: 0.5rem; }
+
+.chain-agenda-body h4 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.chain-agenda-time {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-light);
+}
+
+.chain-agenda-note {
+  margin: 0;
+  font-size: 0.74rem;
+  line-height: 1.65;
+  color: rgba(240, 236, 223, 0.6);
+}
+
+.chain-agenda-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+}
+
+.chain-agenda-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  color: rgba(240, 236, 223, 0.55);
+}
+
+.chain-agenda-meta i { color: rgba(var(--accent-rgb), 0.7); }
+
+/* Responsive ----------------------------------------------------- */
+@media (max-width: 900px) {
+  .chain-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chain-controls { gap: 0.75rem 1rem; }
+  .chain-control-action { margin-left: 0; width: 100%; justify-content: center; }
+}
+
+@media (max-width: 640px) {
+  .chain-control-group { flex: 1 1 100%; justify-content: space-between; }
+  .chain-countdown { padding: 0.8rem; }
+  .chain-countdown-part { min-width: 2.8rem; }
+  .chain-agenda-item {
+    grid-template-columns: 2.8rem minmax(0, 1fr);
+    padding: 0.95rem 1rem 0.95rem 0.9rem;
+  }
+  .chain-agenda-rail { display: none; }
+  .chain-agenda-date strong { font-size: 1.75rem; }
+  .chain-live-banner .chain-shell { gap: 0.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chain-live-dot,
+  .chain-live-pill i { animation: none; }
+}
+
+/* Print ---------------------------------------------------------- */
+@media print {
+  .chain-hero-orbit,
+  .chain-controls,
+  .chain-next-actions,
+  .chain-jump-link,
+  .chain-calendar-actions,
+  .chain-event-actions,
+  .chain-council-note a,
+  pc-navbar { display: none !important; }
+
+  .chain-schedule-page { background: #fff; color: #111; }
+
+  .chain-calendar-card,
+  .chain-date-detail,
+  .chain-event-card,
+  .chain-agenda-item,
+  .chain-summary-tile {
+    border-color: #999;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .chain-day { border-color: #bbb; }
+  .chain-hero h1, .chain-section-head h2, .chain-agenda-month { color: #111; }
+}
+
+.chain-agenda {
+  margin-top: 0.4rem;
 }

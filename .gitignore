@@ -4,3 +4,11 @@ node_modules/
 .env.*
 !.env.example
 npm-debug.log*
+
+# Chain operations dashboard — admin-only, never published to the repo.
+# These files stay on council machines; the public site must not serve them.
+chain-dashboard.html
+assets/chain-dashboard.js
+assets/chain-dashboard.css
+assets/chain-dashboard-intel.js
+assets/chain-dashboard-github.js
