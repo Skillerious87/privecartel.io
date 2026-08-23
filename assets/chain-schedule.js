@@ -17,6 +17,7 @@
   const scheduleStatus = document.querySelector("[data-schedule-status]");
   const scheduleRetry = document.querySelector("[data-schedule-retry]");
   const calendarSection = document.querySelector(".chain-calendar-section");
+  const actionToast = document.querySelector("[data-action-toast]");
 
   if (!calendarBody || !calendarMonth || !dateDetail || !upcomingList) return;
 
@@ -439,10 +440,14 @@
             <header>
               <div>
                 <h5>My preparation</h5>
-                <p>Saved on this device</p>
+                <p>Personal record</p>
               </div>
               <strong data-prep-count>${completedCount} of ${event.expectations.length} ready</strong>
             </header>
+            <p class="chain-preparation-privacy">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i>
+              <span><strong>Private to you.</strong> This checklist is for your own record. Selections are stored only in this browser and are not shared with council or other members.</span>
+            </p>
             <div class="chain-preparation-meter" role="progressbar" aria-label="Personal preparation progress" aria-valuemin="0" aria-valuemax="${event.expectations.length}" aria-valuenow="${completedCount}">
               <span style="--chain-preparation-progress: ${preparationPercent}%"></span>
             </div>
@@ -1030,15 +1035,20 @@
   };
 
   let announceTimer = 0;
+  let announceHideTimer = 0;
   const announce = (message) => {
-    if (!scheduleStatus) return;
+    if (!actionToast) return;
     window.clearTimeout(announceTimer);
-    scheduleStatus.textContent = message;
-    scheduleStatus.classList.remove("is-error");
+    window.clearTimeout(announceHideTimer);
+    actionToast.textContent = message;
+    actionToast.hidden = false;
+    window.requestAnimationFrame(() => actionToast.classList.add("is-visible"));
     announceTimer = window.setTimeout(() => {
-      scheduleStatus.textContent = defaultStatusMessage();
-      scheduleStatus.classList.toggle("is-error", state.loadError || state.refreshError);
-    }, 6000);
+      actionToast.classList.remove("is-visible");
+      announceHideTimer = window.setTimeout(() => {
+        actionToast.hidden = true;
+      }, 220);
+    }, 4200);
   };
 
   const defaultStatusMessage = () => {

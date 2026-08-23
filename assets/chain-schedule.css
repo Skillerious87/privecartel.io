@@ -950,9 +950,34 @@
   color: #94e1b1;
 }
 
+.chain-preparation-privacy {
+  display: grid;
+  grid-template-columns: 0.9rem minmax(0, 1fr);
+  gap: 0.48rem;
+  margin: 0.6rem 0 0;
+  padding: 0.5rem 0.58rem;
+  border: 1px solid rgba(143, 184, 223, 0.16);
+  border-radius: 5px;
+  background: rgba(143, 184, 223, 0.045);
+  color: rgba(240, 236, 223, 0.48);
+  font-size: 0.62rem;
+  line-height: 1.55;
+}
+
+.chain-preparation-privacy i {
+  margin-top: 0.18rem;
+  color: #8fb8df;
+  font-size: 0.68rem;
+}
+
+.chain-preparation-privacy strong {
+  color: rgba(240, 236, 223, 0.76);
+  font-weight: 650;
+}
+
 .chain-preparation-meter {
   height: 0.25rem;
-  margin-top: 0.65rem;
+  margin-top: 0.55rem;
   overflow: hidden;
   border-radius: 999px;
   background: rgba(240, 236, 223, 0.08);
@@ -2894,5 +2919,55 @@
   .chain-date-detail .chain-event-actions :is(button, a) {
     min-height: 2.45rem;
     padding-block: 0.45rem;
+  }
+}
+
+/* Action feedback ------------------------------------------------
+   Downloads, copies, and checklist changes should not replace the
+   schedule-sync message or add a stray line beneath the calendar. */
+.chain-action-toast {
+  position: fixed;
+  z-index: 1200;
+  right: auto;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: 50%;
+  width: max-content;
+  max-width: min(calc(100% - 2rem), 34rem);
+  padding: 0.7rem 0.95rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.42);
+  border-radius: 7px;
+  background:
+    linear-gradient(145deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.025)),
+    rgba(10, 12, 14, 0.96);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.48);
+  color: rgba(240, 236, 223, 0.9);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 0.55rem);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.chain-action-toast[hidden] {
+  display: none;
+}
+
+.chain-action-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 640px) {
+  .chain-action-toast {
+    width: calc(100% - 1.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chain-action-toast {
+    transition: none;
   }
 }
