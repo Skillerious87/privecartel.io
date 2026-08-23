@@ -659,8 +659,9 @@
       { label: "Completed", value: completed, icon: "fa-flag-checkered" }
     ];
 
+    /* A zero is context rather than news, so it is muted in the strip. */
     summary.innerHTML = tiles.map((tile) => `
-      <div class="chain-summary-tile">
+      <div class="chain-summary-tile" data-zero="${tile.value === 0}">
         <i class="fa-solid ${tile.icon}" aria-hidden="true"></i>
         <strong>${tile.value}</strong>
         <span>${escapeHtml(tile.label)}</span>

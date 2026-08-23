@@ -48,11 +48,11 @@
 .chain-hero {
   position: relative;
   isolation: isolate;
-  min-height: min(760px, 86svh);
+  min-height: min(620px, 80svh);
   display: grid;
   align-items: center;
   overflow: hidden;
-  padding: calc(var(--nav-h, 72px) + clamp(4rem, 7vw, 6rem)) 0 clamp(4.5rem, 8vw, 6.5rem);
+  padding: calc(var(--nav-h, 72px) + clamp(2.75rem, 5vw, 4.25rem)) 0 clamp(3rem, 5.5vw, 4.5rem);
   background:
     linear-gradient(90deg, rgba(7, 9, 11, 0.985), rgba(7, 9, 11, 0.9) 54%, rgba(7, 9, 11, 0.76)),
     url("../images/hero-bg.jpg") repeat center / 180px;
@@ -287,7 +287,7 @@
 .chain-calendar-section,
 .chain-upcoming-section,
 .chain-readiness-section {
-  padding: clamp(4.5rem, 8vw, 7rem) 0;
+  padding: clamp(3rem, 5vw, 4.5rem) 0;
   background: none;
 }
 
@@ -297,7 +297,7 @@
 
 .chain-readiness-section {
   padding-top: 0;
-  padding-bottom: clamp(5rem, 9vw, 8rem);
+  padding-bottom: clamp(3.5rem, 6vw, 5.5rem);
 }
 
 .chain-section-head {
@@ -368,7 +368,7 @@
 /* Calendar ----------------------------------------------------- */
 .chain-schedule-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.46fr);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.52fr);
   gap: 1rem;
   align-items: start;
 }
@@ -487,7 +487,7 @@
   position: relative;
   width: 100%;
   min-width: 0;
-  min-height: clamp(4.7rem, 7vw, 5.9rem);
+  min-height: clamp(3.5rem, 5.2vw, 4.5rem);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   align-content: start;
@@ -2072,4 +2072,402 @@
 
 .chain-agenda {
   margin-top: 0.4rem;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DESIGN PASS
+   Corrections made after seeing the page rendered with real data.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Numerals ──────────────────────────────────────────────────
+   Cormorant Garamond's 1 and 0 are near-indistinguishable from
+   I and O at small sizes, so a stat tile reading "1" rendered as
+   "I". Figures that carry meaning on their own use the sans; the
+   serif is kept for large display numbers where the surrounding
+   label removes any doubt.                                      */
+
+.chain-summary-tile strong,
+.chain-countdown-part b {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.chain-summary-tile strong {
+  font-size: 1.55rem;
+  font-weight: 600;
+}
+
+.chain-countdown-part b {
+  font-size: clamp(1.5rem, 3.6vw, 2.05rem);
+  font-weight: 600;
+}
+
+/* Large serif figures keep the editorial voice but are forced to
+   lining figures so they sit on a consistent baseline. */
+.chain-detail-date-number,
+.chain-agenda-date strong,
+.chain-day-number {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* ── Calendar grid ─────────────────────────────────────────────
+   Every cell used to carry a border and a fill, so a sparse month
+   read as forty-two grey boxes with the one real event lost among
+   them. Chrome now follows content: empty days are almost bare,
+   and a day with an operation is unmistakable.                   */
+
+.chain-day {
+  border-color: transparent;
+  background: transparent;
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.chain-day:hover,
+.chain-day:focus-visible {
+  border-color: rgba(var(--accent-rgb), 0.42);
+  background: rgba(var(--accent-rgb), 0.055);
+}
+
+/* A published operation gets a full card and a colour rule. */
+.chain-day.has-event {
+  border-color: rgba(var(--accent-rgb), 0.34);
+  background:
+    linear-gradient(160deg, rgba(var(--accent-rgb), 0.11), rgba(var(--accent-rgb), 0.03)),
+    rgba(255, 255, 255, 0.015);
+  box-shadow: inset 2px 0 0 rgba(var(--accent-rgb), 0.7);
+}
+
+.chain-day.has-event:hover,
+.chain-day.has-event:focus-visible {
+  border-color: var(--accent-light);
+  background:
+    linear-gradient(160deg, rgba(var(--accent-rgb), 0.17), rgba(var(--accent-rgb), 0.05)),
+    rgba(255, 255, 255, 0.02);
+  transform: translateY(-1px);
+}
+
+.chain-day.is-live {
+  box-shadow: inset 2px 0 0 #78d59c;
+}
+
+/* Today is marked by the number alone when nothing is scheduled. */
+.chain-day.is-today {
+  border-color: rgba(var(--accent-rgb), 0.26);
+}
+
+.chain-day.is-selected {
+  border-color: var(--accent-light);
+  box-shadow:
+    inset 2px 0 0 var(--accent-light),
+    0 0 0 1px rgba(var(--accent-rgb), 0.22);
+}
+
+.chain-day-number {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: rgba(240, 236, 223, 0.62);
+}
+
+.chain-day.has-event .chain-day-number,
+.chain-day.is-selected .chain-day-number {
+  color: var(--text-1);
+  font-weight: 700;
+}
+
+.chain-day.is-outside {
+  opacity: 1;
+}
+
+.chain-day.is-outside .chain-day-number {
+  color: rgba(240, 236, 223, 0.2);
+}
+
+.chain-day.is-outside .chain-day-chip {
+  opacity: 0.45;
+}
+
+/* Markers are redundant once a chip is showing, and they crowded
+   the small cells. Keep them only where the chip is hidden. */
+.chain-day-markers { display: none; }
+
+/* ── Day chips ─────────────────────────────────────────────────
+   Side-by-side time and title truncated to "15:00 EDV…" in a
+   90px cell. Stacking gives the title the full width.           */
+
+.chain-day-chip {
+  display: block;
+  padding: 0.22rem 0.3rem 0.26rem 0.36rem;
+  border-left-width: 2px;
+  border-radius: 3px;
+  line-height: 1.25;
+}
+
+.chain-day-chip b {
+  display: block;
+  font-size: 0.62rem;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.chain-day-chip span {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 0.62rem;
+  font-weight: 500;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+}
+
+.chain-day-more {
+  display: block;
+  padding-left: 0.36rem;
+  font-size: 0.62rem;
+}
+
+/* ── Summary tiles ─────────────────────────────────────────────
+   Four full-width slabs for four small numbers. Tightened into a
+   proportioned row that reads as one instrument panel.          */
+
+.chain-summary {
+  gap: 0;
+  border: 1px solid var(--chain-line);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.006)),
+    var(--chain-panel);
+  overflow: hidden;
+}
+
+.chain-summary-tile {
+  gap: 0.28rem;
+  padding: 1rem 0.75rem;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.chain-summary-tile + .chain-summary-tile {
+  border-left: 1px solid var(--chain-line);
+}
+
+.chain-summary-tile i {
+  font-size: 0.8rem;
+  color: rgba(var(--accent-rgb), 0.6);
+}
+
+.chain-summary-tile span {
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  color: rgba(240, 236, 223, 0.42);
+}
+
+/* A zero is context, not news: mute it so the live figures lead. */
+.chain-summary-tile[data-zero="true"] strong,
+.chain-summary-tile[data-zero="true"] i {
+  color: rgba(240, 236, 223, 0.3);
+}
+
+/* ── Countdown ─────────────────────────────────────────────────
+   Digit boxes were taller than the figures inside them.         */
+
+.chain-countdown {
+  gap: 0.4rem;
+  padding: 0.85rem 0.95rem;
+}
+
+.chain-countdown-part {
+  min-width: 3rem;
+  padding: 0.3rem 0.45rem 0.35rem;
+}
+
+.chain-countdown-part small {
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+}
+
+/* ── Controls ──────────────────────────────────────────────────
+   Pull the row in so it reads as one bar rather than three
+   floating clusters.                                            */
+
+.chain-controls {
+  gap: 0.65rem 1.1rem;
+  padding: 0.7rem 0.85rem;
+}
+
+.chain-control-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+}
+
+.chain-zone-note {
+  margin: 0.55rem 0 1rem;
+  font-size: 0.72rem;
+}
+
+/* ── Calendar footer ───────────────────────────────────────────
+   Legend and keyboard hint were competing on one cramped line.  */
+
+.chain-calendar-footer {
+  align-items: start;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+}
+
+.chain-legend li { font-size: 0.68rem; }
+
+.chain-calendar-footer > p {
+  font-size: 0.66rem;
+  line-height: 1.6;
+}
+
+/* ── Section rhythm ────────────────────────────────────────────
+   A hairline between sections replaces raw whitespace.          */
+
+.chain-upcoming-section > .chain-shell,
+.chain-readiness-section > .chain-shell {
+  padding-top: clamp(2.5rem, 4.5vw, 3.75rem);
+  border-top: 1px solid rgba(var(--accent-rgb), 0.12);
+}
+
+.chain-load-status {
+  margin-top: 1.1rem;
+}
+
+@media (max-width: 900px) {
+  .chain-summary-tile:nth-child(3) { border-left: 0; }
+}
+
+@media (max-width: 640px) {
+  .chain-summary-tile + .chain-summary-tile { border-left: 0; }
+  .chain-summary-tile:nth-child(n + 2) { border-top: 1px solid var(--chain-line); }
+  .chain-day-chips { display: none; }
+  .chain-day-markers { display: flex; }
+}
+
+/* ── Calendar grid, second pass ────────────────────────────────
+   Stripping every border made a sparse month unreadable as a
+   grid: the numbers floated with nothing to track along. A
+   hairline restores the ledger structure while keeping a day
+   with an operation clearly dominant.                          */
+
+.chain-day {
+  border-color: rgba(var(--accent-rgb), 0.085);
+  align-content: space-between;
+  min-height: clamp(3.25rem, 4.8vw, 4.15rem);
+  padding: 0.45rem 0.5rem;
+}
+
+.chain-day.is-outside {
+  border-color: rgba(var(--accent-rgb), 0.04);
+}
+
+/* Today reads through its numeral, so the cell itself stays quiet. */
+.chain-day.is-today:not(.has-event):not(.is-selected) {
+  border-color: rgba(var(--accent-rgb), 0.22);
+}
+
+.chain-day-number {
+  width: 1.55rem;
+  height: 1.55rem;
+  font-size: 0.76rem;
+}
+
+/* Weekday headings are the grid's column labels — align them
+   with the numerals underneath rather than centring them. */
+.chain-calendar-table th {
+  padding-left: 0.5rem;
+  font-size: 0.66rem;
+  text-align: left;
+}
+
+.chain-calendar-frame {
+  margin-inline: -0.28rem;
+}
+
+/* ── Agenda, second pass ───────────────────────────────────────
+   The single-column action stack is right in the narrow detail
+   panel but stretched to 1,800px inside a full-width agenda row,
+   and the briefing note ran well past a comfortable measure.   */
+
+.chain-agenda-item .chain-event-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.chain-agenda-item .chain-event-actions :is(button, a) {
+  justify-content: flex-start;
+  min-height: 2.4rem;
+  padding-inline: 0.9rem;
+}
+
+.chain-agenda-note,
+.chain-agenda-body > .chain-event-topline {
+  max-width: 68ch;
+}
+
+.chain-agenda-toolbar {
+  margin-bottom: 0.5rem;
+}
+
+.chain-agenda-group + .chain-agenda-group { margin-top: 1.5rem; }
+
+.chain-agenda-month {
+  margin-top: 1.25rem;
+}
+
+/* Meta and duration belong on the same optical line as the title. */
+.chain-agenda-body .chain-event-topline {
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+.chain-agenda-item {
+  padding-block: 1.15rem;
+}
+
+/* One column, a capped measure, and inline actions. A right-hand
+   action rail looked tidy with four rows of content but stranded
+   the buttons far below the facts when an entry was short. */
+.chain-agenda-meta {
+  gap: 0.4rem 1.25rem;
+  padding-top: 0.15rem;
+}
+
+/* Agenda groups are <section> elements, so they inherited the
+   site-wide 80px section padding — 160px of dead space per month. */
+.chain-agenda-group {
+  padding: 0;
+}
+
+.chain-agenda-month {
+  margin-top: 0;
+}
+
+.chain-agenda-group + .chain-agenda-group {
+  margin-top: 2rem;
+}
+
+/* The 10.5rem floor left a hollow middle on a card carrying three
+   short lines. Let the content set the height instead. */
+.chain-upcoming-card {
+  min-height: 0;
+  gap: 0.55rem;
+  padding: 1rem 1.1rem 1.05rem;
+}
+
+/* With one published window a three-column grid strands a single
+   card against empty space; auto-fit keeps the row honest. */
+.chain-upcoming-list {
+  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
 }
