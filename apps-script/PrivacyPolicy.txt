@@ -1,0 +1,637 @@
+# Privacy Policy
+
+**Last Updated:** 24 August 2026
+
+This Privacy Policy explains how the faction Discord bot ("Bot", "we", "us", or "our") collects, uses, stores, and protects information when you interact with the Bot or participate in a Discord server in which the Bot operates.
+
+We take user privacy seriously and aim to collect only the information reasonably necessary to operate, secure, and maintain the Bot.
+
+This Privacy Policy should be read together with the Bot's **Terms of Service**.
+
+---
+
+## 1. Who We Are
+
+The Bot is operated by:
+
+**Bot / Service Name:** [BOT NAME]
+**Operator:** [YOUR NAME / FACTION / ORGANISATION]
+**Discord Server:** [SERVER NAME]
+**Contact:** [DISCORD USERNAME OR EMAIL]
+
+For applicable data protection purposes, the Bot operator may act as the controller of personal information processed directly through the Bot.
+
+---
+
+## 2. Information We May Collect
+
+The exact information processed depends on the features you use and the permissions granted to the Bot.
+
+### Discord Information
+
+The Bot may process:
+
+* Discord user ID;
+* Discord username;
+* display name;
+* server nickname;
+* Discord avatar;
+* server membership;
+* Discord roles;
+* server ID;
+* channel ID;
+* permissions relevant to Bot functions;
+* commands sent to the Bot;
+* interactions with Bot buttons, menus, or forms; and
+* timestamps associated with Bot activity.
+
+The Bot does **not** require your Discord password.
+
+---
+
+## 3. Faction Information
+
+Where the Bot is used for faction management, it may process information relating to your faction membership.
+
+This may include:
+
+* faction membership status;
+* faction position or rank;
+* faction-related username;
+* player ID;
+* linked Discord account;
+* membership changes;
+* role eligibility;
+* faction join or departure information; and
+* information required to determine whether a Discord user is currently a faction member.
+
+This information may be used to keep Discord roles, nicknames, permissions, and faction membership information synchronised.
+
+---
+
+## 4. Torn Information
+
+Where the Bot integrates with **Torn**, it may retrieve information made available through the Torn API.
+
+Depending on the Bot feature being used, this may include:
+
+* Torn player ID;
+* Torn player name;
+* faction ID;
+* faction membership;
+* faction position;
+* player status;
+* activity information;
+* faction information; and
+* other information returned by authorised Torn API requests.
+
+The Bot will only request information reasonably required for its functionality.
+
+Torn remains responsible for information processed independently through its own platform.
+
+The Bot is not officially affiliated with or endorsed by Torn unless explicitly stated otherwise.
+
+---
+
+## 5. Torn API Keys
+
+Certain Bot features may require a Torn API key or similar authorisation.
+
+Where an API key is provided:
+
+* it will only be used for authorised Bot functionality;
+* it will not intentionally be exposed publicly;
+* it will not be sold;
+* it will not be used to obtain information unrelated to the Bot's functionality; and
+* access should be restricted to the minimum level reasonably required.
+
+Where API keys are stored, appropriate technical measures should be used to protect them.
+
+You should never provide your Torn account password to the Bot.
+
+If you believe an API key has been compromised, you should revoke or replace it through Torn as soon as possible.
+
+### API Key Retention
+
+API keys should only be retained for as long as necessary to provide the feature for which they were supplied.
+
+Where supported, unlinking your account or requesting deletion will remove the stored API key from the Bot's active systems.
+
+Some information may temporarily remain within encrypted backups until those backups are automatically rotated or deleted.
+
+---
+
+## 6. Information We Do Not Intentionally Collect
+
+The Bot is not designed to intentionally collect:
+
+* Discord passwords;
+* Torn passwords;
+* payment card information;
+* bank account information;
+* government identification;
+* precise home addresses;
+* biometric information;
+* medical information;
+* private authentication codes; or
+* other unnecessary sensitive personal information.
+
+Please do not submit this type of information through Bot commands, support requests, or forms.
+
+---
+
+## 7. How We Obtain Information
+
+Information may be obtained:
+
+### Directly From You
+
+For example when you:
+
+* use a Bot command;
+* link an account;
+* submit information through a Bot form;
+* configure a Bot feature; or
+* contact Bot administrators.
+
+### From Discord
+
+The Bot may receive information through Discord's API where Discord provides that information and the Bot has the necessary permissions.
+
+### From Torn
+
+Where Torn integration is enabled, information may be retrieved through the Torn API.
+
+### From Server or Faction Administrators
+
+Certain faction membership or administrative information may be supplied by authorised members of the faction or Discord server management team.
+
+---
+
+## 8. Why We Process Information
+
+Information may be processed to:
+
+* operate Bot commands;
+* identify Discord users;
+* link Discord and Torn accounts;
+* confirm faction membership;
+* identify non-faction members;
+* manage Discord roles;
+* manage server nicknames;
+* synchronise faction information;
+* provide faction statistics or information;
+* provide administrative tools;
+* prevent abuse;
+* investigate technical problems;
+* maintain security;
+* maintain Bot configuration;
+* respond to support requests;
+* enforce Bot or Discord server rules;
+* detect unauthorised access;
+* maintain audit logs where necessary; and
+* improve Bot reliability.
+
+We do not intend to use personal information for purposes unrelated to the operation, security, or administration of the Bot.
+
+---
+
+## 9. Automated Nickname and Role Management
+
+The Bot may automatically compare Discord information with faction information.
+
+This may result in automated actions such as:
+
+* updating a Discord nickname;
+* assigning a faction role;
+* removing a faction role;
+* identifying an unmatched Discord account;
+* identifying a user who has left the faction; or
+* notifying authorised administrators of membership changes.
+
+These actions are intended to assist with server administration.
+
+Important disciplinary, moderation, or faction decisions should not rely solely on automated results where human review is reasonably appropriate.
+
+If you believe an automated action is incorrect, contact a server administrator.
+
+---
+
+## 10. Our Lawful Basis for Processing
+
+Where UK data protection law applies, personal information must be processed using an appropriate lawful basis.
+
+Depending on the specific feature, we may rely on:
+
+### Legitimate Interests
+
+We may process limited information where reasonably necessary for legitimate interests such as:
+
+* operating the faction Discord server;
+* managing faction membership;
+* maintaining Discord roles;
+* preventing abuse;
+* securing the Bot;
+* troubleshooting errors; and
+* providing expected faction-management functionality.
+
+When relying on legitimate interests, we will consider whether those interests are outweighed by the rights and interests of affected users.
+
+### Consent
+
+Consent may be relied upon for certain optional features where you voluntarily provide information or authorise an optional integration.
+
+Where processing relies on consent, you may withdraw that consent.
+
+Withdrawal does not affect processing that lawfully occurred before consent was withdrawn.
+
+### Legal Obligations
+
+Information may be processed where reasonably necessary to comply with an applicable legal obligation.
+
+Different processing activities may rely upon different lawful bases.
+
+---
+
+## 11. Data Minimisation
+
+We aim to collect and retain only information that is reasonably necessary for the Bot's intended functionality.
+
+The Bot should not collect information simply because Discord, Torn, or another API makes that information technically available.
+
+Bot permissions and API access should be limited where reasonably possible.
+
+---
+
+## 12. Logging
+
+The Bot may create logs relating to its operation.
+
+Logs may contain information such as:
+
+* Discord user ID;
+* Discord username;
+* command used;
+* administrative action;
+* role change;
+* nickname change;
+* account-linking event;
+* faction membership change;
+* error information;
+* timestamp; and
+* server or channel ID.
+
+Logs may be used for:
+
+* security;
+* troubleshooting;
+* investigating abuse;
+* reviewing administrative actions;
+* diagnosing Bot errors; and
+* maintaining reliable operation.
+
+The Bot does not intentionally log passwords.
+
+Sensitive credentials such as API keys should not be written to ordinary diagnostic logs.
+
+---
+
+## 13. Data Retention
+
+We do not intend to keep personal information indefinitely.
+
+Information should be retained only for as long as reasonably necessary for the purpose for which it was collected.
+
+Typical retention periods may include:
+
+**Active member information:**
+Retained while required for faction or Discord membership management.
+
+**Account links:**
+Retained until the account is unlinked, the user leaves the service, or the information is no longer required.
+
+**API credentials:**
+Retained only while required for the authorised integration.
+
+**Operational logs:**
+Normally retained for approximately **[INSERT PERIOD — e.g. 30/90 DAYS]**, unless a longer period is reasonably required for security or an ongoing investigation.
+
+**Security or abuse records:**
+May be retained for longer where reasonably necessary to prevent repeated abuse or protect the Bot and community.
+
+**Backups:**
+Deleted information may temporarily remain in backups until those backups are rotated or securely deleted.
+
+Actual retention may vary where technical, security, or legal requirements justify a different period.
+
+---
+
+## 14. Sharing of Information
+
+We do **not sell personal information**.
+
+Information may be disclosed only where reasonably necessary to operate the Bot.
+
+This may include disclosure to:
+
+### Authorised Faction or Server Staff
+
+Faction leadership, moderators, or administrators may receive information necessary to manage:
+
+* faction membership;
+* Discord roles;
+* nicknames;
+* linked accounts;
+* security incidents; or
+* server administration.
+
+Access should be limited to authorised users who require the information.
+
+### Hosting and Infrastructure Providers
+
+Information may be processed using third-party infrastructure required to operate the Bot, such as:
+
+* hosting providers;
+* database providers;
+* cloud infrastructure;
+* logging services; or
+* security services.
+
+These providers may technically process information on our behalf when providing their services.
+
+### Discord
+
+Information necessarily passes through Discord when the Bot receives interactions or performs actions through Discord.
+
+### Torn
+
+Where Torn functionality is used, relevant API requests are made through Torn's services.
+
+### Legal Requirements
+
+Information may be disclosed where reasonably necessary to:
+
+* comply with applicable law;
+* respond to a valid legal request;
+* protect users;
+* investigate fraud or serious abuse; or
+* protect the security of the Bot or its infrastructure.
+
+---
+
+## 15. Data Security
+
+Reasonable technical and organisational measures should be used to protect information handled by the Bot.
+
+Depending on the Bot's infrastructure, these measures may include:
+
+* access controls;
+* restricted administrator permissions;
+* encrypted connections;
+* secure environment variables;
+* credential separation;
+* database access restrictions;
+* authentication controls;
+* secure API handling;
+* software updates;
+* monitoring;
+* backups; and
+* logging of significant administrative actions.
+
+However, no online system can guarantee absolute security.
+
+Users should protect their own Discord and Torn accounts and immediately revoke credentials that may have been compromised.
+
+---
+
+## 16. Data Breaches
+
+If we become aware of a personal data breach, we will investigate the incident and take reasonable steps to:
+
+* contain the breach;
+* protect affected systems;
+* identify affected information;
+* reduce potential harm;
+* correct the vulnerability where possible; and
+* comply with any applicable notification or reporting obligations.
+
+Affected users may be notified where required or where doing so is reasonably necessary for their protection.
+
+---
+
+## 17. International Data Processing
+
+Discord, Torn, hosting services, or other infrastructure providers may process information in countries outside your own.
+
+As a result, information associated with the Bot may be processed internationally.
+
+Where we directly select service providers that process personal information internationally, we will take reasonable steps to use providers with appropriate data-protection and security measures.
+
+Third-party platforms such as Discord and Torn have their own privacy policies governing their independent processing activities.
+
+---
+
+## 18. Your Privacy Rights
+
+Where applicable under UK data protection law, you may have rights relating to your personal information.
+
+These can include the right to:
+
+* be informed about how your information is used;
+* request access to personal information held about you;
+* request correction of inaccurate information;
+* request deletion of information;
+* request restriction of certain processing;
+* object to certain processing;
+* withdraw consent where processing relies on consent;
+* request certain information in a portable form where applicable; and
+* raise concerns about how your information has been handled.
+
+Not every right applies in every circumstance.
+
+For example, information may sometimes need to be retained where there is a valid legal, security, or administrative reason.
+
+---
+
+## 19. Access Requests
+
+You may ask what personal information the Bot stores about you.
+
+To make a request, contact:
+
+**Privacy Contact:** [DISCORD USERNAME / EMAIL]
+
+We may need to verify that you are the person associated with the Discord or Torn account before disclosing information.
+
+This helps prevent someone else from obtaining your information without permission.
+
+---
+
+## 20. Correction Requests
+
+If information stored by the Bot is inaccurate, you may request that it be corrected.
+
+Some information is automatically obtained from Discord or Torn.
+
+Where this is the case, you may also need to correct the information directly through the relevant platform.
+
+---
+
+## 21. Deletion Requests
+
+You may request deletion of personal information associated with you.
+
+Requests can be made through:
+
+**Discord:** [CONTACT / COMMAND]
+**Email:** [EMAIL IF APPLICABLE]
+**Bot Command:** [e.g. `/privacy delete` IF SUPPORTED]
+
+Where technically and legally appropriate, information will be removed from active Bot systems.
+
+Certain information may need to be retained temporarily or for a longer period where required for:
+
+* security;
+* abuse prevention;
+* legal compliance;
+* resolving disputes; or
+* maintaining essential administrative records.
+
+Information may also remain temporarily in system backups until those backups expire.
+
+---
+
+## 22. Leaving the Discord Server or Faction
+
+Leaving the Discord server or faction does not necessarily cause every piece of associated information to disappear immediately.
+
+Information that is no longer required should be removed or anonymised in accordance with the Bot's retention practices.
+
+Where an account link or API credential remains stored after leaving, you may contact the Bot administrator to request its removal.
+
+---
+
+## 23. Cookies and Tracking
+
+The Discord Bot itself does not use traditional browser cookies when interacting entirely through Discord.
+
+If the Bot also provides a website, dashboard, authentication page, or web application, that service may use:
+
+* cookies;
+* authentication tokens;
+* session storage;
+* security technologies; or
+* similar technologies.
+
+Where applicable, additional information should be provided on the relevant website.
+
+---
+
+## 24. Analytics
+
+The Bot does not use user information for advertising purposes unless explicitly disclosed.
+
+Anonymous or aggregated statistics may be generated to understand matters such as:
+
+* command usage;
+* Bot performance;
+* error frequency;
+* server activity; or
+* feature usage.
+
+Where possible, analytics should avoid unnecessary personally identifiable information.
+
+---
+
+## 25. Advertising and Sale of Data
+
+We do not sell personal information to advertisers or data brokers.
+
+The Bot does not use Discord or Torn information to build advertising profiles unless a future version of this Privacy Policy explicitly states otherwise.
+
+---
+
+## 26. Children and Young People
+
+The Bot is intended for users who are permitted to use Discord under Discord's applicable age requirements.
+
+We do not knowingly seek to collect personal information from users who are not legally permitted to use the services through which the Bot operates.
+
+If you believe information relating to an ineligible child has been stored, contact the Bot administrator so the situation can be reviewed.
+
+---
+
+## 27. Third-Party Privacy Policies
+
+The Bot operates alongside services provided by third parties.
+
+Those services maintain their own privacy practices.
+
+Users should review the privacy policies of relevant third-party services, including:
+
+* Discord;
+* Torn; and
+* any external services directly used through Bot integrations.
+
+This Privacy Policy only describes information controlled or processed by the Bot operator and does not replace the privacy policies of those services.
+
+---
+
+## 28. Changes to This Privacy Policy
+
+This Privacy Policy may be updated to reflect:
+
+* changes to Bot functionality;
+* changes to information we process;
+* security improvements;
+* infrastructure changes;
+* Discord API changes;
+* Torn API changes;
+* legal or regulatory requirements; or
+* changes to third-party services.
+
+The **Last Updated** date at the top of this policy will be changed when a revision is made.
+
+Where a change materially affects how personal information is used, reasonable efforts should be made to notify affected users before the new use begins.
+
+---
+
+## 29. Contact
+
+Questions about this Privacy Policy, personal information, deletion requests, or privacy concerns should be directed to:
+
+**Bot:** [BOT NAME]
+**Operator:** [YOUR NAME / FACTION / ORGANISATION]
+**Discord:** [DISCORD USERNAME]
+**Discord Server:** [SERVER NAME / INVITE]
+**Email:** [EMAIL ADDRESS, IF APPLICABLE]
+
+Please do not publicly post API keys, passwords, or other credentials when requesting support.
+
+---
+
+## 30. Complaints
+
+If you have a concern about how your personal information has been handled, please contact us first so that we can investigate the issue.
+
+Where UK data protection law applies, you may also have the right to raise a complaint with the **Information Commissioner's Office (ICO)**.
+
+---
+
+## 31. Summary
+
+In simple terms:
+
+* we only intend to collect information needed to operate the Bot;
+* Discord information may be used to identify and manage server members;
+* Torn information may be used for faction-related functionality;
+* API keys should only be used for authorised features;
+* we do not sell personal information;
+* access to stored information should be restricted;
+* information should not be kept longer than reasonably necessary;
+* you may request access, correction, or deletion where applicable; and
+* you can contact the Bot administrator if you have a privacy concern.
+
+---
+
+*This Privacy Policy is provided as a practical template for a community/faction Discord bot. It should be adjusted to accurately describe how your specific Bot stores and processes information and does not constitute legal advice.*
