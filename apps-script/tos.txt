@@ -1,0 +1,366 @@
+# Terms of Service
+
+**Last Updated:** 24 August 2026
+
+These Terms of Service ("Terms") govern your use of the Discord bot ("Bot") operated by the Bot owner and administrators ("we", "us", or "our").
+
+By adding, accessing, interacting with, or otherwise using the Bot, you agree to these Terms. If you do not agree with these Terms, you should stop using the Bot.
+
+---
+
+## 1. Purpose of the Bot
+
+The Bot is designed primarily for use within our Discord community and faction.
+
+Depending on the features enabled, the Bot may provide functionality including:
+
+* faction member management;
+* Discord role management;
+* Discord nickname management;
+* identification of faction and non-faction members;
+* member lists and status information;
+* faction-related commands and utilities;
+* Torn-related information;
+* Torn API integration;
+* administrative and moderation tools;
+* automated notifications;
+* logging of Bot-related actions; and
+* other community or faction management functionality.
+
+Features may be added, changed, restricted, or removed at any time.
+
+---
+
+## 2. Eligibility
+
+You must comply with:
+
+* the Discord Terms of Service;
+* the Discord Community Guidelines;
+* any applicable Torn rules or terms where Torn-related functionality is used;
+* the rules of the Discord server in which the Bot operates; and
+* all applicable laws and regulations.
+
+You must not use the Bot if you are prohibited from doing so under any applicable service rules or law.
+
+---
+
+## 3. Discord Account and Server Access
+
+The Bot may access information made available through Discord where required for its functionality.
+
+This may include information such as:
+
+* Discord user ID;
+* username;
+* display name;
+* server nickname;
+* server membership;
+* Discord roles;
+* server ID;
+* channel information;
+* permissions; and
+* commands or interactions sent to the Bot.
+
+The Bot may automatically modify nicknames, roles, or other server-specific information where this functionality has been configured by authorised server administrators.
+
+By remaining within a server where these features are enabled, you acknowledge that automated account-management actions may take place within that server.
+
+---
+
+## 4. Torn and Third-Party Integrations
+
+Where the Bot integrates with Torn or another third-party service, information may be requested from that service using its authorised API or other permitted integration methods.
+
+This may include information such as:
+
+* Torn player ID;
+* player name;
+* faction membership;
+* faction position;
+* player status;
+* activity information;
+* faction-related information; and
+* other information made available through the relevant API.
+
+Only information required for the Bot's features should be processed.
+
+You are responsible for ensuring that any API key, token, or authorisation information you provide to the Bot belongs to you and is used in accordance with the rules of the relevant service.
+
+You must not provide another person's API key or credentials without their permission.
+
+---
+
+## 5. API Keys and Credentials
+
+Where the Bot requires an API key or similar credential, you must take reasonable steps to keep that credential secure.
+
+We will never intentionally request your account password.
+
+API keys should only be used for the purposes described by the Bot.
+
+Where possible, only the minimum permissions required for a feature should be requested.
+
+If you believe an API key or credential has been exposed, you should revoke or regenerate it through the relevant service as soon as possible.
+
+---
+
+## 6. Acceptable Use
+
+You agree not to:
+
+* abuse, exploit, disrupt, or intentionally overload the Bot;
+* attempt to bypass Bot permissions or access restrictions;
+* attempt to gain unauthorised access to the Bot, its hosting environment, databases, source code, credentials, or infrastructure;
+* reverse engineer the Bot for malicious purposes;
+* deliberately submit false or misleading information;
+* use automated systems to spam Bot commands;
+* use the Bot to harass, threaten, impersonate, or target another person;
+* exploit bugs or vulnerabilities;
+* attempt to extract information you are not authorised to access;
+* interfere with faction or server management systems;
+* use the Bot in violation of Discord's rules;
+* use the Bot in violation of Torn's rules where Torn functionality is involved; or
+* use the Bot for unlawful purposes.
+
+Security vulnerabilities should be privately reported to the Bot administrators rather than publicly disclosed or exploited.
+
+---
+
+## 7. Faction and Membership Management
+
+The Bot may compare Discord members with faction membership information.
+
+Where configured, this may be used to:
+
+* identify members who belong to the faction;
+* identify users who are no longer members of the faction;
+* identify Discord users who cannot be matched with a faction member;
+* automatically assign or remove roles;
+* automatically update server nicknames; or
+* provide administrators with membership-management information.
+
+Automated results may occasionally be incorrect because of outdated information, API errors, username changes, account changes, or other technical issues.
+
+Server administrators remain responsible for important moderation or membership decisions.
+
+---
+
+## 8. Administrative Actions
+
+Certain Bot functionality may only be available to authorised staff, faction leadership, moderators, or server administrators.
+
+Administrative functions may include:
+
+* changing nicknames;
+* assigning or removing roles;
+* viewing faction member information;
+* viewing Bot logs;
+* configuring Bot settings;
+* managing linked accounts; and
+* performing moderation or membership actions.
+
+Access to administrative functionality may be granted or removed at any time.
+
+---
+
+## 9. Logging
+
+The Bot may maintain technical or administrative logs where reasonably necessary for:
+
+* security;
+* troubleshooting;
+* preventing abuse;
+* investigating errors;
+* recording administrative actions;
+* maintaining faction membership;
+* enforcing server rules; and
+* improving the Bot.
+
+Logs should not be used for unrelated purposes.
+
+Additional information about what information is collected, why it is collected, and how long it is retained should be described in the Bot's Privacy Policy.
+
+---
+
+## 10. User Responsibility
+
+You are responsible for the commands and information you submit through the Bot.
+
+You should not submit:
+
+* passwords;
+* authentication codes;
+* sensitive personal information;
+* financial information;
+* private credentials; or
+* information you do not have permission to provide.
+
+You are also responsible for maintaining the security of your Discord, Torn, and other associated accounts.
+
+---
+
+## 11. Availability
+
+The Bot is provided on an **"as available"** basis.
+
+We do not guarantee that the Bot will:
+
+* always be online;
+* operate without interruption;
+* be free from bugs or errors;
+* retain every feature permanently;
+* produce completely accurate information; or
+* remain compatible with Discord, Torn, or other third-party services.
+
+Maintenance, outages, API changes, hosting problems, Discord changes, Torn changes, or other circumstances may temporarily or permanently affect functionality.
+
+---
+
+## 12. Changes to the Bot
+
+We may modify, update, replace, disable, or discontinue any Bot feature at any time.
+
+This may include changes required because of:
+
+* Discord API changes;
+* Torn API changes;
+* security requirements;
+* server administration requirements;
+* technical limitations;
+* faction requirements; or
+* changes to third-party services.
+
+We are not required to maintain any particular feature indefinitely.
+
+---
+
+## 13. Suspension and Termination
+
+Access to the Bot may be restricted, suspended, or permanently removed where we reasonably believe that a user:
+
+* has violated these Terms;
+* has abused the Bot;
+* has attempted to exploit the Bot;
+* poses a security risk;
+* has violated server rules;
+* no longer has permission to use faction services; or
+* is using the Bot in a manner that may harm the Bot, community, faction, or another user.
+
+Serious abuse may result in immediate removal without prior notice.
+
+---
+
+## 14. Third-Party Services
+
+The Bot may depend upon third-party services including Discord and Torn.
+
+These services are operated independently and have their own terms, privacy practices, APIs, availability, and policies.
+
+We are not responsible for:
+
+* outages affecting third-party services;
+* changes to third-party APIs;
+* third-party account suspensions;
+* inaccurate information supplied by third-party services; or
+* actions taken independently by Discord, Torn, or another third-party provider.
+
+The Bot is not officially affiliated with, endorsed by, or operated by Discord Inc. or Torn unless explicitly stated otherwise.
+
+---
+
+## 15. Intellectual Property
+
+Unless otherwise stated, the Bot's original:
+
+* source code;
+* branding;
+* graphics;
+* documentation;
+* design;
+* custom commands; and
+* associated content
+
+remain the property of their respective owner or creator.
+
+Using the Bot does not grant you ownership of the Bot or its source code.
+
+Third-party names, trademarks, game content, APIs, and services remain the property of their respective owners.
+
+---
+
+## 16. No Warranty
+
+To the maximum extent permitted by applicable law, the Bot is provided without warranties of any kind.
+
+While reasonable efforts may be made to maintain reliable and secure operation, we do not warrant that the Bot will be completely secure, error-free, uninterrupted, or suitable for every purpose.
+
+You use the Bot at your own discretion.
+
+---
+
+## 17. Limitation of Liability
+
+To the maximum extent permitted by applicable law, the Bot owner, developers, administrators, faction leadership, and server staff will not be liable for indirect, incidental, consequential, or special losses resulting from the use or inability to use the Bot.
+
+This includes, where applicable, loss resulting from:
+
+* unavailable Bot services;
+* inaccurate information;
+* failed commands;
+* Discord role or nickname changes;
+* faction membership synchronisation;
+* third-party API failures;
+* server outages;
+* deleted or unavailable data; or
+* actions taken based upon information provided by the Bot.
+
+Nothing in these Terms excludes liability that cannot legally be excluded.
+
+---
+
+## 18. Privacy
+
+Use of the Bot may involve the processing of Discord, Torn, and other account-related information.
+
+The way this information is collected, used, retained, and deleted should be explained separately in the Bot's **Privacy Policy**.
+
+By using the Bot, you acknowledge that information necessary to provide the requested features may be processed.
+
+---
+
+## 19. Changes to These Terms
+
+These Terms may be updated when necessary to reflect:
+
+* new Bot functionality;
+* legal requirements;
+* security improvements;
+* Discord or Torn policy changes; or
+* changes in the way the Bot operates.
+
+The "Last Updated" date at the top of this document will indicate when these Terms were most recently revised.
+
+Continued use of the Bot after updated Terms become effective constitutes acceptance of the revised Terms.
+
+---
+
+## 20. Contact
+
+Questions, concerns, security reports, or requests relating to these Terms should be directed to the Bot owner or administrators through the official Discord server.
+
+**Bot Owner / Operator:** [YOUR NAME OR ORGANISATION]
+**Discord Server:** [DISCORD SERVER / INVITE]
+**Contact:** [DISCORD USERNAME OR EMAIL]
+
+---
+
+## 21. Agreement
+
+By using the Bot, you confirm that you have read and agree to these Terms of Service.
+
+If you do not agree to these Terms, you must discontinue use of the Bot.
+
+---
+
+*These Terms are provided as a practical template for a community Discord bot and do not constitute legal advice.*
