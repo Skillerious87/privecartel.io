@@ -27,7 +27,7 @@ const NAVBAR_TEMPLATE = `
 const SEARCH_ITEMS = [
   { path: "index.html", title: "Home", description: "Faction overview, latest resources and quick links.", keywords: "home overview faction hub" },
   { path: "recruitment.html", title: "Join Privé Cartel", description: "Membership benefits, expectations and application steps.", keywords: "join apply recruitment level 14 perks" },
-  { path: "rules.html", title: "Member Rules & Charter", description: "Activity, OC 2.0, faction chat and conduct standards.", keywords: "rules charter chat conduct activity" },
+  { path: "rules.html", title: "Member Rules & Charter", description: "Activity, OC 2.0, loss-selling, faction chat and conduct standards.", keywords: "rules charter chat conduct activity selling losses loss-selling" },
   { path: "guides.html", title: "Guides Hub", description: "Practical guides for progression and faction play.", keywords: "guides help resources" },
   { path: "guides/organized-crimes-2.html", title: "Organised Crimes 2.0", description: "OC roles, readiness, items, timing and payouts.", keywords: "oc organized organised crimes scope roles payout" },
   { path: "guides/happyjump.html", title: "Happy Jump Guide", description: "Preparation and timing for efficient happy jumps.", keywords: "happy jump training xanax ecstasy" },
